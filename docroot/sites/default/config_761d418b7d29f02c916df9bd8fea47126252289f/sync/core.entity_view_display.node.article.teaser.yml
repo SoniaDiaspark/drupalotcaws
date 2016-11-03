@@ -1,0 +1,37 @@
+uuid: 53c0e59b-212d-42e7-824f-4d4e4cbf3b91
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.article.body
+    - node.type.article
+  module:
+    - text
+    - user
+id: node.article.teaser
+targetEntityType: node
+bundle: article
+mode: teaser
+content:
+  body:
+    label: hidden
+    type: text_summary_or_trimmed
+    weight: 101
+    settings:
+      trim_length: 600
+    third_party_settings: {  }
+  links:
+    weight: 100
+hidden:
+  field_card_tile_d_1x: true
+  field_card_tile_m_2x: true
+  field_card_tile_t_2x: true
+  field_hero_bleed_d_2x: true
+  field_hero_bleed_m_1x: true
+  field_hero_bleed_m_2x: true
+  field_hero_bleed_t_1x: true
+  field_hero_bleed_t_2x: true
+  field_related_article_thumb_d_2x: true
+  field_related_article_thumb_m_2x: true
+  field_related_article_thumb_t_2x: true

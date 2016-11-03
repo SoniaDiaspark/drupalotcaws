@@ -1,0 +1,69 @@
+uuid: 6a3f42d9-9560-4a43-a906-10cd8a51e537
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.download.field_description
+    - field.field.node.download.field_display_title
+    - field.field.node.download.field_download_file
+    - field.field.node.download.field_project
+    - node.type.download
+  module:
+    - file
+    - path
+    - text
+id: node.download.default
+targetEntityType: node
+bundle: download
+mode: default
+content:
+  field_description:
+    weight: 3
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea
+  field_display_title:
+    weight: 1
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textfield
+  field_download_file:
+    weight: 2
+    settings:
+      progress_indicator: throbber
+    third_party_settings: {  }
+    type: file_generic
+  field_project:
+    weight: 4
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
+  path:
+    type: path
+    weight: 5
+    settings: {  }
+    third_party_settings: {  }
+  title:
+    type: string_textfield
+    weight: 0
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  created: true
+  field_hero_d_2x: true
+  field_hero_m_1x: true
+  field_hero_m_2x: true
+  field_hero_t_1x: true
+  field_hero_t_2x: true
+  promote: true
+  sticky: true
+  uid: true

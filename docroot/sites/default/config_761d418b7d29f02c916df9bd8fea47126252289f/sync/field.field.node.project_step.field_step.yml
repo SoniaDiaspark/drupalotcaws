@@ -1,0 +1,23 @@
+uuid: 60b41a47-3be9-4307-ba7e-3af4d1e6e49f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_step
+    - node.type.project_step
+id: node.project_step.field_step
+field_name: field_step
+entity_type: node
+bundle: project_step
+label: Step
+description: 'The step number in the project.'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: 1
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer

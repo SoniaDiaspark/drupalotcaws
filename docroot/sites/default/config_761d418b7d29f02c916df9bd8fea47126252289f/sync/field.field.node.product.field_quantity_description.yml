@@ -1,0 +1,21 @@
+uuid: 7846f3d1-e0bb-491e-bfa3-e018982774e7
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_quantity_description
+    - node.type.product
+id: node.product.field_quantity_description
+field_name: field_quantity_description
+entity_type: node
+bundle: product
+label: 'Quantity Description'
+description: 'Product''s quantity description. e.g. per 25 count, each, per dozen, for 3 rolls.'
+required: true
+translatable: false
+default_value:
+  -
+    value: each
+default_value_callback: ''
+settings: {  }
+field_type: string

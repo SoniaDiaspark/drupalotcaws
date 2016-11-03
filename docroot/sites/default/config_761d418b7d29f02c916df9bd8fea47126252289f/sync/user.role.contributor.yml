@@ -1,0 +1,9 @@
+uuid: 97ec3daa-2945-4c08-84fe-be4dd8e13e83
+langcode: en
+status: true
+dependencies: {  }
+id: contributor
+label: Contributor
+weight: -6
+is_admin: null
+permissions: {  }

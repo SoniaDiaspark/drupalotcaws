@@ -1,0 +1,68 @@
+uuid: 9b3c2124-cc4e-4f85-a1a4-1aa973bbd352
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.article.body
+    - field.field.node.article.field_card_tile_d_1x
+    - field.field.node.article.field_card_tile_m_2x
+    - field.field.node.article.field_card_tile_t_2x
+    - field.field.node.article.field_hero_bleed_d_2x
+    - field.field.node.article.field_hero_bleed_m_1x
+    - field.field.node.article.field_hero_bleed_m_2x
+    - field.field.node.article.field_hero_bleed_t_1x
+    - field.field.node.article.field_hero_bleed_t_2x
+    - field.field.node.article.field_related_article_thumb_d_2x
+    - field.field.node.article.field_related_article_thumb_m_2x
+    - field.field.node.article.field_related_article_thumb_t_2x
+    - node.type.article
+  module:
+    - image
+    - text
+    - user
+id: node.article.default
+targetEntityType: node
+bundle: article
+mode: default
+content:
+  body:
+    label: hidden
+    type: text_default
+    weight: 101
+    settings: {  }
+    third_party_settings: {  }
+  field_related_article_thumb_d_2x:
+    weight: 104
+    label: above
+    settings:
+      image_style: ''
+      image_link: ''
+    third_party_settings: {  }
+    type: image
+  field_related_article_thumb_m_2x:
+    weight: 102
+    label: above
+    settings:
+      image_style: ''
+      image_link: ''
+    third_party_settings: {  }
+    type: image
+  field_related_article_thumb_t_2x:
+    weight: 103
+    label: above
+    settings:
+      image_style: ''
+      image_link: ''
+    third_party_settings: {  }
+    type: image
+  links:
+    weight: 100
+hidden:
+  field_card_tile_d_1x: true
+  field_card_tile_m_2x: true
+  field_card_tile_t_2x: true
+  field_hero_bleed_d_2x: true
+  field_hero_bleed_m_1x: true
+  field_hero_bleed_m_2x: true
+  field_hero_bleed_t_1x: true
+  field_hero_bleed_t_2x: true

@@ -1,0 +1,37 @@
+uuid: 4ae28ed5-a776-4329-8a92-2c8b72ce2f8a
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - node.type.recipe
+  module:
+    - user
+id: node.recipe.teaser
+targetEntityType: node
+bundle: recipe
+mode: teaser
+content:
+  links:
+    weight: 100
+hidden:
+  field_card_tile_d_1x: true
+  field_card_tile_m_2x: true
+  field_card_tile_t_2x: true
+  field_category: true
+  field_contributor: true
+  field_display_title: true
+  field_hero_bleed_d_2x: true
+  field_hero_bleed_m_1x: true
+  field_hero_bleed_m_2x: true
+  field_hero_bleed_t_1x: true
+  field_hero_bleed_t_2x: true
+  field_ingredients: true
+  field_products: true
+  field_servings_max: true
+  field_servings_min: true
+  field_skill: true
+  field_steps: true
+  field_style: true
+  field_time_max: true
+  field_time_min: true

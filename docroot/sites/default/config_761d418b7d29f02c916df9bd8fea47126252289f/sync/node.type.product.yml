@@ -1,0 +1,11 @@
+uuid: 9bc5d69a-ffcb-429b-bfde-d985f879798a
+langcode: en
+status: true
+dependencies: {  }
+name: Product
+type: product
+description: 'Product content type.'
+help: ''
+new_revision: true
+preview_mode: 0
+display_submitted: true

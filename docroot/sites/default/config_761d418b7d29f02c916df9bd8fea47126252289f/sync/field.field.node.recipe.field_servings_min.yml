@@ -1,0 +1,23 @@
+uuid: 3347389e-dc4a-47f0-a4e9-e575cd42d8f7
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_servings_min
+    - node.type.recipe
+id: node.recipe.field_servings_min
+field_name: field_servings_min
+entity_type: node
+bundle: recipe
+label: 'Servings Min'
+description: 'Minimum number of servings.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: 1
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer

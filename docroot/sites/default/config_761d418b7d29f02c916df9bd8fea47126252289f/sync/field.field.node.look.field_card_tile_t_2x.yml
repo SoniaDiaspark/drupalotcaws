@@ -1,0 +1,38 @@
+uuid: cadf95f1-3ec4-4882-b293-9620153ffd58
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_card_tile_t_2x
+    - node.type.look
+  module:
+    - image
+id: node.look.field_card_tile_t_2x
+field_name: field_card_tile_t_2x
+entity_type: node
+bundle: look
+label: 'Image - Card Tile Tablet 2x (472x492)'
+description: 'Tablet 2x and Mobile 1x tile image. (472x492)'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  file_directory: looks/tile/tablet/2x
+  file_extensions: 'png gif jpg jpeg'
+  max_filesize: ''
+  max_resolution: ''
+  min_resolution: 472x492
+  alt_field: false
+  alt_field_required: true
+  title_field: false
+  title_field_required: false
+  default_image:
+    uuid: ''
+    alt: ''
+    title: ''
+    width: null
+    height: null
+  handler: 'default:file'
+  handler_settings: {  }
+field_type: image

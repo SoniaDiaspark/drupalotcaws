@@ -1,0 +1,23 @@
+uuid: 4fe6c4e2-a1ab-4aab-a943-192aea526643
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - node.type.project_step
+  module:
+    - user
+id: node.project_step.teaser
+targetEntityType: node
+bundle: project_step
+mode: teaser
+content:
+  links:
+    weight: 100
+hidden:
+  field_description: true
+  field_products: true
+  field_step: true
+  field_step_image_d_1x: true
+  field_step_image_d_2x: true
+  field_step_image_m_2x: true

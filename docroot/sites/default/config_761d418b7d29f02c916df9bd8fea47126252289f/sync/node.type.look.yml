@@ -1,0 +1,11 @@
+uuid: 1453c1a9-8a59-4683-a4d3-5e677587c996
+langcode: en
+status: true
+dependencies: {  }
+name: Look
+type: look
+description: 'Look content type.'
+help: ''
+new_revision: true
+preview_mode: 1
+display_submitted: true

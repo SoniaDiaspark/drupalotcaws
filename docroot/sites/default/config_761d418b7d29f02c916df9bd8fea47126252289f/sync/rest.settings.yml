@@ -1,0 +1,19 @@
+link_domain: null
+bc_entity_resource_permissions: false
+_core:
+  default_config_hash: bwcdqlollZ-bMAg90HtLMFFBgY7UXJohIln7BICIooE
+resources:
+  otcrest_resource:
+    GET:
+      supported_formats:
+        - json
+        - xml
+      supported_auth:
+        - cookie
+  'entity:node':
+    GET:
+      supported_formats:
+        - json
+        - xml
+      supported_auth:
+        - cookie

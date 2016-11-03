@@ -1,0 +1,33 @@
+uuid: e3cffaa1-8c91-4f6c-a737-d27deac0aa59
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_contributor
+    - node.type.project
+id: node.project.field_contributor
+field_name: field_contributor
+entity_type: node
+bundle: project
+label: Contributor
+description: 'The contributor of this project.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:user'
+  handler_settings:
+    include_anonymous: false
+    filter:
+      type: role
+      role:
+        contributor: contributor
+        content_manager: '0'
+        administrator: '0'
+    target_bundles: null
+    sort:
+      field: field_last_name
+      direction: ASC
+    auto_create: false
+field_type: entity_reference

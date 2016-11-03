@@ -1,0 +1,30 @@
+uuid: b672379a-a14f-421e-a92b-9a75255745fe
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - node.type.look
+  module:
+    - user
+id: node.look.teaser
+targetEntityType: node
+bundle: look
+mode: teaser
+content:
+  links:
+    weight: 100
+hidden:
+  field_card_tile_d_1x: true
+  field_card_tile_m_2x: true
+  field_card_tile_t_2x: true
+  field_contributor: true
+  field_curulate_id: true
+  field_display_title: true
+  field_hero_bleed_d_2x: true
+  field_hero_bleed_m_1x: true
+  field_hero_bleed_m_2x: true
+  field_hero_bleed_t_1x: true
+  field_hero_bleed_t_2x: true
+  field_products: true
+  field_related_looks: true

@@ -1,0 +1,21 @@
+uuid: 4e7218d6-0ba1-417d-9372-f1d63a8e48d0
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_ingredients
+    - node.type.recipe
+  module:
+    - text
+id: node.recipe.field_ingredients
+field_name: field_ingredients
+entity_type: node
+bundle: recipe
+label: Ingredients
+description: 'Recipe ingredient lines.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text

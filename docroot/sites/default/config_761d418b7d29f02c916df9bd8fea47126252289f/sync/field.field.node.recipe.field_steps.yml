@@ -1,0 +1,21 @@
+uuid: 5af3443f-d400-47fd-8d98-d4602a15193e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_steps
+    - node.type.recipe
+  module:
+    - text
+id: node.recipe.field_steps
+field_name: field_steps
+entity_type: node
+bundle: recipe
+label: Steps
+description: 'Recipe steps.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text

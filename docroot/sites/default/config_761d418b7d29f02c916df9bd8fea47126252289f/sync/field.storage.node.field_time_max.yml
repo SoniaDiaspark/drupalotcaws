@@ -1,0 +1,20 @@
+uuid: eb83d072-3e61-4b1b-9e7b-f5918d173e6e
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: node.field_time_max
+field_name: field_time_max
+entity_type: node
+type: integer
+settings:
+  unsigned: false
+  size: normal
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

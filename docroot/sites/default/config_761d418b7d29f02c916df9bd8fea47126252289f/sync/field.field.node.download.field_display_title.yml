@@ -1,0 +1,21 @@
+uuid: 4f2b1168-fa10-486f-be32-163e920ddd8e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_display_title
+    - node.type.download
+  module:
+    - text
+id: node.download.field_display_title
+field_name: field_display_title
+entity_type: node
+bundle: download
+label: 'Display Title'
+description: 'Display title for download.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text

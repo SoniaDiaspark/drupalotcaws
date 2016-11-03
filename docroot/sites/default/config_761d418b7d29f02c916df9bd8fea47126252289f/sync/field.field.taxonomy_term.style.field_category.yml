@@ -1,0 +1,28 @@
+uuid: 1392de95-70a7-4ee6-8989-c3fee98afab1
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_category
+    - taxonomy.vocabulary.category
+    - taxonomy.vocabulary.style
+id: taxonomy_term.style.field_category
+field_name: field_category
+entity_type: taxonomy_term
+bundle: style
+label: Category
+description: 'The category the style belongs to.'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      category: category
+    sort:
+      field: _none
+    auto_create: true
+    auto_create_bundle: ''
+field_type: entity_reference

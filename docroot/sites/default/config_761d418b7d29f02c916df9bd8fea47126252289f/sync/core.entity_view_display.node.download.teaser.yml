@@ -1,0 +1,26 @@
+uuid: f976100c-8ccf-49ba-8557-64b5716363ab
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - node.type.download
+  module:
+    - user
+id: node.download.teaser
+targetEntityType: node
+bundle: download
+mode: teaser
+content:
+  links:
+    weight: 100
+hidden:
+  field_description: true
+  field_display_title: true
+  field_download_file: true
+  field_hero_d_2x: true
+  field_hero_m_1x: true
+  field_hero_m_2x: true
+  field_hero_t_1x: true
+  field_hero_t_2x: true
+  field_project: true

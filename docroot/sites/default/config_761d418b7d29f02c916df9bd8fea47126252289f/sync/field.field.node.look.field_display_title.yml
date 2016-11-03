@@ -1,0 +1,21 @@
+uuid: c2d9f5ac-bed3-4bc0-aa6a-3455810d72bf
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_display_title
+    - node.type.look
+  module:
+    - text
+id: node.look.field_display_title
+field_name: field_display_title
+entity_type: node
+bundle: look
+label: 'Display Title'
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text

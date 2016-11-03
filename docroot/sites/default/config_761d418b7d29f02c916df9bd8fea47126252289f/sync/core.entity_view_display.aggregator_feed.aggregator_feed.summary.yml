@@ -1,0 +1,25 @@
+uuid: 160d56c6-0cfe-475d-9fb2-9f0fe5977f89
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.aggregator_feed.summary
+  module:
+    - aggregator
+_core:
+  default_config_hash: acGF8h530Bb8V5NJyrTsdJNXhNgC8FfMeVFPvOF8Q2c
+id: aggregator_feed.aggregator_feed.summary
+targetEntityType: aggregator_feed
+bundle: aggregator_feed
+mode: summary
+content:
+  items:
+    weight: 0
+  more_link:
+    weight: 1
+hidden:
+  checked: true
+  description: true
+  feed_icon: true
+  image: true
+  link: true

@@ -1,0 +1,54 @@
+uuid: 750f43c2-77ff-4f2d-ab05-c51316acb4c7
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.project.field_card_tile_d_1x
+    - field.field.node.project.field_card_tile_m_2x
+    - field.field.node.project.field_card_tile_t_2x
+    - field.field.node.project.field_contributor
+    - field.field.node.project.field_description
+    - field.field.node.project.field_display_title
+    - field.field.node.project.field_hero_bleed_d_2x
+    - field.field.node.project.field_hero_bleed_m_1x
+    - field.field.node.project.field_hero_bleed_m_2x
+    - field.field.node.project.field_hero_bleed_t_1x
+    - field.field.node.project.field_hero_bleed_t_2x
+    - field.field.node.project.field_project_step
+    - field.field.node.project.field_skill
+    - field.field.node.project.field_style
+    - field.field.node.project.field_time_max
+    - field.field.node.project.field_time_min
+    - node.type.project
+  module:
+    - user
+id: node.project.teaser
+targetEntityType: node
+bundle: project
+mode: teaser
+content:
+  links:
+    weight: 100
+hidden:
+  field_card_tile_d_1x: true
+  field_card_tile_m_2x: true
+  field_card_tile_t_2x: true
+  field_contributor: true
+  field_description: true
+  field_display_title: true
+  field_hero_bleed_d_2x: true
+  field_hero_bleed_m_1x: true
+  field_hero_bleed_m_2x: true
+  field_hero_bleed_t_1x: true
+  field_hero_bleed_t_2x: true
+  field_hero_d_2x: true
+  field_hero_m_1x: true
+  field_hero_m_2x: true
+  field_hero_t_1x: true
+  field_hero_t_2x: true
+  field_project_step: true
+  field_skill: true
+  field_style: true
+  field_time_max: true
+  field_time_min: true

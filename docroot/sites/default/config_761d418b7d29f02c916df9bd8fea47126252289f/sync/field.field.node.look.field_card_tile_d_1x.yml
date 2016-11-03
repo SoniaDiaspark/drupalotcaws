@@ -1,0 +1,38 @@
+uuid: 6856402c-e239-4b3c-9672-bdcd7859afb8
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_card_tile_d_1x
+    - node.type.look
+  module:
+    - image
+id: node.look.field_card_tile_d_1x
+field_name: field_card_tile_d_1x
+entity_type: node
+bundle: look
+label: 'Image - Card Tile Desktop 1x (368x384)'
+description: 'Desktop 1x tile image (368x384)'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  file_directory: looks/tile/desktop/1x
+  file_extensions: 'png gif jpg jpeg'
+  max_filesize: ''
+  max_resolution: ''
+  min_resolution: 368x384
+  alt_field: false
+  alt_field_required: true
+  title_field: false
+  title_field_required: false
+  default_image:
+    uuid: ''
+    alt: ''
+    title: ''
+    width: null
+    height: null
+  handler: 'default:file'
+  handler_settings: {  }
+field_type: image

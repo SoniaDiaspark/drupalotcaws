@@ -1,0 +1,21 @@
+uuid: ed77fcbe-662c-437d-894d-2ec8049fb391
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_display_title
+    - node.type.recipe
+  module:
+    - text
+id: node.recipe.field_display_title
+field_name: field_display_title
+entity_type: node
+bundle: recipe
+label: 'Display Title'
+description: 'The recipe display title.'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text

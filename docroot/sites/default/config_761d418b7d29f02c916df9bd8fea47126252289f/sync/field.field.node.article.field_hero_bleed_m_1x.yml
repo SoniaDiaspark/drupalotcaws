@@ -1,0 +1,38 @@
+uuid: c7198d99-b41a-48f2-82c0-fe56f8133b30
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_hero_bleed_m_1x
+    - node.type.article
+  module:
+    - image
+id: node.article.field_hero_bleed_m_1x
+field_name: field_hero_bleed_m_1x
+entity_type: node
+bundle: article
+label: 'Image - Full-Bleed Hero Mobile 1x (414x382)'
+description: 'Image - Full-Bleed Hero image, Mobile 1x (414x382)'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  file_directory: articles/hero/mobile/1x
+  file_extensions: 'png gif jpg jpeg'
+  max_filesize: ''
+  max_resolution: ''
+  min_resolution: 414x382
+  alt_field: false
+  alt_field_required: true
+  title_field: false
+  title_field_required: false
+  default_image:
+    uuid: ''
+    alt: ''
+    title: ''
+    width: null
+    height: null
+  handler: 'default:file'
+  handler_settings: {  }
+field_type: image

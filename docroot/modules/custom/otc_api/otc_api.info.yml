@@ -1,0 +1,5 @@
+name: OTC API
+type: module
+description: OTC Restful API
+core: 8.x
+package: OTC

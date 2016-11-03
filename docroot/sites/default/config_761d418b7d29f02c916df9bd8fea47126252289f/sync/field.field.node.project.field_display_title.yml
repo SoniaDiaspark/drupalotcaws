@@ -1,0 +1,21 @@
+uuid: 534f45d4-dc86-4449-a079-0314a9c49a66
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_display_title
+    - node.type.project
+  module:
+    - text
+id: node.project.field_display_title
+field_name: field_display_title
+entity_type: node
+bundle: project
+label: 'Display Title'
+description: 'The project display title. Add a separate value for each line break needed.'
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text

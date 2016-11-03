@@ -1,0 +1,27 @@
+uuid: 2febdeae-cd10-455d-9fff-ee4961028da7
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_related_looks
+    - node.type.look
+id: node.look.field_related_looks
+field_name: field_related_looks
+entity_type: node
+bundle: look
+label: 'Related Looks'
+description: 'Other looks associated with this look.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      look: look
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

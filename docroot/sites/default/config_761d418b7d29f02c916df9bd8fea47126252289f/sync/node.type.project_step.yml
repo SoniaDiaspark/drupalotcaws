@@ -1,0 +1,11 @@
+uuid: 65ca3968-d533-47c7-aa73-3f76cd7cad5b
+langcode: en
+status: true
+dependencies: {  }
+name: 'Project Step'
+type: project_step
+description: 'A project step content type. Content types should be created from the project content type form. Avoid creating / editing / deleting steps directly.'
+help: ''
+new_revision: true
+preview_mode: 0
+display_submitted: true

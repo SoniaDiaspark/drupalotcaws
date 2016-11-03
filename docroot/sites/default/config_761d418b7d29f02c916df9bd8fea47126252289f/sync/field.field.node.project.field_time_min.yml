@@ -1,0 +1,23 @@
+uuid: ab70c101-3a7f-4556-92bb-8618a6292844
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_time_min
+    - node.type.project
+id: node.project.field_time_min
+field_name: field_time_min
+entity_type: node
+bundle: project
+label: 'Time Min'
+description: 'Minimum time for this project in minutes.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: 1
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer

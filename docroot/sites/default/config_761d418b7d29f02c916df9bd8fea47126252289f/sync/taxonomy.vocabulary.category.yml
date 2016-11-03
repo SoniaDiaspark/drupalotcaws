@@ -1,0 +1,9 @@
+uuid: 1d313d36-3810-4dca-bbbd-00a872a37482
+langcode: en
+status: true
+dependencies: {  }
+name: Category
+vid: category
+description: 'Categories of looks, projects, articles, and recipes.'
+hierarchy: 0
+weight: -9

@@ -1,0 +1,23 @@
+uuid: 121024fc-aad2-4842-ad88-140026e974fe
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_time_min
+    - node.type.recipe
+id: node.recipe.field_time_min
+field_name: field_time_min
+entity_type: node
+bundle: recipe
+label: 'Time Min'
+description: 'Minimum recipe time in minutes.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: 1
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer

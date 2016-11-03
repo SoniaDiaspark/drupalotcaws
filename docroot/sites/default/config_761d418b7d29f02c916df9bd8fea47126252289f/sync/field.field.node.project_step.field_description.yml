@@ -1,0 +1,21 @@
+uuid: 8da48fb4-1291-456e-a573-e1478d7b5bcc
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_description
+    - node.type.project_step
+  module:
+    - text
+id: node.project_step.field_description
+field_name: field_description
+entity_type: node
+bundle: project_step
+label: Description
+description: 'The body text of the step.'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

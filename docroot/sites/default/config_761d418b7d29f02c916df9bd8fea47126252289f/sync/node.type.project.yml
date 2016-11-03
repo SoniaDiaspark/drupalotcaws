@@ -1,0 +1,11 @@
+uuid: 21e68c8a-d3ec-484a-9215-5600e4ecdd7b
+langcode: en
+status: true
+dependencies: {  }
+name: Project
+type: project
+description: 'Project content type.'
+help: ''
+new_revision: true
+preview_mode: 0
+display_submitted: true

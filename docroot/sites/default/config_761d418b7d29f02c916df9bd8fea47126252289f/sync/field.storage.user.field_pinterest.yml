@@ -1,0 +1,21 @@
+uuid: cb0ef0d9-1ba0-4734-bc80-1208960dec4f
+langcode: en
+status: true
+dependencies:
+  module:
+    - user
+id: user.field_pinterest
+field_name: field_pinterest
+entity_type: user
+type: string
+settings:
+  max_length: 255
+  is_ascii: false
+  case_sensitive: false
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

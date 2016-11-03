@@ -1,0 +1,19 @@
+uuid: 456aa734-951e-4e47-96df-7b031d0f3a53
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_curulate_id
+    - node.type.look
+id: node.look.field_curulate_id
+field_name: field_curulate_id
+entity_type: node
+bundle: look
+label: 'Curulate Id'
+description: 'Curulate object id to display for this look.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

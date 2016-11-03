@@ -1,0 +1,23 @@
+uuid: 6bd7878d-fef1-4d3a-98de-b51a52287ccb
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_servings_max
+    - node.type.recipe
+id: node.recipe.field_servings_max
+field_name: field_servings_max
+entity_type: node
+bundle: recipe
+label: 'Servings Max'
+description: 'Maximum number of servings.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: 1
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer

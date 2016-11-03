@@ -1,0 +1,12 @@
+name: Image Raw Formatter
+type: module
+description: Image Raw formatter return absolute URLs of images useful in Rest.
+# core: 8.x
+package: Formatters
+dependencies:
+  - image
+# Information added by Drupal.org packaging script on 2015-11-18
+version: '8.x-1.x-dev'
+core: '8.x'
+project: 'image_raw_formatter'
+datestamp: 1447852141

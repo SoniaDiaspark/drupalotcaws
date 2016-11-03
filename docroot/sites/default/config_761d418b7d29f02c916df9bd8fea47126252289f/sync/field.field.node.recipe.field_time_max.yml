@@ -1,0 +1,23 @@
+uuid: ec575a3b-5a56-455b-b55a-e10b20af4894
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_time_max
+    - node.type.recipe
+id: node.recipe.field_time_max
+field_name: field_time_max
+entity_type: node
+bundle: recipe
+label: 'Time Max'
+description: 'Maximum recipe time, in minutes.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: 1
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer

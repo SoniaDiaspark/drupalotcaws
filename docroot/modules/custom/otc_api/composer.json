@@ -1,0 +1,13 @@
+{
+  "name": "drupal/otc_api",
+  "type": "drupal-module",
+  "description": "OTC Restful API",
+  "keywords": ["Drupal"],
+  "license": "",
+  "homepage": "https://www.drupal.org/project/otc_api",
+  "minimum-stability": "dev",
+  "support": {
+    "issues": "http://drupal.org/project/issues/otc_api",
+    "source": "http://cgit.drupalcode.org/otc_api"
+  }
+}

@@ -1,0 +1,137 @@
+uuid: d6bbebaa-b7e4-4b08-9552-37decdcffc40
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.look.field_card_tile_d_1x
+    - field.field.node.look.field_card_tile_m_2x
+    - field.field.node.look.field_card_tile_t_2x
+    - field.field.node.look.field_contributor
+    - field.field.node.look.field_curulate_id
+    - field.field.node.look.field_display_title
+    - field.field.node.look.field_hero_bleed_d_2x
+    - field.field.node.look.field_hero_bleed_m_1x
+    - field.field.node.look.field_hero_bleed_m_2x
+    - field.field.node.look.field_hero_bleed_t_1x
+    - field.field.node.look.field_hero_bleed_t_2x
+    - field.field.node.look.field_products
+    - field.field.node.look.field_related_looks
+    - image.style.thumbnail
+    - node.type.look
+  module:
+    - image
+    - path
+    - text
+id: node.look.default
+targetEntityType: node
+bundle: look
+mode: default
+content:
+  field_card_tile_d_1x:
+    weight: 11
+    settings:
+      progress_indicator: throbber
+      preview_image_style: thumbnail
+    third_party_settings: {  }
+    type: image_image
+  field_card_tile_m_2x:
+    weight: 13
+    settings:
+      progress_indicator: throbber
+      preview_image_style: thumbnail
+    third_party_settings: {  }
+    type: image_image
+  field_card_tile_t_2x:
+    weight: 12
+    settings:
+      progress_indicator: throbber
+      preview_image_style: thumbnail
+    third_party_settings: {  }
+    type: image_image
+  field_contributor:
+    weight: 4
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+  field_curulate_id:
+    weight: 2
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_display_title:
+    weight: 1
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textfield
+  field_hero_bleed_d_2x:
+    type: image_image
+    weight: 6
+    settings:
+      progress_indicator: throbber
+      preview_image_style: thumbnail
+    third_party_settings: {  }
+  field_hero_bleed_m_1x:
+    type: image_image
+    weight: 10
+    settings:
+      progress_indicator: throbber
+      preview_image_style: thumbnail
+    third_party_settings: {  }
+  field_hero_bleed_m_2x:
+    type: image_image
+    weight: 9
+    settings:
+      progress_indicator: throbber
+      preview_image_style: thumbnail
+    third_party_settings: {  }
+  field_hero_bleed_t_1x:
+    type: image_image
+    weight: 8
+    settings:
+      progress_indicator: throbber
+      preview_image_style: thumbnail
+    third_party_settings: {  }
+  field_hero_bleed_t_2x:
+    type: image_image
+    weight: 7
+    settings:
+      progress_indicator: throbber
+      preview_image_style: thumbnail
+    third_party_settings: {  }
+  field_products:
+    weight: 5
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
+  field_related_looks:
+    weight: 3
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
+  path:
+    type: path
+    weight: 14
+    settings: {  }
+    third_party_settings: {  }
+  title:
+    type: string_textfield
+    weight: 0
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  created: true
+  promote: true
+  sticky: true
+  uid: true

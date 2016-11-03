@@ -1,0 +1,24 @@
+<?php
+
+/**
+ * @file
+ * Contains otc_api.module..
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function otc_api_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the otc_api module.
+    case 'help.page.otc_api':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('OTC Restful API') . '</p>';
+      return $output;
+
+    default:
+  }
+}
