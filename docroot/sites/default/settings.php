@@ -753,17 +753,6 @@ $settings['file_scan_ignore_directories'] = [
 #   include __DIR__ . '/settings.local.php';
 # }
 
-$config_directories['active'] = "sites/default/config_761d418b7d29f02c916df9bd8fea47126252289f/active";
-$config_directories['staging'] = "sites/default/config_761d418b7d29f02c916df9bd8fea47126252289f/staging";
-$config_directories['sync'] = "sites/default/config_761d418b7d29f02c916df9bd8fea47126252289f/sync";
-
-$settings['trusted_host_patterns'] = array(
-  '^localhost$',
-  '^.*.dev.dd$',
-  '^.*orientaltrading.com$',
-  '^otc.*.acquia-sites.com$',
-);
-
 
 // On Acquia Cloud, this include file configures Drupal to use the correct
 // database in each site environment (Dev, Stage, or Prod). To use this
@@ -780,3 +769,14 @@ if (isset($_SERVER['DEVDESKTOP_DRUPAL_SETTINGS_DIR']) && file_exists($_SERVER['D
   require $_SERVER['DEVDESKTOP_DRUPAL_SETTINGS_DIR'] . '/cld_prod_otc_dev_default.inc';
 }
 // </DDSETTINGS>
+
+$config_directories['active'] = "sites/default/config_761d418b7d29f02c916df9bd8fea47126252289f/active";
+$config_directories['staging'] = "sites/default/config_761d418b7d29f02c916df9bd8fea47126252289f/staging";
+$config_directories['sync'] = "sites/default/config_761d418b7d29f02c916df9bd8fea47126252289f/sync";
+
+$settings['trusted_host_patterns'] = array(
+  '^localhost$',
+  '^.*.dev.dd$',
+  '^.*orientaltrading.com$',
+  '^otc.*.acquia-sites.com$',
+);
