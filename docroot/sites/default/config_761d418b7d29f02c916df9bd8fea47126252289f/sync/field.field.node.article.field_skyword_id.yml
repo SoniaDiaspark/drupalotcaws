@@ -1,0 +1,19 @@
+uuid: 10973b00-ca3b-427c-85d0-b7f4c6250927
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_skyword_id
+    - node.type.article
+id: node.article.field_skyword_id
+field_name: field_skyword_id
+entity_type: node
+bundle: article
+label: 'Skyword Id'
+description: 'The id of the content on Skyword.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

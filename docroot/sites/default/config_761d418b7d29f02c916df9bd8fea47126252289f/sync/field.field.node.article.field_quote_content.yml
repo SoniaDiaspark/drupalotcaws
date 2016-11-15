@@ -1,0 +1,21 @@
+uuid: 89b7e03a-7bde-4fdc-8f1a-02714f28212e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_quote_content
+    - node.type.article
+  module:
+    - text
+id: node.article.field_quote_content
+field_name: field_quote_content
+entity_type: node
+bundle: article
+label: 'Article Quote Content'
+description: 'Text in quote region of article.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text

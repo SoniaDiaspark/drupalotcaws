@@ -1,0 +1,21 @@
+uuid: 1ca55e6b-d139-4d43-8e6b-886f2cbe9520
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_content_heading
+    - node.type.article
+  module:
+    - text
+id: node.article.field_content_heading
+field_name: field_content_heading
+entity_type: node
+bundle: article
+label: 'Content Heading'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text

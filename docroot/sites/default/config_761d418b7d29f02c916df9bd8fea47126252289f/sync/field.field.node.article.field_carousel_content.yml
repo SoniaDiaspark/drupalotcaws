@@ -1,0 +1,21 @@
+uuid: 29a7e644-bfa7-41e8-9956-34de4fee886c
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_carousel_content
+    - node.type.article
+  module:
+    - text
+id: node.article.field_carousel_content
+field_name: field_carousel_content
+entity_type: node
+bundle: article
+label: 'Carousel Content'
+description: 'Content text for carousel region.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

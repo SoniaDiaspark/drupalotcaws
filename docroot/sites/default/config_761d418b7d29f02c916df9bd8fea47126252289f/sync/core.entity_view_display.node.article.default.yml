@@ -3,18 +3,45 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.article.body
+    - field.field.node.article.field_article_tall1_m_2x
+    - field.field.node.article.field_article_tall1_t_1x
+    - field.field.node.article.field_article_tall1_t_2x
+    - field.field.node.article.field_article_tall2_m_2x
+    - field.field.node.article.field_article_tall2_t_1x
+    - field.field.node.article.field_article_tall2_t_2x
+    - field.field.node.article.field_article_wide_d_2x
+    - field.field.node.article.field_article_wide_m_1x
+    - field.field.node.article.field_article_wide_m_2x
+    - field.field.node.article.field_article_wide_t_2x
     - field.field.node.article.field_card_tile_d_1x
     - field.field.node.article.field_card_tile_m_2x
     - field.field.node.article.field_card_tile_t_2x
+    - field.field.node.article.field_carousel_content
+    - field.field.node.article.field_carousel_heading_1
+    - field.field.node.article.field_carousel_heading_2
+    - field.field.node.article.field_content_1
+    - field.field.node.article.field_content_2
+    - field.field.node.article.field_content_3
+    - field.field.node.article.field_content_heading
+    - field.field.node.article.field_description_1
+    - field.field.node.article.field_description_2
+    - field.field.node.article.field_display_title
     - field.field.node.article.field_hero_bleed_d_2x
     - field.field.node.article.field_hero_bleed_m_1x
     - field.field.node.article.field_hero_bleed_m_2x
     - field.field.node.article.field_hero_bleed_t_1x
     - field.field.node.article.field_hero_bleed_t_2x
+    - field.field.node.article.field_photo_credit
+    - field.field.node.article.field_quote_content
+    - field.field.node.article.field_quote_d_1x
+    - field.field.node.article.field_quote_m_2x
+    - field.field.node.article.field_quote_t_2x
     - field.field.node.article.field_related_article_thumb_d_2x
     - field.field.node.article.field_related_article_thumb_m_2x
     - field.field.node.article.field_related_article_thumb_t_2x
+    - field.field.node.article.field_short_description
+    - field.field.node.article.field_skyword_id
+    - field.field.node.article.field_video_url
     - node.type.article
   module:
     - image
@@ -25,12 +52,182 @@ targetEntityType: node
 bundle: article
 mode: default
 content:
-  body:
-    label: hidden
-    type: text_default
-    weight: 101
+  field_article_tall1_m_2x:
+    weight: 113
+    label: above
+    settings:
+      image_style: ''
+      image_link: ''
+    third_party_settings: {  }
+    type: image
+  field_article_tall1_t_1x:
+    weight: 115
+    label: above
+    settings:
+      image_style: ''
+      image_link: ''
+    third_party_settings: {  }
+    type: image
+  field_article_tall1_t_2x:
+    weight: 114
+    label: above
+    settings:
+      image_style: ''
+      image_link: ''
+    third_party_settings: {  }
+    type: image
+  field_article_tall2_m_2x:
+    weight: 116
+    label: above
+    settings:
+      image_style: ''
+      image_link: ''
+    third_party_settings: {  }
+    type: image
+  field_article_tall2_t_1x:
+    weight: 118
+    label: above
+    settings:
+      image_style: ''
+      image_link: ''
+    third_party_settings: {  }
+    type: image
+  field_article_tall2_t_2x:
+    weight: 117
+    label: above
+    settings:
+      image_style: ''
+      image_link: ''
+    third_party_settings: {  }
+    type: image
+  field_article_wide_d_2x:
+    weight: 129
+    label: above
+    settings:
+      image_style: ''
+      image_link: ''
+    third_party_settings: {  }
+    type: image
+  field_article_wide_m_1x:
+    weight: 132
+    label: above
+    settings:
+      image_style: ''
+      image_link: ''
+    third_party_settings: {  }
+    type: image
+  field_article_wide_m_2x:
+    weight: 131
+    label: above
+    settings:
+      image_style: ''
+      image_link: ''
+    third_party_settings: {  }
+    type: image
+  field_article_wide_t_2x:
+    weight: 130
+    label: above
+    settings:
+      image_style: ''
+      image_link: ''
+    third_party_settings: {  }
+    type: image
+  field_carousel_content:
+    weight: 112
+    label: above
     settings: {  }
     third_party_settings: {  }
+    type: text_default
+  field_carousel_heading_1:
+    weight: 110
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+  field_carousel_heading_2:
+    weight: 111
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+  field_content_1:
+    weight: 123
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+  field_content_2:
+    weight: 124
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+  field_content_3:
+    weight: 125
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+  field_content_heading:
+    weight: 122
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+  field_description_1:
+    weight: 107
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+  field_description_2:
+    weight: 108
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+  field_display_title:
+    weight: 105
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+  field_photo_credit:
+    weight: 127
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+  field_quote_content:
+    weight: 126
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+  field_quote_d_1x:
+    weight: 119
+    label: above
+    settings:
+      image_style: ''
+      image_link: ''
+    third_party_settings: {  }
+    type: image
+  field_quote_m_2x:
+    weight: 120
+    label: above
+    settings:
+      image_style: ''
+      image_link: ''
+    third_party_settings: {  }
+    type: image
+  field_quote_t_2x:
+    weight: 121
+    label: above
+    settings:
+      image_style: ''
+      image_link: ''
+    third_party_settings: {  }
+    type: image
   field_related_article_thumb_d_2x:
     weight: 104
     label: above
@@ -55,6 +252,25 @@ content:
       image_link: ''
     third_party_settings: {  }
     type: image
+  field_short_description:
+    weight: 109
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+  field_skyword_id:
+    weight: 106
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+  field_video_url:
+    weight: 128
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
   links:
     weight: 100
 hidden:

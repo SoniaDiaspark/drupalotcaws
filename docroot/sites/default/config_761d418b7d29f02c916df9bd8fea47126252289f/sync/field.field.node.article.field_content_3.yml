@@ -1,0 +1,21 @@
+uuid: 7b44af6c-c179-4ac6-a528-9fe30d8efe58
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_content_3
+    - node.type.article
+  module:
+    - text
+id: node.article.field_content_3
+field_name: field_content_3
+entity_type: node
+bundle: article
+label: 'Article Content 3'
+description: 'Third section of content.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

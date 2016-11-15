@@ -1,0 +1,21 @@
+uuid: 34471005-7ab3-4156-ae94-c4fca540624c
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_video_url
+    - node.type.article
+  module:
+    - text
+id: node.article.field_video_url
+field_name: field_video_url
+entity_type: node
+bundle: article
+label: 'Video URL'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text
