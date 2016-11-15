@@ -74,9 +74,9 @@ spi:
     variables: {  }
     time: 0
   cron_interval: 28800
-  site_name: 'OTC Experience Platform Services'
-  site_machine_name: otc_experience_platform_services
-  site_uuid: b65a50ed-9733-4d16-999b-9e91cd17e59f
+  site_name: 'Oriental Trading Company: dev'
+  site_machine_name: 500f7307_19c1_49ce_8880_117ff7b63b8f__otcdev
+  site_uuid: df0a8db7-ac45-43d7-a1f1-983eebb5354d
 mapping:
   acquia_spi_send_node_user:
     - acquia_connector.settings
