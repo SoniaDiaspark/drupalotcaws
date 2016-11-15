@@ -3,12 +3,10 @@
 namespace Drupal\restui\Form;
 
 use Drupal\Core\Authentication\AuthenticationCollectorInterface;
-use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Extension\ModuleHandler;
-use Drupal\rest\RestResourceConfigInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Drupal\rest\Plugin\Type\ResourcePluginManager;
@@ -55,13 +53,6 @@ class RestUIForm extends ConfigFormBase {
   protected $routeBuilder;
 
   /**
-   * The REST resource config storage.
-   *
-   * @var \Drupal\Core\Entity\EntityStorageInterface
-   */
-  protected $resourceConfigStorage;
-
-  /**
    * Constructs a \Drupal\user\RestForm object.
    *
    * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
@@ -76,17 +67,14 @@ class RestUIForm extends ConfigFormBase {
    *   The REST plugin manager.
    * @param \Drupal\Core\Routing\RouteBuilderInterface $routeBuilder
    *   The route builder.
-   * @param \Drupal\Core\Entity\EntityStorageInterface
-   *   The REST resource config storage.
    */
-  public function __construct(ConfigFactoryInterface $config_factory, ModuleHandler $module_handler, AuthenticationCollectorInterface $authentication_collector, array $formats, ResourcePluginManager $resourcePluginManager, RouteBuilderInterface $routeBuilder, EntityStorageInterface $resource_config_storage) {
+  public function __construct(ConfigFactoryInterface $config_factory, ModuleHandler $module_handler, AuthenticationCollectorInterface $authentication_collector, array $formats, ResourcePluginManager $resourcePluginManager, RouteBuilderInterface $routeBuilder) {
     parent::__construct($config_factory);
     $this->moduleHandler = $module_handler;
     $this->authenticationCollector = $authentication_collector;
     $this->formats = $formats;
     $this->resourcePluginManager = $resourcePluginManager;
     $this->routeBuilder= $routeBuilder;
-    $this->resourceConfigStorage = $resource_config_storage;
   }
 
   /**
@@ -99,8 +87,7 @@ class RestUIForm extends ConfigFormBase {
       $container->get('authentication_collector'),
       $container->getParameter('serializer.formats'),
       $container->get('plugin.manager.rest'),
-      $container->get('router.builder'),
-      $container->get('entity_type.manager')->getStorage('rest_resource_config')
+      $container->get('router.builder')
     );
   }
 
@@ -128,7 +115,7 @@ class RestUIForm extends ConfigFormBase {
    * @param \Drupal\Core\Form\FormStateInterface $form_state
    *   The form state.
    * @var string $resource_id
-   *   A string that identifies the REST resource.
+   *   A string that identfies the REST resource.
    *
    * @return array
    *   The form structure.
@@ -142,9 +129,7 @@ class RestUIForm extends ConfigFormBase {
       throw new NotFoundHttpException();
     }
 
-    $id = str_replace(':', '.', $resource_id);
-
-    $config = $this->config("rest.resource.{$id}")->get('configuration') ?: [];
+    $config = $this->config('rest.settings')->get('resources') ?: [];
     $methods = $plugin->availableMethods();
     $pluginDefinition = $plugin->getPluginDefinition();
     $form['#title'] = $this->t('Settings for resource %label', ['%label' => $pluginDefinition['label']]);
@@ -160,7 +145,7 @@ class RestUIForm extends ConfigFormBase {
       $group[$method] = array(
         '#title' => $method,
         '#type' => 'checkbox',
-        '#default_value' => isset($config[$method]),
+        '#default_value' => isset($config[$resource_id][$method]),
       );
       $group['settings'] = array(
         '#type' => 'container',
@@ -169,8 +154,8 @@ class RestUIForm extends ConfigFormBase {
 
       // Available request formats.
       $enabled_formats = array();
-      if (isset($config[$method]['supported_formats'])) {
-        $enabled_formats = $config[$method]['supported_formats'];
+      if (isset($config[$resource_id][$method]['supported_formats'])) {
+        $enabled_formats = $config[$resource_id][$method]['supported_formats'];
       }
       $group['settings']['formats'] = array(
         '#type' => 'checkboxes',
@@ -181,8 +166,8 @@ class RestUIForm extends ConfigFormBase {
 
       // Authentication providers.
       $enabled_auth = array();
-      if (isset($config[$method]['supported_auth'])) {
-        $enabled_auth = $config[$method]['supported_auth'];
+      if (isset($config[$resource_id][$method]['supported_auth'])) {
+        $enabled_auth = $config[$resource_id][$method]['supported_auth'];
       }
       $group['settings']['auth'] = array(
         '#title' => $this->t('Authentication providers'),
@@ -227,31 +212,20 @@ class RestUIForm extends ConfigFormBase {
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $methods = $form_state->getValue('methods');
-    $resource_id = $id = str_replace(':', '.', $form_state->getValue('resource_id'));
-    $config = $this->resourceConfigStorage->load($resource_id);
-
-    if (!$config) {
-      $config = $this->resourceConfigStorage->create([
-        'id' => $resource_id,
-        'granularity' => RestResourceConfigInterface::METHOD_GRANULARITY,
-        'configuration' => []
-      ]);
-    }
-
-    $configuration = $config->get('configuration') ?: [];
-
+    $resource_id = $form_state->getValue('resource_id');
+    $config = $this->config('rest.settings');
+    $resources = $config->get('resources') ?: [];
+    // Reset the resource configuration.
+    $resources[$resource_id] = [];
     foreach ($methods as $method => $settings) {
       if ($settings[$method]) {
-        $configuration[$method] = [
+        $resources[$resource_id][$method] = [
           'supported_formats' => array_keys(array_filter($settings['settings']['formats'])),
           'supported_auth' => array_keys(array_filter($settings['settings']['auth'])),
         ];
       }
-      else {
-        unset($configuration[$method]);
-      }
     }
-    $config->set('configuration', $configuration);
+    $config->set('resources', $resources);
     $config->save();
 
     // Rebuild routing cache.

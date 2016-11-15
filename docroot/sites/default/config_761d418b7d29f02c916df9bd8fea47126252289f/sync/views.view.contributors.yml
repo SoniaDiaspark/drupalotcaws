@@ -41,9 +41,8 @@ display:
     position: 0
     display_options:
       access:
-        type: perm
-        options:
-          perm: 'access content'
+        type: none
+        options: {  }
       cache:
         type: tag
         options: {  }
@@ -1174,7 +1173,6 @@ display:
         - 'languages:language_interface'
         - request_format
         - url.query_args
-        - user.permissions
       tags:
         - 'config:field.storage.user.field_bio'
         - 'config:field.storage.user.field_contributor_large_1x'
@@ -1267,7 +1265,6 @@ display:
         - 'languages:language_content'
         - 'languages:language_interface'
         - request_format
-        - user.permissions
       tags:
         - 'config:field.storage.user.field_bio'
         - 'config:field.storage.user.field_contributor_large_1x'
@@ -1405,7 +1402,6 @@ display:
         - 'languages:language_interface'
         - request_format
         - url
-        - user.permissions
       tags:
         - 'config:field.storage.user.field_bio'
         - 'config:field.storage.user.field_contributor_large_1x'

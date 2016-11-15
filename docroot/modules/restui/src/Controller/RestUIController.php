@@ -2,7 +2,6 @@
 
 namespace Drupal\restui\Controller;
 
-use Drupal\Core\Entity\EntityStorageInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -40,21 +39,13 @@ class RestUIController implements ContainerInjectionInterface {
   protected $routeBuilder;
 
   /**
-   * Configuration entity to store enabled REST resources.
-   *
-   * @var \Drupal\rest\RestResourceConfigInterface
-   */
-  protected $resourceConfigStorage;
-
-  /**
    * Injects RestUIManager Service.
    */
   public static function create(ContainerInterface $container) {
     return new static(
       $container->get('plugin.manager.rest'),
       $container->get('url_generator'),
-      $container->get('router.builder'),
-      $container->get('entity_type.manager')->getStorage('rest_resource_config')
+      $container->get('router.builder')
     );
   }
 
@@ -67,14 +58,11 @@ class RestUIController implements ContainerInjectionInterface {
    *   The URL generator.
    * @param \Drupal\Core\Routing\RouteBuilderInterface $routeBuilder
    *   The router builder.
-   * @param \Drupal\Core\Entity\EntityStorageInterface
-   *   The REST resource config storage.
    */
-  public function __construct(ResourcePluginManager $resourcePluginManager, UrlGeneratorInterface $url_generator, RouteBuilderInterface $routeBuilder, EntityStorageInterface $resource_config_storage) {
+  public function __construct(ResourcePluginManager $resourcePluginManager, UrlGeneratorInterface $url_generator, RouteBuilderInterface $routeBuilder) {
     $this->resourcePluginManager = $resourcePluginManager;
     $this->urlGenerator = $url_generator;
     $this->routeBuilder= $routeBuilder;
-    $this->resourceConfigStorage = $resource_config_storage;
   }
 
   /**
@@ -85,15 +73,14 @@ class RestUIController implements ContainerInjectionInterface {
    */
   public function listResources() {
     // Get the list of enabled and disabled resources.
-    $config = $this->resourceConfigStorage->loadMultiple();
-
+    $config = \Drupal::config('rest.settings')->get('resources') ?: array();
     // Strip out the nested method configuration, we are only interested in the
     // plugin IDs of the resources.
     $enabled_resources = array_combine(array_keys($config), array_keys($config));
     $available_resources = array('enabled' => array(), 'disabled' => array());
     $resources = $this->resourcePluginManager->getDefinitions();
     foreach ($resources as $id => $resource) {
-      $status = in_array($this->getResourceKey($id), $enabled_resources) ? 'enabled' : 'disabled';
+      $status = in_array($id, $enabled_resources) ? 'enabled' : 'disabled';
       $available_resources[$status][$id] = $resource;
     }
 
@@ -194,7 +181,7 @@ class RestUIController implements ContainerInjectionInterface {
 
           $list[$status]['table']['#rows'][$id]['data']['description']['data'] = array(
             '#theme' => 'restui_resource_info',
-            '#resource' => $config[$this->getResourceKey($id)]->get('configuration'),
+            '#resource' => $config[$id],
           );
         }
       }
@@ -219,10 +206,15 @@ class RestUIController implements ContainerInjectionInterface {
    *   Access is denied, if the token is invalid or missing.
    */
   public function disable($resource_id) {
-    $resources = $this->resourceConfigStorage->loadMultiple();
+    $config = \Drupal::configFactory()->getEditable('rest.settings');
+    $resources = $config->get('resources') ?: array();
+    $plugin = $this->resourcePluginManager->createInstance($resource_id);
+    if (!empty($plugin)) {
+      // disable the resource.
+      unset($resources[$resource_id]);
+      $config->set('resources', $resources);
+      $config->save();
 
-    if ($resources[$this->getResourceKey($resource_id)]) {
-      $resources[$this->getResourceKey($resource_id)]->delete();
       // Rebuild routing cache.
       $this->routeBuilder->rebuild();
       drupal_set_message(t('The resource was disabled successfully.'));
@@ -230,19 +222,6 @@ class RestUIController implements ContainerInjectionInterface {
 
     // Redirect back to the page.
     return new RedirectResponse($this->urlGenerator->generate('restui.list', array(), TRUE));
-  }
-
-  /**
-   * The key used in the form.
-   *
-   * @param string $resource_id
-   *   The resource ID.
-   *
-   * @return string
-   *   The resource key in the form.
-   */
-  protected function getResourceKey($resource_id) {
-    return str_replace(':', '.', $resource_id);
   }
 
 }

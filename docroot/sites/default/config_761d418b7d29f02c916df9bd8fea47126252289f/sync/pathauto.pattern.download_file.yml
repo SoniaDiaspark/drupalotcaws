@@ -1,0 +1,22 @@
+uuid: f529d5a0-ae84-4a16-8526-2f75dcfbc423
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: download_file
+label: 'Download File'
+type: 'canonical_entities:node'
+pattern: '[node:title]'
+selection_criteria:
+  d0534acc-61d4-4361-b934-be211d7c3b70:
+    id: node_type
+    bundles:
+      download: download
+    negate: false
+    context_mapping:
+      node: node
+    uuid: d0534acc-61d4-4361-b934-be211d7c3b70
+selection_logic: and
+weight: -5
+relationships: {  }
