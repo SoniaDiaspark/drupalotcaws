@@ -1,0 +1,21 @@
+uuid: f9a6278b-72e3-4790-b34a-4f4bba78461c
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: node.field_image_url_product_thumb_1x
+field_name: field_image_url_product_thumb_1x
+entity_type: node
+type: string
+settings:
+  max_length: 255
+  is_ascii: false
+  case_sensitive: false
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

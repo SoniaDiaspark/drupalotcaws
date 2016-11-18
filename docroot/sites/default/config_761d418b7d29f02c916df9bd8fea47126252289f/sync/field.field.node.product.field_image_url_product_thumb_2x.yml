@@ -1,0 +1,19 @@
+uuid: f52bf32e-bb38-4587-92e9-11d5fc4172e4
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_image_url_product_thumb_2x
+    - node.type.product
+id: node.product.field_image_url_product_thumb_2x
+field_name: field_image_url_product_thumb_2x
+entity_type: node
+bundle: product
+label: 'Image URL - Product Thumb 2x (180x180)'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

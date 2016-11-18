@@ -4,18 +4,16 @@ status: true
 dependencies:
   config:
     - field.field.node.product.field_display_title
+    - field.field.node.product.field_image_url_product_thumb_1x
+    - field.field.node.product.field_image_url_product_thumb_2x
+    - field.field.node.product.field_image_url_product_tile_1x
+    - field.field.node.product.field_image_url_product_tile_2x
     - field.field.node.product.field_price
-    - field.field.node.product.field_product_thumb_1x
-    - field.field.node.product.field_product_thumb_2x
-    - field.field.node.product.field_product_tile_1x
-    - field.field.node.product.field_product_tile_2x
     - field.field.node.product.field_quantity_description
     - field.field.node.product.field_sale_price
     - field.field.node.product.field_sku
-    - image.style.thumbnail
     - node.type.product
   module:
-    - image
     - path
     - text
 id: node.product.default
@@ -30,40 +28,40 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: text_textfield
+  field_image_url_product_thumb_1x:
+    weight: 26
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_image_url_product_thumb_2x:
+    weight: 27
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_image_url_product_tile_1x:
+    weight: 28
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_image_url_product_tile_2x:
+    weight: 29
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
   field_price:
     weight: 5
     settings:
       placeholder: ''
     third_party_settings: {  }
     type: number
-  field_product_thumb_1x:
-    weight: 8
-    settings:
-      progress_indicator: throbber
-      preview_image_style: thumbnail
-    third_party_settings: {  }
-    type: image_image
-  field_product_thumb_2x:
-    weight: 7
-    settings:
-      progress_indicator: throbber
-      preview_image_style: thumbnail
-    third_party_settings: {  }
-    type: image_image
-  field_product_tile_1x:
-    weight: 10
-    settings:
-      progress_indicator: throbber
-      preview_image_style: thumbnail
-    third_party_settings: {  }
-    type: image_image
-  field_product_tile_2x:
-    weight: 9
-    settings:
-      progress_indicator: throbber
-      preview_image_style: thumbnail
-    third_party_settings: {  }
-    type: image_image
   field_quantity_description:
     weight: 4
     settings:

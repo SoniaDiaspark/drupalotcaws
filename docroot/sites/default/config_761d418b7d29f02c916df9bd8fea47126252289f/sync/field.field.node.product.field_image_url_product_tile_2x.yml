@@ -1,0 +1,19 @@
+uuid: 820679a0-9309-4cf5-a490-1f22fc9ce291
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_image_url_product_tile_2x
+    - node.type.product
+id: node.product.field_image_url_product_tile_2x
+field_name: field_image_url_product_tile_2x
+entity_type: node
+bundle: product
+label: 'Image URL - Product Tile 2x (480x480)'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

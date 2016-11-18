@@ -1,0 +1,19 @@
+uuid: 5ad6342b-6430-4f0f-989a-38a25a1afb0d
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_image_url_product_thumb_1x
+    - node.type.product
+id: node.product.field_image_url_product_thumb_1x
+field_name: field_image_url_product_thumb_1x
+entity_type: node
+bundle: product
+label: 'Image URL - Product Thumb 1x (90x90)'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

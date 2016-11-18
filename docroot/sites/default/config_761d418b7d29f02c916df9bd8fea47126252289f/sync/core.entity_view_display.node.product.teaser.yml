@@ -5,11 +5,11 @@ dependencies:
   config:
     - core.entity_view_mode.node.teaser
     - field.field.node.product.field_display_title
+    - field.field.node.product.field_image_url_product_thumb_1x
+    - field.field.node.product.field_image_url_product_thumb_2x
+    - field.field.node.product.field_image_url_product_tile_1x
+    - field.field.node.product.field_image_url_product_tile_2x
     - field.field.node.product.field_price
-    - field.field.node.product.field_product_thumb_1x
-    - field.field.node.product.field_product_thumb_2x
-    - field.field.node.product.field_product_tile_1x
-    - field.field.node.product.field_product_tile_2x
     - field.field.node.product.field_quantity_description
     - field.field.node.product.field_sale_price
     - field.field.node.product.field_sku
@@ -25,12 +25,12 @@ content:
     weight: 100
 hidden:
   field_display_title: true
+  field_image_url_product_thumb_1x: true
+  field_image_url_product_thumb_2x: true
+  field_image_url_product_tile_1x: true
+  field_image_url_product_tile_2x: true
   field_looks: true
   field_price: true
-  field_product_thumb_1x: true
-  field_product_thumb_2x: true
-  field_product_tile_1x: true
-  field_product_tile_2x: true
   field_quantity_description: true
   field_sale_price: true
   field_short_name: true
