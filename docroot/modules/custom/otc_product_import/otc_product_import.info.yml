@@ -1,0 +1,5 @@
+name: OTC Product Import
+type: module
+description: Import daily product export.
+core: 8.x
+package: OTC

@@ -1,0 +1,8 @@
+{
+  "name": "drupal/otc_product_import",
+  "type": "drupal-module",
+  "description": "Import daily product export.",
+  "keywords": ["Drupal"],
+  "minimum-stability": "dev",
+  "require": { }
+}

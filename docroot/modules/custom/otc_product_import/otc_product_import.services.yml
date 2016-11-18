@@ -1,0 +1,4 @@
+services:
+  product-import-service:
+    class: Drupal\otc_product_import\ProductImportService
+    arguments: ['@entity.query', '@logger.factory']

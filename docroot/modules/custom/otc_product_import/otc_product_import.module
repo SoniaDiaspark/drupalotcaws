@@ -1,0 +1,24 @@
+<?php
+
+/**
+ * @file
+ * Contains otc_product_import.module..
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function otc_product_import_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the otc_product_import module.
+    case 'help.page.otc_product_import':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Import daily product export.') . '</p>';
+      return $output;
+
+    default:
+  }
+}
