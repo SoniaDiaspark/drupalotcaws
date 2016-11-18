@@ -19,6 +19,7 @@ dependencies:
     - field.field.node.recipe.field_servings_max
     - field.field.node.recipe.field_servings_min
     - field.field.node.recipe.field_skill
+    - field.field.node.recipe.field_skyword_id
     - field.field.node.recipe.field_steps
     - field.field.node.recipe.field_style
     - field.field.node.recipe.field_time_max
@@ -142,6 +143,13 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: options_buttons
+  field_skyword_id:
+    weight: 26
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
   field_steps:
     weight: 4
     settings:

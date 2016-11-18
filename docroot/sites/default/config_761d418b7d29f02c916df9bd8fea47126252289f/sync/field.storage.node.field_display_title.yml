@@ -10,7 +10,7 @@ field_name: field_display_title
 entity_type: node
 type: text
 settings:
-  max_length: 64
+  max_length: 256
 module: text
 locked: false
 cardinality: 1

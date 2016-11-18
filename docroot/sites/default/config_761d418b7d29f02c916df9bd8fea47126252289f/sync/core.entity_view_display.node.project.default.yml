@@ -14,8 +14,14 @@ dependencies:
     - field.field.node.project.field_hero_bleed_m_2x
     - field.field.node.project.field_hero_bleed_t_1x
     - field.field.node.project.field_hero_bleed_t_2x
+    - field.field.node.project.field_hero_d_2x
+    - field.field.node.project.field_hero_m_1x
+    - field.field.node.project.field_hero_m_2x
+    - field.field.node.project.field_hero_t_1x
+    - field.field.node.project.field_hero_t_2x
     - field.field.node.project.field_project_step
     - field.field.node.project.field_skill
+    - field.field.node.project.field_skyword_id
     - field.field.node.project.field_style
     - field.field.node.project.field_time_max
     - field.field.node.project.field_time_min
@@ -126,6 +132,13 @@ content:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
+  field_skyword_id:
+    weight: 20
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
   field_style:
     weight: 6
     label: above

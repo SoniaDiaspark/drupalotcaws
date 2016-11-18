@@ -5,6 +5,7 @@ dependencies:
   config:
     - field.field.node.project_step.field_description
     - field.field.node.project_step.field_products
+    - field.field.node.project_step.field_skyword_id
     - field.field.node.project_step.field_step
     - field.field.node.project_step.field_step_image_d_1x
     - field.field.node.project_step.field_step_image_d_2x
@@ -34,6 +35,13 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: entity_reference_autocomplete
+  field_skyword_id:
+    weight: 26
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
   field_step:
     weight: 1
     settings:

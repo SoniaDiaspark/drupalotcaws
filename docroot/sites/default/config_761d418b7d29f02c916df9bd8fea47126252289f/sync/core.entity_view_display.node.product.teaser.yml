@@ -4,7 +4,6 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
-    - field.field.node.product.field_description
     - field.field.node.product.field_display_title
     - field.field.node.product.field_price
     - field.field.node.product.field_product_thumb_1x
@@ -25,7 +24,6 @@ content:
   links:
     weight: 100
 hidden:
-  field_description: true
   field_display_title: true
   field_looks: true
   field_price: true

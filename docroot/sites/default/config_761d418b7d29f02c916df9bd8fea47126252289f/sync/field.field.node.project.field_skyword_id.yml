@@ -1,0 +1,19 @@
+uuid: 5b6bfa02-4389-460c-8b5f-fa320dea9ca1
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_skyword_id
+    - node.type.project
+id: node.project.field_skyword_id
+field_name: field_skyword_id
+entity_type: node
+bundle: project
+label: 'Skyword Id'
+description: 'Project id from Skyword'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

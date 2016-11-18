@@ -3,7 +3,6 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.product.field_description
     - field.field.node.product.field_display_title
     - field.field.node.product.field_price
     - field.field.node.product.field_product_thumb_1x
@@ -24,13 +23,6 @@ targetEntityType: node
 bundle: product
 mode: default
 content:
-  field_description:
-    weight: 26
-    settings:
-      rows: 5
-      placeholder: ''
-    third_party_settings: {  }
-    type: text_textarea
   field_display_title:
     weight: 1
     settings:

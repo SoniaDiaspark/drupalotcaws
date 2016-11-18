@@ -21,6 +21,7 @@ dependencies:
     - field.field.node.project.field_hero_t_2x
     - field.field.node.project.field_project_step
     - field.field.node.project.field_skill
+    - field.field.node.project.field_skyword_id
     - field.field.node.project.field_style
     - field.field.node.project.field_time_max
     - field.field.node.project.field_time_min
@@ -163,6 +164,13 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: options_select
+  field_skyword_id:
+    weight: 26
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
   field_style:
     weight: 4
     settings: {  }

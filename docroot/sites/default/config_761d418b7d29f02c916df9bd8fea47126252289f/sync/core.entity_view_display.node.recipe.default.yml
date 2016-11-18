@@ -10,6 +10,8 @@ dependencies:
     - field.field.node.recipe.field_contributor
     - field.field.node.recipe.field_display_title
     - field.field.node.recipe.field_hero_bleed_d_2x
+    - field.field.node.recipe.field_hero_bleed_m_1x
+    - field.field.node.recipe.field_hero_bleed_m_2x
     - field.field.node.recipe.field_hero_bleed_t_1x
     - field.field.node.recipe.field_hero_bleed_t_2x
     - field.field.node.recipe.field_ingredients
@@ -17,6 +19,7 @@ dependencies:
     - field.field.node.recipe.field_servings_max
     - field.field.node.recipe.field_servings_min
     - field.field.node.recipe.field_skill
+    - field.field.node.recipe.field_skyword_id
     - field.field.node.recipe.field_steps
     - field.field.node.recipe.field_style
     - field.field.node.recipe.field_time_max
@@ -135,6 +138,13 @@ content:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
+  field_skyword_id:
+    weight: 125
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
   field_steps:
     weight: 103
     label: above
