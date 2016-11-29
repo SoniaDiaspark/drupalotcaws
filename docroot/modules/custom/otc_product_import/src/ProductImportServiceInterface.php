@@ -8,6 +8,5 @@ namespace Drupal\otc_product_import;
  * @package Drupal\otc_product_import
  */
 interface ProductImportServiceInterface {
-  public function run();
-  public function product_exists($sku);
+  public function batchImport();
 }

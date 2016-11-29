@@ -2,6 +2,7 @@
 
 namespace Drupal\otc_product_import;
 
+use Drupal\Core\Queue\QueueDatabaseFactory;
 use Drupal\Core\Entity\Query\QueryFactory;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\node\Entity\Node;
@@ -17,6 +18,11 @@ class ProductImportService implements ProductImportServiceInterface {
    * @var \Drupal\Core\Entity\Query\QueryFactory
    */
   protected $queryFactory;
+
+  /**
+   * @var Drupal\Core\Queue\DatabaseQueue
+   */
+  private $dbQueue;
 
   /**
    * @var \Drupal\Core\Logger\LoggerChannelInterface
@@ -36,11 +42,16 @@ class ProductImportService implements ProductImportServiceInterface {
   /**
    * Constructor.
    */
-  public function __construct(QueryFactory $queryFactory, LoggerChannelFactoryInterface $logFactory) {
+  public function __construct(QueryFactory $queryFactory, LoggerChannelFactoryInterface $logFactory, QueueDatabaseFactory $queueFactory) {
     $this->queryFactory = $queryFactory;
     $this->logger = $logFactory->get('otc_product_import');
+    $this->dbQueue = $queueFactory->get('otc_product_import');
 
     $this->filename = drupal_realpath(\Drupal::config('otc_product_import.config')->get('products'));
+  }
+
+  public function getLogger() {
+    return $this->logger;
   }
 
   /**
@@ -69,11 +80,12 @@ class ProductImportService implements ProductImportServiceInterface {
   }
 
   /**
-   * Run the import process
+   * Queue the import items
    */
-  public function run() {
+  public function batchImport() {
     if ( ! $this->open() ) return;
 
+    $lines = [];
     while( ($line = fgets($this->sourceFileHandle)) !== false ) {
       $data = [];
       list(
@@ -88,19 +100,19 @@ class ProductImportService implements ProductImportServiceInterface {
         $data['field_image_url_product_tile_2x']
       ) = explode('|', $line);
 
-      try {
-        if ( ($nids = $this->product_exists($data['field_sku'])) ) {
-          $this->update(current($nids), $data);
-        } else {
-          $this->create($data);
-        }
-      } catch(Exception $e) {
-        $error = $this->logger->error("Error creating or updating product @title (@sku). Message: @message", [
-          '@title' => $data['title'],
-          '@sku' => $data['field_sku'],
-          '@message' => $e->getMessage()
-        ]);
+      $lines[] = $data;
+
+      /**
+       * Queue 250 products at a time.
+       */
+      if ( count($lines) > 250 ) {
+        $this->dbQueue->createItem($lines);
+        $lines = [];
       }
+    }
+
+    if ( ! empty($lines) ) {
+      $this->dbQueue->createItem($lines);
     }
 
     fclose($this->sourceFileHandle);
@@ -123,7 +135,7 @@ class ProductImportService implements ProductImportServiceInterface {
    * @return \Drupal\node\Entity\Node
    *   the new product node
    */
-  protected function create($data) {
+  public function create($data) {
     return Node::create($this->prepare($data))->save();
   }
 
@@ -135,7 +147,7 @@ class ProductImportService implements ProductImportServiceInterface {
    * @return \Drupal\node\Entity\Node
    *   the updated product node, if any change was necessary
    */
-  protected function update($nid, $data) {
+  public function update($nid, $data) {
     $node = Node::load($nid);
     if ( $this->is_updated($node, $data) ) {
       foreach( $data as $key => $value ) {
