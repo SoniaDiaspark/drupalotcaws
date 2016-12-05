@@ -1,0 +1,19 @@
+uuid: 60c683d8-420a-47d7-872b-f1732b114cb1
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_full_name
+    - node.type.contributor
+id: node.contributor.field_full_name
+field_name: field_full_name
+entity_type: node
+bundle: contributor
+label: 'Full Name'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

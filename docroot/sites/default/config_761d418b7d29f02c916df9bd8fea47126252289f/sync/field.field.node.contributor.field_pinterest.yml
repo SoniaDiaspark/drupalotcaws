@@ -1,0 +1,23 @@
+uuid: 45affc1a-7560-4974-9863-6a31d5de0a28
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_pinterest
+    - node.type.contributor
+  module:
+    - link
+id: node.contributor.field_pinterest
+field_name: field_pinterest
+entity_type: node
+bundle: contributor
+label: Pinterest
+description: 'Pinterest URL and label.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  link_type: 16
+  title: 1
+field_type: link

@@ -1,0 +1,23 @@
+uuid: 32434f19-e450-4e40-b86f-f9b4ec0e54f5
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_twitter
+    - node.type.contributor
+  module:
+    - link
+id: node.contributor.field_twitter
+field_name: field_twitter
+entity_type: node
+bundle: contributor
+label: Twitter
+description: 'Twitter URL and label.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  link_type: 17
+  title: 1
+field_type: link

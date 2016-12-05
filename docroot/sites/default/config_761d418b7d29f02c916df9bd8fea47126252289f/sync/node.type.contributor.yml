@@ -1,0 +1,11 @@
+uuid: 597df68c-b5b9-4c30-a9bf-8cb5aaf45fbf
+langcode: en
+status: true
+dependencies: {  }
+name: Contributor
+type: contributor
+description: 'Manages contributor details.'
+help: ''
+new_revision: true
+preview_mode: 0
+display_submitted: true

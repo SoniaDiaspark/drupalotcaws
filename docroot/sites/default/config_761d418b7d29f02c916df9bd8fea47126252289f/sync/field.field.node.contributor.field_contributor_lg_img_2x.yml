@@ -1,0 +1,38 @@
+uuid: c09b70b2-678e-4134-a9a5-528b896dc5ce
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_contributor_lg_img_2x
+    - node.type.contributor
+  module:
+    - image
+id: node.contributor.field_contributor_lg_img_2x
+field_name: field_contributor_lg_img_2x
+entity_type: node
+bundle: contributor
+label: 'Image - Contributor Headshot (800x800)'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  file_directory: contributors/large/2x
+  file_extensions: 'png gif jpg jpeg'
+  max_filesize: ''
+  max_resolution: 800x800
+  min_resolution: 800x800
+  alt_field: false
+  alt_field_required: true
+  title_field: false
+  title_field_required: false
+  default_image:
+    uuid: ''
+    alt: ''
+    title: ''
+    width: null
+    height: null
+  handler: 'default:file'
+  handler_settings: {  }
+field_type: image

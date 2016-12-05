@@ -1,0 +1,138 @@
+uuid: 41f06aa5-99c0-46b6-9704-5c6cf20cf504
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.contributor.field_bio
+    - field.field.node.contributor.field_contributor_lg_img_2x
+    - field.field.node.contributor.field_facebook
+    - field.field.node.contributor.field_first_name
+    - field.field.node.contributor.field_full_name
+    - field.field.node.contributor.field_instagram
+    - field.field.node.contributor.field_last_name
+    - field.field.node.contributor.field_middle_name
+    - field.field.node.contributor.field_occupation
+    - field.field.node.contributor.field_pinterest
+    - field.field.node.contributor.field_skyword_id
+    - field.field.node.contributor.field_twitter
+    - field.field.node.contributor.field_website
+    - image.style.thumbnail
+    - node.type.contributor
+  module:
+    - image
+    - link
+    - path
+    - text
+id: node.contributor.default
+targetEntityType: node
+bundle: contributor
+mode: default
+content:
+  field_bio:
+    weight: 6
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea
+  field_contributor_lg_img_2x:
+    weight: 5
+    settings:
+      progress_indicator: throbber
+      preview_image_style: thumbnail
+    third_party_settings: {  }
+    type: image_image
+  field_facebook:
+    weight: 9
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+    type: link_default
+  field_first_name:
+    weight: 2
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_full_name:
+    weight: 1
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_instagram:
+    weight: 10
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+    type: link_default
+  field_last_name:
+    weight: 4
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_middle_name:
+    weight: 3
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_occupation:
+    weight: 7
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_pinterest:
+    weight: 11
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+    type: link_default
+  field_skyword_id:
+    weight: 8
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_twitter:
+    weight: 12
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+    type: link_default
+  field_website:
+    weight: 13
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+    type: link_default
+  path:
+    type: path
+    weight: 14
+    settings: {  }
+    third_party_settings: {  }
+  title:
+    type: string_textfield
+    weight: 0
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  created: true
+  promote: true
+  sticky: true
+  uid: true

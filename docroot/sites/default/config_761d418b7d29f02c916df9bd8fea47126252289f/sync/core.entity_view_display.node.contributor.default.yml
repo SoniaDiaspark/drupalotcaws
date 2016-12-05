@@ -1,0 +1,143 @@
+uuid: 67ccce6d-d436-4d16-b873-37dc9e2fc748
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.contributor.field_bio
+    - field.field.node.contributor.field_contributor_lg_img_2x
+    - field.field.node.contributor.field_facebook
+    - field.field.node.contributor.field_first_name
+    - field.field.node.contributor.field_full_name
+    - field.field.node.contributor.field_instagram
+    - field.field.node.contributor.field_last_name
+    - field.field.node.contributor.field_middle_name
+    - field.field.node.contributor.field_occupation
+    - field.field.node.contributor.field_pinterest
+    - field.field.node.contributor.field_skyword_id
+    - field.field.node.contributor.field_twitter
+    - field.field.node.contributor.field_website
+    - node.type.contributor
+  module:
+    - image
+    - link
+    - text
+    - user
+id: node.contributor.default
+targetEntityType: node
+bundle: contributor
+mode: default
+content:
+  field_bio:
+    weight: 101
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+  field_contributor_lg_img_2x:
+    weight: 112
+    label: above
+    settings:
+      image_style: ''
+      image_link: ''
+    third_party_settings: {  }
+    type: image
+  field_facebook:
+    weight: 108
+    label: above
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    type: link
+  field_first_name:
+    weight: 104
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+  field_full_name:
+    weight: 103
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+  field_instagram:
+    weight: 109
+    label: above
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    type: link
+  field_last_name:
+    weight: 106
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+  field_middle_name:
+    weight: 105
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+  field_occupation:
+    weight: 107
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+  field_pinterest:
+    weight: 110
+    label: above
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    type: link
+  field_skyword_id:
+    weight: 102
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+  field_twitter:
+    weight: 111
+    label: above
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    type: link
+  field_website:
+    weight: 113
+    label: above
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    type: link
+  links:
+    weight: 100
+hidden: {  }

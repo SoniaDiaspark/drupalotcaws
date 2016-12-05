@@ -1,0 +1,23 @@
+uuid: f9ba209c-35f3-4251-b09c-66177ad88a93
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_website
+    - node.type.contributor
+  module:
+    - link
+id: node.contributor.field_website
+field_name: field_website
+entity_type: node
+bundle: contributor
+label: Blog
+description: 'Website/blog URL and label'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  link_type: 16
+  title: 1
+field_type: link

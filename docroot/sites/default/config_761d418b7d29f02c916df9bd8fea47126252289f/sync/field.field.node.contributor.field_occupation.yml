@@ -1,0 +1,19 @@
+uuid: 2fde32c0-241f-4290-af37-f7d29f6fbbb2
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_occupation
+    - node.type.contributor
+id: node.contributor.field_occupation
+field_name: field_occupation
+entity_type: node
+bundle: contributor
+label: Occupation
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string
