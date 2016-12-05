@@ -1,4 +1,4 @@
-uuid: 1135f64e-f667-4623-8161-9cb4a344de90
+uuid: f0d66c70-48cf-4a30-a27d-d3f868c86721
 langcode: en
 status: true
 dependencies:
@@ -7,13 +7,12 @@ dependencies:
 id: node.field_step
 field_name: field_step
 entity_type: node
-type: integer
+type: entity_reference
 settings:
-  unsigned: false
-  size: normal
+  target_type: node
 module: core
 locked: false
-cardinality: 1
+cardinality: -1
 translatable: true
 indexes: {  }
 persist_with_no_fields: false

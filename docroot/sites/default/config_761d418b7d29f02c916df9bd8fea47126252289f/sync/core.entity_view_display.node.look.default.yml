@@ -3,22 +3,12 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.look.field_card_tile_d_1x
-    - field.field.node.look.field_card_tile_m_2x
-    - field.field.node.look.field_card_tile_t_2x
-    - field.field.node.look.field_contributor
     - field.field.node.look.field_curulate_id
     - field.field.node.look.field_display_title
-    - field.field.node.look.field_hero_bleed_d_2x
-    - field.field.node.look.field_hero_bleed_m_1x
-    - field.field.node.look.field_hero_bleed_m_2x
-    - field.field.node.look.field_hero_bleed_t_1x
-    - field.field.node.look.field_hero_bleed_t_2x
     - field.field.node.look.field_products
     - field.field.node.look.field_related_looks
     - node.type.look
   module:
-    - image
     - text
     - user
 id: node.look.default
@@ -26,37 +16,6 @@ targetEntityType: node
 bundle: look
 mode: default
 content:
-  field_card_tile_d_1x:
-    weight: 106
-    label: above
-    settings:
-      image_style: ''
-      image_link: ''
-    third_party_settings: {  }
-    type: image
-  field_card_tile_m_2x:
-    weight: 105
-    label: above
-    settings:
-      image_style: ''
-      image_link: ''
-    third_party_settings: {  }
-    type: image
-  field_card_tile_t_2x:
-    weight: 104
-    label: above
-    settings:
-      image_style: ''
-      image_link: ''
-    third_party_settings: {  }
-    type: image
-  field_contributor:
-    weight: 107
-    label: above
-    settings:
-      link: true
-    third_party_settings: {  }
-    type: entity_reference_label
   field_curulate_id:
     weight: 102
     label: above
@@ -86,9 +45,4 @@ content:
     type: entity_reference_label
   links:
     weight: 100
-hidden:
-  field_hero_bleed_d_2x: true
-  field_hero_bleed_m_1x: true
-  field_hero_bleed_m_2x: true
-  field_hero_bleed_t_1x: true
-  field_hero_bleed_t_2x: true
+hidden: {  }

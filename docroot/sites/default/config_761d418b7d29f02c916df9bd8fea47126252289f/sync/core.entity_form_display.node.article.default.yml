@@ -3,19 +3,6 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.article.field_article_tall1_m_2x
-    - field.field.node.article.field_article_tall1_t_1x
-    - field.field.node.article.field_article_tall1_t_2x
-    - field.field.node.article.field_article_tall2_m_2x
-    - field.field.node.article.field_article_tall2_t_1x
-    - field.field.node.article.field_article_tall2_t_2x
-    - field.field.node.article.field_article_wide_d_2x
-    - field.field.node.article.field_article_wide_m_1x
-    - field.field.node.article.field_article_wide_m_2x
-    - field.field.node.article.field_article_wide_t_2x
-    - field.field.node.article.field_card_tile_d_1x
-    - field.field.node.article.field_card_tile_m_2x
-    - field.field.node.article.field_card_tile_t_2x
     - field.field.node.article.field_carousel_content
     - field.field.node.article.field_carousel_heading_1
     - field.field.node.article.field_carousel_heading_2
@@ -26,26 +13,13 @@ dependencies:
     - field.field.node.article.field_description_1
     - field.field.node.article.field_description_2
     - field.field.node.article.field_display_title
-    - field.field.node.article.field_hero_bleed_d_2x
-    - field.field.node.article.field_hero_bleed_m_1x
-    - field.field.node.article.field_hero_bleed_m_2x
-    - field.field.node.article.field_hero_bleed_t_1x
-    - field.field.node.article.field_hero_bleed_t_2x
     - field.field.node.article.field_photo_credit
     - field.field.node.article.field_quote_content
-    - field.field.node.article.field_quote_d_1x
-    - field.field.node.article.field_quote_m_2x
-    - field.field.node.article.field_quote_t_2x
-    - field.field.node.article.field_related_article_thumb_d_2x
-    - field.field.node.article.field_related_article_thumb_m_2x
-    - field.field.node.article.field_related_article_thumb_t_2x
     - field.field.node.article.field_short_description
     - field.field.node.article.field_skyword_id
     - field.field.node.article.field_video_url
-    - image.style.thumbnail
     - node.type.article
   module:
-    - image
     - path
     - text
 id: node.article.default
@@ -53,97 +27,6 @@ targetEntityType: node
 bundle: article
 mode: default
 content:
-  field_article_tall1_m_2x:
-    weight: 27
-    settings:
-      progress_indicator: throbber
-      preview_image_style: thumbnail
-    third_party_settings: {  }
-    type: image_image
-  field_article_tall1_t_1x:
-    weight: 29
-    settings:
-      progress_indicator: throbber
-      preview_image_style: thumbnail
-    third_party_settings: {  }
-    type: image_image
-  field_article_tall1_t_2x:
-    weight: 28
-    settings:
-      progress_indicator: throbber
-      preview_image_style: thumbnail
-    third_party_settings: {  }
-    type: image_image
-  field_article_tall2_m_2x:
-    weight: 30
-    settings:
-      progress_indicator: throbber
-      preview_image_style: thumbnail
-    third_party_settings: {  }
-    type: image_image
-  field_article_tall2_t_1x:
-    weight: 32
-    settings:
-      progress_indicator: throbber
-      preview_image_style: thumbnail
-    third_party_settings: {  }
-    type: image_image
-  field_article_tall2_t_2x:
-    weight: 31
-    settings:
-      progress_indicator: throbber
-      preview_image_style: thumbnail
-    third_party_settings: {  }
-    type: image_image
-  field_article_wide_d_2x:
-    weight: 12
-    settings:
-      progress_indicator: throbber
-      preview_image_style: thumbnail
-    third_party_settings: {  }
-    type: image_image
-  field_article_wide_m_1x:
-    weight: 15
-    settings:
-      progress_indicator: throbber
-      preview_image_style: thumbnail
-    third_party_settings: {  }
-    type: image_image
-  field_article_wide_m_2x:
-    weight: 14
-    settings:
-      progress_indicator: throbber
-      preview_image_style: thumbnail
-    third_party_settings: {  }
-    type: image_image
-  field_article_wide_t_2x:
-    weight: 13
-    settings:
-      progress_indicator: throbber
-      preview_image_style: thumbnail
-    third_party_settings: {  }
-    type: image_image
-  field_card_tile_d_1x:
-    type: image_image
-    weight: 21
-    settings:
-      progress_indicator: throbber
-      preview_image_style: thumbnail
-    third_party_settings: {  }
-  field_card_tile_m_2x:
-    type: image_image
-    weight: 23
-    settings:
-      progress_indicator: throbber
-      preview_image_style: thumbnail
-    third_party_settings: {  }
-  field_card_tile_t_2x:
-    type: image_image
-    weight: 22
-    settings:
-      progress_indicator: throbber
-      preview_image_style: thumbnail
-    third_party_settings: {  }
   field_carousel_content:
     weight: 11
     settings:
@@ -214,41 +97,6 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: text_textfield
-  field_hero_bleed_d_2x:
-    type: image_image
-    weight: 16
-    settings:
-      progress_indicator: throbber
-      preview_image_style: thumbnail
-    third_party_settings: {  }
-  field_hero_bleed_m_1x:
-    type: image_image
-    weight: 20
-    settings:
-      progress_indicator: throbber
-      preview_image_style: thumbnail
-    third_party_settings: {  }
-  field_hero_bleed_m_2x:
-    type: image_image
-    weight: 19
-    settings:
-      progress_indicator: throbber
-      preview_image_style: thumbnail
-    third_party_settings: {  }
-  field_hero_bleed_t_1x:
-    type: image_image
-    weight: 18
-    settings:
-      progress_indicator: throbber
-      preview_image_style: thumbnail
-    third_party_settings: {  }
-  field_hero_bleed_t_2x:
-    type: image_image
-    weight: 17
-    settings:
-      progress_indicator: throbber
-      preview_image_style: thumbnail
-    third_party_settings: {  }
   field_photo_credit:
     weight: 37
     settings:
@@ -263,48 +111,6 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: text_textfield
-  field_quote_d_1x:
-    weight: 33
-    settings:
-      progress_indicator: throbber
-      preview_image_style: thumbnail
-    third_party_settings: {  }
-    type: image_image
-  field_quote_m_2x:
-    weight: 34
-    settings:
-      progress_indicator: throbber
-      preview_image_style: thumbnail
-    third_party_settings: {  }
-    type: image_image
-  field_quote_t_2x:
-    weight: 35
-    settings:
-      progress_indicator: throbber
-      preview_image_style: thumbnail
-    third_party_settings: {  }
-    type: image_image
-  field_related_article_thumb_d_2x:
-    weight: 24
-    settings:
-      progress_indicator: throbber
-      preview_image_style: thumbnail
-    third_party_settings: {  }
-    type: image_image
-  field_related_article_thumb_m_2x:
-    weight: 26
-    settings:
-      progress_indicator: throbber
-      preview_image_style: thumbnail
-    third_party_settings: {  }
-    type: image_image
-  field_related_article_thumb_t_2x:
-    weight: 25
-    settings:
-      progress_indicator: throbber
-      preview_image_style: thumbnail
-    third_party_settings: {  }
-    type: image_image
   field_short_description:
     weight: 4
     settings:

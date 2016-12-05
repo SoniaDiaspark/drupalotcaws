@@ -1,16 +1,16 @@
-uuid: d7fbb45e-0835-40d1-b21b-1083e952fe23
+uuid: c057bea3-1c3b-4071-b53d-698f4b286218
 langcode: en
 status: true
 dependencies:
   module:
     - node
-id: node.field_contributor
-field_name: field_contributor
+    - text
+id: node.field_meta_description
+field_name: field_meta_description
 entity_type: node
-type: entity_reference
-settings:
-  target_type: node
-module: core
+type: text_long
+settings: {  }
+module: text
 locked: false
 cardinality: 1
 translatable: true

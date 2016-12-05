@@ -3,30 +3,25 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.project.field_card_tile_d_1x
-    - field.field.node.project.field_card_tile_m_2x
-    - field.field.node.project.field_card_tile_t_2x
+    - field.field.node.project.field_card_tile_img_2x
     - field.field.node.project.field_contributor
     - field.field.node.project.field_description
     - field.field.node.project.field_display_title
-    - field.field.node.project.field_hero_bleed_d_2x
-    - field.field.node.project.field_hero_bleed_m_1x
-    - field.field.node.project.field_hero_bleed_m_2x
-    - field.field.node.project.field_hero_bleed_t_1x
-    - field.field.node.project.field_hero_bleed_t_2x
-    - field.field.node.project.field_hero_d_2x
-    - field.field.node.project.field_hero_m_1x
-    - field.field.node.project.field_hero_m_2x
-    - field.field.node.project.field_hero_t_1x
-    - field.field.node.project.field_hero_t_2x
-    - field.field.node.project.field_project_step
+    - field.field.node.project.field_download_file
+    - field.field.node.project.field_hero_bleed_d_img_2x
+    - field.field.node.project.field_hero_half_d_img_2x
+    - field.field.node.project.field_hero_m_img_2x
+    - field.field.node.project.field_meta_description
+    - field.field.node.project.field_meta_title
     - field.field.node.project.field_skill
     - field.field.node.project.field_skyword_id
-    - field.field.node.project.field_style
+    - field.field.node.project.field_step
     - field.field.node.project.field_time_max
     - field.field.node.project.field_time_min
+    - field.field.node.project.field_whatneed_img_2x
     - node.type.project
   module:
+    - file
     - image
     - text
     - user
@@ -35,24 +30,8 @@ targetEntityType: node
 bundle: project
 mode: default
 content:
-  field_card_tile_d_1x:
-    weight: 16
-    label: above
-    settings:
-      image_style: ''
-      image_link: ''
-    third_party_settings: {  }
-    type: image
-  field_card_tile_m_2x:
-    weight: 17
-    label: above
-    settings:
-      image_style: ''
-      image_link: ''
-    third_party_settings: {  }
-    type: image
-  field_card_tile_t_2x:
-    weight: 18
+  field_card_tile_img_2x:
+    weight: 26
     label: above
     settings:
       image_style: ''
@@ -60,7 +39,7 @@ content:
     third_party_settings: {  }
     type: image
   field_contributor:
-    weight: 4
+    weight: 21
     label: above
     settings:
       link: true
@@ -78,53 +57,48 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: text_default
-  field_hero_bleed_d_2x:
-    weight: 11
+  field_download_file:
+    weight: 23
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: file_default
+  field_hero_bleed_d_img_2x:
+    weight: 24
     label: above
     settings:
       image_style: ''
       image_link: ''
     third_party_settings: {  }
     type: image
-  field_hero_bleed_m_1x:
-    type: image
-    weight: 15
-    label: above
-    settings:
-      image_style: ''
-      image_link: ''
-    third_party_settings: {  }
-  field_hero_bleed_m_2x:
-    type: image
-    weight: 14
-    label: above
-    settings:
-      image_style: ''
-      image_link: ''
-    third_party_settings: {  }
-  field_hero_bleed_t_1x:
-    weight: 12
+  field_hero_half_d_img_2x:
+    weight: 27
     label: above
     settings:
       image_style: ''
       image_link: ''
     third_party_settings: {  }
     type: image
-  field_hero_bleed_t_2x:
-    weight: 13
+  field_hero_m_img_2x:
+    weight: 25
     label: above
     settings:
       image_style: ''
       image_link: ''
     third_party_settings: {  }
     type: image
-  field_project_step:
-    weight: 19
+  field_meta_description:
+    weight: 30
     label: above
-    settings:
-      link: true
+    settings: {  }
     third_party_settings: {  }
-    type: entity_reference_label
+    type: text_default
+  field_meta_title:
+    weight: 29
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
   field_skill:
     weight: 5
     label: above
@@ -139,8 +113,8 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     type: string
-  field_style:
-    weight: 6
+  field_step:
+    weight: 22
     label: above
     settings:
       link: true
@@ -162,13 +136,16 @@ content:
       prefix_suffix: true
     third_party_settings: {  }
     type: number_integer
+  field_whatneed_img_2x:
+    weight: 28
+    label: above
+    settings:
+      image_style: ''
+      image_link: ''
+    third_party_settings: {  }
+    type: image
   links:
     weight: 0
     settings: {  }
     third_party_settings: {  }
-hidden:
-  field_hero_d_2x: true
-  field_hero_m_1x: true
-  field_hero_m_2x: true
-  field_hero_t_1x: true
-  field_hero_t_2x: true
+hidden: {  }

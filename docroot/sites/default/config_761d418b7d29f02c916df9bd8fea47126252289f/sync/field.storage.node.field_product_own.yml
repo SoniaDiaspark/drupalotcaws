@@ -1,11 +1,11 @@
-uuid: d7fbb45e-0835-40d1-b21b-1083e952fe23
+uuid: 6207073d-0949-45d9-8fd7-d92c6cca7140
 langcode: en
 status: true
 dependencies:
   module:
     - node
-id: node.field_contributor
-field_name: field_contributor
+id: node.field_product_own
+field_name: field_product_own
 entity_type: node
 type: entity_reference
 settings:

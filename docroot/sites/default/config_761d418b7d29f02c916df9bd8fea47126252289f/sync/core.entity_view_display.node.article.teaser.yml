@@ -4,17 +4,21 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
-    - field.field.node.article.field_card_tile_d_1x
-    - field.field.node.article.field_card_tile_m_2x
-    - field.field.node.article.field_card_tile_t_2x
-    - field.field.node.article.field_hero_bleed_d_2x
-    - field.field.node.article.field_hero_bleed_m_1x
-    - field.field.node.article.field_hero_bleed_m_2x
-    - field.field.node.article.field_hero_bleed_t_1x
-    - field.field.node.article.field_hero_bleed_t_2x
-    - field.field.node.article.field_related_article_thumb_d_2x
-    - field.field.node.article.field_related_article_thumb_m_2x
-    - field.field.node.article.field_related_article_thumb_t_2x
+    - field.field.node.article.field_carousel_content
+    - field.field.node.article.field_carousel_heading_1
+    - field.field.node.article.field_carousel_heading_2
+    - field.field.node.article.field_content_1
+    - field.field.node.article.field_content_2
+    - field.field.node.article.field_content_3
+    - field.field.node.article.field_content_heading
+    - field.field.node.article.field_description_1
+    - field.field.node.article.field_description_2
+    - field.field.node.article.field_display_title
+    - field.field.node.article.field_photo_credit
+    - field.field.node.article.field_quote_content
+    - field.field.node.article.field_short_description
+    - field.field.node.article.field_skyword_id
+    - field.field.node.article.field_video_url
     - node.type.article
   module:
     - user
@@ -26,14 +30,18 @@ content:
   links:
     weight: 100
 hidden:
-  field_card_tile_d_1x: true
-  field_card_tile_m_2x: true
-  field_card_tile_t_2x: true
-  field_hero_bleed_d_2x: true
-  field_hero_bleed_m_1x: true
-  field_hero_bleed_m_2x: true
-  field_hero_bleed_t_1x: true
-  field_hero_bleed_t_2x: true
-  field_related_article_thumb_d_2x: true
-  field_related_article_thumb_m_2x: true
-  field_related_article_thumb_t_2x: true
+  field_carousel_content: true
+  field_carousel_heading_1: true
+  field_carousel_heading_2: true
+  field_content_1: true
+  field_content_2: true
+  field_content_3: true
+  field_content_heading: true
+  field_description_1: true
+  field_description_2: true
+  field_display_title: true
+  field_photo_credit: true
+  field_quote_content: true
+  field_short_description: true
+  field_skyword_id: true
+  field_video_url: true

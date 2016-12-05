@@ -1,0 +1,25 @@
+uuid: 334a6ec5-cded-4caa-af1a-c962996de4a5
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_products
+    - node.type.step
+id: node.step.field_products
+field_name: field_products
+entity_type: node
+bundle: step
+label: Products
+description: 'Optional products associated with this step.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: views
+  handler_settings:
+    view:
+      view_name: product_entity_relationship
+      display_name: entity_reference_1
+      arguments: {  }
+field_type: entity_reference

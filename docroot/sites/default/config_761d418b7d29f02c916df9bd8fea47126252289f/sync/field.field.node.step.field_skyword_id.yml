@@ -1,0 +1,19 @@
+uuid: 0af841a8-8e06-4655-adb0-ab9e4342a85d
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_skyword_id
+    - node.type.step
+id: node.step.field_skyword_id
+field_name: field_skyword_id
+entity_type: node
+bundle: step
+label: 'Skyword Id'
+description: 'Id of step from skyword, if applicable. Do not edit this field.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

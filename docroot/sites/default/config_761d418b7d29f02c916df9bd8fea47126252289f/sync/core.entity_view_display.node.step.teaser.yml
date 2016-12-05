@@ -1,0 +1,17 @@
+uuid: 0e102f57-457e-4bee-b370-bf03e551a615
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - node.type.step
+  module:
+    - user
+id: node.step.teaser
+targetEntityType: node
+bundle: step
+mode: teaser
+content:
+  links:
+    weight: 100
+hidden: {  }

@@ -1,0 +1,27 @@
+uuid: 97ba6d0c-e641-4d74-9920-84615e1c585d
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_download_file
+    - node.type.project
+  module:
+    - file
+id: node.project.field_download_file
+field_name: field_download_file
+entity_type: node
+bundle: project
+label: 'Download PDF File'
+description: 'Optional PDF download.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  file_directory: downloads/pdf
+  file_extensions: pdf
+  max_filesize: ''
+  description_field: false
+  handler: 'default:file'
+  handler_settings: {  }
+field_type: file

@@ -1,16 +1,16 @@
-uuid: 7be6db6a-3fc0-4354-ac18-7f5fdf1ad355
+uuid: 3d36fc88-760f-47fe-bd57-bc44d8b1e0cb
 langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_contributor
-    - node.type.contributor
+    - field.storage.node.field_step
     - node.type.project
-id: node.project.field_contributor
-field_name: field_contributor
+    - node.type.step
+id: node.project.field_step
+field_name: field_step
 entity_type: node
 bundle: project
-label: Contributor
+label: Step
 description: ''
 required: false
 translatable: false
@@ -20,7 +20,7 @@ settings:
   handler: 'default:node'
   handler_settings:
     target_bundles:
-      contributor: contributor
+      step: step
     sort:
       field: _none
     auto_create: false

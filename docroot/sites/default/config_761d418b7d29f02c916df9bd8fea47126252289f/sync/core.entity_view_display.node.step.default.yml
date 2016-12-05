@@ -1,0 +1,58 @@
+uuid: f9ced266-70af-4076-83fc-8fde8be9ad87
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.step.field_description
+    - field.field.node.step.field_product_own
+    - field.field.node.step.field_products
+    - field.field.node.step.field_skyword_id
+    - field.field.node.step.field_step_img_2x
+    - node.type.step
+  module:
+    - image
+    - text
+    - user
+id: node.step.default
+targetEntityType: node
+bundle: step
+mode: default
+content:
+  field_description:
+    weight: 102
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+  field_product_own:
+    weight: 105
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+  field_products:
+    weight: 104
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+  field_skyword_id:
+    weight: 101
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+  field_step_img_2x:
+    weight: 103
+    label: above
+    settings:
+      image_style: ''
+      image_link: ''
+    third_party_settings: {  }
+    type: image
+  links:
+    weight: 100
+hidden: {  }

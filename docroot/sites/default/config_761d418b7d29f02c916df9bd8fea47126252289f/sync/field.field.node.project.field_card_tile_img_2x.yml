@@ -1,0 +1,38 @@
+uuid: 7dfde691-4a52-43ea-ab9a-f3b097c01d52
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_card_tile_img_2x
+    - node.type.project
+  module:
+    - image
+id: node.project.field_card_tile_img_2x
+field_name: field_card_tile_img_2x
+entity_type: node
+bundle: project
+label: 'Image - Card Tile 2x (896x896)'
+description: '896x896 Square image to represent the project on other pages when shown as a card tile.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  file_directory: projects/tile/desktop/2x
+  file_extensions: 'png gif jpg jpeg'
+  max_filesize: ''
+  max_resolution: 896x896
+  min_resolution: 896x896
+  alt_field: false
+  alt_field_required: true
+  title_field: false
+  title_field_required: false
+  default_image:
+    uuid: ''
+    alt: ''
+    title: ''
+    width: null
+    height: null
+  handler: 'default:file'
+  handler_settings: {  }
+field_type: image

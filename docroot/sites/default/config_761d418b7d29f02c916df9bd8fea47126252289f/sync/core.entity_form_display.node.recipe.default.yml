@@ -3,17 +3,8 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.recipe.field_card_tile_d_1x
-    - field.field.node.recipe.field_card_tile_m_2x
-    - field.field.node.recipe.field_card_tile_t_2x
     - field.field.node.recipe.field_category
-    - field.field.node.recipe.field_contributor
     - field.field.node.recipe.field_display_title
-    - field.field.node.recipe.field_hero_bleed_d_2x
-    - field.field.node.recipe.field_hero_bleed_m_1x
-    - field.field.node.recipe.field_hero_bleed_m_2x
-    - field.field.node.recipe.field_hero_bleed_t_1x
-    - field.field.node.recipe.field_hero_bleed_t_2x
     - field.field.node.recipe.field_ingredients
     - field.field.node.recipe.field_products
     - field.field.node.recipe.field_servings_max
@@ -24,10 +15,8 @@ dependencies:
     - field.field.node.recipe.field_style
     - field.field.node.recipe.field_time_max
     - field.field.node.recipe.field_time_min
-    - image.style.thumbnail
     - node.type.recipe
   module:
-    - image
     - path
     - text
 id: node.recipe.default
@@ -35,27 +24,6 @@ targetEntityType: node
 bundle: recipe
 mode: default
 content:
-  field_card_tile_d_1x:
-    weight: 18
-    settings:
-      progress_indicator: throbber
-      preview_image_style: thumbnail
-    third_party_settings: {  }
-    type: image_image
-  field_card_tile_m_2x:
-    weight: 20
-    settings:
-      progress_indicator: throbber
-      preview_image_style: thumbnail
-    third_party_settings: {  }
-    type: image_image
-  field_card_tile_t_2x:
-    weight: 19
-    settings:
-      progress_indicator: throbber
-      preview_image_style: thumbnail
-    third_party_settings: {  }
-    type: image_image
   field_category:
     weight: 12
     settings:
@@ -64,11 +32,6 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: entity_reference_autocomplete
-  field_contributor:
-    weight: 11
-    settings: {  }
-    third_party_settings: {  }
-    type: options_select
   field_display_title:
     weight: 1
     settings:
@@ -76,41 +39,6 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: text_textfield
-  field_hero_bleed_d_2x:
-    weight: 13
-    settings:
-      progress_indicator: throbber
-      preview_image_style: thumbnail
-    third_party_settings: {  }
-    type: image_image
-  field_hero_bleed_m_1x:
-    type: image_image
-    weight: 17
-    settings:
-      progress_indicator: throbber
-      preview_image_style: thumbnail
-    third_party_settings: {  }
-  field_hero_bleed_m_2x:
-    type: image_image
-    weight: 16
-    settings:
-      progress_indicator: throbber
-      preview_image_style: thumbnail
-    third_party_settings: {  }
-  field_hero_bleed_t_1x:
-    weight: 15
-    settings:
-      progress_indicator: throbber
-      preview_image_style: thumbnail
-    third_party_settings: {  }
-    type: image_image
-  field_hero_bleed_t_2x:
-    weight: 14
-    settings:
-      progress_indicator: throbber
-      preview_image_style: thumbnail
-    third_party_settings: {  }
-    type: image_image
   field_ingredients:
     weight: 3
     settings:
