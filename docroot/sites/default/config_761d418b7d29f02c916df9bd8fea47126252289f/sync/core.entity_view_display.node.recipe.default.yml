@@ -3,20 +3,35 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.node.recipe.field_card_tile_img_2x
     - field.field.node.recipe.field_category
+    - field.field.node.recipe.field_contributor
+    - field.field.node.recipe.field_description
     - field.field.node.recipe.field_display_title
+    - field.field.node.recipe.field_download_file
+    - field.field.node.recipe.field_hero_half_d_img_2x
+    - field.field.node.recipe.field_hero_m_img_2x
     - field.field.node.recipe.field_ingredients
+    - field.field.node.recipe.field_items_needed
+    - field.field.node.recipe.field_meta_description
+    - field.field.node.recipe.field_meta_title
+    - field.field.node.recipe.field_photo_credit
     - field.field.node.recipe.field_products
+    - field.field.node.recipe.field_related_articles
     - field.field.node.recipe.field_servings_max
     - field.field.node.recipe.field_servings_min
     - field.field.node.recipe.field_skill
     - field.field.node.recipe.field_skyword_id
-    - field.field.node.recipe.field_steps
-    - field.field.node.recipe.field_style
+    - field.field.node.recipe.field_skyword_related_articles
+    - field.field.node.recipe.field_step
     - field.field.node.recipe.field_time_max
     - field.field.node.recipe.field_time_min
+    - field.field.node.recipe.field_whatneed_img_2x
     - node.type.recipe
   module:
+    - file
+    - image
+    - link
     - text
     - user
 id: node.recipe.default
@@ -24,6 +39,14 @@ targetEntityType: node
 bundle: recipe
 mode: default
 content:
+  field_card_tile_img_2x:
+    weight: 127
+    label: above
+    settings:
+      image_style: ''
+      image_link: ''
+    third_party_settings: {  }
+    type: image
   field_category:
     weight: 118
     label: above
@@ -31,20 +54,86 @@ content:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
+  field_contributor:
+    weight: 135
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+  field_description:
+    weight: 131
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
   field_display_title:
     weight: 111
     label: above
     settings: {  }
     third_party_settings: {  }
     type: text_default
+  field_download_file:
+    weight: 137
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: file_default
+  field_hero_half_d_img_2x:
+    weight: 128
+    label: above
+    settings:
+      image_style: ''
+      image_link: ''
+    third_party_settings: {  }
+    type: image
+  field_hero_m_img_2x:
+    weight: 129
+    label: above
+    settings:
+      image_style: ''
+      image_link: ''
+    third_party_settings: {  }
+    type: image
   field_ingredients:
     weight: 102
     label: above
     settings: {  }
     third_party_settings: {  }
     type: text_default
+  field_items_needed:
+    weight: 136
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+  field_meta_description:
+    weight: 139
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+  field_meta_title:
+    weight: 138
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+  field_photo_credit:
+    weight: 134
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
   field_products:
     weight: 101
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+  field_related_articles:
+    weight: 133
     label: above
     settings:
       link: true
@@ -80,14 +169,19 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     type: string
-  field_steps:
-    weight: 103
+  field_skyword_related_articles:
+    weight: 132
     label: above
-    settings: {  }
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
     third_party_settings: {  }
-    type: text_default
-  field_style:
-    weight: 109
+    type: link
+  field_step:
+    weight: 126
     label: above
     settings:
       link: true
@@ -109,6 +203,14 @@ content:
       prefix_suffix: true
     third_party_settings: {  }
     type: number_integer
+  field_whatneed_img_2x:
+    weight: 130
+    label: above
+    settings:
+      image_style: ''
+      image_link: ''
+    third_party_settings: {  }
+    type: image
   links:
     weight: 100
 hidden: {  }

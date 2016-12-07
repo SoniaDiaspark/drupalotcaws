@@ -1,17 +1,17 @@
-uuid: 1f6f9056-c35b-45d4-b77a-9a3c5f43c3e1
+uuid: 9dded40c-f1a8-4db0-b45f-c76d9552e5f2
 langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_products
-    - node.type.product
-    - node.type.recipe
-id: node.recipe.field_products
-field_name: field_products
+    - field.storage.node.field_related_article
+    - node.type.article
+    - node.type.project
+id: node.project.field_related_article
+field_name: field_related_article
 entity_type: node
-bundle: recipe
-label: 'What''s You''ll Need Products'
-description: 'All associated products.'
+bundle: project
+label: 'Related Article "Read More"'
+description: ''
 required: false
 translatable: false
 default_value: {  }
@@ -20,7 +20,7 @@ settings:
   handler: 'default:node'
   handler_settings:
     target_bundles:
-      product: product
+      article: article
     sort:
       field: _none
     auto_create: false

@@ -1,0 +1,21 @@
+uuid: 15b23a3d-c6b2-4167-b669-8c23f2601660
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_curulate_image_snippet
+    - node.type.look
+  module:
+    - text
+id: node.look.field_curulate_image_snippet
+field_name: field_curulate_image_snippet
+entity_type: node
+bundle: look
+label: 'Curulate Reveal Snippet'
+description: 'Code snippet from Curulate for this Shop the Looks reveal component.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

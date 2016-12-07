@@ -10,7 +10,7 @@ field_name: field_skyword_id
 entity_type: node
 bundle: recipe
 label: 'Skyword Id'
-description: 'Recipe id from Skyword.'
+description: 'Recipe id from Skyword. Do not edit this field.'
 required: false
 translatable: true
 default_value: {  }

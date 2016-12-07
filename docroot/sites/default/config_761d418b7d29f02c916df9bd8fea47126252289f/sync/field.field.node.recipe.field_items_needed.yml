@@ -1,0 +1,21 @@
+uuid: df5e8b0e-da46-4366-9fce-13b6cf862bb6
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_items_needed
+    - node.type.recipe
+  module:
+    - text
+id: node.recipe.field_items_needed
+field_name: field_items_needed
+entity_type: node
+bundle: recipe
+label: 'You''ll Also Need'
+description: 'Optional text input fields to describe any additional items needed.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text

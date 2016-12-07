@@ -1,0 +1,19 @@
+uuid: 046bd741-6b47-463f-8ef2-f0e82afc4d6f
+langcode: en
+status: true
+dependencies:
+  module:
+    - link
+    - node
+id: node.field_skyword_related_articles
+field_name: field_skyword_related_articles
+entity_type: node
+type: link
+settings: {  }
+module: link
+locked: false
+cardinality: 3
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

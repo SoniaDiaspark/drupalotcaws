@@ -13,8 +13,12 @@ dependencies:
     - field.field.node.project.field_hero_m_img_2x
     - field.field.node.project.field_meta_description
     - field.field.node.project.field_meta_title
+    - field.field.node.project.field_related_article
+    - field.field.node.project.field_related_look
     - field.field.node.project.field_skill
     - field.field.node.project.field_skyword_id
+    - field.field.node.project.field_skyword_related_article
+    - field.field.node.project.field_skyword_related_look
     - field.field.node.project.field_step
     - field.field.node.project.field_time_max
     - field.field.node.project.field_time_min
@@ -25,6 +29,7 @@ dependencies:
     - file
     - image
     - inline_entity_form
+    - link
     - path
     - text
 id: node.project.default
@@ -102,6 +107,22 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: text_textfield
+  field_related_article:
+    weight: 37
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
+  field_related_look:
+    weight: 35
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
   field_skill:
     weight: 3
     settings: {  }
@@ -114,6 +135,20 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
+  field_skyword_related_article:
+    weight: 36
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+    type: link_default
+  field_skyword_related_look:
+    weight: 34
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+    type: link_default
   field_step:
     weight: 6
     settings:

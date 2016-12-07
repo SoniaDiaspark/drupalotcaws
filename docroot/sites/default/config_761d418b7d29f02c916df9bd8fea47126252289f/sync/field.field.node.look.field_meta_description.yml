@@ -1,0 +1,21 @@
+uuid: 74e11250-da68-42cb-86bb-0850e9130505
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_meta_description
+    - node.type.look
+  module:
+    - text
+id: node.look.field_meta_description
+field_name: field_meta_description
+entity_type: node
+bundle: look
+label: 'SEO - Meta Description'
+description: 'Meta description of this look for search engine optimization.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

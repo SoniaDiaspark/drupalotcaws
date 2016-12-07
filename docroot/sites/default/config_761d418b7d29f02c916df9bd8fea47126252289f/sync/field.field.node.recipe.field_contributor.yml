@@ -1,26 +1,26 @@
-uuid: 01a1fdff-0713-40e9-baee-f4ff2c483b9e
+uuid: fa22e08a-418b-4760-a2e4-3942ed087106
 langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_style
+    - field.storage.node.field_contributor
+    - node.type.contributor
     - node.type.recipe
-    - taxonomy.vocabulary.style
-id: node.recipe.field_style
-field_name: field_style
+id: node.recipe.field_contributor
+field_name: field_contributor
 entity_type: node
 bundle: recipe
-label: Style
-description: 'Recipe style.'
+label: Contributor
+description: ''
 required: false
-translatable: false
+translatable: true
 default_value: {  }
 default_value_callback: ''
 settings:
-  handler: 'default:taxonomy_term'
+  handler: 'default:node'
   handler_settings:
     target_bundles:
-      style: style
+      contributor: contributor
     sort:
       field: _none
     auto_create: false

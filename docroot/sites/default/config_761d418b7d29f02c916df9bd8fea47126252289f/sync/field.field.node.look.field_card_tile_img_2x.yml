@@ -1,0 +1,38 @@
+uuid: 69a6de2b-1fcc-469a-9805-3346faeb60ef
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_card_tile_img_2x
+    - node.type.look
+  module:
+    - image
+id: node.look.field_card_tile_img_2x
+field_name: field_card_tile_img_2x
+entity_type: node
+bundle: look
+label: 'Image - Card Tile 2x'
+description: 'Card tile 2x image  (896x896)'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  file_directory: looks/tile/2x
+  file_extensions: 'png gif jpg jpeg'
+  max_filesize: ''
+  max_resolution: 896x896
+  min_resolution: 896x896
+  alt_field: false
+  alt_field_required: true
+  title_field: false
+  title_field_required: false
+  default_image:
+    uuid: ''
+    alt: ''
+    title: ''
+    width: null
+    height: null
+  handler: 'default:file'
+  handler_settings: {  }
+field_type: image

@@ -1,0 +1,23 @@
+uuid: 0d1ab5b2-262c-452c-b31a-6e1f045eaed2
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_skyword_related_look
+    - node.type.project
+  module:
+    - link
+id: node.project.field_skyword_related_look
+field_name: field_skyword_related_look
+entity_type: node
+bundle: project
+label: 'Skyword Related Look'
+description: 'Related look title/URL the contributor selected for this project. Content Manager: Use the Related Look field to create the association for the front-end application.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  link_type: 16
+  title: 1
+field_type: link

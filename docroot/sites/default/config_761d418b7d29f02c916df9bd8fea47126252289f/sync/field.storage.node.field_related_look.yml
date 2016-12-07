@@ -1,17 +1,15 @@
-uuid: 9bb4461f-2e1b-48b3-8ddf-f84e82b831e2
+uuid: 36ac9fe3-810e-4b93-8c93-9e53a57ceba5
 langcode: en
 status: true
 dependencies:
   module:
     - node
-id: node.field_curulate_id
-field_name: field_curulate_id
+id: node.field_related_look
+field_name: field_related_look
 entity_type: node
-type: string
+type: entity_reference
 settings:
-  max_length: 255
-  is_ascii: false
-  case_sensitive: false
+  target_type: node
 module: core
 locked: false
 cardinality: 1

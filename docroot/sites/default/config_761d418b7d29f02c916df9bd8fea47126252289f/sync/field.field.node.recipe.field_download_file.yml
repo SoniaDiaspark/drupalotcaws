@@ -1,0 +1,27 @@
+uuid: 042c5624-a0c6-473f-b2e6-99cd87512004
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_download_file
+    - node.type.recipe
+  module:
+    - file
+id: node.recipe.field_download_file
+field_name: field_download_file
+entity_type: node
+bundle: recipe
+label: 'Download File PDF'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  file_directory: downloads/pdf
+  file_extensions: pdf
+  max_filesize: ''
+  description_field: false
+  handler: 'default:file'
+  handler_settings: {  }
+field_type: file

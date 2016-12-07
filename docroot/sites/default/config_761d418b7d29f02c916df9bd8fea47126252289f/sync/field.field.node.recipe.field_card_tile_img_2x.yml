@@ -1,0 +1,38 @@
+uuid: 73288264-f0f9-423b-81fb-20053bb7d618
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_card_tile_img_2x
+    - node.type.recipe
+  module:
+    - image
+id: node.recipe.field_card_tile_img_2x
+field_name: field_card_tile_img_2x
+entity_type: node
+bundle: recipe
+label: 'Image - Card Tile 2x (896x896)'
+description: 'Square image to represent the recipe on other pages when shown as a card tile. (896x896)'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  file_directory: recipes/tile/tablet/2x
+  file_extensions: 'png gif jpg jpeg'
+  max_filesize: ''
+  max_resolution: 896x896
+  min_resolution: 896x896
+  alt_field: false
+  alt_field_required: true
+  title_field: false
+  title_field_required: false
+  default_image:
+    uuid: ''
+    alt: ''
+    title: ''
+    width: null
+    height: null
+  handler: 'default:file'
+  handler_settings: {  }
+field_type: image

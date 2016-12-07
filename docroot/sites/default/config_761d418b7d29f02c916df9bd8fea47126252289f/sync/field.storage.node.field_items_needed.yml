@@ -1,17 +1,17 @@
-uuid: f86ac83d-83d1-496e-b360-0fea7534f158
+uuid: 1a64bad1-7d56-4f2c-82b0-5a05aef2f5e1
 langcode: en
 status: true
 dependencies:
   module:
     - node
-    - taxonomy
-id: node.field_style
-field_name: field_style
+    - text
+id: node.field_items_needed
+field_name: field_items_needed
 entity_type: node
-type: entity_reference
+type: text
 settings:
-  target_type: taxonomy_term
-module: core
+  max_length: 255
+module: text
 locked: false
 cardinality: -1
 translatable: true

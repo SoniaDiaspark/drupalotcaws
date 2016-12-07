@@ -1,20 +1,20 @@
-uuid: 5af3443f-d400-47fd-8d98-d4602a15193e
+uuid: f20d796a-d3db-454b-8afb-6abc05d238c6
 langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_steps
+    - field.storage.node.field_meta_title
     - node.type.recipe
   module:
     - text
-id: node.recipe.field_steps
-field_name: field_steps
+id: node.recipe.field_meta_title
+field_name: field_meta_title
 entity_type: node
 bundle: recipe
-label: Steps
-description: 'Recipe steps.'
+label: 'SEO - Meta Title'
+description: ''
 required: false
-translatable: false
+translatable: true
 default_value: {  }
 default_value_callback: ''
 settings: {  }
