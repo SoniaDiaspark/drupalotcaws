@@ -1,0 +1,9 @@
+uuid: dfebf7b4-9dea-428b-b852-0c28271e7dcf
+langcode: en
+status: true
+dependencies: {  }
+name: Tag
+vid: tag
+description: 'Filter tag for content.'
+hierarchy: 0
+weight: 0

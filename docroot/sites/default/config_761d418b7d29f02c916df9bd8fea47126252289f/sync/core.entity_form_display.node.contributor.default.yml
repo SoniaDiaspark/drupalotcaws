@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - field.field.node.contributor.field_bio
+    - field.field.node.contributor.field_contributor_category
     - field.field.node.contributor.field_contributor_lg_img_2x
     - field.field.node.contributor.field_facebook
     - field.field.node.contributor.field_first_name
@@ -35,6 +36,11 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: text_textarea
+  field_contributor_category:
+    weight: 26
+    settings: {  }
+    third_party_settings: {  }
+    type: options_buttons
   field_contributor_lg_img_2x:
     weight: 5
     settings:

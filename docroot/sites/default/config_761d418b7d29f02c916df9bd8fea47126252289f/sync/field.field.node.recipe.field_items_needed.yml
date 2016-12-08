@@ -11,8 +11,8 @@ id: node.recipe.field_items_needed
 field_name: field_items_needed
 entity_type: node
 bundle: recipe
-label: 'You''ll Also Need'
-description: 'Optional text input fields to describe any additional items needed.'
+label: 'Recipe Items Needed'
+description: '"You''ll Also Need": Optional text input fields to describe any additional items needed.'
 required: false
 translatable: false
 default_value: {  }

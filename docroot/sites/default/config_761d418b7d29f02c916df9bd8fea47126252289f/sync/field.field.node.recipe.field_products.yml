@@ -10,7 +10,7 @@ id: node.recipe.field_products
 field_name: field_products
 entity_type: node
 bundle: recipe
-label: 'What''s You''ll Need Products'
+label: 'Products Used'
 description: 'All associated products.'
 required: false
 translatable: false

@@ -1,0 +1,21 @@
+uuid: aaff780a-008c-4061-9813-35e0123121ef
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_video_embed
+    - node.type.article
+  module:
+    - text
+id: node.article.field_video_embed
+field_name: field_video_embed
+entity_type: node
+bundle: article
+label: 'Video Embed'
+description: 'HTML embed code for video.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

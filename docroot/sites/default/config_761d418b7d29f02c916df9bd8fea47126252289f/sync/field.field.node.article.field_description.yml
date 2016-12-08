@@ -1,0 +1,21 @@
+uuid: cf17b403-4fd7-42c9-af92-e7e980488295
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_description
+    - node.type.article
+  module:
+    - text
+id: node.article.field_description
+field_name: field_description
+entity_type: node
+bundle: article
+label: Description
+description: 'Article long description (580 character limit)'
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

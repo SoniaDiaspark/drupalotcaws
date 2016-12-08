@@ -13,7 +13,7 @@ entity_type: node
 bundle: recipe
 label: 'Image - Card Tile 2x (896x896)'
 description: 'Square image to represent the recipe on other pages when shown as a card tile. (896x896)'
-required: false
+required: true
 translatable: true
 default_value: {  }
 default_value_callback: ''

@@ -11,7 +11,7 @@ id: node.article.field_content_heading
 field_name: field_content_heading
 entity_type: node
 bundle: article
-label: 'Content Heading'
+label: 'Article Content Heading'
 description: ''
 required: false
 translatable: false

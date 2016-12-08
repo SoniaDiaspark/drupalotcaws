@@ -4,12 +4,28 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
+    - field.field.node.project.field_card_tile_img_2x
+    - field.field.node.project.field_category
+    - field.field.node.project.field_contributor
     - field.field.node.project.field_description
     - field.field.node.project.field_display_title
-    - field.field.node.project.field_skill
+    - field.field.node.project.field_download_file
+    - field.field.node.project.field_hero_bleed_d_img_2x
+    - field.field.node.project.field_hero_half_d_img_2x
+    - field.field.node.project.field_hero_m_img_2x
+    - field.field.node.project.field_meta_description
+    - field.field.node.project.field_meta_title
+    - field.field.node.project.field_photo_credit
+    - field.field.node.project.field_products
+    - field.field.node.project.field_related_article
+    - field.field.node.project.field_related_look
     - field.field.node.project.field_skyword_id
+    - field.field.node.project.field_skyword_related_article
+    - field.field.node.project.field_skyword_related_look
+    - field.field.node.project.field_step
     - field.field.node.project.field_time_max
     - field.field.node.project.field_time_min
+    - field.field.node.project.field_whatneed_img_2x
     - node.type.project
   module:
     - user
@@ -21,9 +37,25 @@ content:
   links:
     weight: 100
 hidden:
+  field_card_tile_img_2x: true
+  field_category: true
+  field_contributor: true
   field_description: true
   field_display_title: true
-  field_skill: true
+  field_download_file: true
+  field_hero_bleed_d_img_2x: true
+  field_hero_half_d_img_2x: true
+  field_hero_m_img_2x: true
+  field_meta_description: true
+  field_meta_title: true
+  field_photo_credit: true
+  field_products: true
+  field_related_article: true
+  field_related_look: true
   field_skyword_id: true
+  field_skyword_related_article: true
+  field_skyword_related_look: true
+  field_step: true
   field_time_max: true
   field_time_min: true
+  field_whatneed_img_2x: true

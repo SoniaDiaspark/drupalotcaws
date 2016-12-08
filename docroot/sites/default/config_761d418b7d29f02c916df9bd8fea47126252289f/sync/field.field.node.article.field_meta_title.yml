@@ -1,0 +1,21 @@
+uuid: 5897358f-1d09-49b2-8558-db57329ac76a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_meta_title
+    - node.type.article
+  module:
+    - text
+id: node.article.field_meta_title
+field_name: field_meta_title
+entity_type: node
+bundle: article
+label: 'SEO - Meta Title'
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text

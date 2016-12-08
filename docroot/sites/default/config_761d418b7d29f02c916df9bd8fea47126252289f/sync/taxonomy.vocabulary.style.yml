@@ -1,9 +1,0 @@
-uuid: c1c8b90a-8425-45ee-9519-31318d001169
-langcode: en
-status: true
-dependencies: {  }
-name: Style
-vid: style
-description: 'Styles associated with Looks, Projects, Recipes, and Articles.'
-hierarchy: 0
-weight: -7

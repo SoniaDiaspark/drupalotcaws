@@ -1,0 +1,21 @@
+uuid: 6008a16c-35f1-48b8-996c-5071edea182f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_needed_description
+    - node.type.article
+  module:
+    - text
+id: node.article.field_needed_description
+field_name: field_needed_description
+entity_type: node
+bundle: article
+label: 'What You''ll Need Description'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text

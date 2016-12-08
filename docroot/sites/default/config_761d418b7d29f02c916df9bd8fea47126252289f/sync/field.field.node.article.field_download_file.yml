@@ -1,0 +1,27 @@
+uuid: adebfc01-eb62-4ee0-9740-70585f602630
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_download_file
+    - node.type.article
+  module:
+    - file
+id: node.article.field_download_file
+field_name: field_download_file
+entity_type: node
+bundle: article
+label: 'Download File PDF'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  file_directory: downloads/pdf
+  file_extensions: pdf
+  max_filesize: ''
+  description_field: false
+  handler: 'default:file'
+  handler_settings: {  }
+field_type: file

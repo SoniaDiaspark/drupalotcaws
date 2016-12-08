@@ -13,7 +13,7 @@ entity_type: node
 bundle: recipe
 label: Ingredients
 description: 'Recipe ingredient lines.'
-required: false
+required: true
 translatable: false
 default_value: {  }
 default_value_callback: ''

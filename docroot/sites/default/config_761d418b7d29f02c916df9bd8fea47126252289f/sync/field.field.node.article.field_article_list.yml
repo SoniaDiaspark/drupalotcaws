@@ -1,0 +1,23 @@
+uuid: 94d783b8-ff67-43e9-90c7-ddbb95207a0e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_article_list
+    - node.type.article
+id: node.article.field_article_list
+field_name: field_article_list
+entity_type: node
+bundle: article
+label: 'Article List'
+description: 'Check this if the current article is an Article List.'
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

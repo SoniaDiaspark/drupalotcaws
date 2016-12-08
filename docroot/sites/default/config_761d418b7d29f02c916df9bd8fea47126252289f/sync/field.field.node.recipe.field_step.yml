@@ -10,8 +10,8 @@ id: node.recipe.field_step
 field_name: field_step
 entity_type: node
 bundle: recipe
-label: Step
-description: 'Recipe steps.'
+label: 'Recipe Steps'
+description: ''
 required: false
 translatable: true
 default_value: {  }

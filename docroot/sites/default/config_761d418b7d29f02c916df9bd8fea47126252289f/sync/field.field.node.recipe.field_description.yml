@@ -12,8 +12,8 @@ field_name: field_description
 entity_type: node
 bundle: recipe
 label: Description
-description: ''
-required: false
+description: '580 Character Limitation to optimize the length for the design.'
+required: true
 translatable: true
 default_value: {  }
 default_value_callback: ''

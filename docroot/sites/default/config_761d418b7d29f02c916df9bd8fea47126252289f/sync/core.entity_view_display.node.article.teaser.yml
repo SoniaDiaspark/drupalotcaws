@@ -5,20 +5,23 @@ dependencies:
   config:
     - core.entity_view_mode.node.teaser
     - field.field.node.article.field_carousel_content
-    - field.field.node.article.field_carousel_heading_1
-    - field.field.node.article.field_carousel_heading_2
+    - field.field.node.article.field_carousel_heading
     - field.field.node.article.field_content_1
     - field.field.node.article.field_content_2
     - field.field.node.article.field_content_3
     - field.field.node.article.field_content_heading
-    - field.field.node.article.field_description_1
-    - field.field.node.article.field_description_2
+    - field.field.node.article.field_contributor
+    - field.field.node.article.field_description
     - field.field.node.article.field_display_title
+    - field.field.node.article.field_download_file
+    - field.field.node.article.field_items_needed
+    - field.field.node.article.field_needed_description
     - field.field.node.article.field_photo_credit
+    - field.field.node.article.field_products
     - field.field.node.article.field_quote_content
-    - field.field.node.article.field_short_description
+    - field.field.node.article.field_read_more
+    - field.field.node.article.field_related_content
     - field.field.node.article.field_skyword_id
-    - field.field.node.article.field_video_url
     - node.type.article
   module:
     - user
@@ -31,17 +34,20 @@ content:
     weight: 100
 hidden:
   field_carousel_content: true
-  field_carousel_heading_1: true
-  field_carousel_heading_2: true
+  field_carousel_heading: true
   field_content_1: true
   field_content_2: true
   field_content_3: true
   field_content_heading: true
-  field_description_1: true
-  field_description_2: true
+  field_contributor: true
+  field_description: true
   field_display_title: true
+  field_download_file: true
+  field_items_needed: true
+  field_needed_description: true
   field_photo_credit: true
+  field_products: true
   field_quote_content: true
-  field_short_description: true
+  field_read_more: true
+  field_related_content: true
   field_skyword_id: true
-  field_video_url: true

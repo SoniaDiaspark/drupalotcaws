@@ -1,0 +1,21 @@
+uuid: 0afd11bc-d28f-41d2-9de4-7f712a5c0364
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_carousel_heading
+    - node.type.article
+  module:
+    - text
+id: node.article.field_carousel_heading
+field_name: field_carousel_heading
+entity_type: node
+bundle: article
+label: 'Carousel Heading'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text

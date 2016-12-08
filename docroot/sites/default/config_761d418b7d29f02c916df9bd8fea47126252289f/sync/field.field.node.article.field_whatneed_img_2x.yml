@@ -1,0 +1,38 @@
+uuid: cdd29b8c-c1e9-492c-b055-7be45250c5d9
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_whatneed_img_2x
+    - node.type.article
+  module:
+    - image
+id: node.article.field_whatneed_img_2x
+field_name: field_whatneed_img_2x
+entity_type: node
+bundle: article
+label: 'Image - What You''ll Need (828x623)'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  file_directory: articles/what-need/2x
+  file_extensions: 'png gif jpg jpeg'
+  max_filesize: ''
+  max_resolution: 828x623
+  min_resolution: 828x623
+  alt_field: false
+  alt_field_required: true
+  title_field: false
+  title_field_required: false
+  default_image:
+    uuid: ''
+    alt: ''
+    title: ''
+    width: null
+    height: null
+  handler: 'default:file'
+  handler_settings: {  }
+field_type: image

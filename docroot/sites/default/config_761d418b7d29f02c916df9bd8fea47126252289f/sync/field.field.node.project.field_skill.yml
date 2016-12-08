@@ -1,28 +1,19 @@
-uuid: 731b1c54-a068-49e2-b4f2-c9c493e166bf
+uuid: 2b8f2af6-7674-429b-a178-d2488c543c18
 langcode: en
 status: true
 dependencies:
   config:
     - field.storage.node.field_skill
     - node.type.project
-    - taxonomy.vocabulary.skill
 id: node.project.field_skill
 field_name: field_skill
 entity_type: node
 bundle: project
-label: Skill
-description: 'Skill level of this project.'
-required: false
+label: 'Skill Level'
+description: 'Short (18 character) description of skill level required.'
+required: true
 translatable: true
 default_value: {  }
 default_value_callback: ''
-settings:
-  handler: 'default:taxonomy_term'
-  handler_settings:
-    target_bundles:
-      skill: skill
-    sort:
-      field: _none
-    auto_create: false
-    auto_create_bundle: ''
-field_type: entity_reference
+settings: {  }
+field_type: string

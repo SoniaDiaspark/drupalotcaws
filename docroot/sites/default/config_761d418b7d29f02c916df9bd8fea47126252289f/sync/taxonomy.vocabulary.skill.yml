@@ -1,9 +1,0 @@
-uuid: 12aa0e44-08c5-4306-9f5a-1f6f0ed987d9
-langcode: en
-status: true
-dependencies: {  }
-name: Skill
-vid: skill
-description: 'A skill level associated with Looks, Projects, Recipes, and Articles.'
-hierarchy: 0
-weight: -8

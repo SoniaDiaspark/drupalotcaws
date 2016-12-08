@@ -1,0 +1,38 @@
+uuid: eff62991-9cd9-46ad-86b8-462ce1fbbafd
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_card_tile_img_2x
+    - node.type.article
+  module:
+    - image
+id: node.article.field_card_tile_img_2x
+field_name: field_card_tile_img_2x
+entity_type: node
+bundle: article
+label: 'Image - Card Tile 2x (896x896)'
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  file_directory: articles/tile/desktop/2x
+  file_extensions: 'png gif jpg jpeg'
+  max_filesize: ''
+  max_resolution: 896x896
+  min_resolution: 896x896
+  alt_field: false
+  alt_field_required: true
+  title_field: false
+  title_field_required: false
+  default_image:
+    uuid: ''
+    alt: ''
+    title: ''
+    width: null
+    height: null
+  handler: 'default:file'
+  handler_settings: {  }
+field_type: image

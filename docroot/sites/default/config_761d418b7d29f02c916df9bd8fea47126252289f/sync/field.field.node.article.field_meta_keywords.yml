@@ -1,0 +1,19 @@
+uuid: 29b6a610-63b4-47c3-8a1c-545fa80472c4
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_meta_keywords
+    - node.type.article
+id: node.article.field_meta_keywords
+field_name: field_meta_keywords
+entity_type: node
+bundle: article
+label: 'SEO - Meta Keywords'
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

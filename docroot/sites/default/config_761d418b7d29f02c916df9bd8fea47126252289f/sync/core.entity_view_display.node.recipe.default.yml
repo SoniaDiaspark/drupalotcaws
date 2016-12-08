@@ -15,6 +15,7 @@ dependencies:
     - field.field.node.recipe.field_items_needed
     - field.field.node.recipe.field_meta_description
     - field.field.node.recipe.field_meta_title
+    - field.field.node.recipe.field_needed_description
     - field.field.node.recipe.field_photo_credit
     - field.field.node.recipe.field_products
     - field.field.node.recipe.field_related_articles
@@ -24,6 +25,7 @@ dependencies:
     - field.field.node.recipe.field_skyword_id
     - field.field.node.recipe.field_skyword_related_articles
     - field.field.node.recipe.field_step
+    - field.field.node.recipe.field_tag
     - field.field.node.recipe.field_time_max
     - field.field.node.recipe.field_time_min
     - field.field.node.recipe.field_whatneed_img_2x
@@ -119,6 +121,12 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: text_default
+  field_needed_description:
+    weight: 141
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
   field_photo_credit:
     weight: 134
     label: above
@@ -156,12 +164,12 @@ content:
     third_party_settings: {  }
     type: number_integer
   field_skill:
-    weight: 108
+    weight: 140
     label: above
     settings:
-      link: true
+      link_to_entity: false
     third_party_settings: {  }
-    type: entity_reference_label
+    type: string
   field_skyword_id:
     weight: 125
     label: above
@@ -182,6 +190,13 @@ content:
     type: link
   field_step:
     weight: 126
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+  field_tag:
+    weight: 142
     label: above
     settings:
       link: true

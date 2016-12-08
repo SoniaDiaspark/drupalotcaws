@@ -13,7 +13,7 @@ entity_type: node
 bundle: look
 label: 'SEO - Meta Description'
 description: 'Meta description of this look for search engine optimization.'
-required: false
+required: true
 translatable: true
 default_value: {  }
 default_value_callback: ''

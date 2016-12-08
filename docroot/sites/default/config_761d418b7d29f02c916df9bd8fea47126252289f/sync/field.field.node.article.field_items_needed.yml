@@ -1,0 +1,21 @@
+uuid: cf1814f2-867a-447d-bb50-f8dc924edc84
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_items_needed
+    - node.type.article
+  module:
+    - text
+id: node.article.field_items_needed
+field_name: field_items_needed
+entity_type: node
+bundle: article
+label: 'Article Items Needed'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text

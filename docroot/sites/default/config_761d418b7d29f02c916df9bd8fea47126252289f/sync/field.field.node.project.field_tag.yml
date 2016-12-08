@@ -1,0 +1,28 @@
+uuid: 0dc0ac27-65d2-4811-a12b-8c7273c2479e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_tag
+    - node.type.project
+    - taxonomy.vocabulary.tag
+id: node.project.field_tag
+field_name: field_tag
+entity_type: node
+bundle: project
+label: 'Filter Tag'
+description: 'Tags used for filtering.'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      tag: tag
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

@@ -1,0 +1,21 @@
+uuid: 1a2ab166-7a40-46d9-b5c5-dbc98de32f46
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_curalate_reveal_snippet
+    - node.type.look
+  module:
+    - text
+id: node.look.field_curalate_reveal_snippet
+field_name: field_curalate_reveal_snippet
+entity_type: node
+bundle: look
+label: 'Curalate Reveal Snippet'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

@@ -1,0 +1,33 @@
+uuid: 1bb63e88-ed70-444e-8f63-a255249015b7
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_related_content
+    - node.type.article
+    - node.type.look
+    - node.type.project
+    - node.type.recipe
+id: node.article.field_related_content
+field_name: field_related_content
+entity_type: node
+bundle: article
+label: 'Related Content'
+description: 'Articles, Recipes, Projects, and Looks associated with this article. 3 are needed.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      article: article
+      look: look
+      project: project
+      recipe: recipe
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: look
+field_type: entity_reference

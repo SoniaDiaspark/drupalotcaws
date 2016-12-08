@@ -13,12 +13,12 @@ entity_type: node
 bundle: recipe
 label: 'Image - Full-Bleed Hero Mobile (828x828)'
 description: 'Main image representing the recipe for mobile.'
-required: false
+required: true
 translatable: true
 default_value: {  }
 default_value_callback: ''
 settings:
-  file_directory: '[date:custom:Y]-[date:custom:m]'
+  file_directory: recipes/hero/mobile/2x
   file_extensions: 'png gif jpg jpeg'
   max_filesize: ''
   max_resolution: 828x828

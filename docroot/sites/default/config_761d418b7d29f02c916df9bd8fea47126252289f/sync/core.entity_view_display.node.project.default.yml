@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - field.field.node.project.field_card_tile_img_2x
+    - field.field.node.project.field_category
     - field.field.node.project.field_contributor
     - field.field.node.project.field_description
     - field.field.node.project.field_display_title
@@ -13,6 +14,9 @@ dependencies:
     - field.field.node.project.field_hero_m_img_2x
     - field.field.node.project.field_meta_description
     - field.field.node.project.field_meta_title
+    - field.field.node.project.field_photo_credit
+    - field.field.node.project.field_products
+    - field.field.node.project.field_project_lite
     - field.field.node.project.field_related_article
     - field.field.node.project.field_related_look
     - field.field.node.project.field_skill
@@ -20,6 +24,7 @@ dependencies:
     - field.field.node.project.field_skyword_related_article
     - field.field.node.project.field_skyword_related_look
     - field.field.node.project.field_step
+    - field.field.node.project.field_tag
     - field.field.node.project.field_time_max
     - field.field.node.project.field_time_min
     - field.field.node.project.field_whatneed_img_2x
@@ -43,6 +48,13 @@ content:
       image_link: ''
     third_party_settings: {  }
     type: image
+  field_category:
+    weight: 35
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
   field_contributor:
     weight: 21
     label: above
@@ -104,6 +116,28 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: text_default
+  field_photo_credit:
+    weight: 36
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+  field_products:
+    weight: 37
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+  field_project_lite:
+    weight: 40
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    type: boolean
   field_related_article:
     weight: 34
     label: above
@@ -119,12 +153,12 @@ content:
     third_party_settings: {  }
     type: entity_reference_label
   field_skill:
-    weight: 5
+    weight: 38
     label: above
     settings:
-      link: true
+      link_to_entity: false
     third_party_settings: {  }
-    type: entity_reference_label
+    type: string
   field_skyword_id:
     weight: 20
     label: above
@@ -156,6 +190,13 @@ content:
     type: link
   field_step:
     weight: 22
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+  field_tag:
+    weight: 39
     label: above
     settings:
       link: true

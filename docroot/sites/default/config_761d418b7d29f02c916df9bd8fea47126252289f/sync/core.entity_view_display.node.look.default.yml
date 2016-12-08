@@ -4,12 +4,18 @@ status: true
 dependencies:
   config:
     - field.field.node.look.field_card_tile_img_2x
-    - field.field.node.look.field_curulate_image_snippet
+    - field.field.node.look.field_category
+    - field.field.node.look.field_curalate_reveal_snippet
     - field.field.node.look.field_display_title
+    - field.field.node.look.field_hero_bleed_d_img_2x
+    - field.field.node.look.field_hero_m_img_2x
     - field.field.node.look.field_meta_description
+    - field.field.node.look.field_meta_keywords
     - field.field.node.look.field_meta_title
     - field.field.node.look.field_products
-    - field.field.node.look.field_related_looks
+    - field.field.node.look.field_related_content
+    - field.field.node.look.field_suppress_fanreel
+    - field.field.node.look.field_tag
     - node.type.look
   module:
     - image
@@ -28,8 +34,15 @@ content:
       image_link: ''
     third_party_settings: {  }
     type: image
-  field_curulate_image_snippet:
-    weight: 109
+  field_category:
+    weight: 117
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+  field_curalate_reveal_snippet:
+    weight: 115
     label: above
     settings: {  }
     third_party_settings: {  }
@@ -40,12 +53,35 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: text_default
+  field_hero_bleed_d_img_2x:
+    weight: 113
+    label: above
+    settings:
+      image_style: ''
+      image_link: ''
+    third_party_settings: {  }
+    type: image
+  field_hero_m_img_2x:
+    weight: 116
+    label: above
+    settings:
+      image_style: ''
+      image_link: ''
+    third_party_settings: {  }
+    type: image
   field_meta_description:
     weight: 110
     label: above
     settings: {  }
     third_party_settings: {  }
     type: text_default
+  field_meta_keywords:
+    weight: 120
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
   field_meta_title:
     weight: 111
     label: above
@@ -59,8 +95,24 @@ content:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
-  field_related_looks:
-    weight: 103
+  field_related_content:
+    weight: 119
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+  field_suppress_fanreel:
+    weight: 114
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    type: boolean
+  field_tag:
+    weight: 118
     label: above
     settings:
       link: true

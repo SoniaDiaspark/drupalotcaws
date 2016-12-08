@@ -1,0 +1,19 @@
+uuid: 3485e566-ca44-4661-95f5-7f5edf95a5b6
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_meta_keywords
+    - node.type.look
+id: node.look.field_meta_keywords
+field_name: field_meta_keywords
+entity_type: node
+bundle: look
+label: 'SEO - Meta Keywords'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

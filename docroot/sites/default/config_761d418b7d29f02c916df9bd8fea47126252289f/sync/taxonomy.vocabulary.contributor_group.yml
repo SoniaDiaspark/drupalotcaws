@@ -1,0 +1,9 @@
+uuid: 529fe8e9-f9d1-4116-ae5a-1cb94d9dafa0
+langcode: en
+status: true
+dependencies: {  }
+name: 'Contributor Group'
+vid: contributor_group
+description: 'Contributor group "category".'
+hierarchy: 0
+weight: 0

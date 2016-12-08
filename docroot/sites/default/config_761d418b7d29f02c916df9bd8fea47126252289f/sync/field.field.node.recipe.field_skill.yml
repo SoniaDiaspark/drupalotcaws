@@ -1,28 +1,19 @@
-uuid: ae4bf914-1c6d-46a3-a05c-8b119383116e
+uuid: d5e4a242-fc0d-47f8-a0e7-ed1db7bca566
 langcode: en
 status: true
 dependencies:
   config:
     - field.storage.node.field_skill
     - node.type.recipe
-    - taxonomy.vocabulary.skill
 id: node.recipe.field_skill
 field_name: field_skill
 entity_type: node
 bundle: recipe
-label: Skill
-description: 'Recipe skill level.'
-required: false
+label: 'Skill Level'
+description: 'Short (18 character) description of skill level required.'
+required: true
 translatable: false
 default_value: {  }
 default_value_callback: ''
-settings:
-  handler: 'default:taxonomy_term'
-  handler_settings:
-    target_bundles:
-      skill: skill
-    sort:
-      field: _none
-    auto_create: false
-    auto_create_bundle: ''
-field_type: entity_reference
+settings: {  }
+field_type: string
