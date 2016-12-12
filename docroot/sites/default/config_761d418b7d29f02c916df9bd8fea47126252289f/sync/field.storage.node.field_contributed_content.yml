@@ -1,0 +1,19 @@
+uuid: 34924e7f-93e8-4011-9a77-8879a2feb7e9
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: node.field_contributed_content
+field_name: field_contributed_content
+entity_type: node
+type: entity_reference
+settings:
+  target_type: node
+module: core
+locked: false
+cardinality: 4
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

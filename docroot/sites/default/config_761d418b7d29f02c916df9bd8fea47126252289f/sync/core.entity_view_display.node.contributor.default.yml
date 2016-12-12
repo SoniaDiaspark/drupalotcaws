@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - field.field.node.contributor.field_bio
+    - field.field.node.contributor.field_contributed_content
     - field.field.node.contributor.field_contributor_category
     - field.field.node.contributor.field_contributor_lg_img_2x
     - field.field.node.contributor.field_facebook
@@ -34,6 +35,13 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: text_default
+  field_contributed_content:
+    weight: 115
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
   field_contributor_category:
     weight: 114
     label: above

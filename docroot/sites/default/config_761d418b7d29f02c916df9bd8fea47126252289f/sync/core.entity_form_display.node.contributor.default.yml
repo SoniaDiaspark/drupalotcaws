@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - field.field.node.contributor.field_bio
+    - field.field.node.contributor.field_contributed_content
     - field.field.node.contributor.field_contributor_category
     - field.field.node.contributor.field_contributor_lg_img_2x
     - field.field.node.contributor.field_facebook
@@ -23,6 +24,7 @@ dependencies:
     - image
     - link
     - path
+    - scheduler
     - text
 id: node.contributor.default
 targetEntityType: node
@@ -36,6 +38,14 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: text_textarea
+  field_contributed_content:
+    weight: 31
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete_tags
   field_contributor_category:
     weight: 26
     settings: {  }
@@ -130,12 +140,26 @@ content:
     weight: 14
     settings: {  }
     third_party_settings: {  }
+  publish_on:
+    type: datetime_timestamp_no_default
+    weight: 30
+    settings: {  }
+    third_party_settings: {  }
+  scheduler_settings:
+    weight: 20
+    settings: {  }
+    third_party_settings: {  }
   title:
     type: string_textfield
     weight: 0
     settings:
       size: 60
       placeholder: ''
+    third_party_settings: {  }
+  unpublish_on:
+    type: datetime_timestamp_no_default
+    weight: 30
+    settings: {  }
     third_party_settings: {  }
 hidden:
   created: true

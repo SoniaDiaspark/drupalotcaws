@@ -1,0 +1,36 @@
+uuid: cda19593-d169-479a-8ae3-1a9e07d5f48f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_contributed_content
+    - node.type.article
+    - node.type.contributor
+    - node.type.download
+    - node.type.look
+    - node.type.project
+    - node.type.recipe
+id: node.contributor.field_contributed_content
+field_name: field_contributed_content
+entity_type: node
+bundle: contributor
+label: 'Contributed Content'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      article: article
+      download: download
+      look: look
+      project: project
+      recipe: recipe
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: project
+field_type: entity_reference
