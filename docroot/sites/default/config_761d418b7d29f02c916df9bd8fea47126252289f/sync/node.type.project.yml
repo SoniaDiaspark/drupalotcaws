@@ -20,6 +20,6 @@ name: Project
 type: project
 description: 'Project content type.'
 help: ''
-new_revision: true
+new_revision: false
 preview_mode: 0
 display_submitted: true

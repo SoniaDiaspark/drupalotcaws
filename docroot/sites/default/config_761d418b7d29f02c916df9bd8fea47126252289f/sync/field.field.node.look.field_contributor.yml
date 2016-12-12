@@ -1,26 +1,26 @@
-uuid: 7c10eabf-4272-46ac-8ca6-eff696531607
+uuid: 55dccc14-209a-471b-8d2e-85705d0b43ba
 langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_category
+    - field.storage.node.field_contributor
+    - node.type.contributor
     - node.type.look
-    - taxonomy.vocabulary.category
-id: node.look.field_category
-field_name: field_category
+id: node.look.field_contributor
+field_name: field_contributor
 entity_type: node
 bundle: look
-label: Category
+label: Contributor
 description: ''
 required: true
 translatable: true
 default_value: {  }
 default_value_callback: ''
 settings:
-  handler: 'default:taxonomy_term'
+  handler: 'default:node'
   handler_settings:
     target_bundles:
-      category: category
+      contributor: contributor
     sort:
       field: _none
     auto_create: false

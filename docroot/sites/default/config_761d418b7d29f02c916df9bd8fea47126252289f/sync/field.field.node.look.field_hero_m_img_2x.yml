@@ -13,7 +13,7 @@ entity_type: node
 bundle: look
 label: 'Image - Full-Bleed Hero Mobile (828x828)'
 description: 'Mobile hero image. Required for all looks.'
-required: false
+required: true
 translatable: true
 default_value: {  }
 default_value_callback: ''

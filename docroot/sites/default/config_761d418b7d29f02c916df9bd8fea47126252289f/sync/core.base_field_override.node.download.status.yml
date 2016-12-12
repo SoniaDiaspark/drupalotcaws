@@ -1,0 +1,22 @@
+uuid: 810f961a-579b-4c97-ba67-8e1b31fea2a6
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.download
+id: node.download.status
+field_name: status
+entity_type: node
+bundle: download
+label: 'Publishing status'
+description: 'A boolean indicating whether the node is published.'
+required: false
+translatable: true
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean
