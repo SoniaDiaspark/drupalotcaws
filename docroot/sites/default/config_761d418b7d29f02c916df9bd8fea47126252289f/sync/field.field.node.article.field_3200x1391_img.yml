@@ -1,28 +1,28 @@
-uuid: 73288264-f0f9-423b-81fb-20053bb7d618
+uuid: 6c2e0178-e1db-4f14-9e24-90f9dc2a3006
 langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_card_tile_img_2x
-    - node.type.recipe
+    - field.storage.node.field_3200x1391_img
+    - node.type.article
   module:
     - image
-id: node.recipe.field_card_tile_img_2x
-field_name: field_card_tile_img_2x
+id: node.article.field_3200x1391_img
+field_name: field_3200x1391_img
 entity_type: node
-bundle: recipe
-label: 'Image - Card Tile 2x (896x896)'
-description: 'Square image to represent the recipe on other pages when shown as a card tile. (896x896)'
+bundle: article
+label: 'Image - Hero Bleed Desktop (3200x1391)'
+description: 'Main image representing the article.'
 required: true
-translatable: true
+translatable: false
 default_value: {  }
 default_value_callback: ''
 settings:
-  file_directory: recipes/tile/tablet/2x
+  file_directory: articles/hero/desktop/2x
   file_extensions: 'png gif jpg jpeg'
   max_filesize: ''
-  max_resolution: 896x896
-  min_resolution: 896x896
+  max_resolution: 3200x1391
+  min_resolution: 3200x1391
   alt_field: false
   alt_field_required: true
   title_field: false

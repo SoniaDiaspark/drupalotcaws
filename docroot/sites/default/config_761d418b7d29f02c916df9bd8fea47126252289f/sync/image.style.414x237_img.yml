@@ -1,0 +1,15 @@
+uuid: 3defb65a-55a3-475d-a337-5ad55f6bc1c4
+langcode: en
+status: true
+dependencies: {  }
+name: 414x237_img
+label: '414x237 Scale'
+effects:
+  4dc75969-0dd0-4811-9d5b-03f061f7d4bc:
+    uuid: 4dc75969-0dd0-4811-9d5b-03f061f7d4bc
+    id: image_scale
+    weight: 1
+    data:
+      width: 414
+      height: 237
+      upscale: false

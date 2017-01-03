@@ -3,14 +3,11 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.recipe.field_card_tile_img_2x
     - field.field.node.recipe.field_category
     - field.field.node.recipe.field_contributor
     - field.field.node.recipe.field_description
     - field.field.node.recipe.field_display_title
     - field.field.node.recipe.field_download_file
-    - field.field.node.recipe.field_hero_half_d_img_2x
-    - field.field.node.recipe.field_hero_m_img_2x
     - field.field.node.recipe.field_ingredients
     - field.field.node.recipe.field_items_needed
     - field.field.node.recipe.field_meta_description
@@ -28,11 +25,9 @@ dependencies:
     - field.field.node.recipe.field_tag
     - field.field.node.recipe.field_time_max
     - field.field.node.recipe.field_time_min
-    - field.field.node.recipe.field_whatneed_img_2x
     - node.type.recipe
   module:
     - file
-    - image
     - link
     - text
     - user
@@ -41,14 +36,6 @@ targetEntityType: node
 bundle: recipe
 mode: default
 content:
-  field_card_tile_img_2x:
-    weight: 127
-    label: above
-    settings:
-      image_style: ''
-      image_link: ''
-    third_party_settings: {  }
-    type: image
   field_category:
     weight: 118
     label: above
@@ -81,22 +68,6 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: file_default
-  field_hero_half_d_img_2x:
-    weight: 128
-    label: above
-    settings:
-      image_style: ''
-      image_link: ''
-    third_party_settings: {  }
-    type: image
-  field_hero_m_img_2x:
-    weight: 129
-    label: above
-    settings:
-      image_style: ''
-      image_link: ''
-    third_party_settings: {  }
-    type: image
   field_ingredients:
     weight: 102
     label: above
@@ -218,14 +189,6 @@ content:
       prefix_suffix: true
     third_party_settings: {  }
     type: number_integer
-  field_whatneed_img_2x:
-    weight: 130
-    label: above
-    settings:
-      image_style: ''
-      image_link: ''
-    third_party_settings: {  }
-    type: image
   links:
     weight: 100
 hidden: {  }

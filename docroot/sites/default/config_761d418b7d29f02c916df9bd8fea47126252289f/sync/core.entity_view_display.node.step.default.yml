@@ -7,10 +7,8 @@ dependencies:
     - field.field.node.step.field_product_own
     - field.field.node.step.field_products
     - field.field.node.step.field_skyword_id
-    - field.field.node.step.field_step_img_2x
     - node.type.step
   module:
-    - image
     - text
     - user
 id: node.step.default
@@ -45,14 +43,6 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     type: string
-  field_step_img_2x:
-    weight: 103
-    label: above
-    settings:
-      image_style: ''
-      image_link: ''
-    third_party_settings: {  }
-    type: image
   links:
     weight: 100
 hidden: {  }

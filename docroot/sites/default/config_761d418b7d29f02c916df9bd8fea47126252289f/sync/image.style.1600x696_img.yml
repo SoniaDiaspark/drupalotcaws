@@ -1,0 +1,15 @@
+uuid: fc736ec4-3d53-4688-9643-70ac6c8c9ced
+langcode: en
+status: true
+dependencies: {  }
+name: 1600x696_img
+label: '1600x696 Scale'
+effects:
+  8888f4a1-9dbd-481d-8661-41181e4092d8:
+    uuid: 8888f4a1-9dbd-481d-8661-41181e4092d8
+    id: image_scale
+    weight: 1
+    data:
+      width: 1600
+      height: 696
+      upscale: false

@@ -1,4 +1,4 @@
-uuid: 1a85ed59-0396-46b0-8fe7-9ee8194f5506
+uuid: b998393d-ec1e-47bc-b9d6-80b5aec40954
 langcode: en
 status: true
 dependencies:
@@ -6,8 +6,8 @@ dependencies:
     - file
     - image
     - node
-id: node.field_card_tile_img_2x
-field_name: field_card_tile_img_2x
+id: node.field_828x473_img
+field_name: field_828x473_img
 entity_type: node
 type: image
 settings:

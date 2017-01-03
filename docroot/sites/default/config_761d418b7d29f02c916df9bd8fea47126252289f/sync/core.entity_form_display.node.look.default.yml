@@ -3,13 +3,10 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.look.field_card_tile_img_2x
     - field.field.node.look.field_category
     - field.field.node.look.field_contributor
     - field.field.node.look.field_curalate_reveal_snippet
     - field.field.node.look.field_display_title
-    - field.field.node.look.field_hero_bleed_d_img_2x
-    - field.field.node.look.field_hero_m_img_2x
     - field.field.node.look.field_meta_description
     - field.field.node.look.field_meta_keywords
     - field.field.node.look.field_meta_title
@@ -17,10 +14,8 @@ dependencies:
     - field.field.node.look.field_related_content
     - field.field.node.look.field_suppress_fanreel
     - field.field.node.look.field_tag
-    - image.style.thumbnail
     - node.type.look
   module:
-    - image
     - path
     - scheduler
     - text
@@ -29,13 +24,6 @@ targetEntityType: node
 bundle: look
 mode: default
 content:
-  field_card_tile_img_2x:
-    weight: 9
-    settings:
-      progress_indicator: throbber
-      preview_image_style: thumbnail
-    third_party_settings: {  }
-    type: image_image
   field_category:
     weight: 12
     settings: {  }
@@ -60,20 +48,6 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: text_textfield
-  field_hero_bleed_d_img_2x:
-    weight: 10
-    settings:
-      progress_indicator: throbber
-      preview_image_style: thumbnail
-    third_party_settings: {  }
-    type: image_image
-  field_hero_m_img_2x:
-    weight: 11
-    settings:
-      progress_indicator: throbber
-      preview_image_style: thumbnail
-    third_party_settings: {  }
-    type: image_image
   field_meta_description:
     weight: 6
     settings:

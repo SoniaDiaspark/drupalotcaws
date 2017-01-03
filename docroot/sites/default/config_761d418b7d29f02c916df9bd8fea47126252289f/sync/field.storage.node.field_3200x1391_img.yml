@@ -1,4 +1,4 @@
-uuid: 306cbd58-9e0e-42ac-b2bc-5f20b491ad56
+uuid: 1fe40725-3533-46bb-a0e9-14128625e3e6
 langcode: en
 status: true
 dependencies:
@@ -6,8 +6,8 @@ dependencies:
     - file
     - image
     - node
-id: node.field_quote_img_2x
-field_name: field_quote_img_2x
+id: node.field_3200x1391_img
+field_name: field_3200x1391_img
 entity_type: node
 type: image
 settings:

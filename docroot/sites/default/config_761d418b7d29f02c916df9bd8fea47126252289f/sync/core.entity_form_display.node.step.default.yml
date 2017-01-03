@@ -7,11 +7,8 @@ dependencies:
     - field.field.node.step.field_product_own
     - field.field.node.step.field_products
     - field.field.node.step.field_skyword_id
-    - field.field.node.step.field_step_img_2x
-    - image.style.thumbnail
     - node.type.step
   module:
-    - image
     - text
 id: node.step.default
 targetEntityType: node
@@ -48,13 +45,6 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
-  field_step_img_2x:
-    weight: 2
-    settings:
-      progress_indicator: throbber
-      preview_image_style: thumbnail
-    third_party_settings: {  }
-    type: image_image
   title:
     type: string_textfield
     weight: 0

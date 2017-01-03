@@ -3,25 +3,20 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.article.field_article_hero_m_2x
+    - field.field.node.article.field_3200x1391_img
+    - field.field.node.article.field_828x473_img
     - field.field.node.article.field_article_list
-    - field.field.node.article.field_article_thumbnail
-    - field.field.node.article.field_card_tile_img_2x
     - field.field.node.article.field_carousel_content
     - field.field.node.article.field_carousel_heading
-    - field.field.node.article.field_carousel_img_2x
     - field.field.node.article.field_category
     - field.field.node.article.field_content_1
     - field.field.node.article.field_content_2
     - field.field.node.article.field_content_3
     - field.field.node.article.field_content_heading
-    - field.field.node.article.field_content_tall_img
-    - field.field.node.article.field_content_wide_img_2x
     - field.field.node.article.field_contributor
     - field.field.node.article.field_description
     - field.field.node.article.field_display_title
     - field.field.node.article.field_download_file
-    - field.field.node.article.field_hero_bleed_d_img_2x
     - field.field.node.article.field_items_needed
     - field.field.node.article.field_meta_description
     - field.field.node.article.field_meta_keywords
@@ -30,14 +25,12 @@ dependencies:
     - field.field.node.article.field_photo_credit
     - field.field.node.article.field_products
     - field.field.node.article.field_quote_content
-    - field.field.node.article.field_quote_img_2x
     - field.field.node.article.field_read_more
     - field.field.node.article.field_related_content
     - field.field.node.article.field_skyword_id
     - field.field.node.article.field_step
     - field.field.node.article.field_tag
     - field.field.node.article.field_video_embed
-    - field.field.node.article.field_whatneed_img_2x
     - image.style.thumbnail
     - node.type.article
   module:
@@ -46,14 +39,22 @@ dependencies:
     - inline_entity_form
     - link
     - path
+    - scheduler
     - text
 id: node.article.default
 targetEntityType: node
 bundle: article
 mode: default
 content:
-  field_article_hero_m_2x:
-    weight: 29
+  field_3200x1391_img:
+    weight: 37
+    settings:
+      progress_indicator: throbber
+      preview_image_style: thumbnail
+    third_party_settings: {  }
+    type: image_image
+  field_828x473_img:
+    weight: 38
     settings:
       progress_indicator: throbber
       preview_image_style: thumbnail
@@ -65,20 +66,6 @@ content:
       display_label: true
     third_party_settings: {  }
     type: boolean_checkbox
-  field_article_thumbnail:
-    weight: 31
-    settings:
-      progress_indicator: throbber
-      preview_image_style: thumbnail
-    third_party_settings: {  }
-    type: image_image
-  field_card_tile_img_2x:
-    weight: 30
-    settings:
-      progress_indicator: throbber
-      preview_image_style: thumbnail
-    third_party_settings: {  }
-    type: image_image
   field_carousel_content:
     weight: 24
     settings:
@@ -93,13 +80,6 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: text_textfield
-  field_carousel_img_2x:
-    weight: 25
-    settings:
-      progress_indicator: throbber
-      preview_image_style: thumbnail
-    third_party_settings: {  }
-    type: image_image
   field_category:
     weight: 35
     settings: {  }
@@ -133,20 +113,6 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: text_textfield
-  field_content_tall_img:
-    weight: 33
-    settings:
-      progress_indicator: throbber
-      preview_image_style: thumbnail
-    third_party_settings: {  }
-    type: image_image
-  field_content_wide_img_2x:
-    weight: 32
-    settings:
-      progress_indicator: throbber
-      preview_image_style: thumbnail
-    third_party_settings: {  }
-    type: image_image
   field_contributor:
     weight: 16
     settings:
@@ -175,13 +141,6 @@ content:
       progress_indicator: throbber
     third_party_settings: {  }
     type: file_generic
-  field_hero_bleed_d_img_2x:
-    weight: 28
-    settings:
-      progress_indicator: throbber
-      preview_image_style: thumbnail
-    third_party_settings: {  }
-    type: image_image
   field_items_needed:
     weight: 17
     settings:
@@ -239,13 +198,6 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: text_textfield
-  field_quote_img_2x:
-    weight: 13
-    settings:
-      progress_indicator: throbber
-      preview_image_style: thumbnail
-    third_party_settings: {  }
-    type: image_image
   field_read_more:
     weight: 26
     settings:
@@ -292,24 +244,29 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: text_textarea
-  field_whatneed_img_2x:
-    weight: 34
-    settings:
-      progress_indicator: throbber
-      preview_image_style: thumbnail
-    third_party_settings: {  }
-    type: image_image
   path:
     type: path
     weight: 21
     settings: {  }
     third_party_settings: {  }
+  publish_on:
+    type: datetime_timestamp_no_default
+    weight: 30
+    settings: {  }
+    third_party_settings: {  }
+  scheduler_settings:
+    weight: 20
   title:
     type: string_textfield
     weight: 0
     settings:
       size: 60
       placeholder: ''
+    third_party_settings: {  }
+  unpublish_on:
+    type: datetime_timestamp_no_default
+    weight: 30
+    settings: {  }
     third_party_settings: {  }
 hidden:
   created: true

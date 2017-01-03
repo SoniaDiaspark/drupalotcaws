@@ -1,4 +1,4 @@
-uuid: 3d36fc88-760f-47fe-bd57-bc44d8b1e0cb
+uuid: a2761858-c5f3-4977-88d3-e36a1dd9e2f2
 langcode: en
 status: true
 dependencies:
@@ -13,7 +13,7 @@ bundle: project
 label: 'Project Steps'
 description: ''
 required: false
-translatable: false
+translatable: true
 default_value: {  }
 default_value_callback: ''
 settings:
