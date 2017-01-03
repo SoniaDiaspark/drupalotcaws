@@ -1,4 +1,4 @@
-uuid: 695dceca-0329-460d-b421-ca6803fd401e
+uuid: 8d9a48d7-89a1-46dd-9401-37287d7bd8c8
 langcode: en
 status: true
 dependencies:
@@ -6,8 +6,8 @@ dependencies:
     - file
     - image
     - node
-id: node.field_contributor_lg_img_2x
-field_name: field_contributor_lg_img_2x
+id: node.field_1858x1062_multi_img
+field_name: field_1858x1062_multi_img
 entity_type: node
 type: image
 settings:
@@ -23,7 +23,7 @@ settings:
   display_default: false
 module: image
 locked: false
-cardinality: 1
+cardinality: -1
 translatable: true
 indexes: {  }
 persist_with_no_fields: false

@@ -1,0 +1,15 @@
+uuid: c85e4da3-a697-4b05-9590-3e3cbd9ece24
+langcode: en
+status: true
+dependencies: {  }
+name: 400x400_img
+label: '1.0 Aspect Ratio - 400x400 Scaled'
+effects:
+  01e4599f-b162-4d25-8515-c6e12989121c:
+    uuid: 01e4599f-b162-4d25-8515-c6e12989121c
+    id: image_scale
+    weight: 1
+    data:
+      width: 400
+      height: 400
+      upscale: false

@@ -1,0 +1,38 @@
+uuid: d4326e72-5605-47e4-b5b3-67e92be946f2
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_1280x962_multi_img
+    - node.type.step
+  module:
+    - image
+id: node.step.field_1280x962_multi_img
+field_name: field_1280x962_multi_img
+entity_type: node
+bundle: step
+label: 'Image - Step Wide Multivalue (1280x962)'
+description: 'Image assigned to each step; can accept multiple image references for interactive "Swipe to Play" functionality.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  file_directory: steps/wide/desktop/2x
+  file_extensions: 'png gif jpg jpeg'
+  max_filesize: ''
+  max_resolution: 1280x962
+  min_resolution: 1280x962
+  alt_field: false
+  alt_field_required: true
+  title_field: false
+  title_field_required: false
+  default_image:
+    uuid: ''
+    alt: ''
+    title: ''
+    width: null
+    height: null
+  handler: 'default:file'
+  handler_settings: {  }
+field_type: image

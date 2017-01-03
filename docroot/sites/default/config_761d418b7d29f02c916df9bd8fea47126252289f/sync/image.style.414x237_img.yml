@@ -3,7 +3,7 @@ langcode: en
 status: true
 dependencies: {  }
 name: 414x237_img
-label: '414x237 Scale'
+label: '1.75 Aspect Ratio - 414x237 Scaled'
 effects:
   4dc75969-0dd0-4811-9d5b-03f061f7d4bc:
     uuid: 4dc75969-0dd0-4811-9d5b-03f061f7d4bc

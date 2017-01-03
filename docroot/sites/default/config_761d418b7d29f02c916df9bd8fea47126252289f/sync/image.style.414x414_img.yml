@@ -1,0 +1,15 @@
+uuid: 641eb94f-fcad-41dd-ad50-0767411e777c
+langcode: en
+status: true
+dependencies: {  }
+name: 414x414_img
+label: '1.0 Aspect Ratio - 414x414 Scaled'
+effects:
+  fd8eb70d-f52f-4801-9aa6-80efde96f21e:
+    uuid: fd8eb70d-f52f-4801-9aa6-80efde96f21e
+    id: image_scale
+    weight: 1
+    data:
+      width: 414
+      height: 414
+      upscale: false

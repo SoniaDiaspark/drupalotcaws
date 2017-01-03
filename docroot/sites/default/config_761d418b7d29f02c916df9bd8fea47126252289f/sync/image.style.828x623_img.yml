@@ -1,0 +1,15 @@
+uuid: b97adf43-f928-4340-81bf-def264665047
+langcode: en
+status: true
+dependencies: {  }
+name: 828x623_img
+label: '1.33 Aspect Ratio - 828x623 Scaled'
+effects:
+  32d503ad-06e1-486b-9b72-b97b787b71cf:
+    uuid: 32d503ad-06e1-486b-9b72-b97b787b71cf
+    id: image_scale
+    weight: 1
+    data:
+      width: 828
+      height: 623
+      upscale: false

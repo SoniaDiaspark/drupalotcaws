@@ -3,6 +3,9 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.node.download.field_1824x1371_img
+    - field.field.node.download.field_828x828_img
+    - field.field.node.download.field_896x896_img
     - field.field.node.download.field_description
     - field.field.node.download.field_display_title
     - field.field.node.download.field_download_file
@@ -10,6 +13,7 @@ dependencies:
     - node.type.download
   module:
     - file
+    - image
     - text
     - user
 id: node.download.default
@@ -17,6 +21,30 @@ targetEntityType: node
 bundle: download
 mode: default
 content:
+  field_1824x1371_img:
+    weight: 106
+    label: above
+    settings:
+      image_style: ''
+      image_link: ''
+    third_party_settings: {  }
+    type: image
+  field_828x828_img:
+    weight: 107
+    label: above
+    settings:
+      image_style: ''
+      image_link: ''
+    third_party_settings: {  }
+    type: image
+  field_896x896_img:
+    weight: 105
+    label: above
+    settings:
+      image_style: ''
+      image_link: ''
+    third_party_settings: {  }
+    type: image
   field_description:
     weight: 104
     label: above

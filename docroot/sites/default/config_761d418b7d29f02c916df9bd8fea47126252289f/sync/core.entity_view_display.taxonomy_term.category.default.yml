@@ -3,8 +3,11 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.taxonomy_term.category.field_3200x1391_img
+    - field.field.taxonomy_term.category.field_828x828_img
     - taxonomy.vocabulary.category
   module:
+    - image
     - text
 id: taxonomy_term.category.default
 targetEntityType: taxonomy_term
@@ -17,4 +20,20 @@ content:
     weight: 0
     settings: {  }
     third_party_settings: {  }
+  field_3200x1391_img:
+    weight: 1
+    label: above
+    settings:
+      image_style: ''
+      image_link: ''
+    third_party_settings: {  }
+    type: image
+  field_828x828_img:
+    weight: 2
+    label: above
+    settings:
+      image_style: ''
+      image_link: ''
+    third_party_settings: {  }
+    type: image
 hidden: {  }

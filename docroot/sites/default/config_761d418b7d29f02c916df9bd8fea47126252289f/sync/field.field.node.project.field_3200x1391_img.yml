@@ -1,28 +1,28 @@
-uuid: c09b70b2-678e-4134-a9a5-528b896dc5ce
+uuid: f8a98372-cbfa-4121-9147-d87f485e5a52
 langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_contributor_lg_img_2x
-    - node.type.contributor
+    - field.storage.node.field_3200x1391_img
+    - node.type.project
   module:
     - image
-id: node.contributor.field_contributor_lg_img_2x
-field_name: field_contributor_lg_img_2x
+id: node.project.field_3200x1391_img
+field_name: field_3200x1391_img
 entity_type: node
-bundle: contributor
-label: 'Image - Contributor Headshot (800x800)'
+bundle: project
+label: 'Image - Hero Bleed Desktop (3200x1391)'
 description: ''
 required: false
-translatable: false
+translatable: true
 default_value: {  }
 default_value_callback: ''
 settings:
-  file_directory: contributors/large/2x
+  file_directory: projects/hero/desktop/2x
   file_extensions: 'png gif jpg jpeg'
   max_filesize: ''
-  max_resolution: 800x800
-  min_resolution: 800x800
+  max_resolution: 3200x1391
+  min_resolution: 3200x1391
   alt_field: false
   alt_field_required: true
   title_field: false

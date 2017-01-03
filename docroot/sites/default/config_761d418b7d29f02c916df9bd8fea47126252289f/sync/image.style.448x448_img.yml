@@ -1,0 +1,15 @@
+uuid: 17d50981-5687-4c25-898b-a3fa98ede201
+langcode: en
+status: true
+dependencies: {  }
+name: 448x448_img
+label: '1.0 Aspect Ratio - 448x448 Scaled'
+effects:
+  5e592b51-a1a9-4a82-aad8-39b4a8a1caaf:
+    uuid: 5e592b51-a1a9-4a82-aad8-39b4a8a1caaf
+    id: image_scale
+    weight: 1
+    data:
+      width: 448
+      height: 448
+      upscale: false

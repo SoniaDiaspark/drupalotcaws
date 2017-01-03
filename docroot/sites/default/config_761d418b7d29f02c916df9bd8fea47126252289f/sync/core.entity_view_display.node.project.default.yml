@@ -3,6 +3,11 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.node.project.field_1824x1371_img
+    - field.field.node.project.field_3200x1391_img
+    - field.field.node.project.field_828x828_img
+    - field.field.node.project.field_896x896_img
+    - field.field.node.project.field_900x677_img
     - field.field.node.project.field_category
     - field.field.node.project.field_contributor
     - field.field.node.project.field_description
@@ -26,6 +31,7 @@ dependencies:
     - node.type.project
   module:
     - file
+    - image
     - link
     - text
     - user
@@ -34,6 +40,46 @@ targetEntityType: node
 bundle: project
 mode: default
 content:
+  field_1824x1371_img:
+    weight: 45
+    label: above
+    settings:
+      image_style: ''
+      image_link: ''
+    third_party_settings: {  }
+    type: image
+  field_3200x1391_img:
+    weight: 42
+    label: above
+    settings:
+      image_style: ''
+      image_link: ''
+    third_party_settings: {  }
+    type: image
+  field_828x828_img:
+    weight: 46
+    label: above
+    settings:
+      image_style: ''
+      image_link: ''
+    third_party_settings: {  }
+    type: image
+  field_896x896_img:
+    weight: 43
+    label: above
+    settings:
+      image_style: ''
+      image_link: ''
+    third_party_settings: {  }
+    type: image
+  field_900x677_img:
+    weight: 44
+    label: above
+    settings:
+      image_style: ''
+      image_link: ''
+    third_party_settings: {  }
+    type: image
   field_category:
     weight: 35
     label: above

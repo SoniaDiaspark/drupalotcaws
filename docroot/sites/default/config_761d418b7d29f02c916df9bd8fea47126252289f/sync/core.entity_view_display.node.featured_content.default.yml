@@ -1,0 +1,35 @@
+uuid: 9149624a-9333-4482-95fe-f8c520100803
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.featured_content.field_3200x1391_img
+    - field.field.node.featured_content.field_828x828_img
+    - node.type.featured_content
+  module:
+    - image
+    - user
+id: node.featured_content.default
+targetEntityType: node
+bundle: featured_content
+mode: default
+content:
+  field_3200x1391_img:
+    weight: 101
+    label: above
+    settings:
+      image_style: ''
+      image_link: ''
+    third_party_settings: {  }
+    type: image
+  field_828x828_img:
+    weight: 102
+    label: above
+    settings:
+      image_style: ''
+      image_link: ''
+    third_party_settings: {  }
+    type: image
+  links:
+    weight: 100
+hidden: {  }

@@ -3,8 +3,15 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.node.article.field_1088x818_img
+    - field.field.node.article.field_1858x1062_img
+    - field.field.node.article.field_1858x1062_multi_img
     - field.field.node.article.field_3200x1391_img
     - field.field.node.article.field_828x473_img
+    - field.field.node.article.field_828x473_img2
+    - field.field.node.article.field_896x896_img
+    - field.field.node.article.field_900x677_img
+    - field.field.node.article.field_929x1239_img
     - field.field.node.article.field_article_list
     - field.field.node.article.field_carousel_content
     - field.field.node.article.field_carousel_heading
@@ -46,6 +53,27 @@ targetEntityType: node
 bundle: article
 mode: default
 content:
+  field_1088x818_img:
+    weight: 42
+    settings:
+      progress_indicator: throbber
+      preview_image_style: thumbnail
+    third_party_settings: {  }
+    type: image_image
+  field_1858x1062_img:
+    weight: 40
+    settings:
+      progress_indicator: throbber
+      preview_image_style: thumbnail
+    third_party_settings: {  }
+    type: image_image
+  field_1858x1062_multi_img:
+    weight: 39
+    settings:
+      progress_indicator: throbber
+      preview_image_style: thumbnail
+    third_party_settings: {  }
+    type: image_image
   field_3200x1391_img:
     weight: 37
     settings:
@@ -55,6 +83,34 @@ content:
     type: image_image
   field_828x473_img:
     weight: 38
+    settings:
+      progress_indicator: throbber
+      preview_image_style: thumbnail
+    third_party_settings: {  }
+    type: image_image
+  field_828x473_img2:
+    weight: 44
+    settings:
+      progress_indicator: throbber
+      preview_image_style: thumbnail
+    third_party_settings: {  }
+    type: image_image
+  field_896x896_img:
+    weight: 43
+    settings:
+      progress_indicator: throbber
+      preview_image_style: thumbnail
+    third_party_settings: {  }
+    type: image_image
+  field_900x677_img:
+    weight: 45
+    settings:
+      progress_indicator: throbber
+      preview_image_style: thumbnail
+    third_party_settings: {  }
+    type: image_image
+  field_929x1239_img:
+    weight: 41
     settings:
       progress_indicator: throbber
       preview_image_style: thumbnail

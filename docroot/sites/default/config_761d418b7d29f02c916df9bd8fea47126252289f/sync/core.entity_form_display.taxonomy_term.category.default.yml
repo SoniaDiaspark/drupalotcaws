@@ -3,14 +3,32 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.taxonomy_term.category.field_3200x1391_img
+    - field.field.taxonomy_term.category.field_828x828_img
+    - image.style.thumbnail
     - taxonomy.vocabulary.category
   module:
+    - image
     - path
 id: taxonomy_term.category.default
 targetEntityType: taxonomy_term
 bundle: category
 mode: default
 content:
+  field_3200x1391_img:
+    weight: 3
+    settings:
+      progress_indicator: throbber
+      preview_image_style: thumbnail
+    third_party_settings: {  }
+    type: image_image
+  field_828x828_img:
+    weight: 4
+    settings:
+      progress_indicator: throbber
+      preview_image_style: thumbnail
+    third_party_settings: {  }
+    type: image_image
   name:
     type: string_textfield
     weight: 0

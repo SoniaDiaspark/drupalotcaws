@@ -1,0 +1,38 @@
+uuid: b785668d-97ec-4cfe-872c-b688a5dda7b4
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_900x677_img
+    - node.type.recipe
+  module:
+    - image
+id: node.recipe.field_900x677_img
+field_name: field_900x677_img
+entity_type: node
+bundle: recipe
+label: 'Image - What You''ll Need (900x677)'
+description: "Used to accompany the items needed for the recipe when appropriate (on sidebar on desktop layout)\r\n\r\n"
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  file_directory: recipes/what-need/desktop/2x
+  file_extensions: 'png gif jpg jpeg'
+  max_filesize: ''
+  max_resolution: 900x677
+  min_resolution: 900x677
+  alt_field: false
+  alt_field_required: true
+  title_field: false
+  title_field_required: false
+  default_image:
+    uuid: ''
+    alt: ''
+    title: ''
+    width: null
+    height: null
+  handler: 'default:file'
+  handler_settings: {  }
+field_type: image

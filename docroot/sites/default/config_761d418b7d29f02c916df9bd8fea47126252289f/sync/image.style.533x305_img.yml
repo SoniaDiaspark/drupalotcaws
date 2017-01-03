@@ -1,0 +1,15 @@
+uuid: 5d8b43e7-ac8d-45d4-bfae-4b87be219364
+langcode: en
+status: true
+dependencies: {  }
+name: 533x305_img
+label: '1.75 Aspect Ratio - 533x305 Scaled'
+effects:
+  59bc10e6-5834-4372-a3e8-3d7332d5c834:
+    uuid: 59bc10e6-5834-4372-a3e8-3d7332d5c834
+    id: image_scale
+    weight: 1
+    data:
+      width: 533
+      height: 305
+      upscale: false

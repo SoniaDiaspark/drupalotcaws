@@ -1,0 +1,15 @@
+uuid: 8ae598a3-d2e9-4862-8b8d-dd0c1da7eef6
+langcode: en
+status: true
+dependencies: {  }
+name: 544x409_img
+label: '1.33 Aspect Ratio - 544x409 Scaled'
+effects:
+  1f6b9d46-970b-428d-9ddf-27bf8b65d70b:
+    uuid: 1f6b9d46-970b-428d-9ddf-27bf8b65d70b
+    id: image_scale
+    weight: 1
+    data:
+      width: 544
+      height: 409
+      upscale: false

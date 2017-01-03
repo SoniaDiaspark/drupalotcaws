@@ -1,0 +1,15 @@
+uuid: eeee9a22-aa32-42ac-81e2-efdf163f107b
+langcode: en
+status: true
+dependencies: {  }
+name: 929x531_img
+label: '1.75 Aspect Ratio - 929x531 Scaled'
+effects:
+  73bbea94-ed8e-4908-9ed2-dcfdda65545a:
+    uuid: 73bbea94-ed8e-4908-9ed2-dcfdda65545a
+    id: image_scale
+    weight: 1
+    data:
+      width: 929
+      height: 531
+      upscale: false

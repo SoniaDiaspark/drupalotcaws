@@ -1,0 +1,38 @@
+uuid: 721d579b-5910-4888-9555-4305479c493d
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_828x828_img
+    - taxonomy.vocabulary.category
+  module:
+    - image
+id: taxonomy_term.category.field_828x828_img
+field_name: field_828x828_img
+entity_type: taxonomy_term
+bundle: category
+label: 'Image - Hero Mobile (828x828)'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  file_directory: categories/hero/mobile/2x
+  file_extensions: 'png gif jpg jpeg'
+  max_filesize: ''
+  max_resolution: 828x828
+  min_resolution: 828x828
+  alt_field: false
+  alt_field_required: true
+  title_field: false
+  title_field_required: false
+  default_image:
+    uuid: ''
+    alt: ''
+    title: ''
+    width: null
+    height: null
+  handler: 'default:file'
+  handler_settings: {  }
+field_type: image

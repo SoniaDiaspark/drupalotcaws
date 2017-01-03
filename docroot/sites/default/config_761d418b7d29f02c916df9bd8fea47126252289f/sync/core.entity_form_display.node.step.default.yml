@@ -3,18 +3,36 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.node.step.field_1280x962_multi_img
+    - field.field.node.step.field_929x1239_img
     - field.field.node.step.field_description
     - field.field.node.step.field_product_own
     - field.field.node.step.field_products
     - field.field.node.step.field_skyword_id
+    - image.style.thumbnail
     - node.type.step
   module:
+    - image
     - text
 id: node.step.default
 targetEntityType: node
 bundle: step
 mode: default
 content:
+  field_1280x962_multi_img:
+    weight: 27
+    settings:
+      progress_indicator: throbber
+      preview_image_style: thumbnail
+    third_party_settings: {  }
+    type: image_image
+  field_929x1239_img:
+    weight: 26
+    settings:
+      progress_indicator: throbber
+      preview_image_style: thumbnail
+    third_party_settings: {  }
+    type: image_image
   field_description:
     weight: 1
     settings:

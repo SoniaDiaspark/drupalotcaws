@@ -3,6 +3,11 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.node.project.field_1824x1371_img
+    - field.field.node.project.field_3200x1391_img
+    - field.field.node.project.field_828x828_img
+    - field.field.node.project.field_896x896_img
+    - field.field.node.project.field_900x677_img
     - field.field.node.project.field_category
     - field.field.node.project.field_contributor
     - field.field.node.project.field_description
@@ -23,9 +28,11 @@ dependencies:
     - field.field.node.project.field_tag
     - field.field.node.project.field_time_max
     - field.field.node.project.field_time_min
+    - image.style.thumbnail
     - node.type.project
   module:
     - file
+    - image
     - inline_entity_form
     - link
     - path
@@ -36,6 +43,41 @@ targetEntityType: node
 bundle: project
 mode: default
 content:
+  field_1824x1371_img:
+    weight: 29
+    settings:
+      progress_indicator: throbber
+      preview_image_style: thumbnail
+    third_party_settings: {  }
+    type: image_image
+  field_3200x1391_img:
+    weight: 26
+    settings:
+      progress_indicator: throbber
+      preview_image_style: thumbnail
+    third_party_settings: {  }
+    type: image_image
+  field_828x828_img:
+    weight: 30
+    settings:
+      progress_indicator: throbber
+      preview_image_style: thumbnail
+    third_party_settings: {  }
+    type: image_image
+  field_896x896_img:
+    weight: 27
+    settings:
+      progress_indicator: throbber
+      preview_image_style: thumbnail
+    third_party_settings: {  }
+    type: image_image
+  field_900x677_img:
+    weight: 28
+    settings:
+      progress_indicator: throbber
+      preview_image_style: thumbnail
+    third_party_settings: {  }
+    type: image_image
   field_category:
     weight: 16
     settings: {  }

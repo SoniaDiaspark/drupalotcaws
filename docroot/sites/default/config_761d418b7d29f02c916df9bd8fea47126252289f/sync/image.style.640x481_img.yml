@@ -1,0 +1,15 @@
+uuid: 346c0fb8-6123-42ef-bf5a-7cfbcea9cede
+langcode: en
+status: true
+dependencies: {  }
+name: 640x481_img
+label: '1.33 Aspect Ratio - 640x481 Scaled'
+effects:
+  f27e979d-faf6-4603-bc54-baaca443adec:
+    uuid: f27e979d-faf6-4603-bc54-baaca443adec
+    id: image_scale
+    weight: 1
+    data:
+      width: 640
+      height: 481
+      upscale: false

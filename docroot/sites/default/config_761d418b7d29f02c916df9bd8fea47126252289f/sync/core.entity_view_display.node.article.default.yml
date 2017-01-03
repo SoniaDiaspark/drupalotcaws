@@ -3,8 +3,15 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.node.article.field_1088x818_img
+    - field.field.node.article.field_1858x1062_img
+    - field.field.node.article.field_1858x1062_multi_img
     - field.field.node.article.field_3200x1391_img
     - field.field.node.article.field_828x473_img
+    - field.field.node.article.field_828x473_img2
+    - field.field.node.article.field_896x896_img
+    - field.field.node.article.field_900x677_img
+    - field.field.node.article.field_929x1239_img
     - field.field.node.article.field_article_list
     - field.field.node.article.field_carousel_content
     - field.field.node.article.field_carousel_heading
@@ -43,6 +50,30 @@ targetEntityType: node
 bundle: article
 mode: default
 content:
+  field_1088x818_img:
+    weight: 159
+    label: above
+    settings:
+      image_style: ''
+      image_link: ''
+    third_party_settings: {  }
+    type: image
+  field_1858x1062_img:
+    weight: 157
+    label: above
+    settings:
+      image_style: ''
+      image_link: ''
+    third_party_settings: {  }
+    type: image
+  field_1858x1062_multi_img:
+    weight: 156
+    label: above
+    settings:
+      image_style: ''
+      image_link: ''
+    third_party_settings: {  }
+    type: image
   field_3200x1391_img:
     weight: 154
     label: above
@@ -53,6 +84,38 @@ content:
     type: image
   field_828x473_img:
     weight: 155
+    label: above
+    settings:
+      image_style: ''
+      image_link: ''
+    third_party_settings: {  }
+    type: image
+  field_828x473_img2:
+    weight: 161
+    label: above
+    settings:
+      image_style: ''
+      image_link: ''
+    third_party_settings: {  }
+    type: image
+  field_896x896_img:
+    weight: 160
+    label: above
+    settings:
+      image_style: ''
+      image_link: ''
+    third_party_settings: {  }
+    type: image
+  field_900x677_img:
+    weight: 162
+    label: above
+    settings:
+      image_style: ''
+      image_link: ''
+    third_party_settings: {  }
+    type: image
+  field_929x1239_img:
+    weight: 158
     label: above
     settings:
       image_style: ''

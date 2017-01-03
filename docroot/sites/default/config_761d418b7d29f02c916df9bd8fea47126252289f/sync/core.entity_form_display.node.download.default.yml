@@ -3,20 +3,47 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.node.download.field_1824x1371_img
+    - field.field.node.download.field_828x828_img
+    - field.field.node.download.field_896x896_img
     - field.field.node.download.field_description
     - field.field.node.download.field_display_title
     - field.field.node.download.field_download_file
     - field.field.node.download.field_project
+    - image.style.thumbnail
     - node.type.download
   module:
     - file
+    - image
     - path
+    - scheduler
     - text
 id: node.download.default
 targetEntityType: node
 bundle: download
 mode: default
 content:
+  field_1824x1371_img:
+    weight: 32
+    settings:
+      progress_indicator: throbber
+      preview_image_style: thumbnail
+    third_party_settings: {  }
+    type: image_image
+  field_828x828_img:
+    weight: 33
+    settings:
+      progress_indicator: throbber
+      preview_image_style: thumbnail
+    third_party_settings: {  }
+    type: image_image
+  field_896x896_img:
+    weight: 31
+    settings:
+      progress_indicator: throbber
+      preview_image_style: thumbnail
+    third_party_settings: {  }
+    type: image_image
   field_description:
     weight: 3
     settings:
@@ -50,12 +77,24 @@ content:
     weight: 5
     settings: {  }
     third_party_settings: {  }
+  publish_on:
+    type: datetime_timestamp_no_default
+    weight: 30
+    settings: {  }
+    third_party_settings: {  }
+  scheduler_settings:
+    weight: 20
   title:
     type: string_textfield
     weight: 0
     settings:
       size: 60
       placeholder: ''
+    third_party_settings: {  }
+  unpublish_on:
+    type: datetime_timestamp_no_default
+    weight: 30
+    settings: {  }
     third_party_settings: {  }
 hidden:
   created: true

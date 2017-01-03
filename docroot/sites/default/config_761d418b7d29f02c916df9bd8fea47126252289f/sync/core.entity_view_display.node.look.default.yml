@@ -3,6 +3,9 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.node.look.field_3200x1391_multi_img
+    - field.field.node.look.field_828x828_multi_img
+    - field.field.node.look.field_896x896_img
     - field.field.node.look.field_category
     - field.field.node.look.field_contributor
     - field.field.node.look.field_curalate_reveal_snippet
@@ -16,6 +19,7 @@ dependencies:
     - field.field.node.look.field_tag
     - node.type.look
   module:
+    - image
     - text
     - user
 id: node.look.default
@@ -23,6 +27,30 @@ targetEntityType: node
 bundle: look
 mode: default
 content:
+  field_3200x1391_multi_img:
+    weight: 122
+    label: above
+    settings:
+      image_style: ''
+      image_link: ''
+    third_party_settings: {  }
+    type: image
+  field_828x828_multi_img:
+    weight: 124
+    label: above
+    settings:
+      image_style: ''
+      image_link: ''
+    third_party_settings: {  }
+    type: image
+  field_896x896_img:
+    weight: 123
+    label: above
+    settings:
+      image_style: ''
+      image_link: ''
+    third_party_settings: {  }
+    type: image
   field_category:
     weight: 117
     label: above

@@ -1,0 +1,38 @@
+uuid: d35e56a6-ba8a-463a-822f-e0ed31104538
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_896x896_img
+    - node.type.recipe
+  module:
+    - image
+id: node.recipe.field_896x896_img
+field_name: field_896x896_img
+entity_type: node
+bundle: recipe
+label: 'Image - Card Tile 2x (896x896)'
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  file_directory: recipes/tile/desktop/2x
+  file_extensions: 'png gif jpg jpeg'
+  max_filesize: ''
+  max_resolution: 896x896
+  min_resolution: 896x896
+  alt_field: false
+  alt_field_required: true
+  title_field: false
+  title_field_required: false
+  default_image:
+    uuid: ''
+    alt: ''
+    title: ''
+    width: null
+    height: null
+  handler: 'default:file'
+  handler_settings: {  }
+field_type: image

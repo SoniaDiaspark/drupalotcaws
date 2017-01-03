@@ -3,6 +3,10 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.node.recipe.field_1824x1371_img
+    - field.field.node.recipe.field_828x828_img
+    - field.field.node.recipe.field_896x896_img
+    - field.field.node.recipe.field_900x677_img
     - field.field.node.recipe.field_category
     - field.field.node.recipe.field_contributor
     - field.field.node.recipe.field_description
@@ -25,9 +29,11 @@ dependencies:
     - field.field.node.recipe.field_tag
     - field.field.node.recipe.field_time_max
     - field.field.node.recipe.field_time_min
+    - image.style.thumbnail
     - node.type.recipe
   module:
     - file
+    - image
     - inline_entity_form
     - link
     - path
@@ -38,6 +44,34 @@ targetEntityType: node
 bundle: recipe
 mode: default
 content:
+  field_1824x1371_img:
+    weight: 33
+    settings:
+      progress_indicator: throbber
+      preview_image_style: thumbnail
+    third_party_settings: {  }
+    type: image_image
+  field_828x828_img:
+    weight: 34
+    settings:
+      progress_indicator: throbber
+      preview_image_style: thumbnail
+    third_party_settings: {  }
+    type: image_image
+  field_896x896_img:
+    weight: 31
+    settings:
+      progress_indicator: throbber
+      preview_image_style: thumbnail
+    third_party_settings: {  }
+    type: image_image
+  field_900x677_img:
+    weight: 32
+    settings:
+      progress_indicator: throbber
+      preview_image_style: thumbnail
+    third_party_settings: {  }
+    type: image_image
   field_category:
     weight: 8
     settings: {  }

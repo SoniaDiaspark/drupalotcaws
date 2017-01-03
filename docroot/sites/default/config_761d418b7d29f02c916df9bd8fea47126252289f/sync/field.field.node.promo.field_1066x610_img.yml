@@ -1,0 +1,38 @@
+uuid: 7a09f888-1cc3-409a-bc09-ff2bf875cf42
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_1066x610_img
+    - node.type.promo
+  module:
+    - image
+id: node.promo.field_1066x610_img
+field_name: field_1066x610_img
+entity_type: node
+bundle: promo
+label: 'Image - Promo (1066x610)'
+description: 'Image to be used on background of promo'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  file_directory: promo/desktop/2x
+  file_extensions: 'png gif jpg jpeg'
+  max_filesize: ''
+  max_resolution: 1066x610
+  min_resolution: 1066x610
+  alt_field: false
+  alt_field_required: true
+  title_field: false
+  title_field_required: false
+  default_image:
+    uuid: ''
+    alt: ''
+    title: ''
+    width: null
+    height: null
+  handler: 'default:file'
+  handler_settings: {  }
+field_type: image

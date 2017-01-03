@@ -1,0 +1,25 @@
+uuid: b24ac909-c4b1-40d7-9d00-f45ec4528935
+langcode: en
+status: true
+dependencies:
+  module:
+    - scheduler
+third_party_settings:
+  scheduler:
+    expand_fieldset: when_required
+    fields_display_mode: vertical_tab
+    publish_enable: true
+    publish_past_date: error
+    publish_required: false
+    publish_revision: false
+    publish_touch: false
+    unpublish_enable: true
+    unpublish_required: false
+    unpublish_revision: false
+name: 'Featured Content'
+type: featured_content
+description: 'Featured content for landing pages.'
+help: ''
+new_revision: true
+preview_mode: 0
+display_submitted: true

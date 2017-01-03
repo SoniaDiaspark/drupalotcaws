@@ -3,10 +3,10 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.node.contributor.field_800x800_img
     - field.field.node.contributor.field_bio
     - field.field.node.contributor.field_contributed_content
     - field.field.node.contributor.field_contributor_category
-    - field.field.node.contributor.field_contributor_lg_img_2x
     - field.field.node.contributor.field_facebook
     - field.field.node.contributor.field_first_name
     - field.field.node.contributor.field_full_name
@@ -29,6 +29,14 @@ targetEntityType: node
 bundle: contributor
 mode: default
 content:
+  field_800x800_img:
+    weight: 116
+    label: above
+    settings:
+      image_style: ''
+      image_link: ''
+    third_party_settings: {  }
+    type: image
   field_bio:
     weight: 101
     label: above
@@ -49,14 +57,6 @@ content:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
-  field_contributor_lg_img_2x:
-    weight: 112
-    label: above
-    settings:
-      image_style: ''
-      image_link: ''
-    third_party_settings: {  }
-    type: image
   field_facebook:
     weight: 108
     label: above

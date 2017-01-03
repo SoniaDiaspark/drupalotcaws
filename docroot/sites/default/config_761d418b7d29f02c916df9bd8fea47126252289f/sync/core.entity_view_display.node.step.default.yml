@@ -3,12 +3,15 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.node.step.field_1280x962_multi_img
+    - field.field.node.step.field_929x1239_img
     - field.field.node.step.field_description
     - field.field.node.step.field_product_own
     - field.field.node.step.field_products
     - field.field.node.step.field_skyword_id
     - node.type.step
   module:
+    - image
     - text
     - user
 id: node.step.default
@@ -16,6 +19,22 @@ targetEntityType: node
 bundle: step
 mode: default
 content:
+  field_1280x962_multi_img:
+    weight: 107
+    label: above
+    settings:
+      image_style: ''
+      image_link: ''
+    third_party_settings: {  }
+    type: image
+  field_929x1239_img:
+    weight: 106
+    label: above
+    settings:
+      image_style: ''
+      image_link: ''
+    third_party_settings: {  }
+    type: image
   field_description:
     weight: 102
     label: above

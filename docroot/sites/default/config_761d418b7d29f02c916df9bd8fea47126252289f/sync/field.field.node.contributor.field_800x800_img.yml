@@ -1,0 +1,38 @@
+uuid: 1abf137f-6f48-419c-b562-26d4a97029d2
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_800x800_img
+    - node.type.contributor
+  module:
+    - image
+id: node.contributor.field_800x800_img
+field_name: field_800x800_img
+entity_type: node
+bundle: contributor
+label: 'Image - Contributor Headshot (800x800)'
+description: "Centered square headshot which will be used at large, medium and small sizes throughout the site.\r\n"
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  file_directory: contributors/desktop/2x
+  file_extensions: 'png gif jpg jpeg'
+  max_filesize: ''
+  max_resolution: 800x800
+  min_resolution: 800x800
+  alt_field: false
+  alt_field_required: true
+  title_field: false
+  title_field_required: false
+  default_image:
+    uuid: ''
+    alt: ''
+    title: ''
+    width: null
+    height: null
+  handler: 'default:file'
+  handler_settings: {  }
+field_type: image

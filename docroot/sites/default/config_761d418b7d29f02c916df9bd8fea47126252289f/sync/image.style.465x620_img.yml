@@ -1,0 +1,15 @@
+uuid: 73ff8aa6-42ed-4a7e-9310-8e5b1ec9571c
+langcode: en
+status: true
+dependencies: {  }
+name: 465x620_img
+label: '0.75 Aspect Ratio - 465x620 Scaled'
+effects:
+  d00a1853-f9ba-48e0-9883-62406c1952b4:
+    uuid: d00a1853-f9ba-48e0-9883-62406c1952b4
+    id: image_scale
+    weight: 1
+    data:
+      width: 465
+      height: 620
+      upscale: false

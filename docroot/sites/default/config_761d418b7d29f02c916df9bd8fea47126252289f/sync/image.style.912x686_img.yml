@@ -1,0 +1,15 @@
+uuid: cbe94525-54fb-4166-ad58-15127fbdc474
+langcode: en
+status: true
+dependencies: {  }
+name: 912x686_img
+label: '1.33 Aspect Ratio - 912x686 Scaled'
+effects:
+  472e1152-69b0-46c4-ac94-884444f0280b:
+    uuid: 472e1152-69b0-46c4-ac94-884444f0280b
+    id: image_scale
+    weight: 1
+    data:
+      width: 912
+      height: 686
+      upscale: false

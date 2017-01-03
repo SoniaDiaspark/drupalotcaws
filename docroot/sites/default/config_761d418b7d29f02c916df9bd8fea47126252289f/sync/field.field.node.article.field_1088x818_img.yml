@@ -1,0 +1,38 @@
+uuid: e15cfdd6-4581-4ca8-8807-8349fb6eacab
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_1088x818_img
+    - node.type.article
+  module:
+    - image
+id: node.article.field_1088x818_img
+field_name: field_1088x818_img
+entity_type: node
+bundle: article
+label: 'Image - Pullquote Image (1088x818)'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  file_directory: articles/quote/desktop/2x
+  file_extensions: 'png gif jpg jpeg'
+  max_filesize: ''
+  max_resolution: 1088x818
+  min_resolution: 1088x818
+  alt_field: false
+  alt_field_required: true
+  title_field: false
+  title_field_required: false
+  default_image:
+    uuid: ''
+    alt: ''
+    title: ''
+    width: null
+    height: null
+  handler: 'default:file'
+  handler_settings: {  }
+field_type: image
