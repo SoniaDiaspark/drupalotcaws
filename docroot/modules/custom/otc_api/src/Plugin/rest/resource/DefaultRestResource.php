@@ -9,17 +9,19 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Psr\Log\LoggerInterface;
 use Drupal\user\Entity\User;
-use Drupal\Core\Entity\EntityTypeManagerInterface;
+// use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\Entity\Query\QueryFactory;
 use Drupal\Core\StreamWrapper\StreamWrapperManager;
+use Drupal\otc_api\NodeHelper;
 
 /**
- * Provides a resource to get view modes by entity and bundle.
+ * OTC base content types API.
  *
  * @RestResource(
- *   id = "otc_rest_resource",
+ *   id = "otc_base",
  *   label = @Translation("OTC Rest Resource"),
  *   uri_paths = {
- *     "canonical" = "/api/otc"
+ *     "canonical" = "/api/{node_type}"
  *   }
  * )
  */
@@ -36,7 +38,7 @@ class DefaultRestResource extends ResourceBase {
    *
    * @var \Drupal\Core\Entity\EntityTypeManagerInterface
    */
-  protected $entityManager;
+  // protected $entityManager;
 
   /**
    * StreamWrapperManager instance.
@@ -68,12 +70,14 @@ class DefaultRestResource extends ResourceBase {
     array $serializer_formats,
     LoggerInterface $logger,
     AccountProxyInterface $current_user,
-    EntityTypeManagerInterface $entityManager,
+    // EntityTypeManagerInterface $entityManager,
+    QueryFactory $queryFactory,
     StreamWrapperManager $streamWrapperManager
     ) {
+
     parent::__construct($configuration, $plugin_id, $plugin_definition, $serializer_formats, $logger);
 
-    $this->entityManager = $entityManager;
+    // $this->entityManager = $entityManager;
     $this->streamWrapperManager = $streamWrapperManager;
     $this->currentUser = $current_user;
   }
@@ -89,38 +93,45 @@ class DefaultRestResource extends ResourceBase {
       $container->getParameter('serializer.formats'),
       $container->get('logger.factory')->get('otc_api'),
       $container->get('current_user'),
-      $container->get('entity.manager'),
+      // $container->get('entity.manager'),
+      $container->get('entity.query'),
       $container->get('stream_wrapper_manager')
     );
   }
   /**
    * Responds to GET requests.
    *
-   * Returns a list of bundles for specified entity.
+   * Get all nodes of specified bundle, if permitted.
    *
    * @throws \Symfony\Component\HttpKernel\Exception\HttpException
    *   Throws exception expected.
    */
-  public function get() {
+  public function get($node_type = NULL) {
+    $published = $pub === 'prev';
+
+    return new ResourceResponse($node_type);
 
     // You must to implement the logic of your REST Resource here.
     // Use current user after pass authentication to validate access.
-    if (!$this->currentUser->hasPermission('access content')) {
-      throw new AccessDeniedHttpException();
-    }
-    $users = $this->entityManager->getStorage('user')->loadMultiple();
-    $return = [
-      'users' => [
-        'count' => count($users),
-        'images' => array_reduce($users, function($images, $user){
-          if ( ($image = $this->getUserImageUrl($user)) ) {
-            $images[] = $image;
-          }
+    // if (!$this->currentUser->hasPermission('access content')) {
+    //   throw new AccessDeniedHttpException();
+    // }
 
-          return $images;
-        }, []),
-      ]
-    ];
+    // $users = $this->entityManager->getStorage('user')->loadMultiple();
+    // $return = [
+    //   'users' => [
+    //     'count' => count($users),
+    //     'images' => array_reduce($users, function($images, $user){
+    //       if ( ($image = $this->getUserImageUrl($user)) ) {
+    //         $images[] = $image;
+    //       }
+    //
+    //       return $images;
+    //     }, []),
+    //   ]
+    // ];
+
+    $return = [];
 
     return new ResourceResponse($return);
   }
@@ -132,15 +143,15 @@ class DefaultRestResource extends ResourceBase {
    * @see \Drupal\user\Entity\User
    * @return string
    */
-  private function getUserImageUrl(User $user) : string {
-      $bioImageId = current($user->field_bio_image->getValue())['target_id'] ?? NULL;
-      if ( $bioImageId ) {
-        $Image = $this->entityManager->getStorage('file')->load($bioImageId);
-        if ( ($imageHandler = $this->streamWrapperManager->getViaUri($Image->getFileUri())) ) {
-          return $imageHandler->getExternalUrl();
-        }
-      }
-
-      return '';
+  private function getUserImageUrl(User $user) {
+      // $bioImageId = current($user->field_bio_image->getValue())['target_id'] ?? NULL;
+      // if ( $bioImageId ) {
+      //   $Image = $this->entityManager->getStorage('file')->load($bioImageId);
+      //   if ( ($imageHandler = $this->streamWrapperManager->getViaUri($Image->getFileUri())) ) {
+      //     return $imageHandler->getExternalUrl();
+      //   }
+      // }
+      //
+      // return '';
   }
 }
