@@ -48,4 +48,13 @@ class ApiController extends ControllerBase {
 
     return $response;
   }
+
+  public function uuid(Request $request, $contentType, $uuid) {
+    $resultData = $this->restHelper->fetchOne($contentType, $uuid);
+
+    $response = new CacheableJsonResponse($resultData);
+    $response->addCacheableDependency($this->restHelper->cacheMetaData($resultData));
+
+    return $response;
+  }
 }

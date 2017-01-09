@@ -14,7 +14,7 @@ interface RestHelperInterface {
    * @param  string $contentType the content type
    * @return boolean
    */
-  public function contentTypeExists($contentType);
+  public function contentTypePermitted($contentType);
 
   /**
    * Fetch a list of nodes from a content type, in clean format for REST.

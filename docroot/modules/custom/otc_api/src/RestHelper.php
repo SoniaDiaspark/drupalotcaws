@@ -3,6 +3,7 @@
 namespace Drupal\otc_api;
 
 use Drupal\Core\Entity\Query\QueryFactory;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\node\Entity\NodeType;
 use Drupal\node\Entity\Node;
 use Drupal\Core\Field\FieldItemListInterface;
@@ -15,13 +16,23 @@ class RestHelper implements RestHelperInterface {
    * For creating entity queries.
    * @var Drupal\Core\Entity\Query\QueryFactory
    */
-  private $queryFactory;
+  protected $queryFactory;
+
+  /**
+   * To query entities by uuid
+   * @var Drupal\Core\Entity\EntityTypeManagerInterface
+   */
+  protected $entityTypeManager;
 
   /**
    * @param QueryFactory $queryFactory entity query factory
    */
-  public function __construct(QueryFactory $queryFactory) {
+  public function __construct(
+    QueryFactory $queryFactory,
+    EntityTypeManagerInterface $entityTypeManager
+  ) {
     $this->queryFactory = $queryFactory;
+    $this->entityTypeManager = $entityTypeManager;
   }
 
   /**
@@ -31,7 +42,7 @@ class RestHelper implements RestHelperInterface {
   public function cacheMetaData($result = []) {
     $cacheMetaData = new CacheableMetadata;
     $cacheMetaData->setCacheContexts(['url']);
-    
+
     if ( ! empty($result['nid']) ) {
       $cacheMetaData->setCacheTags(['node:' . $result['nid']]);
       return $cacheMetaData;
@@ -47,8 +58,42 @@ class RestHelper implements RestHelperInterface {
    * @param  string $contentType the content type
    * @return boolean
    */
-  public function contentTypeExists($contentType = NULL) {
-    return $contentType && in_array($contentType, array_keys(NodeType::loadMultiple()));
+  public function contentTypePermitted($contentType = NULL) {
+    $allowedContentTypes = [
+      'article',
+      'contributor',
+      'download',
+      'featured_content',
+      'look',
+      'product',
+      'project',
+      'promo',
+      'recipe',
+      'step',
+    ];
+
+    return
+      $contentType
+      && in_array($contentType, $allowedContentTypes)
+      && in_array($contentType, array_keys(NodeType::loadMultiple()));
+  }
+
+  public function fetchOne($contentType, $uuid = '') {
+    if ( ! self::contentTypePermitted($contentType) ) {
+      return [];
+    }
+
+    $result = $this->entityTypeManager->getStorage('node')->loadByProperties(['uuid' => $uuid]);
+    if ( ! $result ) {
+      return [];
+    }
+
+    $node = current($result);
+    if ( ! self::contentTypePermitted($node->getType()) ) {
+      return [];
+    }
+
+    return $this->processNode($node);
   }
 
   /**
@@ -59,7 +104,7 @@ class RestHelper implements RestHelperInterface {
    * @return array of nodes.
    */
   public function fetchAll($contentType, $page = 0, $published = true) {
-    if ( ! self::contentTypeExists($contentType) ) {
+    if ( ! self::contentTypePermitted($contentType) ) {
       return [];
     }
 
