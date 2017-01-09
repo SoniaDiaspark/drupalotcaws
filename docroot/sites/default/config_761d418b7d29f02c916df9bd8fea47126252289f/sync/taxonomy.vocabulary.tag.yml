@@ -6,4 +6,4 @@ name: Tag
 vid: tag
 description: 'Filter tag for content.'
 hierarchy: 0
-weight: 0
+weight: -8
