@@ -1,0 +1,4 @@
+services:
+  otc_api.rest_helper:
+    class: Drupal\otc_api\RestHelper
+    arguments: ['@entity.query']

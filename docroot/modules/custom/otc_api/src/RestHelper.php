@@ -9,7 +9,7 @@ use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\image\Entity\ImageStyle;
 
-class NodeHelper {
+class RestHelper implements RestHelperInterface {
   /**
    * For creating entity queries.
    * @var Drupal\Core\Entity\Query\QueryFactory
@@ -30,28 +30,6 @@ class NodeHelper {
    */
   public function contentTypeExists($contentType = NULL) {
     return $contentType && in_array($contentType, array_keys(NodeType::loadMultiple()));
-  }
-
-  /**
-   * Get new entity query for a content type.
-   * @param  string  $contentType the content type
-   * @param  boolean $published  true for published only, false for everything
-   * @return Drupal\Core\Entity\Query\QueryInterface EntityQuery, with some conditions
-   *  preset for the content type.
-   */
-  protected function newQuery($contentType, $published = true) {
-    $query = \Drupal::entityQuery('node');
-    if (! $published ) {
-      $group = $query->orConditionGroup()
-        ->condition('status', 1)
-        ->condition('status', 0);
-      $query->condition($group);
-    } else {
-      $query->condition('status', 1);
-    }
-    $query->condition('type', $contentType);
-
-    return $query;
   }
 
   /**
@@ -90,6 +68,28 @@ class NodeHelper {
 
     print_r($response);
     return $response;
+  }
+
+  /**
+   * Get new entity query for a content type.
+   * @param  string  $contentType the content type
+   * @param  boolean $published  true for published only, false for everything
+   * @return Drupal\Core\Entity\Query\QueryInterface EntityQuery, with some conditions
+   *  preset for the content type.
+   */
+  protected function newQuery($contentType, $published = true) {
+    $query = \Drupal::entityQuery('node');
+    if (! $published ) {
+      $group = $query->orConditionGroup()
+        ->condition('status', 1)
+        ->condition('status', 0);
+      $query->condition($group);
+    } else {
+      $query->condition('status', 1);
+    }
+    $query->condition('type', $contentType);
+
+    return $query;
   }
 
   /**
