@@ -2,3 +2,6 @@ services:
   otc_api.rest_helper:
     class: Drupal\otc_api\RestHelper
     arguments: ['@entity.query']
+  otc_api.router:
+    class: Drupal\otc_api\RoutingService
+    arguments: []

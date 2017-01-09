@@ -8,6 +8,7 @@ use Drupal\node\Entity\Node;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\image\Entity\ImageStyle;
+use Drupal\Core\Cache\CacheableMetadata;
 
 class RestHelper implements RestHelperInterface {
   /**
@@ -21,6 +22,24 @@ class RestHelper implements RestHelperInterface {
    */
   public function __construct(QueryFactory $queryFactory) {
     $this->queryFactory = $queryFactory;
+  }
+
+  /**
+   * Get CacheMetaData for node list or specific result.
+   * @return CacheableMetadata cache metadata object
+   */
+  public function cacheMetaData($result = []) {
+    $cacheMetaData = new CacheableMetadata;
+    $cacheMetaData->setCacheContexts(['url']);
+    
+    if ( ! empty($result['nid']) ) {
+      $cacheMetaData->setCacheTags(['node:' . $result['nid']]);
+      return $cacheMetaData;
+    }
+
+    $cacheMetaData->setCacheTags(['node_list']);
+
+    return $cacheMetaData;
   }
 
   /**
@@ -66,7 +85,6 @@ class RestHelper implements RestHelperInterface {
       ->getStorage('node')
       ->loadMultiple($entity_ids));
 
-    print_r($response);
     return $response;
   }
 
@@ -311,7 +329,6 @@ class RestHelper implements RestHelperInterface {
    */
   protected static function ignoredFieldNames() {
     return [
-      'nid',
       'vid',
       'title',
       'langcode',
