@@ -305,13 +305,12 @@ class RestHelper implements RestHelperInterface {
       return [];
     }
 
-    $aspectRatio = round($matches[1] / $matches[2], 2);
-
+    $aspectRatio = number_format(round($matches[1] / $matches[2], 2), 2);
     if ( ! in_array($aspectRatio, array_keys($resolutions)) ) {
       return [];
     }
 
-    return $resolutions["$aspectRatio"];
+    return $resolutions[$aspectRatio];
   }
 
   /**
