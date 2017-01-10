@@ -6,6 +6,7 @@ use Drupal\Core\Entity\Query\QueryFactory;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\node\Entity\NodeType;
 use Drupal\node\Entity\Node;
+use Drupal\file\Entity\File;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\image\Entity\ImageStyle;
@@ -115,7 +116,7 @@ class RestHelper implements RestHelperInterface {
       'published' => $published
     ];
 
-    $response['count'] = $this->newQuery($contentType, $published)->count()->execute();
+    $response['count'] = intval($this->newQuery($contentType, $published)->count()->execute());
 
     $entity_ids = $this->newQuery($contentType, $published)
       ->range($page * $limit, $limit)
@@ -174,7 +175,7 @@ class RestHelper implements RestHelperInterface {
    * @param  Node   $node the node object.
    * @return array node information in clean format for REST
    */
-  protected function processNode (Node $node) {
+  protected function processNode (Node $node, $referenceDepth = 0) {
     $view = [];
 
     $fieldDefinitions = \Drupal::service('entity.manager')->getFieldDefinitions('node', $node->getType());
@@ -183,15 +184,23 @@ class RestHelper implements RestHelperInterface {
       if ( ! $fieldDefinition->getType() ) continue;
 
       $supported = in_array($fieldDefinition->getType(), array_keys(self::supportedFieldTypes()));
+      // if ( ! $supported ) {
+        // echo $name . ": " . $fieldDefinition->getType() . "\n";
+      // }
       $notIgnored = ! in_array($name, self::ignoredFieldNames());
-      if ( $supported && $notIgnored ) {
+      $skippedReference = $referenceDepth > 2 && $fieldDefinition->getType() === 'entity_reference';
+
+      if ( $supported && $notIgnored && ! $skippedReference ) {
         // no value
         if ( ! $node->$name ) {
           $view[$name] = '';
           continue;
         }
 
-        $view[$name] = $this->processField($node->{$name}, $fieldDefinition);
+        $view[$name] = $this->processField($node->{$name}, [
+            'fieldDefinition' => $fieldDefinition,
+            'referenceDepth' => $referenceDepth,
+        ]);
       }
     }
 
@@ -204,45 +213,200 @@ class RestHelper implements RestHelperInterface {
    * @see self::supportedFieldTypes()
    *
    * @param  FieldItemListInterface   $field the field item list
-   * @param  FieldDefinitionInterface $fieldDefinition the field instance definition
+   * @param  array options
+   *   - FieldDefinitionInterface $fieldDefinition field instance info
+   *     used to get field instance information.
    * @return mixed "formatted" value of the field
    */
-  protected function processField(FieldItemListInterface $field, FieldDefinitionInterface $fieldDefinition) {
-    $method = self::supportedFieldTypes()[$fieldDefinition->getType()];
-    return $this->{$method}($field, $fieldDefinition);
+  protected function processField(FieldItemListInterface $field, $options = []) {
+    $method = self::supportedFieldTypes()[$options['fieldDefinition']->getType()];
+    return $this->{$method}($field, $options);
   }
 
   /**
    * Get simple value.
    * @param  FieldItemListInterface   $field field item list
-   * @param  FieldDefinitionInterface $fieldDefinition field instance info
    * @return string simple string value
    */
-  protected function getFieldValue(FieldItemListInterface $field, FieldDefinitionInterface $fieldDefinition) {
+  protected function getFieldValue(FieldItemListInterface $field) {
     return $field->value;
+  }
+
+  /**
+   * Get simple integer value.
+   * @param  FieldItemListInterface   $field field item list
+   * @return int
+   */
+  protected function getIntFieldValue(FieldItemListInterface $field) {
+    return intval($field->value);
+  }
+
+  /**
+   * Get simple float value.
+   * @param  FieldItemListInterface   $field field item list
+   * @return float
+   */
+  protected function getFloatFieldValue(FieldItemListInterface $field) {
+    return floatval($field->value);
+  }
+
+  /**
+   * Get link value.
+   * @param  FieldItemListInterface   $field field item list
+   * @return string simple string value
+   */
+  protected function getLinkFieldValue(FieldItemListInterface $field, $options = []) {
+    $values = $field->getValue();
+    if ( $values ) {
+      $links = [];
+      $storage = \Drupal::service('entity.manager')->getFieldStorageDefinitions('node');
+      if ( $storage[$field->getName()]->isMultiple() ) {
+        foreach ( $values as $linkData ) {
+          $links[] = [
+            'url' => $linkData['uri'],
+            'title' => $linkData['title'],
+          ];
+        }
+        return $links;
+      } else {
+        $linkData = current($values);
+        return [
+          'url' => $linkData['uri'],
+          'title' => $linkData['title'],
+        ];
+      }
+    }
+
+    return NULL;
+  }
+
+  /**
+   * Get simple date value.
+   * @param  FieldItemListInterface   $field field item list
+   * @return string simple string value
+   */
+  protected function getDateFieldValue(FieldItemListInterface $field) {
+    return \Drupal::service('date.formatter')->format($field->value, 'html_datetime');
   }
 
   /**
    * Get true/false value from boolean
    * @param  FieldItemListInterface   $field           the field item list
-   * @param  FieldDefinitionInterface $fieldDefinition field instance configuration
    * @return boolean
    */
-  protected function getFieldBoolean(FieldItemListInterface $field, FieldDefinitionInterface $fieldDefinition) {
+  protected function getFieldBoolean(FieldItemListInterface $field) {
     return $field->value === "1";
   }
 
   /**
+   * Get one or more entity reference object arrays.
+   * @param  FieldItemListInterface   $field the field items
+   * @param  array options
+   *   - FieldDefinitionInterface $fieldDefinition field instance info
+   *     used to get field instance information.
+   *   - int referenceDepth to prevent infinite recursion
+   * @return array of arrays representing referenced node
+   */
+  protected function getReferenceFieldValue(FieldItemListInterface $field, $options = []) {
+    $referenceType = $options['fieldDefinition']->getSettings()['target_type'];
+
+    switch ( $referenceType ) {
+      case 'node':
+        return $this->getReferenceNode($field, $options);
+        break;
+      case 'node_type':
+        return $this->getNodeType($field);
+        break;
+      case 'taxonomy_term':
+      default:
+        return NULL;
+    }
+  }
+
+  /**
+   * Get one or more entity reference object arrays.
+   * @param  FieldItemListInterface   $field the field items
+   * @return string node type
+   */
+  protected function getNodeType(FieldItemListInterface $field) {
+    $value = $field->getValue();
+    if ( $value ) {
+      return current($value)['target_id'];
+    }
+
+    return '';
+  }
+
+  /**
+   * Get one or more entity reference object arrays.
+   * @param  FieldItemListInterface   $field the field items
+   * @param  array options
+   *   - FieldDefinitionInterface $fieldDefinition field instance info
+   *     used to get field instance information.
+   *   - int referenceDepth to prevent infinite recursion
+   * @return array of arrays representing referenced node
+   */
+   protected function getReferenceNode(FieldItemListInterface $field, $options = []) {
+     $storage = \Drupal::service('entity.manager')->getFieldStorageDefinitions('node');
+     $referenceData = $field->getValue();
+
+     $nodes = [];
+     if ( $referenceData ) {
+       if ( $storage[$field->getName()]->isMultiple() ) {
+         foreach ( $referenceData as $index => $target ) {
+           $node = Node::load($target['target_id']);
+           $nodes[] = $this->processNode($node, $options['referenceDepth'] + 1);
+         }
+         return $nodes;
+       } else {
+         $node = Node::load(current($referenceData)['target_id']);
+         return $this->processNode($node, $options['referenceDepth'] + 1);
+       }
+     }
+
+     return $nodes;
+   }
+
+   /**
+    * Get one or more file object arrays.
+    * @param  FieldItemListInterface   $field the field items
+    * @param  array options
+    *   - includes FieldDefinitionInterface $fieldDefinition field instance info
+    *     used to get image resolution constraints.
+    * @return array of arrays of file urls.
+    */
+   protected function getFileFieldValue(FieldItemListInterface $field, $options = []) {
+     $storage = \Drupal::service('entity.manager')->getFieldStorageDefinitions('node');
+     $fileData = $field->getValue();
+
+     if ( $fileData ) {
+       if ( $storage[$field->getName()]->isMultiple() ) {
+         $files = [];
+         foreach ( $fileData as $target ) {
+           $files[] = File::load($target['target_id'])->url();
+         }
+         return $files;
+       }
+
+       // single
+       return File::load(current($fileData)['target_id'])->url();
+     }
+
+     return NULL;
+   }
+
+  /**
    * Get one or more image object arrays.
    * @param  FieldItemListInterface   $field the field items
-   * @param  FieldDefinitionInterface $fieldDefinition field instance info
-   *   used to get image resolution constraints.
-   * @return array or arrays of image urls.
+   * @param  array options
+   *   - includes FieldDefinitionInterface $fieldDefinition field instance info
+   *     used to get image resolution constraints.
+   * @return array of arrays of image urls.
    */
-  protected function getImageFieldValue(FieldItemListInterface $field, FieldDefinitionInterface $fieldDefinition) {
+  protected function getImageFieldValue(FieldItemListInterface $field, $options = []) {
     $storage = \Drupal::service('entity.manager')->getFieldStorageDefinitions('node');
     $imageData = $field->getValue();
-    $resolution = $fieldDefinition->getSettings()['max_resolution'];
+    $resolution = $options['fieldDefinition']->getSettings()['max_resolution'];
     $resolutions = $this->imageStyles($resolution);
 
     if ( $imageData ) {
@@ -317,7 +481,7 @@ class RestHelper implements RestHelperInterface {
    * Get image styles for each aspect ratio.
    * @return array list of resolutions/image styles per aspect ratio
    */
-  protected static function resolutions() {
+    protected static function resolutions() {
       return [
         '0.75' => [
           '465x620_img',
@@ -359,11 +523,18 @@ class RestHelper implements RestHelperInterface {
       'string' => 'getFieldValue',
       'string_long' => 'getFieldValue',
       'text' => 'getFieldValue',
-      'float' => 'getFieldValue',
+      'text_long' => 'getFieldValue',
+      'created' => 'getDateFieldValue',
+      'changed' => 'getDateFieldValue',
+      'path' => 'getFieldValue',
+      'float' => 'getFloatFieldValue',
       'boolean' => 'getFieldBoolean',
       'uuid' => 'getFieldValue',
-      'integer' => 'getFieldValue',
+      'integer' => 'getIntFieldValue',
       'image' => 'getImageFieldValue',
+      'file' => 'getFileFieldValue',
+      'entity_reference' => 'getReferenceFieldValue',
+      'link' => 'getLinkFieldValue',
     ];
   }
 
@@ -377,8 +548,6 @@ class RestHelper implements RestHelperInterface {
       'title',
       'langcode',
       'uid',
-      'created',
-      'changed',
       'promote',
       'sticky',
       'revision_timestamp',
