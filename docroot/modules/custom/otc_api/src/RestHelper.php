@@ -531,6 +531,7 @@ class RestHelper implements RestHelperInterface {
    }
 
    protected function getReferenceTerm(FieldItemListInterface $field, $options = []) {
+     // @todo move field storage definitions to calling context
      $storage = \Drupal::service('entity.manager')->getFieldStorageDefinitions('node');
      $referenceData = $field->getValue();
 
@@ -560,6 +561,7 @@ class RestHelper implements RestHelperInterface {
     * @return array of arrays of file urls.
     */
    protected function getFileFieldValue(FieldItemListInterface $field, $options = []) {
+     // @todo move field storage definitions to calling context
      $storage = \Drupal::service('entity.manager')->getFieldStorageDefinitions('node');
      $fileData = $field->getValue();
 

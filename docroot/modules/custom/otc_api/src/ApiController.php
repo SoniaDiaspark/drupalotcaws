@@ -37,7 +37,11 @@ class ApiController extends ControllerBase {
    * @return CacheableJsonResponse
    */
   public function category(Request $request) {
-    $response = new CacheableJsonResponse(['hello world category response']);
+    $page = $request->get('page') * 1;
+    $results = $this->restHelper->fetchAllTerms('category', $page);
+    $response = new CacheableJsonResponse($results);
+    $response->addCacheableDependency($this->restHelper->cacheMetaData($results, 'taxonomy_term'));
+
     return $response;
   }
 
