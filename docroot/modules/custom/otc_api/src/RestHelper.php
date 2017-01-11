@@ -5,6 +5,7 @@ namespace Drupal\otc_api;
 use Drupal\Core\Entity\Query\QueryFactory;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\node\Entity\NodeType;
+use Drupal\taxonomy\Entity\Term;
 use Drupal\node\Entity\Node;
 use Drupal\file\Entity\File;
 use Drupal\Core\Field\FieldItemListInterface;
@@ -37,10 +38,43 @@ class RestHelper implements RestHelperInterface {
   }
 
   /**
+   * Get CacheMetaData for content list or specific result.
+   * @param  array $result processed content array
+   * @param  string $entity_type (optional) defaults to node
+   *   can be node or taxonomy_term
+   * @return CacheableMetadata cache metadata object
+   */
+  public function cacheMetaData($result = [], $entity_type = 'node') {
+    if ( $entity_type === 'node' ) {
+      return $this->cacheNodeMetaData($result);
+    } else if ( $entity_type === 'taxonomy_term' ) {
+      return $this->cacheTermMetaData($result);
+    }
+  }
+
+  /**
+   * Get CacheMetaData for term list or specific term result.
+   * @return CacheableMetadata cache metadata object
+   */
+  protected function cacheTermMetaData($result = []) {
+    $cacheMetaData = new CacheableMetadata;
+    $cacheMetaData->setCacheContexts(['url']);
+
+    if ( ! empty($result['tid']) ) {
+      $cacheMetaData->setCacheTags(['taxonomy_term:' . $result['tid']]);
+      return $cacheMetaData;
+    }
+
+    $cacheMetaData->setCacheTags(['taxonomy_term']);
+
+    return $cacheMetaData;
+  }
+
+  /**
    * Get CacheMetaData for node list or specific result.
    * @return CacheableMetadata cache metadata object
    */
-  public function cacheMetaData($result = []) {
+  protected function cacheNodeMetaData($result = []) {
     $cacheMetaData = new CacheableMetadata;
     $cacheMetaData->setCacheContexts(['url']);
 
@@ -79,6 +113,12 @@ class RestHelper implements RestHelperInterface {
       && in_array($contentType, array_keys(NodeType::loadMultiple()));
   }
 
+  /**
+   * Get one node by uuid.
+   * @param  string $contentType content type for validation
+   * @param  string $uuid        uuid of the content
+   * @return array processed node, simplified for rest
+   */
   public function fetchOne($contentType, $uuid = '') {
     if ( ! self::contentTypePermitted($contentType) ) {
       return [];
@@ -95,6 +135,70 @@ class RestHelper implements RestHelperInterface {
     }
 
     return $this->processNode($node);
+  }
+
+  public function fetchOneTerm($vocabulary, $uuid = '') {
+    if ( ! self::vocabularyPermitted($vocabulary) ) {
+      return [];
+    }
+
+    $result = $this->entityTypeManager->getStorage('taxonomy_term')->loadByProperties(['uuid' => $uuid]);
+    if ( ! $result ) {
+      return [];
+    }
+
+    $term = current($result);
+    if ( ! self::vocabularyPermitted($term->getVocabularyId()) ) {
+      return [];
+    }
+
+    return $this->processTerm($term);
+  }
+
+
+  protected static function vocabularyPermitted($vocabulary) {
+    return in_array($vocabulary, [
+      'category',
+      'tag'
+    ]);
+  }
+
+  protected function newTermQuery($vocabulary) {
+    $query = \Drupal::entityQuery('taxonomy_term');
+    $query->condition('vid', $vocabulary);
+
+    return $query;
+  }
+
+  public function fetchAllTerms($vocabulary, $page = 0) {
+    if ( ! self::vocabularyPermitted($vocabulary) ) {
+      return [];
+    }
+
+    $limit = 10;
+    $response = [
+      'limit' => $limit,
+      'page' => $page,
+    ];
+
+    $response['count'] = intval($this->newTermQuery($vocabulary)->count()->execute());
+
+    $entity_ids = $this->newTermQuery($vocabulary)
+      ->range($page * $limit, $limit)
+      ->execute();
+
+    if ( ! $entity_ids ) {
+      $response['results'] = [];
+      return $response;
+    }
+
+    $response['results'] = $this->processTerms(\Drupal::entityTypeManager()
+      ->getStorage('taxonomy_term')
+      ->loadMultiple($entity_ids)
+    );
+
+    return $response;
+
   }
 
   /**
@@ -155,6 +259,62 @@ class RestHelper implements RestHelperInterface {
 
     return $query;
   }
+
+  protected function processTerms ($terms) {
+    $results = [];
+    foreach ( $terms as $term ) {
+      $results[] = $this->processTerm($term);
+    }
+
+    return $results;
+  }
+
+  /**
+   * Process all fields in a term.
+   * @param  Term   $term the $term object.
+   * @return array term information in clean format for REST
+   */
+  protected function processTerm (Term $term, $referenceDepth = 0) {
+
+    $parents = \Drupal::service('entity_type.manager')->getStorage('taxonomy_term')->loadParents($term->tid->value);
+    $parent = NULL;
+    if ( $parents ) {
+      $parent = $this->processTerm(Term::load(current($parents)->tid->value));
+    }
+
+    $view = [
+      'parent' => $parent,
+    ];
+
+    $fieldDefinitions = \Drupal::service('entity.manager')->getFieldDefinitions('taxonomy_term', $term->getVocabularyId());
+
+    foreach ( $fieldDefinitions as $name => $fieldDefinition ) {
+      if ( ! $fieldDefinition->getType() ) continue;
+
+      $supported = in_array($fieldDefinition->getType(), array_keys(self::supportedFieldTypes()));
+      // if ( ! $supported ) {
+        // echo $name . ": " . $fieldDefinition->getType() . "\n";
+      // }
+      $notIgnored = ! in_array($name, self::ignoredFieldNames());
+      $skippedReference = $referenceDepth > 2 && $fieldDefinition->getType() === 'entity_reference';
+
+      if ( $supported && $notIgnored && ! $skippedReference ) {
+        // no value
+        if ( ! $term->$name ) {
+          $view[$name] = '';
+          continue;
+        }
+
+        $view[$name] = $this->processField($term->{$name}, [
+            'fieldDefinition' => $fieldDefinition,
+            'referenceDepth' => $referenceDepth,
+        ]);
+      }
+    }
+
+    return $view;
+  }
+
 
   /**
    * Process list of nodes.
@@ -260,6 +420,7 @@ class RestHelper implements RestHelperInterface {
     if ( $values ) {
       $links = [];
       $storage = \Drupal::service('entity.manager')->getFieldStorageDefinitions('node');
+
       if ( $storage[$field->getName()]->isMultiple() ) {
         foreach ( $values as $linkData ) {
           $links[] = [
@@ -318,6 +479,8 @@ class RestHelper implements RestHelperInterface {
         return $this->getNodeType($field);
         break;
       case 'taxonomy_term':
+        return $this->getReferenceTerm($field, $options);
+        break;
       default:
         return NULL;
     }
@@ -365,6 +528,27 @@ class RestHelper implements RestHelperInterface {
      }
 
      return $nodes;
+   }
+
+   protected function getReferenceTerm(FieldItemListInterface $field, $options = []) {
+     $storage = \Drupal::service('entity.manager')->getFieldStorageDefinitions('node');
+     $referenceData = $field->getValue();
+
+     $terms = [];
+     if ( $referenceData ) {
+       if ( $storage[$field->getName()]->isMultiple() ) {
+         foreach ( $referenceData as $index => $target ) {
+           $term = Term::load($target['target_id']);
+           $terms[] = $this->processTerm($term, $options['referenceDepth'] + 1);
+         }
+         return $terms;
+       } else {
+         $term = Term::load(current($referenceData)['target_id']);
+         return $this->processTerm($term, $options['referenceDepth'] + 1);
+       }
+     }
+
+     return $terms;
    }
 
    /**
@@ -544,6 +728,7 @@ class RestHelper implements RestHelperInterface {
    */
   protected static function ignoredFieldNames() {
     return [
+      'parent',
       'vid',
       'title',
       'langcode',

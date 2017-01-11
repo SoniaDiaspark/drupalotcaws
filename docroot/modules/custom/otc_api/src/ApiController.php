@@ -31,6 +31,17 @@ class ApiController extends ControllerBase {
   }
 
   /**
+   * Base category api call.
+   *
+   * @param  Request $request the request
+   * @return CacheableJsonResponse
+   */
+  public function category(Request $request) {
+    $response = new CacheableJsonResponse(['hello world category response']);
+    return $response;
+  }
+
+  /**
    * Base content type api call.
    *
    * @param  Request $request the request
@@ -49,6 +60,13 @@ class ApiController extends ControllerBase {
     return $response;
   }
 
+  /**
+   * Get specific node by uuid
+   * @param  Request $request     the request
+   * @param  string  $contentType the content type
+   * @param  string  $uuid        uuid of the node
+   * @return CacheableJsonResponse
+   */
   public function uuid(Request $request, $contentType, $uuid) {
     $resultData = $this->restHelper->fetchOne($contentType, $uuid);
 
