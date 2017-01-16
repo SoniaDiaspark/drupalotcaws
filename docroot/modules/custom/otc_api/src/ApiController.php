@@ -37,8 +37,13 @@ class ApiController extends ControllerBase {
    * @return CacheableJsonResponse
    */
   public function category(Request $request) {
-    $page = $request->get('page') * 1;
-    $results = $this->restHelper->fetchAllTerms('category', $page);
+    $options = [
+      'page' => $request->get('page') * 1,
+      'recurse' => true,
+      'recurseLimit' => 2,
+    ];
+
+    $results = $this->restHelper->fetchAllTerms('category', $options);
     $response = new CacheableJsonResponse($results);
     $response->addCacheableDependency($this->restHelper->cacheMetaData($results, 'taxonomy_term'));
 
@@ -53,10 +58,13 @@ class ApiController extends ControllerBase {
    * @return CacheableJsonResponse
    */
   public function base(Request $request, $contentType) {
-    $published = $request->get('published') !== '0';
+    $options = [
+      'published' => $request->get('published') !== '0',
+      'page' => $request->get('page') * 1,
+      'recurse' => false
+    ];
 
-    $page = $request->get('page') * 1;
-    $resultData = $this->restHelper->fetchAll($contentType, $page, $published);
+    $resultData = $this->restHelper->fetchAll($contentType, $options);
 
     $response = new CacheableJsonResponse($resultData);
     $response->addCacheableDependency($this->restHelper->cacheMetaData());
@@ -72,7 +80,7 @@ class ApiController extends ControllerBase {
    * @return CacheableJsonResponse
    */
   public function uuid(Request $request, $contentType, $uuid) {
-    $resultData = $this->restHelper->fetchOne($contentType, $uuid);
+    $resultData = $this->restHelper->fetchOne($contentType, $uuid, ['recurse' => false]);
 
     $response = new CacheableJsonResponse($resultData);
     $response->addCacheableDependency($this->restHelper->cacheMetaData($resultData));

@@ -10,6 +10,7 @@ use Drupal\node\Entity\Node;
 use Drupal\file\Entity\File;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\FieldDefinitionInterface;
+use Drupal\Core\Field\FieldStorageDefinitionInterface;
 use Drupal\image\Entity\ImageStyle;
 use Drupal\Core\Cache\CacheableMetadata;
 
@@ -29,26 +30,30 @@ class RestHelper implements RestHelperInterface {
   /**
    * @param QueryFactory $queryFactory entity query factory
    */
-  public function __construct(
-    QueryFactory $queryFactory,
-    EntityTypeManagerInterface $entityTypeManager
-  ) {
-    $this->queryFactory = $queryFactory;
-    $this->entityTypeManager = $entityTypeManager;
+  public function __construct() {
+    $this->queryFactory = \Drupal::service('entity.query');
+    $this->entityTypeManager = \Drupal::service('entity_type.manager');
   }
 
   /**
    * Get CacheMetaData for content list or specific result.
-   * @param  array $result processed content array
+   * @param  mixed $result processed content array
    * @param  string $entity_type (optional) defaults to node
    *   can be node or taxonomy_term
    * @return CacheableMetadata cache metadata object
    */
-  public function cacheMetaData($result = [], $entity_type = 'node') {
+  public function cacheMetaData($result, $entity_type = 'node') {
+    $cacheMetaData = new CacheableMetadata;
+    $cacheMetaData->setCacheContexts(['url']);
+
+    if ( empty($result) || ! is_array($result) ) {
+      $result = [];
+    }
+
     if ( $entity_type === 'node' ) {
-      return $this->cacheNodeMetaData($result);
+      return $this->cacheNodeMetaData($cacheMetaData, $result);
     } else if ( $entity_type === 'taxonomy_term' ) {
-      return $this->cacheTermMetaData($result);
+      return $this->cacheTermMetaData($cacheMetaData, $result);
     }
   }
 
@@ -56,10 +61,7 @@ class RestHelper implements RestHelperInterface {
    * Get CacheMetaData for term list or specific term result.
    * @return CacheableMetadata cache metadata object
    */
-  protected function cacheTermMetaData($result = []) {
-    $cacheMetaData = new CacheableMetadata;
-    $cacheMetaData->setCacheContexts(['url']);
-
+  protected function cacheTermMetaData(CacheableMetadata $cacheMetaData, $result = []) {
     if ( ! empty($result['tid']) ) {
       $cacheMetaData->setCacheTags(['taxonomy_term:' . $result['tid']]);
       return $cacheMetaData;
@@ -74,10 +76,7 @@ class RestHelper implements RestHelperInterface {
    * Get CacheMetaData for node list or specific result.
    * @return CacheableMetadata cache metadata object
    */
-  protected function cacheNodeMetaData($result = []) {
-    $cacheMetaData = new CacheableMetadata;
-    $cacheMetaData->setCacheContexts(['url']);
-
+  protected function cacheNodeMetaData(CacheableMetadata $cacheMetaData, $result = []) {
     if ( ! empty($result['nid']) ) {
       $cacheMetaData->setCacheTags(['node:' . $result['nid']]);
       return $cacheMetaData;
@@ -114,48 +113,10 @@ class RestHelper implements RestHelperInterface {
   }
 
   /**
-   * Get one node by uuid.
-   * @param  string $contentType content type for validation
-   * @param  string $uuid        uuid of the content
-   * @return array processed node, simplified for rest
-   */
-  public function fetchOne($contentType, $uuid = '') {
-    if ( ! self::contentTypePermitted($contentType) ) {
-      return [];
-    }
-
-    $result = $this->entityTypeManager->getStorage('node')->loadByProperties(['uuid' => $uuid]);
-    if ( ! $result ) {
-      return [];
-    }
-
-    $node = current($result);
-    if ( ! self::contentTypePermitted($node->getType()) ) {
-      return [];
-    }
-
-    return $this->processNode($node);
-  }
-
-  public function fetchOneTerm($vocabulary, $uuid = '') {
-    if ( ! self::vocabularyPermitted($vocabulary) ) {
-      return [];
-    }
-
-    $result = $this->entityTypeManager->getStorage('taxonomy_term')->loadByProperties(['uuid' => $uuid]);
-    if ( ! $result ) {
-      return [];
-    }
-
-    $term = current($result);
-    if ( ! self::vocabularyPermitted($term->getVocabularyId()) ) {
-      return [];
-    }
-
-    return $this->processTerm($term);
-  }
-
-
+  * Check to see if a given vocabulary is permitted in the api call.
+  * @param  string $vocabulary the vocabulary name/id
+  * @return boolean
+  */
   protected static function vocabularyPermitted($vocabulary) {
     return in_array($vocabulary, [
       'category',
@@ -163,28 +124,90 @@ class RestHelper implements RestHelperInterface {
     ]);
   }
 
-  protected function newTermQuery($vocabulary) {
-    $query = \Drupal::entityQuery('taxonomy_term');
-    $query->condition('vid', $vocabulary);
-
-    return $query;
-  }
-
-  public function fetchAllTerms($vocabulary, $page = 0) {
-    if ( ! self::vocabularyPermitted($vocabulary) ) {
+  /**
+  * Fetch a list of nodes from a content type, in clean format for REST.
+  * @param  string $contentType the content type
+  * @param array $options
+  * - integer $page page number (default 0)
+  * - boolean $published true for published, false for all. (default true)
+  * - boolean $recurse references are recursively dereferenced
+  * - integer $recurseLevel levels of recursion
+  * @return array of nodes.
+  */
+  public function fetchAll($contentType, $options = []) {
+    if ( ! self::contentTypePermitted($contentType) ) {
       return [];
     }
+
+    $defaults = [
+      'page' => 0,
+      'published' => true,
+      'recurse' => true, // toggle off recursion
+      'recurseLevel' => 2, // deepest level of recursion
+      'recurseDepth' => 0, // current depth of recursion
+    ];
+    $options = array_merge($defaults, $options);
 
     $limit = 10;
     $response = [
       'limit' => $limit,
-      'page' => $page,
+      'page' => $options['page'],
+      'published' => $options['published']
+    ];
+
+    $response['count'] = intval($this->newQuery($contentType, $options['published'])->count()->execute());
+
+    $entity_ids = $this->newQuery($contentType, $options['published'])
+    ->range($options['page'] * $limit, $limit)
+    ->execute();
+
+    if ( ! $entity_ids ) {
+      $response['results'] = [];
+      return $response;
+    }
+
+    $response['results'] = $this->processNodes(
+      \Drupal::entityTypeManager()
+      ->getStorage('node')
+      ->loadMultiple($entity_ids),
+      $options
+    );
+
+    return $response;
+  }
+
+  /**
+   * Get all terms from a vocabulary.
+   * @param  string $vocabulary the vocabulary
+   * @param array $options
+   * - boolean $recurse references are recursively dereferenced
+   * - integer $recurseLevel levels of recursion
+   * @return array of terms.
+   */
+  public function fetchAllTerms($vocabulary, $options = []) {
+    if ( ! self::vocabularyPermitted($vocabulary) ) {
+      return [];
+    }
+
+    $defaults = [
+      'page' => 0,
+      'limit' => 10,
+      'recurse' => true, // toggle off recursion
+      'recurseLevel' => 2, // deepest level of recursion
+      'recurseDepth' => 0, // current depth of recursion
+    ];
+    $options = array_merge($defaults, $options);
+
+    $limit = 10;
+    $response = [
+      'limit' => $options['limit'],
+      'page' => $options['page'],
     ];
 
     $response['count'] = intval($this->newTermQuery($vocabulary)->count()->execute());
 
     $entity_ids = $this->newTermQuery($vocabulary)
-      ->range($page * $limit, $limit)
+      ->range($options['page'] * $options['limit'], $options['limit'])
       ->execute();
 
     if ( ! $entity_ids ) {
@@ -192,9 +215,11 @@ class RestHelper implements RestHelperInterface {
       return $response;
     }
 
-    $response['results'] = $this->processTerms(\Drupal::entityTypeManager()
-      ->getStorage('taxonomy_term')
-      ->loadMultiple($entity_ids)
+    $response['results'] = $this->processTerms(
+      \Drupal::entityTypeManager()
+        ->getStorage('taxonomy_term')
+        ->loadMultiple($entity_ids),
+      $options
     );
 
     return $response;
@@ -202,40 +227,72 @@ class RestHelper implements RestHelperInterface {
   }
 
   /**
-   * Fetch a list of nodes from a content type, in clean format for REST.
-   * @param  string  $contentType the content type
-   * @param  integer $page        page number
-   * @param  boolean $published   true for published, false for all.
-   * @return array of nodes.
+   * Get one node by uuid.
+   * @param  string $contentType content type for validation
+   * @param  string $uuid        uuid of the content
+   * @param array $options
+   * - boolean $recurse references are recursively dereferenced
+   * - integer $recurseLevel levels of recursion
+   * @return array processed node, simplified for rest
    */
-  public function fetchAll($contentType, $page = 0, $published = true) {
+  public function fetchOne($contentType, $uuid = '', $options = []) {
     if ( ! self::contentTypePermitted($contentType) ) {
-      return [];
+      return NULL;
     }
 
-    $limit = 10;
-    $response = [
-      'limit' => $limit,
-      'page' => $page,
-      'published' => $published
+    $defaults = [
+      'recurse' => true, // toggle off recursion
+      'recurseLevel' => 2, // deepest level of recursion
+      'recurseDepth' => 0, // current depth of recursion
     ];
+    $options = array_merge($defaults, $options);
 
-    $response['count'] = intval($this->newQuery($contentType, $published)->count()->execute());
-
-    $entity_ids = $this->newQuery($contentType, $published)
-      ->range($page * $limit, $limit)
-      ->execute();
-
-    if ( ! $entity_ids ) {
-      $response['results'] = [];
-      return $response;
+    $result = $this->entityTypeManager->getStorage('node')->loadByProperties(['uuid' => $uuid]);
+    if ( ! $result ) {
+      return NULL;
     }
 
-    $response['results'] = $this->processNodes(\Drupal::entityTypeManager()
-      ->getStorage('node')
-      ->loadMultiple($entity_ids));
+    $node = current($result);
+    if ( ! self::contentTypePermitted($node->getType()) || $node->getType() !== $contentType ) {
+      return NULL;
+    }
 
-    return $response;
+    return $this->processNode($node, $options);
+  }
+
+  /**
+   * Get one node by uuid.
+   * @param  string $vocabular type for validation
+   * @param  string $uuid uuid of the term
+   * @param array $options
+   * - boolean $recurse references are recursively dereferenced
+   * - integer $recurseLevel levels of recursion
+   *
+   * @return array processed node, simplified for rest
+   */
+  public function fetchOneTerm($vocabulary, $uuid = '', $options = []) {
+    if ( ! self::vocabularyPermitted($vocabulary) ) {
+      return NULL;
+    }
+
+    $defaults = [
+      'recurse' => true, // toggle off recursion
+      'recurseLevel' => 2, // deepest level of recursion
+      'recurseDepth' => 0, // current depth of recursion
+    ];
+    $options = array_merge($defaults, $options);
+
+    $result = $this->entityTypeManager->getStorage('taxonomy_term')->loadByProperties(['uuid' => $uuid]);
+    if ( ! $result ) {
+      return NULL;
+    }
+
+    $term = current($result);
+    if ( ! self::vocabularyPermitted($term->getVocabularyId()) ) {
+      return NULL;
+    }
+
+    return $this->processTerm($term);
   }
 
   /**
@@ -260,10 +317,84 @@ class RestHelper implements RestHelperInterface {
     return $query;
   }
 
-  protected function processTerms ($terms) {
+  /**
+  * Get an entity query for taxonomy lookup.
+  * @param  string $vocabulary the vocabulary
+  * @return Drupal\Core\Entity\Query\QueryInterface EntityQuery, with some conditions
+  *  preset for the content type.
+  */
+  protected function newTermQuery($vocabulary) {
+    $query = \Drupal::entityQuery('taxonomy_term');
+    $query->condition('vid', $vocabulary);
+
+    return $query;
+  }
+
+  /**
+  * Process list of nodes.
+  * @param  array $nodes array of Node objects
+  * @param array $options
+  * - boolean $recurse references are recursively dereferenced
+  * - integer $recurseLevel levels of recursion
+  * @return array of arrays representing a node in clean REST format
+  */
+  protected function processNodes ($nodes = [], $options = []) {
+    $results = [];
+    foreach ( $nodes as $node ) {
+      $results[] = $this->processNode($node, $options);
+    }
+
+    return $results;
+  }
+
+  /**
+  * Process all fields in a node.
+  * @param  Node   $node the node object.
+  * @param array $options
+  * - boolean $recurse references are recursively dereferenced
+  * - integer $recurseLevel levels of recursion
+  * @return array node information in clean format for REST
+  */
+  protected function processNode (Node $node, $options = []) {
+    $view = [];
+    $fieldDefinitions = \Drupal::service('entity.manager')->getFieldDefinitions('node', $node->getType());
+    $storageDefinitions = \Drupal::service('entity.manager')->getFieldStorageDefinitions('node');
+
+    foreach ( $fieldDefinitions as $name => $fieldDefinition ) {
+      $options['fieldDefinition'] = $fieldDefinition;
+      $options['storageDefinition'] = $storageDefinitions[$name];
+
+      if ( ! $fieldDefinition->getType() ) continue;
+
+      $supported = in_array($fieldDefinition->getType(), array_keys(self::supportedFieldTypes()));
+      $ignored = in_array($name, self::ignoredFieldNames());
+
+      if ( $supported && ! $ignored ) {
+        // no value
+        if ( ! $node->$name ) {
+          $view[$name] = NULL;
+          continue;
+        }
+
+        $view[$name] = $this->processField($node->{$name}, $options);
+      }
+    }
+
+    return $view;
+  }
+
+  /**
+  * Process list of taxonomy terms.
+  * @param  array $terms array of Term objects
+  * @param array $options
+  * - boolean $recurse references are recursively dereferenced
+  * - integer $recurseLevel levels of recursion
+  * @return array of arrays representing a node in clean REST format
+  */
+  protected function processTerms ($terms, $options = []) {
     $results = [];
     foreach ( $terms as $term ) {
-      $results[] = $this->processTerm($term);
+      $results[] = $this->processTerm($term, $options);
     }
 
     return $results;
@@ -274,12 +405,11 @@ class RestHelper implements RestHelperInterface {
    * @param  Term   $term the $term object.
    * @return array term information in clean format for REST
    */
-  protected function processTerm (Term $term, $referenceDepth = 0) {
-
+  protected function processTerm (Term $term, $options = []) {
     $parents = \Drupal::service('entity_type.manager')->getStorage('taxonomy_term')->loadParents($term->tid->value);
     $parent = NULL;
     if ( $parents ) {
-      $parent = $this->processTerm(Term::load(current($parents)->tid->value));
+      $parent = $this->processTerm(Term::load(current($parents)->tid->value), $options);
     }
 
     $view = [
@@ -287,80 +417,24 @@ class RestHelper implements RestHelperInterface {
     ];
 
     $fieldDefinitions = \Drupal::service('entity.manager')->getFieldDefinitions('taxonomy_term', $term->getVocabularyId());
+    $storageDefinitions = \Drupal::service('entity.manager')->getFieldStorageDefinitions('taxonomy_term');
 
     foreach ( $fieldDefinitions as $name => $fieldDefinition ) {
+      $options['fieldDefinition'] = $fieldDefinition;
+      $options['storageDefinition'] = $storageDefinitions[$name];
       if ( ! $fieldDefinition->getType() ) continue;
 
       $supported = in_array($fieldDefinition->getType(), array_keys(self::supportedFieldTypes()));
-      // if ( ! $supported ) {
-        // echo $name . ": " . $fieldDefinition->getType() . "\n";
-      // }
-      $notIgnored = ! in_array($name, self::ignoredFieldNames());
-      $skippedReference = $referenceDepth > 2 && $fieldDefinition->getType() === 'entity_reference';
+      $ignored = in_array($name, self::ignoredFieldNames());
 
-      if ( $supported && $notIgnored && ! $skippedReference ) {
+      if ( $supported && ! $ignored ) {
         // no value
         if ( ! $term->$name ) {
           $view[$name] = '';
           continue;
         }
 
-        $view[$name] = $this->processField($term->{$name}, [
-            'fieldDefinition' => $fieldDefinition,
-            'referenceDepth' => $referenceDepth,
-        ]);
-      }
-    }
-
-    return $view;
-  }
-
-
-  /**
-   * Process list of nodes.
-   * @param  array $nodes array of Node objects
-   * @return array of arrays representing a node in clean REST format
-   */
-  protected function processNodes ($nodes) {
-    $results = [];
-    foreach ( $nodes as $node ) {
-      $results[] = $this->processNode($node);
-    }
-
-    return $results;
-  }
-
-  /**
-   * Process all fields in a node.
-   * @param  Node   $node the node object.
-   * @return array node information in clean format for REST
-   */
-  protected function processNode (Node $node, $referenceDepth = 0) {
-    $view = [];
-
-    $fieldDefinitions = \Drupal::service('entity.manager')->getFieldDefinitions('node', $node->getType());
-
-    foreach ( $fieldDefinitions as $name => $fieldDefinition ) {
-      if ( ! $fieldDefinition->getType() ) continue;
-
-      $supported = in_array($fieldDefinition->getType(), array_keys(self::supportedFieldTypes()));
-      // if ( ! $supported ) {
-        // echo $name . ": " . $fieldDefinition->getType() . "\n";
-      // }
-      $notIgnored = ! in_array($name, self::ignoredFieldNames());
-      $skippedReference = $referenceDepth > 2 && $fieldDefinition->getType() === 'entity_reference';
-
-      if ( $supported && $notIgnored && ! $skippedReference ) {
-        // no value
-        if ( ! $node->$name ) {
-          $view[$name] = '';
-          continue;
-        }
-
-        $view[$name] = $this->processField($node->{$name}, [
-            'fieldDefinition' => $fieldDefinition,
-            'referenceDepth' => $referenceDepth,
-        ]);
+        $view[$name] = $this->processField($term->{$name}, $options);
       }
     }
 
@@ -412,23 +486,28 @@ class RestHelper implements RestHelperInterface {
 
   /**
    * Get link value.
-   * @param  FieldItemListInterface   $field field item list
+   * @param FieldItemListInterface   $field field item list
+   * @param array options
+   *   - FieldDefinitionInterface $fieldDefinition field instance info
+   *     used to get field instance information.
+   *   - includes FieldStorageDefinitionInterface $fieldStorage field storage information
+   *     to get field cardinality.
    * @return string simple string value
    */
   protected function getLinkFieldValue(FieldItemListInterface $field, $options = []) {
     $values = $field->getValue();
-    if ( $values ) {
-      $links = [];
-      $storage = \Drupal::service('entity.manager')->getFieldStorageDefinitions('node');
+    $multiValue = $options['storageDefinition']->isMultiple();
+    $return = ($multiValue ? [] : NULL);
 
-      if ( $storage[$field->getName()]->isMultiple() ) {
+    if ( $values ) {
+      if ( $multiValue ) {
         foreach ( $values as $linkData ) {
-          $links[] = [
+          $return[] = [
             'url' => $linkData['uri'],
             'title' => $linkData['title'],
           ];
         }
-        return $links;
+        return $return;
       } else {
         $linkData = current($values);
         return [
@@ -438,7 +517,7 @@ class RestHelper implements RestHelperInterface {
       }
     }
 
-    return NULL;
+    return $return;
   }
 
   /**
@@ -465,25 +544,141 @@ class RestHelper implements RestHelperInterface {
    * @param  array options
    *   - FieldDefinitionInterface $fieldDefinition field instance info
    *     used to get field instance information.
+   *   - FieldStorageDefinitionInterface $storageDefinition field storage information
+   *     to get field cardinality.
    *   - int referenceDepth to prevent infinite recursion
    * @return array of arrays representing referenced node
    */
-  protected function getReferenceFieldValue(FieldItemListInterface $field, $options = []) {
+  protected function getReferencedFieldValue(FieldItemListInterface $field, $options = []) {
     $referenceType = $options['fieldDefinition']->getSettings()['target_type'];
 
     switch ( $referenceType ) {
       case 'node':
-        return $this->getReferenceNode($field, $options);
+        return $this->getReferencedNode($field, $options);
         break;
       case 'node_type':
         return $this->getNodeType($field);
         break;
       case 'taxonomy_term':
-        return $this->getReferenceTerm($field, $options);
+        return $this->getReferencedTerm($field, $options);
         break;
       default:
         return NULL;
     }
+  }
+
+  /**
+  * Get one or more entity reference object arrays.
+  * @param  FieldItemListInterface   $field the field items
+  * @param  array options
+  *   - FieldDefinitionInterface $fieldDefinition field instance info
+  *     used to get field instance information.
+  *   - FieldStorageDefinitionInterface $storageDefinition field storage information
+  *     to get field cardinality.
+  *   - int referenceDepth to prevent infinite recursion
+  * @return array of arrays representing referenced node
+  */
+  protected function getReferencedNode(FieldItemListInterface $field, $options = []) { $referenceData = $field->getValue();
+
+    // Reference Field
+    $recurse = $options['recurseDepth'] < $options['recurseLevel'] && $options['recurse'];
+    $options['recurseDepth'] = ($recurse ? $options['recurseDepth'] + 1 : $options['recurseDepth']);
+
+    $multiValue = $options['storageDefinition']->isMultiple();
+    $return = ($multiValue ? [] : NULL);
+    if ( $referenceData ) {
+      if ( $multiValue ) {
+        foreach ( $referenceData as $index => $target ) {
+          $node = Node::load($target['target_id']);
+          $return[] = ($recurse ? $this->processNode($node, $options) : $this->shallowEntity($node));
+        }
+        return $return;
+      } else {
+        $node = Node::load(current($referenceData)['target_id']);
+        return ($recurse ? $this->processNode($node, $options) : $this->shallowEntity($node));
+      }
+    }
+
+    return $return;
+  }
+
+  /**
+  * Dereference a term reference field.
+  * @param  FieldItemListInterface $field term reference field list
+  * @param  array $options options array
+  * @return mixes term object or array of terms
+  */
+  protected function getReferencedTerm(FieldItemListInterface $field, $options = []) {
+    $referenceData = $field->getValue();
+
+    $recurse = $options['recurseDepth'] < $options['recurseLevel'] && $options['recurse'];
+    $options['recurseDepth'] = ($recurse ? $options['recurseDepth'] + 1 : $options['recurseDepth']);
+    $multiValue = $options['storageDefinition']->isMultiple();
+
+    $return = ($multiValue ? [] : NULL);
+    if ( $referenceData ) {
+      if ( $multiValue ) {
+        foreach ( $referenceData as $index => $target ) {
+          $term = Term::load($target['target_id']);
+          $return[] = ($recurse ? $this->processTerm($term, $options) : $this->shallowEntity($term));
+        }
+        return $return;
+      } else {
+        $term = Term::load(current($referenceData)['target_id']);
+        return ($recurse ? $this->processTerm($term, $options) : $this->shallowEntity($term));
+      }
+    }
+
+    return $return;
+  }
+
+  /**
+  * Get simple object with type and uuid for referenced entity.
+  * @param  mixed $entity node or taxonomy_term
+  * @return array representing simple type and uuid object.
+  */
+  protected function shallowEntity($entity) {
+    $type = '';
+    if ( ! empty($entity->type) ) {
+      $type = $this->getNodeType($entity->type);
+    } else if ( ! empty($entity->vid) ) {
+      $type = current($entity->vid->getValue())['target_id'];
+    }
+
+    return [
+      'uuid' => $entity->uuid->value,
+      'type' => $type,
+    ];
+  }
+
+  /**
+  * Get one or more file object arrays.
+  * @param  FieldItemListInterface   $field the field items
+  * @param  array options
+  *   - FieldDefinitionInterface $fieldDefinition field instance info
+  *     used to get field instance information.
+  *   - FieldStorageDefinitionInterface $storageDefinition field storage information
+  *     to get field cardinality.
+  * @return array of arrays of file urls.
+  */
+  protected function getFileFieldValue(FieldItemListInterface $field, $options = []) {
+    $fileData = $field->getValue();
+
+    $multiValue = $options['storageDefinition']->isMultiple();
+    $return = ($multiValue ? [] : NULL);
+    if ( $fileData ) {
+      if ( $multiValue ) {
+        foreach ( $fileData as $target ) {
+          $return[] = File::load($target['target_id'])->url();
+        }
+        return $return;
+      }
+
+      // single
+      return File::load(current($fileData)['target_id'])->url();
+    }
+
+    return $return;
   }
 
   /**
@@ -500,115 +695,37 @@ class RestHelper implements RestHelperInterface {
     return '';
   }
 
-  /**
-   * Get one or more entity reference object arrays.
-   * @param  FieldItemListInterface   $field the field items
-   * @param  array options
-   *   - FieldDefinitionInterface $fieldDefinition field instance info
-   *     used to get field instance information.
-   *   - int referenceDepth to prevent infinite recursion
-   * @return array of arrays representing referenced node
-   */
-   protected function getReferenceNode(FieldItemListInterface $field, $options = []) {
-     $storage = \Drupal::service('entity.manager')->getFieldStorageDefinitions('node');
-     $referenceData = $field->getValue();
-
-     $nodes = [];
-     if ( $referenceData ) {
-       if ( $storage[$field->getName()]->isMultiple() ) {
-         foreach ( $referenceData as $index => $target ) {
-           $node = Node::load($target['target_id']);
-           $nodes[] = $this->processNode($node, $options['referenceDepth'] + 1);
-         }
-         return $nodes;
-       } else {
-         $node = Node::load(current($referenceData)['target_id']);
-         return $this->processNode($node, $options['referenceDepth'] + 1);
-       }
-     }
-
-     return $nodes;
-   }
-
-   protected function getReferenceTerm(FieldItemListInterface $field, $options = []) {
-     // @todo move field storage definitions to calling context
-     $storage = \Drupal::service('entity.manager')->getFieldStorageDefinitions('node');
-     $referenceData = $field->getValue();
-
-     $terms = [];
-     if ( $referenceData ) {
-       if ( $storage[$field->getName()]->isMultiple() ) {
-         foreach ( $referenceData as $index => $target ) {
-           $term = Term::load($target['target_id']);
-           $terms[] = $this->processTerm($term, $options['referenceDepth'] + 1);
-         }
-         return $terms;
-       } else {
-         $term = Term::load(current($referenceData)['target_id']);
-         return $this->processTerm($term, $options['referenceDepth'] + 1);
-       }
-     }
-
-     return $terms;
-   }
-
-   /**
-    * Get one or more file object arrays.
-    * @param  FieldItemListInterface   $field the field items
-    * @param  array options
-    *   - includes FieldDefinitionInterface $fieldDefinition field instance info
-    *     used to get image resolution constraints.
-    * @return array of arrays of file urls.
-    */
-   protected function getFileFieldValue(FieldItemListInterface $field, $options = []) {
-     // @todo move field storage definitions to calling context
-     $storage = \Drupal::service('entity.manager')->getFieldStorageDefinitions('node');
-     $fileData = $field->getValue();
-
-     if ( $fileData ) {
-       if ( $storage[$field->getName()]->isMultiple() ) {
-         $files = [];
-         foreach ( $fileData as $target ) {
-           $files[] = File::load($target['target_id'])->url();
-         }
-         return $files;
-       }
-
-       // single
-       return File::load(current($fileData)['target_id'])->url();
-     }
-
-     return NULL;
-   }
 
   /**
    * Get one or more image object arrays.
    * @param  FieldItemListInterface   $field the field items
    * @param  array options
-   *   - includes FieldDefinitionInterface $fieldDefinition field instance info
+   *   - FieldDefinitionInterface $fieldDefinition field instance info
    *     used to get image resolution constraints.
+   *   - FieldStorageDefinitionInterface $storageDefinition field storage information
+   *     to get field cardinality.
    * @return array of arrays of image urls.
    */
   protected function getImageFieldValue(FieldItemListInterface $field, $options = []) {
-    $storage = \Drupal::service('entity.manager')->getFieldStorageDefinitions('node');
     $imageData = $field->getValue();
     $resolution = $options['fieldDefinition']->getSettings()['max_resolution'];
     $resolutions = $this->imageStyles($resolution);
 
+    $multiValue = $options['storageDefinition']->isMultiple();
+    $return = ($multiValue ? [] : NULL);
     if ( $imageData ) {
-      if ( $storage[$field->getName()]->isMultiple() ) {
-        $images = [];
+      if ( $multiValue ) {
         foreach ( $imageData as $image ) {
-          $images[] = $this->processImage($image['target_id'], $resolutions);
+          $return[] = $this->processImage($image['target_id'], $resolutions);
         }
-        return $images;
+        return $return;
       }
 
       // single
       return $this->processImage(current($imageData)['target_id'], $resolutions);
     }
 
-    return [];
+    return $return;
   }
 
   /**
@@ -667,8 +784,7 @@ class RestHelper implements RestHelperInterface {
    * Get image styles for each aspect ratio.
    * @return array list of resolutions/image styles per aspect ratio
    */
-    protected static function resolutions() {
-      return [
+  protected static function resolutions() { return [
         '0.75' => [
           '465x620_img',
         ],
@@ -719,7 +835,7 @@ class RestHelper implements RestHelperInterface {
       'integer' => 'getIntFieldValue',
       'image' => 'getImageFieldValue',
       'file' => 'getFileFieldValue',
-      'entity_reference' => 'getReferenceFieldValue',
+      'entity_reference' => 'getReferencedFieldValue',
       'link' => 'getLinkFieldValue',
     ];
   }
@@ -731,6 +847,7 @@ class RestHelper implements RestHelperInterface {
   protected static function ignoredFieldNames() {
     return [
       'parent',
+      'tid',
       'vid',
       'title',
       'langcode',

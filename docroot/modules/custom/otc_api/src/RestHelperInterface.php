@@ -19,19 +19,36 @@ interface RestHelperInterface {
   /**
    * Fetch a list of nodes from a content type, in clean format for REST.
    * @param  string  $contentType the content type
-   * @param  integer $page        page number
-   * @param  boolean $published   true for published, false for all.
+   * @param  array $options
    * @return array of nodes.
    */
-  public function fetchAll($contentType, $page, $published);
+  public function fetchAll($contentType, $options);
+
+  /**
+   * Get all terms from a vocabulary.
+   * @param string $vocabulary the vocabulary
+   * @param array $options
+   * @return array of terms.
+   */
+  public function fetchAllTerms($vocabulary, $options);
 
   /**
    * Get one node by uuid.
    * @param  string $contentType content type for validation
    * @param  string $uuid        uuid of the content
+   * @param array $options
    * @return array processed node, simplified for rest
    */
-  public function fetchOne($contentType, $uuid);
+  public function fetchOne($contentType, $uuid, $options);
+
+  /**
+   * Get all terms from a vocabulary.
+   * @param string $vocabulary the vocabulary
+   * @param  string $uuid        uuid of the content
+   * @param array $options
+   * @return array processed term, simplified for reset.
+   */
+  public function fetchOneTerm($vocabulary, $uuid, $options);
 
   /**
    * Get CacheMetaData for content list or specific result.
