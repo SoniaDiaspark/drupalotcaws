@@ -1,0 +1,28 @@
+uuid: c4df0e73-5da0-458b-bc1f-a3526a1eb69e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_featured_content
+    - node.type.featured_content
+    - taxonomy.vocabulary.category
+id: taxonomy_term.category.field_featured_content
+field_name: field_featured_content
+entity_type: taxonomy_term
+bundle: category
+label: 'Featured Content'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      featured_content: featured_content
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: featured_content
+field_type: entity_reference

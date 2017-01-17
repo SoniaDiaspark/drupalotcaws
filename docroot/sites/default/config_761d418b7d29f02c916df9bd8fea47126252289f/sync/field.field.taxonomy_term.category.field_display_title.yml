@@ -1,0 +1,21 @@
+uuid: 283e2c37-bd98-4f19-bd5c-28a8867ec336
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_display_title
+    - taxonomy.vocabulary.category
+  module:
+    - text
+id: taxonomy_term.category.field_display_title
+field_name: field_display_title
+entity_type: taxonomy_term
+bundle: category
+label: 'Display Title'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text

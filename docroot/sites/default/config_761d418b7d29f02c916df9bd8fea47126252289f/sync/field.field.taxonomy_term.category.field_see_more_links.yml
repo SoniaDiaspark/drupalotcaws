@@ -1,0 +1,21 @@
+uuid: 4dedc8c4-798c-467f-b0c6-5501e855ebb7
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_see_more_links
+    - taxonomy.vocabulary.category
+  module:
+    - text
+id: taxonomy_term.category.field_see_more_links
+field_name: field_see_more_links
+entity_type: taxonomy_term
+bundle: category
+label: 'See More Links'
+description: 'HTML content'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

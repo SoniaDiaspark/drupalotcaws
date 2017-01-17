@@ -1,0 +1,20 @@
+uuid: 4f049603-8362-4a3c-b2e9-a6d3fc1a1a66
+langcode: en
+status: true
+dependencies:
+  module:
+    - taxonomy
+    - text
+id: taxonomy_term.field_seo_meta_title
+field_name: field_seo_meta_title
+entity_type: taxonomy_term
+type: text
+settings:
+  max_length: 255
+module: text
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

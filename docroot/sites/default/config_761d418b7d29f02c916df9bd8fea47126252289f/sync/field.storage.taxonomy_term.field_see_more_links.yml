@@ -1,0 +1,19 @@
+uuid: fe264e0f-f074-439a-9255-b67f95dd6170
+langcode: en
+status: true
+dependencies:
+  module:
+    - taxonomy
+    - text
+id: taxonomy_term.field_see_more_links
+field_name: field_see_more_links
+entity_type: taxonomy_term
+type: text_long
+settings: {  }
+module: text
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

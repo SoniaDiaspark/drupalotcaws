@@ -1,0 +1,23 @@
+uuid: db0b0dc1-d78f-4f03-8287-8361309799c6
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_enable_fan_reel
+    - taxonomy.vocabulary.category
+id: taxonomy_term.category.field_enable_fan_reel
+field_name: field_enable_fan_reel
+entity_type: taxonomy_term
+bundle: category
+label: 'Enable Fan Reel'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: '1'
+  off_label: '0'
+field_type: boolean

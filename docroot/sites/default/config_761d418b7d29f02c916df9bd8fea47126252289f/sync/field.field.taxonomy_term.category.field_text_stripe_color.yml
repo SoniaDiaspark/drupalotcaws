@@ -1,0 +1,19 @@
+uuid: dbddf5d0-f356-4257-b833-21e1da835a7c
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_text_stripe_color
+    - taxonomy.vocabulary.category
+id: taxonomy_term.category.field_text_stripe_color
+field_name: field_text_stripe_color
+entity_type: taxonomy_term
+bundle: category
+label: 'Text Stripe Color'
+description: "RGB hexadecimal color. \r\n\r\nExample: FFFFFF"
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

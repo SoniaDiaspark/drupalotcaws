@@ -1,0 +1,21 @@
+uuid: d8eb0631-0c8c-4048-8306-237a063ba5fd
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_seo_meta_title
+    - taxonomy.vocabulary.category
+  module:
+    - text
+id: taxonomy_term.category.field_seo_meta_title
+field_name: field_seo_meta_title
+entity_type: taxonomy_term
+bundle: category
+label: 'SEO - Meta Title'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text

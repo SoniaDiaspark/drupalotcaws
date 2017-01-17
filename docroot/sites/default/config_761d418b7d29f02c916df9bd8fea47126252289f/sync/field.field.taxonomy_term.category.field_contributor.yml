@@ -1,0 +1,28 @@
+uuid: b47ad0bb-7a41-4862-8fb6-f52987dfac26
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_contributor
+    - node.type.contributor
+    - taxonomy.vocabulary.category
+id: taxonomy_term.category.field_contributor
+field_name: field_contributor
+entity_type: taxonomy_term
+bundle: category
+label: Contributor
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      contributor: contributor
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference
