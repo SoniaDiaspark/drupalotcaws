@@ -5,10 +5,12 @@ dependencies:
   config:
     - field.field.node.landing.field_contributor
     - field.field.node.landing.field_hero_carousel
+    - field.field.node.landing.field_see_more_links
     - field.field.node.landing.field_trending_ideas
     - node.type.landing
   module:
     - inline_entity_form
+    - text
 id: node.landing.default
 targetEntityType: node
 bundle: landing
@@ -34,6 +36,13 @@ content:
       override_labels: false
     third_party_settings: {  }
     type: inline_entity_form_complex
+  field_see_more_links:
+    weight: 28
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea
   field_trending_ideas:
     weight: 26
     settings:

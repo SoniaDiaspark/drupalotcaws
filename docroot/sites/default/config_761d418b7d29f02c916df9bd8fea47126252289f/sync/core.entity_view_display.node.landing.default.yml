@@ -5,9 +5,11 @@ dependencies:
   config:
     - field.field.node.landing.field_contributor
     - field.field.node.landing.field_hero_carousel
+    - field.field.node.landing.field_see_more_links
     - field.field.node.landing.field_trending_ideas
     - node.type.landing
   module:
+    - text
     - user
 id: node.landing.default
 targetEntityType: node
@@ -28,6 +30,12 @@ content:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
+  field_see_more_links:
+    weight: 4
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
   field_trending_ideas:
     weight: 2
     label: above

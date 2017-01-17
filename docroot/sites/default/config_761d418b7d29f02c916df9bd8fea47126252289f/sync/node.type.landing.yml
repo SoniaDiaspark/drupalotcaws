@@ -18,7 +18,7 @@ third_party_settings:
     unpublish_revision: false
 name: Landing
 type: landing
-description: ''
+description: 'Fun365 Landing page. There should only be one of these.'
 help: ''
 new_revision: false
 preview_mode: 1

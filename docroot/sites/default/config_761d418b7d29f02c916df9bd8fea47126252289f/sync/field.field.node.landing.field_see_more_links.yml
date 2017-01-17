@@ -1,0 +1,21 @@
+uuid: cc8197f1-5ced-45f7-a5c6-8f1d144f85f9
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_see_more_links
+    - node.type.landing
+  module:
+    - text
+id: node.landing.field_see_more_links
+field_name: field_see_more_links
+entity_type: node
+bundle: landing
+label: 'See More Links'
+description: 'HTML block. Edit carefully.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long
