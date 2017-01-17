@@ -15,6 +15,7 @@ dependencies:
     - field.field.node.contributor.field_middle_name
     - field.field.node.contributor.field_occupation
     - field.field.node.contributor.field_pinterest
+    - field.field.node.contributor.field_quote_content
     - field.field.node.contributor.field_skyword_id
     - field.field.node.contributor.field_twitter
     - field.field.node.contributor.field_website
@@ -52,7 +53,7 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-    type: entity_reference_autocomplete_tags
+    type: entity_reference_autocomplete
   field_contributor_category:
     weight: 26
     settings: {  }
@@ -114,6 +115,13 @@ content:
       placeholder_title: ''
     third_party_settings: {  }
     type: link_default
+  field_quote_content:
+    weight: 34
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textfield
   field_skyword_id:
     weight: 8
     settings:

@@ -1,0 +1,21 @@
+uuid: 822fe01d-d9e6-4004-ad20-a203ac54467a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_display_title
+    - node.type.featured_content
+  module:
+    - text
+id: node.featured_content.field_display_title
+field_name: field_display_title
+entity_type: node
+bundle: featured_content
+label: 'Display Title'
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text

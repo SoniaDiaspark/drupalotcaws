@@ -1,18 +1,20 @@
-uuid: 34924e7f-93e8-4011-9a77-8879a2feb7e9
+uuid: 1e218521-1d12-4190-a203-b84f5f4c8cd6
 langcode: en
 status: true
 dependencies:
   module:
     - node
-id: node.field_contributed_content
-field_name: field_contributed_content
+id: node.field_text_stripe_color
+field_name: field_text_stripe_color
 entity_type: node
-type: entity_reference
+type: string
 settings:
-  target_type: node
+  max_length: 6
+  is_ascii: false
+  case_sensitive: false
 module: core
 locked: false
-cardinality: -1
+cardinality: 1
 translatable: true
 indexes: {  }
 persist_with_no_fields: false

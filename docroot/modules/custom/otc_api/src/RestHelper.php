@@ -94,6 +94,7 @@ class RestHelper implements RestHelperInterface {
    */
   public function contentTypePermitted($contentType = NULL) {
     $allowedContentTypes = [
+      'landing',
       'article',
       'contributor',
       'download',
@@ -206,7 +207,7 @@ class RestHelper implements RestHelperInterface {
 
     $response['count'] = intval($this->newTermQuery($vocabulary)->count()->execute());
 
-    $entity_ids = $this->newTermQuery($vocabulary)
+    $entity_ids = $this->newTermQuery($vocabulary, $options)
       ->range($options['page'] * $options['limit'], $options['limit'])
       ->execute();
 

@@ -5,78 +5,85 @@ dependencies:
   config:
     - field.field.node.featured_content.field_3200x1391_img
     - field.field.node.featured_content.field_828x828_img
+    - field.field.node.featured_content.field_cta_link
+    - field.field.node.featured_content.field_description
+    - field.field.node.featured_content.field_display_title
+    - field.field.node.featured_content.field_related_content
+    - field.field.node.featured_content.field_text_stripe_color
     - image.style.thumbnail
     - node.type.featured_content
   module:
     - image
-    - path
-    - scheduler
+    - link
+    - text
 id: node.featured_content.default
 targetEntityType: node
 bundle: featured_content
 mode: default
 content:
-  created:
-    type: datetime_timestamp
-    weight: 10
-    settings: {  }
-    third_party_settings: {  }
   field_3200x1391_img:
-    weight: 31
+    weight: 2
     settings:
       progress_indicator: throbber
       preview_image_style: thumbnail
     third_party_settings: {  }
     type: image_image
   field_828x828_img:
-    weight: 32
+    weight: 3
     settings:
       progress_indicator: throbber
       preview_image_style: thumbnail
     third_party_settings: {  }
     type: image_image
-  path:
-    type: path
-    weight: 30
-    settings: {  }
-    third_party_settings: {  }
-  promote:
-    type: boolean_checkbox
+  field_cta_link:
+    weight: 5
     settings:
-      display_label: true
-    weight: 15
+      placeholder_url: ''
+      placeholder_title: ''
     third_party_settings: {  }
-  publish_on:
-    type: datetime_timestamp_no_default
-    weight: 30
-    settings: {  }
-    third_party_settings: {  }
-  scheduler_settings:
-    weight: 20
-  sticky:
-    type: boolean_checkbox
+    type: link_default
+  field_description:
+    weight: 4
     settings:
-      display_label: true
-    weight: 16
+      rows: 5
+      placeholder: ''
     third_party_settings: {  }
-  title:
-    type: string_textfield
-    weight: -5
+    type: text_textarea
+  field_display_title:
+    weight: 1
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  uid:
-    type: entity_reference_autocomplete
-    weight: 5
+    type: text_textfield
+  field_related_content:
+    weight: 6
     settings:
       match_operator: CONTAINS
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  unpublish_on:
-    type: datetime_timestamp_no_default
-    weight: 30
-    settings: {  }
+    type: entity_reference_autocomplete
+  field_text_stripe_color:
+    weight: 7
+    settings:
+      size: 60
+      placeholder: ''
     third_party_settings: {  }
-hidden: {  }
+    type: string_textfield
+  title:
+    type: string_textfield
+    weight: 0
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  created: true
+  path: true
+  promote: true
+  publish_on: true
+  scheduler_settings: true
+  sticky: true
+  uid: true
+  unpublish_on: true

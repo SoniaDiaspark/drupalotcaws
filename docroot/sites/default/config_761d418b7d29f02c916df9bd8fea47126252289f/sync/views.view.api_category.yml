@@ -1,6 +1,6 @@
 uuid: 7a75f156-bda0-4a9c-901e-15c4ba9b798e
 langcode: en
-status: true
+status: false
 dependencies:
   config:
     - node.type.article

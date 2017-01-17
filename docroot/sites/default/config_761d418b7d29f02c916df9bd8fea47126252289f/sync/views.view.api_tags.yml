@@ -1,6 +1,6 @@
 uuid: 5321bc00-ed43-4815-9551-a257e139ac86
 langcode: en
-status: true
+status: false
 dependencies:
   config:
     - node.type.article

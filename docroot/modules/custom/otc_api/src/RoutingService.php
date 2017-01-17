@@ -34,6 +34,21 @@ class RoutingService {
       ]
     ));
 
+    $routeCollection->add('otc_api.category_uuid', new Route(
+      // base category route
+      '/api/category/{uuid}',
+
+      // Route configuration parameters
+      [
+        '_controller' => '\Drupal\otc_api\ApiController::uuidCategory',
+      ],
+
+      // Route permission reqs
+      [
+        '_permission' => 'access content',
+      ]
+    ));
+
     $routeCollection->add('otc_api.category_base', new Route(
       // base category route
       '/api/category',

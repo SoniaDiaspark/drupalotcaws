@@ -39,11 +39,28 @@ class ApiController extends ControllerBase {
   public function category(Request $request) {
     $options = [
       'page' => $request->get('page') * 1,
-      'recurse' => true,
-      'recurseLimit' => 2,
+      'recurse' => false,
     ];
 
     $results = $this->restHelper->fetchAllTerms('category', $options);
+    $response = new CacheableJsonResponse($results);
+    $response->addCacheableDependency($this->restHelper->cacheMetaData($results, 'taxonomy_term'));
+
+    return $response;
+  }
+
+  /**
+   * Base category api call.
+   *
+   * @param  Request $request the request
+   * @return CacheableJsonResponse
+   */
+  public function uuidCategory(Request $request, $uuid) {
+    $options = [
+      'recurse' => false,
+    ];
+
+    $results = $this->restHelper->fetchOneTerm('category', $uuid, $options);
     $response = new CacheableJsonResponse($results);
     $response->addCacheableDependency($this->restHelper->cacheMetaData($results, 'taxonomy_term'));
 

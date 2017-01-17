@@ -1,0 +1,28 @@
+uuid: 897428f1-514a-4b97-a77a-18b5e51fa5c6
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_hero_carousel
+    - node.type.featured_content
+    - node.type.landing
+id: node.landing.field_hero_carousel
+field_name: field_hero_carousel
+entity_type: node
+bundle: landing
+label: 'Hero Carousel'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      featured_content: featured_content
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

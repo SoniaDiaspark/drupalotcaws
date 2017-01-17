@@ -1,0 +1,63 @@
+uuid: 5d11d850-cb2a-413b-8b25-ed415f78bf75
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.landing.field_contributor
+    - field.field.node.landing.field_hero_carousel
+    - field.field.node.landing.field_trending_ideas
+    - node.type.landing
+  module:
+    - inline_entity_form
+id: node.landing.default
+targetEntityType: node
+bundle: landing
+mode: default
+content:
+  field_contributor:
+    weight: 27
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
+  field_hero_carousel:
+    weight: 1
+    settings:
+      form_mode: default
+      label_singular: ''
+      label_plural: ''
+      allow_new: true
+      allow_existing: true
+      match_operator: CONTAINS
+      override_labels: false
+    third_party_settings: {  }
+    type: inline_entity_form_complex
+  field_trending_ideas:
+    weight: 26
+    settings:
+      form_mode: default
+      label_singular: ''
+      label_plural: ''
+      allow_new: true
+      allow_existing: true
+      match_operator: CONTAINS
+      override_labels: false
+    third_party_settings: {  }
+    type: inline_entity_form_complex
+  title:
+    type: string_textfield
+    weight: 0
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  created: true
+  path: true
+  promote: true
+  publish_on: true
+  sticky: true
+  uid: true
+  unpublish_on: true

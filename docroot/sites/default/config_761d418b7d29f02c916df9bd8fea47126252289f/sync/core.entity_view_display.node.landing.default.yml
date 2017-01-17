@@ -1,0 +1,39 @@
+uuid: a34d5bcd-a6bd-4860-bc1d-e187014ddc6d
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.landing.field_contributor
+    - field.field.node.landing.field_hero_carousel
+    - field.field.node.landing.field_trending_ideas
+    - node.type.landing
+  module:
+    - user
+id: node.landing.default
+targetEntityType: node
+bundle: landing
+mode: default
+content:
+  field_contributor:
+    weight: 3
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+  field_hero_carousel:
+    weight: 1
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+  field_trending_ideas:
+    weight: 2
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+hidden:
+  links: true

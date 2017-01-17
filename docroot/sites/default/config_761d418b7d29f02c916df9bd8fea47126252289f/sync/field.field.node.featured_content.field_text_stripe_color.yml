@@ -1,0 +1,19 @@
+uuid: c28a88e6-6b38-4038-9717-0b081baf6c5e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_text_stripe_color
+    - node.type.featured_content
+id: node.featured_content.field_text_stripe_color
+field_name: field_text_stripe_color
+entity_type: node
+bundle: featured_content
+label: 'text stripe color'
+description: "6 character hexadecimal color value. Use a tool like photoshop or www.colorpicker.com to get an appropriate value.\r\nExample: FFFFFF"
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

@@ -1,6 +1,6 @@
 uuid: dad3709d-e993-432f-83a6-115624b78823
 langcode: en
-status: true
+status: false
 dependencies:
   config:
     - field.storage.node.field_article_list

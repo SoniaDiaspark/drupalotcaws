@@ -1,0 +1,21 @@
+uuid: d773b2a3-b32d-41f4-988e-7a06a6174c2e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_quote_content
+    - node.type.contributor
+  module:
+    - text
+id: node.contributor.field_quote_content
+field_name: field_quote_content
+entity_type: node
+bundle: contributor
+label: 'Contributor Quote'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text
