@@ -39,7 +39,8 @@ class ApiController extends ControllerBase {
   public function category(Request $request) {
     $options = [
       'page' => $request->get('page') * 1,
-      'recurse' => false,
+      'recurse' => (false || $request->get('recurse')),
+      'maxDepth' => ($request->get('depth') ? intval($request->get('depth')) : 2),
     ];
 
     $results = $this->restHelper->fetchAllTerms('category', $options);
@@ -50,14 +51,36 @@ class ApiController extends ControllerBase {
   }
 
   /**
-   * Base category api call.
+   * Content for a category api call.
+   *
+   * @param  Request $request the request
+   * @return CacheableJsonResponse
+   */
+  public function categoryContent(Request $request, $uuid) {
+    $options = [
+      'published' => $request->get('published') !== '0',
+      'page' => $request->get('page') * 1,
+      'recurse' => (false || $request->get('recurse')),
+      'maxDepth' => ($request->get('depth') ? intval($request->get('depth')) : 2),
+    ];
+
+    $results = $this->restHelper->fetchCategoryContent($uuid, $options);
+    $response = new CacheableJsonResponse($results);
+    $response->addCacheableDependency($this->restHelper->cacheMetaData($results, 'node'));
+
+    return $response;
+  }
+
+  /**
+   * Specific category api call.
    *
    * @param  Request $request the request
    * @return CacheableJsonResponse
    */
   public function uuidCategory(Request $request, $uuid) {
     $options = [
-      'recurse' => false,
+      'recurse' => (false || $request->get('recurse')),
+      'maxDepth' => ($request->get('depth') ? intval($request->get('depth')) : 2),
     ];
 
     $results = $this->restHelper->fetchOneTerm('category', $uuid, $options);
@@ -78,7 +101,8 @@ class ApiController extends ControllerBase {
     $options = [
       'published' => $request->get('published') !== '0',
       'page' => $request->get('page') * 1,
-      'recurse' => false
+      'recurse' => (false || $request->get('recurse')),
+      'maxDepth' => ($request->get('depth') ? intval($request->get('depth')) : 2),
     ];
 
     $resultData = $this->restHelper->fetchAll($contentType, $options);
@@ -97,7 +121,12 @@ class ApiController extends ControllerBase {
    * @return CacheableJsonResponse
    */
   public function uuid(Request $request, $contentType, $uuid) {
-    $resultData = $this->restHelper->fetchOne($contentType, $uuid, ['recurse' => false]);
+    $options = [
+      'recurse' => (false || $request->get('recurse')),
+      'maxDepth' => ($request->get('depth') ? intval($request->get('depth')) : 2),
+    ];
+
+    $resultData = $this->restHelper->fetchOne($contentType, $uuid, $options);
 
     $response = new CacheableJsonResponse($resultData);
     $response->addCacheableDependency($this->restHelper->cacheMetaData($resultData));

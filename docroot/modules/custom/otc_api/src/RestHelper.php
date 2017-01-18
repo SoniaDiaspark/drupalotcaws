@@ -132,7 +132,7 @@ class RestHelper implements RestHelperInterface {
   * - integer $page page number (default 0)
   * - boolean $published true for published, false for all. (default true)
   * - boolean $recurse references are recursively dereferenced
-  * - integer $recurseLevel levels of recursion
+  * - integer $maxDepth levels of recursion
   * @return array of nodes.
   */
   public function fetchAll($contentType, $options = []) {
@@ -144,8 +144,11 @@ class RestHelper implements RestHelperInterface {
       'page' => 0,
       'published' => true,
       'recurse' => true, // toggle off recursion
-      'recurseLevel' => 2, // deepest level of recursion
-      'recurseDepth' => 0, // current depth of recursion
+      'maxDepth' => 2, // deepest level of recursion
+      'currentDepth' => 0, // current depth of recursion
+      'conditions' => [
+        'type' => $contentType,
+      ],
     ];
     $options = array_merge($defaults, $options);
 
@@ -156,9 +159,9 @@ class RestHelper implements RestHelperInterface {
       'published' => $options['published']
     ];
 
-    $response['count'] = intval($this->newQuery($contentType, $options['published'])->count()->execute());
+    $response['count'] = intval($this->newNodeQuery($options)->count()->execute());
 
-    $entity_ids = $this->newQuery($contentType, $options['published'])
+    $entity_ids = $this->newNodeQuery($options)
     ->range($options['page'] * $limit, $limit)
     ->execute();
 
@@ -182,7 +185,7 @@ class RestHelper implements RestHelperInterface {
    * @param  string $vocabulary the vocabulary
    * @param array $options
    * - boolean $recurse references are recursively dereferenced
-   * - integer $recurseLevel levels of recursion
+   * - integer $maxDepth levels of recursion
    * @return array of terms.
    */
   public function fetchAllTerms($vocabulary, $options = []) {
@@ -194,8 +197,8 @@ class RestHelper implements RestHelperInterface {
       'page' => 0,
       'limit' => 10,
       'recurse' => true, // toggle off recursion
-      'recurseLevel' => 2, // deepest level of recursion
-      'recurseDepth' => 0, // current depth of recursion
+      'maxDepth' => 2, // deepest level of recursion
+      'currentDepth' => 0, // current depth of recursion
     ];
     $options = array_merge($defaults, $options);
 
@@ -233,7 +236,7 @@ class RestHelper implements RestHelperInterface {
    * @param  string $uuid        uuid of the content
    * @param array $options
    * - boolean $recurse references are recursively dereferenced
-   * - integer $recurseLevel levels of recursion
+   * - integer $maxDepth levels of recursion
    * @return array processed node, simplified for rest
    */
   public function fetchOne($contentType, $uuid = '', $options = []) {
@@ -243,8 +246,8 @@ class RestHelper implements RestHelperInterface {
 
     $defaults = [
       'recurse' => true, // toggle off recursion
-      'recurseLevel' => 2, // deepest level of recursion
-      'recurseDepth' => 0, // current depth of recursion
+      'maxDepth' => 2, // deepest level of recursion
+      'currentDepth' => 0, // current depth of recursion
     ];
     $options = array_merge($defaults, $options);
 
@@ -267,7 +270,7 @@ class RestHelper implements RestHelperInterface {
    * @param  string $uuid uuid of the term
    * @param array $options
    * - boolean $recurse references are recursively dereferenced
-   * - integer $recurseLevel levels of recursion
+   * - integer $maxDepth levels of recursion
    *
    * @return array processed node, simplified for rest
    */
@@ -278,8 +281,8 @@ class RestHelper implements RestHelperInterface {
 
     $defaults = [
       'recurse' => true, // toggle off recursion
-      'recurseLevel' => 2, // deepest level of recursion
-      'recurseDepth' => 0, // current depth of recursion
+      'maxDepth' => 2, // deepest level of recursion
+      'currentDepth' => 0, // current depth of recursion
     ];
     $options = array_merge($defaults, $options);
 
@@ -296,16 +299,60 @@ class RestHelper implements RestHelperInterface {
     return $this->processTerm($term);
   }
 
+  public function fetchCategoryContent($uuid = '', $options = []) {
+    $defaults = [
+      'page' => 0,
+      'published' => true,
+      'conditions' => [
+        'field_category.entity.uuid' => $uuid,
+      ]
+    ];
+    $options = array_merge($defaults, $options);
+
+    $limit = 10;
+    $response = [
+      'limit' => $limit,
+      'page' => $options['page'],
+      'published' => $options['published']
+    ];
+
+    $response['count'] = intval($this->newNodeQuery($options)->count()->execute());
+
+    $entity_ids = $this->newNodeQuery($options)
+    ->range($options['page'] * $limit, $limit)
+    ->execute();
+
+    if ( ! $entity_ids ) {
+      $response['results'] = [];
+      return $response;
+    }
+
+    $nodes = \Drupal::entityTypeManager()
+      ->getStorage('node')
+      ->loadMultiple($entity_ids);
+    foreach ($nodes as $node) {
+      if ($options['recurse']) {
+        $response['results'][] = $this->processNode($node);
+      } else {
+        $response['results'][] = $this->shallowEntity($node);
+      }
+    }
+
+    return $response;
+  }
+
   /**
    * Get new entity query for a content type.
-   * @param  string  $contentType the content type
-   * @param  boolean $published  true for published only, false for everything
+   * @param  array $options
+   * - string $type (optional) content type to query on
+   * - boolean $published  true for published only, false for everything
+   * - array $conditions entity query conditions
    * @return Drupal\Core\Entity\Query\QueryInterface EntityQuery, with some conditions
    *  preset for the content type.
    */
-  protected function newQuery($contentType, $published = true) {
+  protected function newNodeQuery($options = []) {
     $query = \Drupal::entityQuery('node');
-    if (! $published ) {
+    if (! $options['published'] ) {
       $group = $query->orConditionGroup()
         ->condition('status', 1)
         ->condition('status', 0);
@@ -313,7 +360,10 @@ class RestHelper implements RestHelperInterface {
     } else {
       $query->condition('status', 1);
     }
-    $query->condition('type', $contentType);
+
+    foreach ($options['conditions'] as $key => $value ) {
+      $query->condition($key, $value);
+    }
 
     return $query;
   }
@@ -336,7 +386,7 @@ class RestHelper implements RestHelperInterface {
   * @param  array $nodes array of Node objects
   * @param array $options
   * - boolean $recurse references are recursively dereferenced
-  * - integer $recurseLevel levels of recursion
+  * - integer $maxDepth levels of recursion
   * @return array of arrays representing a node in clean REST format
   */
   protected function processNodes ($nodes = [], $options = []) {
@@ -353,7 +403,7 @@ class RestHelper implements RestHelperInterface {
   * @param  Node   $node the node object.
   * @param array $options
   * - boolean $recurse references are recursively dereferenced
-  * - integer $recurseLevel levels of recursion
+  * - integer $maxDepth levels of recursion
   * @return array node information in clean format for REST
   */
   protected function processNode (Node $node, $options = []) {
@@ -389,7 +439,7 @@ class RestHelper implements RestHelperInterface {
   * @param  array $terms array of Term objects
   * @param array $options
   * - boolean $recurse references are recursively dereferenced
-  * - integer $recurseLevel levels of recursion
+  * - integer $maxDepth levels of recursion
   * @return array of arrays representing a node in clean REST format
   */
   protected function processTerms ($terms, $options = []) {
@@ -408,9 +458,9 @@ class RestHelper implements RestHelperInterface {
    */
   protected function processTerm (Term $term, $options = []) {
     $parents = \Drupal::service('entity_type.manager')->getStorage('taxonomy_term')->loadParents($term->tid->value);
-    $parent = NULL;
+    $parent = '';
     if ( $parents ) {
-      $parent = $this->processTerm(Term::load(current($parents)->tid->value), $options);
+      $parent = Term::load(current($parents)->tid->value)->uuid->value;
     }
 
     $view = [
@@ -582,8 +632,8 @@ class RestHelper implements RestHelperInterface {
   protected function getReferencedNode(FieldItemListInterface $field, $options = []) { $referenceData = $field->getValue();
 
     // Reference Field
-    $recurse = $options['recurseDepth'] < $options['recurseLevel'] && $options['recurse'];
-    $options['recurseDepth'] = ($recurse ? $options['recurseDepth'] + 1 : $options['recurseDepth']);
+    $recurse = $options['currentDepth'] < $options['maxDepth'] && $options['recurse'];
+    $options['currentDepth'] = ($recurse ? $options['currentDepth'] + 1 : $options['currentDepth']);
 
     $multiValue = $options['storageDefinition']->isMultiple();
     $return = ($multiValue ? [] : NULL);
@@ -612,8 +662,8 @@ class RestHelper implements RestHelperInterface {
   protected function getReferencedTerm(FieldItemListInterface $field, $options = []) {
     $referenceData = $field->getValue();
 
-    $recurse = $options['recurseDepth'] < $options['recurseLevel'] && $options['recurse'];
-    $options['recurseDepth'] = ($recurse ? $options['recurseDepth'] + 1 : $options['recurseDepth']);
+    $recurse = $options['currentDepth'] < $options['maxDepth'] && $options['recurse'];
+    $options['currentDepth'] = ($recurse ? $options['currentDepth'] + 1 : $options['currentDepth']);
     $multiValue = $options['storageDefinition']->isMultiple();
 
     $return = ($multiValue ? [] : NULL);
