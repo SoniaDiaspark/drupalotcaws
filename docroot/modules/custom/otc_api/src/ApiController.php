@@ -33,6 +33,10 @@ class ApiController extends ControllerBase {
   /**
    * Base category api call.
    *
+   * @api {get} /api/category Request paginated list of categories.
+   * @apiName All
+   * @apiGroup Category
+   *
    * @param  Request $request the request
    * @return CacheableJsonResponse
    */
@@ -52,6 +56,12 @@ class ApiController extends ControllerBase {
 
   /**
    * Content for a category api call.
+   *
+   * @api {get} /api/category/:uuid/content Request paginated list of content for a category.
+   * @apiName Content
+   * @apiGroup Category
+   *
+   * @apiParam {String} uuid Universally Unique ID for category
    *
    * @param  Request $request the request
    * @return CacheableJsonResponse
@@ -74,6 +84,12 @@ class ApiController extends ControllerBase {
   /**
    * Specific category api call.
    *
+   * @api {get} /api/category/:uuid Request a specified category.
+   * @apiName Category by UUID
+   * @apiGroup Category
+   *
+   * @apiParam {String} uuid Universally Unique ID for category
+   *
    * @param  Request $request the request
    * @return CacheableJsonResponse
    */
@@ -92,6 +108,12 @@ class ApiController extends ControllerBase {
 
   /**
    * Base content type api call.
+   *
+   * @api {get} /api/:contentType Request paginated list of content of a specified type.
+   * @apiName All
+   * @apiGroup Node
+   *
+   * @apiParam {String} contentType name of content type
    *
    * @param  Request $request the request
    * @param  string $contentType content type
@@ -115,6 +137,14 @@ class ApiController extends ControllerBase {
 
   /**
    * Get specific node by uuid
+   *
+   * @api {get} /api/:contentType/:uuid Request specific node.
+   * @apiName Node by UUID
+   * @apiGroup Node
+   *
+   * @apiParam {String} contentType name of content type
+   * @apiParam {String} uuid Universally Unique ID for node
+   *
    * @param  Request $request     the request
    * @param  string  $contentType the content type
    * @param  string  $uuid        uuid of the node

@@ -1,0 +1,9 @@
+{
+  "name": "OTC API",
+  "version": "0.0.0",
+  "description": "OTC Rest API for Fun 365",
+  "apidoc": {
+    "title": "OTC Rest API for Fun 365",
+    "url" : "http://otc.prod.acquia-sites.com/"
+  }
+}
