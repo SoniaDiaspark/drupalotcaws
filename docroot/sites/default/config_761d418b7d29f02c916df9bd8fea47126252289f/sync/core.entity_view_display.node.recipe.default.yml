@@ -26,6 +26,7 @@ dependencies:
     - field.field.node.recipe.field_skyword_id
     - field.field.node.recipe.field_skyword_related_articles
     - field.field.node.recipe.field_step
+    - field.field.node.recipe.field_suppress_fanreel
     - field.field.node.recipe.field_tag
     - field.field.node.recipe.field_time_max
     - field.field.node.recipe.field_time_min
@@ -203,6 +204,15 @@ content:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
+  field_suppress_fanreel:
+    weight: 147
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    type: boolean
   field_tag:
     weight: 142
     label: above

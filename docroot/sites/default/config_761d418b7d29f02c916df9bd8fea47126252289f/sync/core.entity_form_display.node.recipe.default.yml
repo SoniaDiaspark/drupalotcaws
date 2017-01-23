@@ -26,6 +26,7 @@ dependencies:
     - field.field.node.recipe.field_skyword_id
     - field.field.node.recipe.field_skyword_related_articles
     - field.field.node.recipe.field_step
+    - field.field.node.recipe.field_suppress_fanreel
     - field.field.node.recipe.field_tag
     - field.field.node.recipe.field_time_max
     - field.field.node.recipe.field_time_min
@@ -208,6 +209,12 @@ content:
       override_labels: false
     third_party_settings: {  }
     type: inline_entity_form_complex
+  field_suppress_fanreel:
+    weight: 35
+    settings:
+      display_label: true
+    third_party_settings: {  }
+    type: boolean_checkbox
   field_tag:
     weight: 9
     settings: {  }

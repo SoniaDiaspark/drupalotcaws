@@ -11,7 +11,7 @@ field_name: field_step
 entity_type: node
 bundle: article
 label: 'Article Steps'
-description: 'Optional multi-value steps for article lists.'
+description: 'Optional multi-value steps for article lists. For new articles, you must save the article before you can create new steps.'
 required: false
 translatable: true
 default_value: {  }

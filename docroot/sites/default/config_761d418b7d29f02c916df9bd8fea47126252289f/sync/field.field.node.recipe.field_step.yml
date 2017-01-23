@@ -11,7 +11,7 @@ field_name: field_step
 entity_type: node
 bundle: recipe
 label: 'Recipe Steps'
-description: ''
+description: 'For new recipes, you must save the recipe before you can create new steps.'
 required: false
 translatable: true
 default_value: {  }

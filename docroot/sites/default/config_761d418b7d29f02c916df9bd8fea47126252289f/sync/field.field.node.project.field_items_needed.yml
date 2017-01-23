@@ -1,0 +1,21 @@
+uuid: 70d5cda0-2588-4484-ad66-3d8c76520795
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_items_needed
+    - node.type.project
+  module:
+    - text
+id: node.project.field_items_needed
+field_name: field_items_needed
+entity_type: node
+bundle: project
+label: 'What You''ll Need Other Items'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text

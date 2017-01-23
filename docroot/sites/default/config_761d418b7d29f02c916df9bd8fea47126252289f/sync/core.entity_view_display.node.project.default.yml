@@ -13,8 +13,10 @@ dependencies:
     - field.field.node.project.field_description
     - field.field.node.project.field_display_title
     - field.field.node.project.field_download_file
+    - field.field.node.project.field_items_needed
     - field.field.node.project.field_meta_description
     - field.field.node.project.field_meta_title
+    - field.field.node.project.field_needed_description
     - field.field.node.project.field_photo_credit
     - field.field.node.project.field_products
     - field.field.node.project.field_project_lite
@@ -25,6 +27,7 @@ dependencies:
     - field.field.node.project.field_skyword_related_article
     - field.field.node.project.field_skyword_related_look
     - field.field.node.project.field_step
+    - field.field.node.project.field_suppress_fanreel
     - field.field.node.project.field_tag
     - field.field.node.project.field_time_max
     - field.field.node.project.field_time_min
@@ -112,6 +115,12 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: file_default
+  field_items_needed:
+    weight: 48
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
   field_meta_description:
     weight: 30
     label: above
@@ -120,6 +129,12 @@ content:
     type: text_default
   field_meta_title:
     weight: 29
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+  field_needed_description:
+    weight: 47
     label: above
     settings: {  }
     third_party_settings: {  }
@@ -203,6 +218,15 @@ content:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
+  field_suppress_fanreel:
+    weight: 49
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    type: boolean
   field_tag:
     weight: 39
     label: above

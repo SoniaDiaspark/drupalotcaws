@@ -13,8 +13,10 @@ dependencies:
     - field.field.node.project.field_description
     - field.field.node.project.field_display_title
     - field.field.node.project.field_download_file
+    - field.field.node.project.field_items_needed
     - field.field.node.project.field_meta_description
     - field.field.node.project.field_meta_title
+    - field.field.node.project.field_needed_description
     - field.field.node.project.field_photo_credit
     - field.field.node.project.field_products
     - field.field.node.project.field_project_lite
@@ -25,6 +27,7 @@ dependencies:
     - field.field.node.project.field_skyword_related_article
     - field.field.node.project.field_skyword_related_look
     - field.field.node.project.field_step
+    - field.field.node.project.field_suppress_fanreel
     - field.field.node.project.field_tag
     - field.field.node.project.field_time_max
     - field.field.node.project.field_time_min
@@ -44,35 +47,35 @@ bundle: project
 mode: default
 content:
   field_1824x1371_img:
-    weight: 29
+    weight: 24
     settings:
       progress_indicator: throbber
       preview_image_style: thumbnail
     third_party_settings: {  }
     type: image_image
   field_3200x1391_img:
-    weight: 26
+    weight: 22
     settings:
       progress_indicator: throbber
       preview_image_style: thumbnail
     third_party_settings: {  }
     type: image_image
   field_828x828_img:
-    weight: 30
+    weight: 23
     settings:
       progress_indicator: throbber
       preview_image_style: thumbnail
     third_party_settings: {  }
     type: image_image
   field_896x896_img:
-    weight: 27
+    weight: 25
     settings:
       progress_indicator: throbber
       preview_image_style: thumbnail
     third_party_settings: {  }
     type: image_image
   field_900x677_img:
-    weight: 28
+    weight: 26
     settings:
       progress_indicator: throbber
       preview_image_style: thumbnail
@@ -111,6 +114,13 @@ content:
       progress_indicator: throbber
     third_party_settings: {  }
     type: file_generic
+  field_items_needed:
+    weight: 28
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textfield
   field_meta_description:
     weight: 4
     settings:
@@ -120,6 +130,13 @@ content:
     type: text_textarea
   field_meta_title:
     weight: 2
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textfield
+  field_needed_description:
+    weight: 27
     settings:
       size: 60
       placeholder: ''
@@ -202,6 +219,12 @@ content:
       override_labels: false
     third_party_settings: {  }
     type: inline_entity_form_complex
+  field_suppress_fanreel:
+    weight: 29
+    settings:
+      display_label: true
+    third_party_settings: {  }
+    type: boolean_checkbox
   field_tag:
     weight: 17
     settings: {  }
@@ -221,12 +244,12 @@ content:
     type: number
   path:
     type: path
-    weight: 22
+    weight: 30
     settings: {  }
     third_party_settings: {  }
   publish_on:
-    type: datetime_timestamp_no_default
-    weight: 24
+    type: datetime_timestamp
+    weight: 31
     settings: {  }
     third_party_settings: {  }
   scheduler_settings:
@@ -242,7 +265,7 @@ content:
     third_party_settings: {  }
   unpublish_on:
     type: datetime_timestamp_no_default
-    weight: 23
+    weight: 32
     settings: {  }
     third_party_settings: {  }
 hidden:

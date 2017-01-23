@@ -1,0 +1,23 @@
+uuid: e78e4e72-93b2-42a4-ae39-87e7c144ddf1
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_suppress_fanreel
+    - node.type.recipe
+id: node.recipe.field_suppress_fanreel
+field_name: field_suppress_fanreel
+entity_type: node
+bundle: recipe
+label: 'Suppress Curalate Fanreel'
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: '1'
+  off_label: '0'
+field_type: boolean
