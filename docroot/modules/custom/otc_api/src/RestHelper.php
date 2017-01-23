@@ -341,6 +341,49 @@ class RestHelper implements RestHelperInterface {
     return $response;
   }
 
+  public function fetchTagContent($uuid = '', $options = []) {
+    $defaults = [
+      'page' => 0,
+      'published' => true,
+      'conditions' => [
+        'field_tag.entity.uuid' => $uuid,
+      ]
+    ];
+    $options = array_merge($defaults, $options);
+
+    $limit = 10;
+    $response = [
+      'limit' => $limit,
+      'page' => $options['page'],
+      'published' => $options['published']
+    ];
+
+    $response['count'] = intval($this->newNodeQuery($options)->count()->execute());
+
+    $entity_ids = $this->newNodeQuery($options)
+    ->range($options['page'] * $limit, $limit)
+    ->execute();
+
+    if ( ! $entity_ids ) {
+      $response['results'] = [];
+      return $response;
+    }
+
+    $nodes = \Drupal::entityTypeManager()
+      ->getStorage('node')
+      ->loadMultiple($entity_ids);
+    foreach ($nodes as $node) {
+      if ($options['recurse']) {
+        $response['results'][] = $this->processNode($node);
+      } else {
+        $response['results'][] = $this->shallowEntity($node);
+      }
+    }
+
+    return $response;
+  }
+
+
   /**
    * Get new entity query for a content type.
    * @param  array $options

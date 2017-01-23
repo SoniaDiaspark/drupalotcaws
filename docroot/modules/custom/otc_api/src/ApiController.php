@@ -92,15 +92,104 @@ class ApiController extends ControllerBase {
   }
 
   /**
-   * @apiDescription Specific category api call.
+   * @apiDescription Base tag api call.
    *
-   * @api {get} /api/fun365/category/:uuid Request a specified category.
+   * @api {get} /api/fun365/tag Request paginated list of categories.
+   * @apiName All
+   * @apiGroup Tag
+   * @apiParam {Number} page GET param  the result page (default 0)
+   * @apiParam {Number} recurse GET param 1 to recurse content (default 0)
+   * @apiParam {Number} depth GET param levels deep to limit recursion (default 2)
+   * @apiParamExample {url} Request Example:
+   *  /api/fun365/tag?page=1&recurse=1&depth=2
+   *
+   * @param  Request $request the request
+   * @return CacheableJsonResponse
+   */
+  public function tag(Request $request) {
+    $options = [
+      'page' => $request->get('page') * 1,
+      'recurse' => (false || $request->get('recurse')),
+      'maxDepth' => ($request->get('depth') ? intval($request->get('depth')) : 2),
+    ];
+
+    $results = $this->restHelper->fetchAllTerms('tag', $options);
+    $response = new CacheableJsonResponse($results);
+    $response->addCacheableDependency($this->restHelper->cacheMetaData($results, 'taxonomy_term'));
+
+    return $response;
+  }
+
+
+  /**
+   * @apiDescription Specific tag api call.
+   *
+   * @api {get} /api/fun365/tag/:uuid Request a specified tag.
+   * @apiName Tag by UUID
+   * @apiGroup Tag
+   *
+   * @apiParam {String} uuid Universally Unique ID for tag
+   * @apiParamExample {url} Request Example:
+   *  /api/fun365/tag/ae9dc78c-074a-48d8-a6bd-e7a7924f155f
+   *
+   * @param  Request $request the request
+   * @return CacheableJsonResponse
+   */
+  public function uuidTag(Request $request, $uuid) {
+    $options = [
+      'recurse' => (false || $request->get('recurse')),
+      'maxDepth' => ($request->get('depth') ? intval($request->get('depth')) : 2),
+    ];
+
+    $results = $this->restHelper->fetchOneTerm('tag', $uuid, $options);
+    $response = new CacheableJsonResponse($results);
+    $response->addCacheableDependency($this->restHelper->cacheMetaData($results, 'taxonomy_term'));
+
+    return $response;
+  }
+
+  /**
+   * @apiDescription Content for a tag api call.
+   *
+   * @api {get} /api/fun365/tag/:uuid/content Request paginated list of content for a tag.
+   * @apiName Content
+   * @apiGroup Tag
+   *
+   * @apiParam {String} uuid Universally Unique ID for tag
+   * @apiParam {Number} page GET param  the result page (default 0)
+   * @apiParam {Number} recurse GET param 1 to recurse content (default 0)
+   * @apiParam {Number} depth GET param levels deep to limit recursion (default 2)
+   * @apiParamExample {url} Request Example:
+   *  /api/fun365/tag/ae9dc78c-074a-48d8-a6bd-e7a7924f155f/content?page=1&recurse=1&depth=2
+   *
+   * @param  Request $request the request
+   * @return CacheableJsonResponse
+   */
+  public function tagContent(Request $request, $uuid) {
+    $options = [
+      'published' => $request->get('published') !== '0',
+      'page' => $request->get('page') * 1,
+      'recurse' => (false || $request->get('recurse')),
+      'maxDepth' => ($request->get('depth') ? intval($request->get('depth')) : 2),
+    ];
+
+    $results = $this->restHelper->fetchTagContent($uuid, $options);
+    $response = new CacheableJsonResponse($results);
+    $response->addCacheableDependency($this->restHelper->cacheMetaData($results, 'node'));
+
+    return $response;
+  }
+
+  /**
+   * @apiDescription Specific tag api call.
+   *
+   * @api {get} /api/fun365/tag/:uuid Request a specified tag.
    * @apiName Category by UUID
    * @apiGroup Category
    *
-   * @apiParam {String} uuid Universally Unique ID for category
+   * @apiParam {String} uuid Universally Unique ID for tag
    * @apiParamExample {url} Request Example:
-   *  /api/fun365/category/da593707-2796-4f03-b75f-59a1515917b4
+   *  /api/fun365/tag/da593707-2796-4f03-b75f-59a1515917b4
    *
    * @param  Request $request the request
    * @return CacheableJsonResponse
@@ -111,7 +200,7 @@ class ApiController extends ControllerBase {
       'maxDepth' => ($request->get('depth') ? intval($request->get('depth')) : 2),
     ];
 
-    $results = $this->restHelper->fetchOneTerm('category', $uuid, $options);
+    $results = $this->restHelper->fetchOneTerm('tag', $uuid, $options);
     $response = new CacheableJsonResponse($results);
     $response->addCacheableDependency($this->restHelper->cacheMetaData($results, 'taxonomy_term'));
 

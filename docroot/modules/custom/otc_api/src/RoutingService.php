@@ -64,6 +64,51 @@ class RoutingService {
       ]
     ));
 
+    $routeCollection->add('otc_api.tag_content', new Route(
+      // base tag route
+      '/api/fun365/tag/{uuid}/content',
+
+      // Route configuration parameters
+      [
+        '_controller' => '\Drupal\otc_api\ApiController::tagContent',
+      ],
+
+      // Route permission reqs
+      [
+        '_permission' => 'access content',
+      ]
+    ));
+
+    $routeCollection->add('otc_api.tag_uuid', new Route(
+      // base tag route
+      '/api/fun365/tag/{uuid}',
+
+      // Route configuration parameters
+      [
+        '_controller' => '\Drupal\otc_api\ApiController::uuidTag',
+      ],
+
+      // Route permission reqs
+      [
+        '_permission' => 'access content',
+      ]
+    ));
+
+    $routeCollection->add('otc_api.tag_base', new Route(
+      // base tag route
+      '/api/fun365/tag',
+
+      // Route configuration parameters
+      [
+        '_controller' => '\Drupal\otc_api\ApiController::tag',
+      ],
+
+      // Route permission reqs
+      [
+        '_permission' => 'access content',
+      ]
+    ));
+
     $routeCollection->add('otc_api.category_base', new Route(
       // base category route
       '/api/fun365/category',
