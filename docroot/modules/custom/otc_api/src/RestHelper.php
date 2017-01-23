@@ -414,6 +414,7 @@ class RestHelper implements RestHelperInterface {
     foreach ( $fieldDefinitions as $name => $fieldDefinition ) {
       $options['fieldDefinition'] = $fieldDefinition;
       $options['storageDefinition'] = $storageDefinitions[$name];
+      $options['multiValue'] = method_exists($options['storageDefinition'], 'isMultiple') && ($options['storageDefinition']->isMultiple() || $options['storageDefinition']->getCardinality() > 1);
 
       if ( ! $fieldDefinition->getType() ) continue;
 
@@ -473,6 +474,8 @@ class RestHelper implements RestHelperInterface {
     foreach ( $fieldDefinitions as $name => $fieldDefinition ) {
       $options['fieldDefinition'] = $fieldDefinition;
       $options['storageDefinition'] = $storageDefinitions[$name];
+      $options['multiValue'] = method_exists($options['storageDefinition'], 'isMultiple') && ($options['storageDefinition']->isMultiple() || $options['storageDefinition']->getCardinality() > 1);
+
       if ( ! $fieldDefinition->getType() ) continue;
 
       $supported = in_array($fieldDefinition->getType(), array_keys(self::supportedFieldTypes()));
@@ -513,7 +516,15 @@ class RestHelper implements RestHelperInterface {
    * @param  FieldItemListInterface   $field field item list
    * @return string simple string value
    */
-  protected function getFieldValue(FieldItemListInterface $field) {
+  protected function getFieldValue(FieldItemListInterface $field, $options = []) {
+    if ( $options['multiValue'] ) {
+      $return = [];
+      foreach ( $field->getValue() as $item ) {
+        $return[] = $item['value'];
+      }
+      return $return;
+    }
+
     return $field->value;
   }
 
@@ -522,7 +533,15 @@ class RestHelper implements RestHelperInterface {
    * @param  FieldItemListInterface   $field field item list
    * @return int
    */
-  protected function getIntFieldValue(FieldItemListInterface $field) {
+  protected function getIntFieldValue(FieldItemListInterface $field, $options = []) {
+    if ( $options['multiValue'] ) {
+      $return = [];
+      foreach ( $field->getValue() as $item ) {
+        $return[] = intval($item['value']);
+      }
+      return $return;
+    }
+
     return intval($field->value);
   }
 
@@ -531,7 +550,15 @@ class RestHelper implements RestHelperInterface {
    * @param  FieldItemListInterface   $field field item list
    * @return float
    */
-  protected function getFloatFieldValue(FieldItemListInterface $field) {
+  protected function getFloatFieldValue(FieldItemListInterface $field, $options = []) {
+    if ( $options['multiValue'] ) {
+      $return = [];
+      foreach ( $field->getValue() as $item ) {
+        $return[] = floatval($item['value']);
+      }
+      return $return;
+    }
+
     return floatval($field->value);
   }
 
@@ -547,11 +574,10 @@ class RestHelper implements RestHelperInterface {
    */
   protected function getLinkFieldValue(FieldItemListInterface $field, $options = []) {
     $values = $field->getValue();
-    $multiValue = $options['storageDefinition']->isMultiple();
-    $return = ($multiValue ? [] : NULL);
+    $return = ($options['multiValue'] ? [] : NULL);
 
     if ( $values ) {
-      if ( $multiValue ) {
+      if ( $options['multiValue'] ) {
         foreach ( $values as $linkData ) {
           $return[] = [
             'url' => $linkData['uri'],
@@ -576,7 +602,15 @@ class RestHelper implements RestHelperInterface {
    * @param  FieldItemListInterface   $field field item list
    * @return string simple string value
    */
-  protected function getDateFieldValue(FieldItemListInterface $field) {
+  protected function getDateFieldValue(FieldItemListInterface $field, $options = []) {
+    if ( $options['multiValue'] ) {
+      $return = [];
+      foreach ( $field->getValue() as $item ) {
+        $return[] = \Drupal::service('date.formatter')->format($item['value'], 'html_datetime');
+      }
+      return $return;
+    }
+
     return \Drupal::service('date.formatter')->format($field->value, 'html_datetime');
   }
 
@@ -585,7 +619,17 @@ class RestHelper implements RestHelperInterface {
    * @param  FieldItemListInterface   $field           the field item list
    * @return boolean
    */
-  protected function getFieldBoolean(FieldItemListInterface $field) {
+  protected function getFieldBoolean(FieldItemListInterface $field, $options = []) {
+    // If for some reason a multi-value boolean field is selected, which is
+    // non-sense.
+    if ( $options['multiValue'] ) {
+      $items = $field->getValue();
+      if ( $items ) {
+        return current($items)['value'] === "1";
+      }
+      return false;
+    }
+
     return $field->value === "1";
   }
 
@@ -635,10 +679,9 @@ class RestHelper implements RestHelperInterface {
     $recurse = $options['currentDepth'] < $options['maxDepth'] && $options['recurse'];
     $options['currentDepth'] = ($recurse ? $options['currentDepth'] + 1 : $options['currentDepth']);
 
-    $multiValue = $options['storageDefinition']->isMultiple();
-    $return = ($multiValue ? [] : NULL);
+    $return = ($options['multiValue'] ? [] : NULL);
     if ( $referenceData ) {
-      if ( $multiValue ) {
+      if ( $options['multiValue'] ) {
         foreach ( $referenceData as $index => $target ) {
           $node = Node::load($target['target_id']);
           $return[] = ($recurse ? $this->processNode($node, $options) : $this->shallowEntity($node));
@@ -664,11 +707,10 @@ class RestHelper implements RestHelperInterface {
 
     $recurse = $options['currentDepth'] < $options['maxDepth'] && $options['recurse'];
     $options['currentDepth'] = ($recurse ? $options['currentDepth'] + 1 : $options['currentDepth']);
-    $multiValue = $options['storageDefinition']->isMultiple();
 
-    $return = ($multiValue ? [] : NULL);
+    $return = ($options['multiValue'] ? [] : NULL);
     if ( $referenceData ) {
-      if ( $multiValue ) {
+      if ( $options['multiValue'] ) {
         foreach ( $referenceData as $index => $target ) {
           $term = Term::load($target['target_id']);
           $return[] = ($recurse ? $this->processTerm($term, $options) : $this->shallowEntity($term));
@@ -715,10 +757,9 @@ class RestHelper implements RestHelperInterface {
   protected function getFileFieldValue(FieldItemListInterface $field, $options = []) {
     $fileData = $field->getValue();
 
-    $multiValue = $options['storageDefinition']->isMultiple();
-    $return = ($multiValue ? [] : NULL);
+    $return = ($options['multiValue'] ? [] : NULL);
     if ( $fileData ) {
-      if ( $multiValue ) {
+      if ( $options['multiValue'] ) {
         foreach ( $fileData as $target ) {
           $return[] = File::load($target['target_id'])->url();
         }
@@ -762,10 +803,9 @@ class RestHelper implements RestHelperInterface {
     $resolution = $options['fieldDefinition']->getSettings()['max_resolution'];
     $resolutions = $this->imageStyles($resolution);
 
-    $multiValue = $options['storageDefinition']->isMultiple();
-    $return = ($multiValue ? [] : NULL);
+    $return = ($options['multiValue'] ? [] : NULL);
     if ( $imageData ) {
-      if ( $multiValue ) {
+      if ( $options['multiValue'] ) {
         foreach ( $imageData as $image ) {
           $return[] = $this->processImage($image['target_id'], $resolutions);
         }
