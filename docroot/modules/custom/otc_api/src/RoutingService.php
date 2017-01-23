@@ -21,7 +21,7 @@ class RoutingService {
 
     $routeCollection->add('otc_api.uuid', new Route(
       // uuid lookup route
-      '/api/{contentType}/{uuid}',
+      '/api/fun365/{contentType}/{uuid}',
 
       // Route configuration parameters
       [
@@ -36,7 +36,7 @@ class RoutingService {
 
     $routeCollection->add('otc_api.category_content', new Route(
       // base category route
-      '/api/category/{uuid}/content',
+      '/api/fun365/category/{uuid}/content',
 
       // Route configuration parameters
       [
@@ -51,7 +51,7 @@ class RoutingService {
 
     $routeCollection->add('otc_api.category_uuid', new Route(
       // base category route
-      '/api/category/{uuid}',
+      '/api/fun365/category/{uuid}',
 
       // Route configuration parameters
       [
@@ -66,7 +66,7 @@ class RoutingService {
 
     $routeCollection->add('otc_api.category_base', new Route(
       // base category route
-      '/api/category',
+      '/api/fun365/category',
 
       // Route configuration parameters
       [
@@ -81,7 +81,7 @@ class RoutingService {
 
     $routeCollection->add('otc_api.base', new Route(
       // base content type route
-      '/api/{contentType}',
+      '/api/fun365/{contentType}',
 
       // Route configuration parameters
       [
