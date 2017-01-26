@@ -19,13 +19,13 @@ class RoutingService {
   public function routes() {
     $routeCollection = new RouteCollection();
 
-    $routeCollection->add('otc_api.uuid', new Route(
-      // uuid lookup route
-      '/api/fun365/{contentType}/{uuid}',
+    $routeCollection->add('otc_api.lookup', new Route(
+      // uuid/path lookup route
+      '/api/fun365/{contentType}/{id}',
 
       // Route configuration parameters
       [
-        '_controller' => '\Drupal\otc_api\ApiController::uuid',
+        '_controller' => '\Drupal\otc_api\ApiController::lookup',
       ],
 
       // Route permission reqs
@@ -36,7 +36,7 @@ class RoutingService {
 
     $routeCollection->add('otc_api.category_content', new Route(
       // base category route
-      '/api/fun365/category/{uuid}/content',
+      '/api/fun365/category/{id}/content',
 
       // Route configuration parameters
       [
@@ -49,13 +49,13 @@ class RoutingService {
       ]
     ));
 
-    $routeCollection->add('otc_api.category_uuid', new Route(
+    $routeCollection->add('otc_api.category_lookup', new Route(
       // base category route
-      '/api/fun365/category/{uuid}',
+      '/api/fun365/category/{id}',
 
       // Route configuration parameters
       [
-        '_controller' => '\Drupal\otc_api\ApiController::uuidCategory',
+        '_controller' => '\Drupal\otc_api\ApiController::lookupCategory',
       ],
 
       // Route permission reqs
@@ -66,7 +66,7 @@ class RoutingService {
 
     $routeCollection->add('otc_api.tag_content', new Route(
       // base tag route
-      '/api/fun365/tag/{uuid}/content',
+      '/api/fun365/tag/{id}/content',
 
       // Route configuration parameters
       [
@@ -79,13 +79,13 @@ class RoutingService {
       ]
     ));
 
-    $routeCollection->add('otc_api.tag_uuid', new Route(
+    $routeCollection->add('otc_api.tag_lookup', new Route(
       // base tag route
-      '/api/fun365/tag/{uuid}',
+      '/api/fun365/tag/{id}',
 
       // Route configuration parameters
       [
-        '_controller' => '\Drupal\otc_api\ApiController::uuidTag',
+        '_controller' => '\Drupal\otc_api\ApiController::lookupTag',
       ],
 
       // Route permission reqs

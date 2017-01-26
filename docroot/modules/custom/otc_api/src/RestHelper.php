@@ -231,15 +231,15 @@ class RestHelper implements RestHelperInterface {
   }
 
   /**
-   * Get one node by uuid.
+   * Get one node by uuid/alias.
    * @param  string $contentType content type for validation
-   * @param  string $uuid        uuid of the content
+   * @param  string $id uuid/alias of the content
    * @param array $options
    * - boolean $recurse references are recursively dereferenced
    * - integer $maxDepth levels of recursion
    * @return array processed node, simplified for rest
    */
-  public function fetchOne($contentType, $uuid = '', $options = []) {
+  public function fetchOne($contentType, $id = '', $options = []) {
     if ( ! self::contentTypePermitted($contentType) ) {
       return NULL;
     }
@@ -251,12 +251,16 @@ class RestHelper implements RestHelperInterface {
     ];
     $options = array_merge($defaults, $options);
 
-    $result = $this->entityTypeManager->getStorage('node')->loadByProperties(['uuid' => $uuid]);
-    if ( ! $result ) {
-      return NULL;
+    if ( self::isUuid($id) ) {
+      $result = $this->entityTypeManager->getStorage('node')->loadByProperties(['uuid' => $id]);
+      if ( ! $result ) {
+        return NULL;
+      }
+      $node = current($result);
+    } else {
+      $node = $this->lookupNodeByAlias($id);
     }
 
-    $node = current($result);
     if ( ! self::contentTypePermitted($node->getType()) || $node->getType() !== $contentType ) {
       return NULL;
     }
@@ -267,14 +271,14 @@ class RestHelper implements RestHelperInterface {
   /**
    * Get one node by uuid.
    * @param  string $vocabular type for validation
-   * @param  string $uuid uuid of the term
+   * @param  string $id uuid of the term or path alias
    * @param array $options
    * - boolean $recurse references are recursively dereferenced
    * - integer $maxDepth levels of recursion
    *
    * @return array processed node, simplified for rest
    */
-  public function fetchOneTerm($vocabulary, $uuid = '', $options = []) {
+  public function fetchOneTerm($vocabulary, $id = '', $options = []) {
     if ( ! self::vocabularyPermitted($vocabulary) ) {
       return NULL;
     }
@@ -286,12 +290,16 @@ class RestHelper implements RestHelperInterface {
     ];
     $options = array_merge($defaults, $options);
 
-    $result = $this->entityTypeManager->getStorage('taxonomy_term')->loadByProperties(['uuid' => $uuid]);
-    if ( ! $result ) {
-      return NULL;
+    if ( self::isUuid($id) ) {
+      $result = $this->entityTypeManager->getStorage('taxonomy_term')->loadByProperties(['uuid' => $id]);
+      if ( ! $result ) {
+        return NULL;
+      }
+      $term = current($result);
+    } else {
+      $term = $this->lookupTermByAlias($id);
     }
 
-    $term = current($result);
     if ( ! self::vocabularyPermitted($term->getVocabularyId()) ) {
       return NULL;
     }
@@ -299,12 +307,12 @@ class RestHelper implements RestHelperInterface {
     return $this->processTerm($term);
   }
 
-  public function fetchCategoryContent($uuid = '', $options = []) {
+  protected function fetchTermContent($id = '', $options = [], $field_name = 'field_category') {
     $defaults = [
       'page' => 0,
       'published' => true,
       'conditions' => [
-        'field_category.entity.uuid' => $uuid,
+        $field_name . '.entity.uuid' => $id,
       ]
     ];
     $options = array_merge($defaults, $options);
@@ -341,48 +349,83 @@ class RestHelper implements RestHelperInterface {
     return $response;
   }
 
-  public function fetchTagContent($uuid = '', $options = []) {
-    $defaults = [
-      'page' => 0,
-      'published' => true,
-      'conditions' => [
-        'field_tag.entity.uuid' => $uuid,
-      ]
-    ];
-    $options = array_merge($defaults, $options);
+  public function fetchCategoryContent($id = '', $options = []) {
+    $uuid = $id;
 
-    $limit = 10;
-    $response = [
-      'limit' => $limit,
-      'page' => $options['page'],
-      'published' => $options['published']
-    ];
-
-    $response['count'] = intval($this->newNodeQuery($options)->count()->execute());
-
-    $entity_ids = $this->newNodeQuery($options)
-    ->range($options['page'] * $limit, $limit)
-    ->execute();
-
-    if ( ! $entity_ids ) {
-      $response['results'] = [];
-      return $response;
-    }
-
-    $nodes = \Drupal::entityTypeManager()
-      ->getStorage('node')
-      ->loadMultiple($entity_ids);
-    foreach ($nodes as $node) {
-      if ($options['recurse']) {
-        $response['results'][] = $this->processNode($node);
-      } else {
-        $response['results'][] = $this->shallowEntity($node);
+    if ( ! self::isUuid($id) ) {
+      $term = $this->lookupTermByAlias($id);
+      if ( $term ) {
+        $uuid = $term->uuid->value;
       }
     }
 
-    return $response;
+    return $this->fetchTermContent($uuid, $options, 'field_category');
   }
 
+  public function fetchTagContent($id = '', $options = []) {
+    $uuid = $id;
+
+    if ( ! self::isUuid($id) ) {
+      $term = $this->lookupTermByAlias($id);
+      if ( $term ) {
+        $uuid = $term->uuid->value;
+      }
+    }
+
+    return $this->fetchTermContent($uuid, $options, 'field_tag');
+  }
+
+  /**
+   * Lookup a term by path alias.
+   * @param  string $alias the path alias
+   * @return Term or false on failure
+   */
+  protected function lookupTermByAlias($alias = '') {
+    if ( ! $alias ) {
+      return FALSE;
+    }
+
+    $source = $this->lookupPathSource($alias);
+    preg_match('/taxonomy\/term\/(\d+)/', $source, $matches);
+
+    if ( ! isset($matches[1]) ) {
+      return FALSE;
+    }
+    $tid = $matches[1];
+    return Term::load($tid);
+  }
+
+  /**
+   * Lookup a node by path alias.
+   * @param  string $alias the path alias
+   * @return Node or false on failure
+   */
+  protected function lookupNodeByAlias($alias = '') {
+    if ( ! $alias ) {
+      return FALSE;
+    }
+
+    $source = $this->lookupPathSource($alias);
+    preg_match('/node\/(\d+)/', $source, $matches);
+    if ( ! isset($matches[1]) ) {
+      return FALSE;
+    }
+    $nid = $matches[1];
+    return Node::load($nid);
+  }
+
+  /**
+   * Lookup source path from path alias.
+   * @param  string $alias the content alias
+   * @return string the source path or FALSE
+   */
+  protected function lookupPathSource($alias = '') {
+    if ( ! $alias ) {
+      return FALSE;
+    }
+
+    return \Drupal::service('path.alias_storage')->lookupPathSource('/' . $alias, 'en');
+  }
 
   /**
    * Get new entity query for a content type.
@@ -569,6 +612,22 @@ class RestHelper implements RestHelperInterface {
     }
 
     return $field->value;
+  }
+
+  /**
+   * Get path alias field value.
+   * @param  FieldItemListInterface   $field field item list
+   * @param array $options
+   * - boolean $recurse references are recursively dereferenced
+   * - integer $maxDepth levels of recursion
+   * @return string path alias
+   */
+  protected function getPathFieldValue(FieldItemListInterface $field, $options = []) {
+    $entity = $field->getEntity();
+    $source = $entity->toUrl()->getInternalPath();
+    $lang = $entity->language()->getId();
+    $path = \Drupal::service('path.alias_storage')->lookupPathAlias('/' . $source, $lang);
+    return preg_replace('/^\//', '', $path);
   }
 
   /**
@@ -830,7 +889,6 @@ class RestHelper implements RestHelperInterface {
     return '';
   }
 
-
   /**
    * Get one or more image object arrays.
    * @param  FieldItemListInterface   $field the field items
@@ -915,6 +973,15 @@ class RestHelper implements RestHelperInterface {
   }
 
   /**
+   * Is the argument a uuid?
+   * @param  string  $uuid string to test
+   * @return boolean
+   */
+  protected static function isUuid($uuid = '') {
+    return preg_match('/^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/', $uuid) === 1;
+  }
+
+  /**
    * Get image styles for each aspect ratio.
    * @return array list of resolutions/image styles per aspect ratio
    */
@@ -962,7 +1029,7 @@ class RestHelper implements RestHelperInterface {
       'text_long' => 'getFieldValue',
       'created' => 'getDateFieldValue',
       'changed' => 'getDateFieldValue',
-      'path' => 'getFieldValue',
+      'path' => 'getPathFieldValue',
       'float' => 'getFloatFieldValue',
       'boolean' => 'getFieldBoolean',
       'uuid' => 'getFieldValue',
@@ -993,7 +1060,6 @@ class RestHelper implements RestHelperInterface {
       'revision_log',
       'revision_translation_affected',
       'default_langcode',
-      'path',
       'publish_on',
       'unpublish_on',
     ];

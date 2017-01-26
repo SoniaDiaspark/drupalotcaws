@@ -117,7 +117,7 @@ class ApiController extends ControllerBase {
    * @apiName Content
    * @apiGroup Category
    *
-   * @apiParam {String} uuid Universally Unique ID for category
+   * @apiParam {String} id Universally Unique ID or path alias for category
    * @apiParam {Number} page GET param  the result page (default 0)
    * @apiParam {Number} recurse GET param 1 to recurse content (default 0)
    * @apiParam {Number} depth GET param levels deep to limit recursion (default 2)
@@ -143,9 +143,10 @@ class ApiController extends ControllerBase {
    *  }
    *
    * @param  Request $request the request
+   * @param string $id uuid or path alias of category
    * @return CacheableJsonResponse
    */
-  public function categoryContent(Request $request, $uuid) {
+  public function categoryContent(Request $request, $id) {
     $options = [
       'published' => $request->get('published') !== '0',
       'page' => $request->get('page') * 1,
@@ -153,7 +154,7 @@ class ApiController extends ControllerBase {
       'maxDepth' => ($request->get('depth') ? intval($request->get('depth')) : 2),
     ];
 
-    $results = $this->restHelper->fetchCategoryContent($uuid, $options);
+    $results = $this->restHelper->fetchCategoryContent($id, $options);
     $response = new CacheableJsonResponse($results);
     $response->addCacheableDependency($this->restHelper->cacheMetaData($results, 'node'));
 
@@ -214,18 +215,23 @@ class ApiController extends ControllerBase {
   /**
    * @apiDescription Specific tag api call.
    *
-   * @api {get} /api/fun365/tag/:uuid Request a specified tag.
-   * @apiName Tag by UUID
+   * @api {get} /api/fun365/tag/:id Request a specified tag by uuid or path alias.
+   * @apiName Tag by UUID or path alias
    * @apiGroup Tag
    *
-   * @apiParam {String} uuid Universally Unique ID for tag
+   * @apiParam {String} id Universally Unique ID for tag or path alias
    * @apiParamExample {url} Request Example:
+   *  // by uuid
    *  /api/fun365/tag/ae9dc78c-074a-48d8-a6bd-e7a7924f155f
+   *
+   * // by path
+   *  /api/fun365/tag/christmas
    *
    * @apiSuccessExample {json} A Tag
    * HTTP/1.1 200 OK
    *  {
    *   "parent": "",
+   *   "path": "christmas",
    *   "uuid": "ae9dc78c-074a-48d8-a6bd-e7a7924f155f",
    *   "name": "Christmas",
    *   "description": null,
@@ -234,15 +240,16 @@ class ApiController extends ControllerBase {
    *  }
    *
    * @param  Request $request the request
+   * @param string $id the uuid or path alias of the tag
    * @return CacheableJsonResponse
    */
-  public function uuidTag(Request $request, $uuid) {
+  public function lookupTag(Request $request, $id) {
     $options = [
       'recurse' => (false || $request->get('recurse')),
       'maxDepth' => ($request->get('depth') ? intval($request->get('depth')) : 2),
     ];
 
-    $results = $this->restHelper->fetchOneTerm('tag', $uuid, $options);
+    $results = $this->restHelper->fetchOneTerm('tag', $id, $options);
     $response = new CacheableJsonResponse($results);
     $response->addCacheableDependency($this->restHelper->cacheMetaData($results, 'taxonomy_term'));
 
@@ -252,16 +259,20 @@ class ApiController extends ControllerBase {
   /**
    * @apiDescription Content for a tag api call.
    *
-   * @api {get} /api/fun365/tag/:uuid/content Request paginated list of content for a tag.
+   * @api {get} /api/fun365/tag/:id/content Request paginated list of content for a tag.
    * @apiName Content
    * @apiGroup Tag
    *
-   * @apiParam {String} uuid Universally Unique ID for tag
+   * @apiParam {String} id Universally Unique ID for tag or path alias
    * @apiParam {Number} page GET param  the result page (default 0)
    * @apiParam {Number} recurse GET param 1 to recurse content (default 0)
    * @apiParam {Number} depth GET param levels deep to limit recursion (default 2)
    * @apiParamExample {url} Request Example:
+   * //by uuid
    *  /api/fun365/tag/ae9dc78c-074a-48d8-a6bd-e7a7924f155f/content?page=1&recurse=1&depth=2
+   *
+   * //by path
+   *  /api/fun365/tag/christmas/content?page=1&recurse=1&depth=2
    *
    * @apiSuccessExample {json} Tagged Content
    * HTTP/1.1 200 OK
@@ -282,9 +293,10 @@ class ApiController extends ControllerBase {
    *  }
    *
    * @param  Request $request the request
+   * @param string $id the uuid or path alias of the tag
    * @return CacheableJsonResponse
    */
-  public function tagContent(Request $request, $uuid) {
+  public function tagContent(Request $request, $id) {
     $options = [
       'published' => $request->get('published') !== '0',
       'page' => $request->get('page') * 1,
@@ -292,7 +304,7 @@ class ApiController extends ControllerBase {
       'maxDepth' => ($request->get('depth') ? intval($request->get('depth')) : 2),
     ];
 
-    $results = $this->restHelper->fetchTagContent($uuid, $options);
+    $results = $this->restHelper->fetchTagContent($id, $options);
     $response = new CacheableJsonResponse($results);
     $response->addCacheableDependency($this->restHelper->cacheMetaData($results, 'node'));
 
@@ -302,13 +314,17 @@ class ApiController extends ControllerBase {
   /**
    * @apiDescription Specific tag api call.
    *
-   * @api {get} /api/fun365/tag/:uuid Request a specified tag.
-   * @apiName Category by UUID
+   * @api {get} /api/fun365/category/:id Request a specified category.
+   * @apiName Category by UUID or path alias
    * @apiGroup Category
    *
-   * @apiParam {String} uuid Universally Unique ID for tag
+   * @apiParam {String} id Universally Unique ID for category or path alias
    * @apiParamExample {url} Request Example:
-   *  /api/fun365/tag/da593707-2796-4f03-b75f-59a1515917b4
+   * // by uuid
+   *  /api/fun365/category/da593707-2796-4f03-b75f-59a1515917b4
+   *
+   * // by path alias
+   *  /api/fun365/category/wedding
    *
    * @apiSuccessExample [json] Paged Categories
    *  HTTP/1.1 200 OK
@@ -340,15 +356,16 @@ class ApiController extends ControllerBase {
    *  }
    *
    * @param  Request $request the request
+   * @param string $id the uuid or path alias of the category
    * @return CacheableJsonResponse
    */
-  public function uuidCategory(Request $request, $uuid) {
+  public function lookupCategory(Request $request, $id) {
     $options = [
       'recurse' => (false || $request->get('recurse')),
       'maxDepth' => ($request->get('depth') ? intval($request->get('depth')) : 2),
     ];
 
-    $results = $this->restHelper->fetchOneTerm('tag', $uuid, $options);
+    $results = $this->restHelper->fetchOneTerm('category', $id, $options);
     $response = new CacheableJsonResponse($results);
     $response->addCacheableDependency($this->restHelper->cacheMetaData($results, 'taxonomy_term'));
 
@@ -455,16 +472,16 @@ class ApiController extends ControllerBase {
   }
 
   /**
-   * @apiDescription Get specific node by uuid. Requests can be for any permitted
+   * @apiDescription Get specific node by uuid or alias. Requests can be for any permitted
    *   content type in the CMS. See \Drupal\otc_api\RestHelper::contentTypePermitted().
-   *   The entity specified by the uuid much match the content specified type.
+   *   The entity specified by the uuid/alias much match the content specified type.
    *
-   * @api {get} /api/fun365/:contentType/:uuid Request specific node.
+   * @api {get} /api/fun365/:contentType/:id Request specific node.
    * @apiName Node by UUID
    * @apiGroup Node
    *
    * @apiParam {String} contentType name of content type
-   * @apiParam {String} uuid Universally Unique ID for node
+   * @apiParam {String} id Universally Unique ID or path alias for node
    * @apiParam {Number} recurse GET param 1 to recurse content (default 0)
    * @apiParam {Number} depth GET param levels deep to limit recursion (default 2)
    *
@@ -542,16 +559,16 @@ class ApiController extends ControllerBase {
    *
    * @param  Request $request     the request
    * @param  string  $contentType the content type
-   * @param  string  $uuid        uuid of the node
+   * @param  string  $id        uuid of the node or path alias
    * @return CacheableJsonResponse
    */
-  public function uuid(Request $request, $contentType, $uuid) {
+  public function lookup(Request $request, $contentType, $id) {
     $options = [
       'recurse' => (false || $request->get('recurse')),
       'maxDepth' => ($request->get('depth') ? intval($request->get('depth')) : 2),
     ];
 
-    $resultData = $this->restHelper->fetchOne($contentType, $uuid, $options);
+    $resultData = $this->restHelper->fetchOne($contentType, $id, $options);
 
     $response = new CacheableJsonResponse($resultData);
     $response->addCacheableDependency($this->restHelper->cacheMetaData($resultData));

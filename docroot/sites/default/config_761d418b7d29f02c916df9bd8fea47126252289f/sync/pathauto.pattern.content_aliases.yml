@@ -1,0 +1,28 @@
+uuid: d83aeff6-2964-4517-aff8-571fc105e574
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: content_aliases
+label: 'Content Aliases'
+type: 'canonical_entities:node'
+pattern: '[node:title]'
+selection_criteria:
+  d5a536f8-029c-4cb3-9275-dd42d1196b4a:
+    id: node_type
+    bundles:
+      article: article
+      contributor: contributor
+      download: download
+      look: look
+      product: product
+      project: project
+      recipe: recipe
+    negate: false
+    context_mapping:
+      node: node
+    uuid: d5a536f8-029c-4cb3-9275-dd42d1196b4a
+selection_logic: and
+weight: -5
+relationships: {  }
