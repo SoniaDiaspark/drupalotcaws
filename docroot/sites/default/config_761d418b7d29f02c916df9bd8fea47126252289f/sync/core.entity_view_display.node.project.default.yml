@@ -15,6 +15,7 @@ dependencies:
     - field.field.node.project.field_download_file
     - field.field.node.project.field_items_needed
     - field.field.node.project.field_meta_description
+    - field.field.node.project.field_meta_keywords
     - field.field.node.project.field_meta_title
     - field.field.node.project.field_needed_description
     - field.field.node.project.field_photo_credit
@@ -127,6 +128,13 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: text_default
+  field_meta_keywords:
+    weight: 50
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
   field_meta_title:
     weight: 29
     label: above

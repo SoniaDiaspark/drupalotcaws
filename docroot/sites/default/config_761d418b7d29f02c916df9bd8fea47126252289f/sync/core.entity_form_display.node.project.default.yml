@@ -15,6 +15,7 @@ dependencies:
     - field.field.node.project.field_download_file
     - field.field.node.project.field_items_needed
     - field.field.node.project.field_meta_description
+    - field.field.node.project.field_meta_keywords
     - field.field.node.project.field_meta_title
     - field.field.node.project.field_needed_description
     - field.field.node.project.field_photo_credit
@@ -47,47 +48,47 @@ bundle: project
 mode: default
 content:
   field_1824x1371_img:
-    weight: 24
-    settings:
-      progress_indicator: throbber
-      preview_image_style: thumbnail
-    third_party_settings: {  }
-    type: image_image
-  field_3200x1391_img:
-    weight: 22
-    settings:
-      progress_indicator: throbber
-      preview_image_style: thumbnail
-    third_party_settings: {  }
-    type: image_image
-  field_828x828_img:
-    weight: 23
-    settings:
-      progress_indicator: throbber
-      preview_image_style: thumbnail
-    third_party_settings: {  }
-    type: image_image
-  field_896x896_img:
     weight: 25
     settings:
       progress_indicator: throbber
       preview_image_style: thumbnail
     third_party_settings: {  }
     type: image_image
-  field_900x677_img:
+  field_3200x1391_img:
+    weight: 23
+    settings:
+      progress_indicator: throbber
+      preview_image_style: thumbnail
+    third_party_settings: {  }
+    type: image_image
+  field_828x828_img:
+    weight: 24
+    settings:
+      progress_indicator: throbber
+      preview_image_style: thumbnail
+    third_party_settings: {  }
+    type: image_image
+  field_896x896_img:
     weight: 26
     settings:
       progress_indicator: throbber
       preview_image_style: thumbnail
     third_party_settings: {  }
     type: image_image
+  field_900x677_img:
+    weight: 27
+    settings:
+      progress_indicator: throbber
+      preview_image_style: thumbnail
+    third_party_settings: {  }
+    type: image_image
   field_category:
-    weight: 16
+    weight: 17
     settings: {  }
     third_party_settings: {  }
     type: options_buttons
   field_contributor:
-    weight: 9
+    weight: 10
     settings:
       match_operator: CONTAINS
       size: 60
@@ -109,13 +110,13 @@ content:
     third_party_settings: {  }
     type: text_textfield
   field_download_file:
-    weight: 10
+    weight: 11
     settings:
       progress_indicator: throbber
     third_party_settings: {  }
     type: file_generic
   field_items_needed:
-    weight: 28
+    weight: 29
     settings:
       size: 60
       placeholder: ''
@@ -128,6 +129,13 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: text_textarea
+  field_meta_keywords:
+    weight: 5
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
   field_meta_title:
     weight: 2
     settings:
@@ -136,21 +144,21 @@ content:
     third_party_settings: {  }
     type: text_textfield
   field_needed_description:
-    weight: 27
+    weight: 28
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
     type: text_textfield
   field_photo_credit:
-    weight: 18
+    weight: 19
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
     type: text_textfield
   field_products:
-    weight: 19
+    weight: 20
     settings:
       match_operator: CONTAINS
       size: 60
@@ -158,13 +166,13 @@ content:
     third_party_settings: {  }
     type: entity_reference_autocomplete
   field_project_lite:
-    weight: 5
+    weight: 6
     settings:
       display_label: true
     third_party_settings: {  }
     type: boolean_checkbox
   field_related_article:
-    weight: 15
+    weight: 16
     settings:
       match_operator: CONTAINS
       size: 60
@@ -172,7 +180,7 @@ content:
     third_party_settings: {  }
     type: entity_reference_autocomplete
   field_related_look:
-    weight: 12
+    weight: 13
     settings:
       match_operator: CONTAINS
       size: 60
@@ -180,35 +188,35 @@ content:
     third_party_settings: {  }
     type: entity_reference_autocomplete
   field_skill:
-    weight: 6
+    weight: 7
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
   field_skyword_id:
-    weight: 21
+    weight: 22
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
   field_skyword_related_article:
-    weight: 13
+    weight: 14
     settings:
       placeholder_url: ''
       placeholder_title: ''
     third_party_settings: {  }
     type: link_default
   field_skyword_related_look:
-    weight: 11
+    weight: 12
     settings:
       placeholder_url: ''
       placeholder_title: ''
     third_party_settings: {  }
     type: link_default
   field_step:
-    weight: 20
+    weight: 21
     settings:
       form_mode: default
       label_singular: ''
@@ -220,40 +228,40 @@ content:
     third_party_settings: {  }
     type: inline_entity_form_complex
   field_suppress_fanreel:
-    weight: 29
+    weight: 30
     settings:
       display_label: true
     third_party_settings: {  }
     type: boolean_checkbox
   field_tag:
-    weight: 17
+    weight: 18
     settings: {  }
     third_party_settings: {  }
     type: options_buttons
   field_time_max:
-    weight: 8
+    weight: 9
     settings:
       placeholder: ''
     third_party_settings: {  }
     type: number
   field_time_min:
-    weight: 7
+    weight: 8
     settings:
       placeholder: ''
     third_party_settings: {  }
     type: number
   path:
     type: path
-    weight: 30
+    weight: 31
     settings: {  }
     third_party_settings: {  }
   publish_on:
     type: datetime_timestamp
-    weight: 31
+    weight: 32
     settings: {  }
     third_party_settings: {  }
   scheduler_settings:
-    weight: 14
+    weight: 15
     settings: {  }
     third_party_settings: {  }
   title:
@@ -265,7 +273,7 @@ content:
     third_party_settings: {  }
   unpublish_on:
     type: datetime_timestamp_no_default
-    weight: 32
+    weight: 33
     settings: {  }
     third_party_settings: {  }
 hidden:

@@ -5,5 +5,5 @@ dependencies: {  }
 name: Category
 vid: category
 description: 'Categories of looks, projects, articles, and recipes.'
-hierarchy: 1
+hierarchy: 0
 weight: -10
