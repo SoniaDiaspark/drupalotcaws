@@ -102,7 +102,6 @@ class RestHelper implements RestHelperInterface {
       'look',
       'product',
       'project',
-      'promo',
       'recipe',
       'step',
     ];
@@ -269,14 +268,14 @@ class RestHelper implements RestHelperInterface {
   }
 
   /**
-   * Get one node by uuid.
+   * Get one term by uuid.
    * @param  string $vocabular type for validation
    * @param  string $id uuid of the term or path alias
    * @param array $options
    * - boolean $recurse references are recursively dereferenced
    * - integer $maxDepth levels of recursion
    *
-   * @return array processed node, simplified for rest
+   * @return array processed term, simplified for rest
    */
   public function fetchOneTerm($vocabulary, $id = '', $options = []) {
     if ( ! self::vocabularyPermitted($vocabulary) ) {
@@ -307,6 +306,17 @@ class RestHelper implements RestHelperInterface {
     return $this->processTerm($term);
   }
 
+  /**
+   * Fetch all paginated content associated with a particular term.
+   * @param  string $id the uuid or path alias of the term
+   * @param array $options
+   * - boolean $recurse references are recursively dereferenced
+   * - integer $maxDepth levels of recursion
+   * - integer $page the current page
+   *
+   * @param  string $field_name the field name referencing a term
+   * @return object page of content results for a given term
+   */
   protected function fetchTermContent($id = '', $options = [], $field_name = 'field_category') {
     $defaults = [
       'page' => 0,
@@ -349,6 +359,16 @@ class RestHelper implements RestHelperInterface {
     return $response;
   }
 
+  /**
+   * Fetch all paginated content associated with a particular category.
+   * @param  string $id the uuid or path alias of the category
+   * @param array $options
+   * - boolean $recurse references are recursively dereferenced
+   * - integer $maxDepth levels of recursion
+   * - integer $page the current page
+   *
+   * @return object page of content results for a given category
+   */
   public function fetchCategoryContent($id = '', $options = []) {
     $uuid = $id;
 
@@ -362,6 +382,16 @@ class RestHelper implements RestHelperInterface {
     return $this->fetchTermContent($uuid, $options, 'field_category');
   }
 
+  /**
+   * Fetch all paginated content associated with a particular tag.
+   * @param  string $id the uuid or path alias of the tag
+   * @param array $options
+   * - boolean $recurse references are recursively dereferenced
+   * - integer $maxDepth levels of recursion
+   * - integer $page the current page
+   *
+   * @return object page of content results for a given tag
+   */
   public function fetchTagContent($id = '', $options = []) {
     $uuid = $id;
 

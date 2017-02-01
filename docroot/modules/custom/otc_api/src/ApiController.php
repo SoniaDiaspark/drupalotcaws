@@ -375,6 +375,9 @@ class ApiController extends ControllerBase {
   /**
    * @apiDescription Base content type api call. Requests can be for any permitted
    *   content type in the CMS. See \Drupal\otc_api\RestHelper::contentTypePermitted()
+   *   Currently Supported Types:
+   *   landing, article, contributor, download, featured_content,
+   *   look, product, project, recipe, and step.
    *
    * @api {get} /api/fun365/:contentType Request paginated list of content of a specified type.
    * @apiName All
