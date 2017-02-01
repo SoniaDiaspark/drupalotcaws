@@ -111,6 +111,57 @@ class ApiController extends ControllerBase {
   }
 
   /**
+   * @apiDescription Contributed content api call.
+   *
+   * @api {get} /api/fun365/contributor/:id/content Request paginated list of content for a contributor.
+   * @apiName Content
+   * @apiGroup Contributor
+   *
+   * @apiParam {String} id Universally Unique ID or path alias for contributor
+   * @apiParam {Number} page GET param  the result page (default 0)
+   * @apiParam {Number} recurse GET param 1 to recurse content (default 0)
+   * @apiParam {Number} depth GET param levels deep to limit recursion (default 2)
+   * @apiParamExample {url} Request Example:
+   *  /api/fun365/contributor/abc93707-2796-4f03-c64e-59e1234917b4/content?page=1&recurse=1&depth=2
+   *
+   * @apiSuccessExample {json} Paged Contributor Content
+   * HTTP/1.1 200 OK
+   *  {
+   *    "limit": 10,
+   *    "page": 0,
+   *    "published": true,
+   *    "count": 2,
+   *    "results": [
+   *      {
+   *        "uuid": "ccf0cb1a-64e4-456c-8048-971dd0d86ee8",
+   *        "type": "project"
+   *      },
+   *      {
+   *      ...
+   *      }
+   *    ]
+   *  }
+   *
+   * @param  Request $request the request
+   * @param string $id uuid or path alias of contributor
+   * @return CacheableJsonResponse
+   */
+  public function contributorContent(Request $request, $id) {
+    $options = [
+      'published' => $request->get('published') !== '0',
+      'page' => $request->get('page') * 1,
+      'recurse' => (false || $request->get('recurse')),
+      'maxDepth' => ($request->get('depth') ? intval($request->get('depth')) : 2),
+    ];
+
+    $results = $this->restHelper->fetchContributorContent($id, $options);
+    $response = new CacheableJsonResponse($results);
+    $response->addCacheableDependency($this->restHelper->cacheMetaData($results, 'node'));
+
+    return $response;
+  }
+
+  /**
    * @apiDescription Content for a category api call.
    *
    * @api {get} /api/fun365/category/:uuid/content Request paginated list of content for a category.

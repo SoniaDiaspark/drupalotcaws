@@ -307,22 +307,22 @@ class RestHelper implements RestHelperInterface {
   }
 
   /**
-   * Fetch all paginated content associated with a particular term.
-   * @param  string $id the uuid or path alias of the term
+   * Fetch all paginated content associated with a particular reference.
+   * @param  string $uuid the uuid of the referenced id
    * @param array $options
    * - boolean $recurse references are recursively dereferenced
    * - integer $maxDepth levels of recursion
    * - integer $page the current page
    *
-   * @param  string $field_name the field name referencing a term
-   * @return object page of content results for a given term
+   * @param  string $field_name the field name referencing a content
+   * @return object page of content results for a given reference
    */
-  protected function fetchTermContent($id = '', $options = [], $field_name = 'field_category') {
+  protected function fetchReferencedContent($uuid = '', $options = [], $field_name = 'field_category') {
     $defaults = [
       'page' => 0,
       'published' => true,
       'conditions' => [
-        $field_name . '.entity.uuid' => $id,
+        $field_name . '.entity.uuid' => $uuid,
       ]
     ];
     $options = array_merge($defaults, $options);
@@ -376,10 +376,54 @@ class RestHelper implements RestHelperInterface {
       $term = $this->lookupTermByAlias($id);
       if ( $term ) {
         $uuid = $term->uuid->value;
+      } else {
+        return NULL;
       }
     }
 
-    return $this->fetchTermContent($uuid, $options, 'field_category');
+    return $this->fetchReferencedContent($uuid, $options, 'field_category');
+  }
+
+  /**
+   * Fetch all paginated content associated with a particular contributor.
+   * @param  string $id the uuid or path alias of the contributor
+   * @param array $options
+   * - boolean $recurse references are recursively dereferenced
+   * - integer $maxDepth levels of recursion
+   * - integer $page the current page
+   *
+   * @return object page of content results for a given contributor
+   */
+  public function fetchContributorContent($id = '', $options = []) {
+    if ( self::isUuid($id) ) {
+      $result = $this->entityTypeManager->getStorage('node')->loadByProperties(['uuid' => $id]);
+      if ( ! $result ) {
+        return NULL;
+      }
+      $node = current($result);
+    } else {
+      $node = $this->lookupNodeByAlias($id);
+    }
+
+    if ( ! $node ) {
+      return NULL;
+    }
+
+    $defaults = [
+      'multiValueGroups' => [
+        'type' => [
+          'article',
+          'look',
+          'project',
+          'recipe',
+          'download',
+        ]
+      ]
+    ];
+    $options = array_merge($defaults, $options);
+
+    $uuid = $node->uuid->value;
+    return $this->fetchReferencedContent($uuid, $options, 'field_contributor');
   }
 
   /**
@@ -402,7 +446,7 @@ class RestHelper implements RestHelperInterface {
       }
     }
 
-    return $this->fetchTermContent($uuid, $options, 'field_tag');
+    return $this->fetchReferencedContent($uuid, $options, 'field_tag');
   }
 
   /**
@@ -469,16 +513,39 @@ class RestHelper implements RestHelperInterface {
   protected function newNodeQuery($options = []) {
     $query = \Drupal::entityQuery('node');
     if (! $options['published'] ) {
-      $group = $query->orConditionGroup()
-        ->condition('status', 1)
-        ->condition('status', 0);
-      $query->condition($group);
+      $options['multiValueGroups']['status'] = [1, 0];
     } else {
       $query->condition('status', 1);
     }
 
-    foreach ($options['conditions'] as $key => $value ) {
-      $query->condition($key, $value);
+    if ( ! empty($options['orConditionGroups']) ) {
+      foreach ($options['orConditionGroups'] as $conditions) {
+        if ( ! empty($conditions) ) {
+          $group = $query->orConditionGroup();
+          foreach ( $conditions as $key => $value ) {
+            $group->condition($key, $value);
+          }
+          $query->condition($group);
+        }
+      }
+    }
+
+    if ( ! empty($options['multiValueGroups']) ) {
+      foreach ($options['multiValueGroups'] as $key => $values) {
+        if ( ! empty($values) ) {
+          $group = $query->orConditionGroup();
+          foreach ( $values as $value ) {
+            $group->condition($key, $value);
+          }
+          $query->condition($group);
+        }
+      }
+    }
+
+    if ( ! empty($options['conditions']) ) {
+      foreach ($options['conditions'] as $key => $value ) {
+        $query->condition($key, $value);
+      }
     }
 
     return $query;

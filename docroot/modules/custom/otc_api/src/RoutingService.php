@@ -34,6 +34,21 @@ class RoutingService {
       ]
     ));
 
+    $routeCollection->add('otc_api.contributor_content', new Route(
+      // uuid/path lookup route
+      '/api/fun365/contributor/{id}/content',
+
+      // Route configuration parameters
+      [
+        '_controller' => '\Drupal\otc_api\ApiController::contributorContent',
+      ],
+
+      // Route permission reqs
+      [
+        '_permission'  => 'access content',
+      ]
+    ));
+
     $routeCollection->add('otc_api.category_content', new Route(
       // base category route
       '/api/fun365/category/{id}/content',
