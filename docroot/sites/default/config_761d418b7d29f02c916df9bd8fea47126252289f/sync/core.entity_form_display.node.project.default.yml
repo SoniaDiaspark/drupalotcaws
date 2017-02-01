@@ -256,7 +256,7 @@ content:
     settings: {  }
     third_party_settings: {  }
   publish_on:
-    type: datetime_timestamp
+    type: datetime_timestamp_no_default
     weight: 32
     settings: {  }
     third_party_settings: {  }
