@@ -31,12 +31,221 @@ class ApiController extends ControllerBase {
   }
 
   /**
+  * @apiDescription Contributed content api call.
+  *
+  * @api {get} /api/fun365/contributor/:id/content Request paginated list of content for a contributor.
+  * @apiName Content
+  * @apiGroup Contributor
+  *
+  * @apiParam {String} id Universally Unique ID or path alias for contributor
+  * @apiParam {Number} page GET param  the result page (default 0)
+  * @apiParam {Number} limit GET param limit number of results per page (default 10)
+  * @apiParam {Number} recurse GET param 1 to recurse content (default 0)
+  * @apiParam {Number} depth GET param levels deep to limit recursion (default 2)
+  * @apiParamExample {url} Request Example:
+  *  /api/fun365/contributor/abc93707-2796-4f03-c64e-59e1234917b4/content?page=1&recurse=1&depth=2
+  *
+  * @apiSuccessExample {json} Paged Contributor Content
+  * HTTP/1.1 200 OK
+  *  {
+  *    "limit": 10,
+  *    "page": 0,
+  *    "published": true,
+  *    "count": 2,
+  *    "results": [
+  *      {
+  *        "uuid": "ccf0cb1a-64e4-456c-8048-971dd0d86ee8",
+  *        "type": "project"
+  *      },
+  *      {
+  *      ...
+  *      }
+  *    ]
+  *  }
+  *
+  * @param  Request $request the request
+  * @param string $id uuid or path alias of contributor
+  * @return CacheableJsonResponse
+  */
+  public function contributorContent(Request $request, $id) {
+    $options = [
+      'limit' => ($request->get('limit') ? intval($request->get('limit')) : 10),
+      'published' => $request->get('published') !== '0',
+      'page' => $request->get('page') * 1,
+      'recurse' => (false || $request->get('recurse')),
+      'maxDepth' => ($request->get('depth') ? intval($request->get('depth')) : 2),
+    ];
+
+    $results = $this->restHelper->fetchContributorContent($id, $options);
+    $response = new CacheableJsonResponse($results);
+    $response->addCacheableDependency($this->restHelper->cacheMetaData($results, 'node'));
+
+    return $response;
+  }
+
+  /**
+  * @apiDescription Specific tag api call.
+  *
+  * @api {get} /api/fun365/contributor_group/:id Request a specified contributor group.
+  * @apiName Contributor Group by UUID or path alias
+  * @apiGroup Contributor Group
+  *
+  * @apiParam {String} id Universally Unique ID for contributor group or path alias
+  * @apiParamExample {url} Request Example:
+  * // by uuid
+  *  /api/fun365/contributor_group/da593707-2796-4f03-b75f-59a1515917b4
+  *
+  * // by path alias
+  *  /api/fun365/contributor_group/wedding
+  *
+  * @apiSuccessExample [json] Paged Contributor Groups
+  *  HTTP/1.1 200 OK
+  *  {
+  *    "parent": "",
+  *    "type": "contributor_group",
+  *    "path": "wedding1",
+  *    "uuid": "f31b8dd9-9aae-42c5-903d-410064005b12",
+  *    "name": "Wedding",
+  *    ...
+  *  }
+  *
+  * @param  Request $request the request
+  * @param string $id the uuid or path alias of the contributor group
+  * @return CacheableJsonResponse
+  */
+  public function lookupContributorGroup(Request $request, $id) {
+    $options = [
+    'recurse' => (false || $request->get('recurse')),
+    'maxDepth' => ($request->get('depth') ? intval($request->get('depth')) : 2),
+    ];
+
+    $results = $this->restHelper->fetchOneTerm('contributor_group', $id, $options);
+    $response = new CacheableJsonResponse($results);
+    $response->addCacheableDependency($this->restHelper->cacheMetaData($results, 'taxonomy_term'));
+
+    return $response;
+  }
+
+  /**
+   * @apiDescription Base contributor group api call.
+   *
+   * @api {get} /api/fun365/contributor_group Request paginated list of contributor groups.
+   * @apiName All
+   * @apiGroup Contributor
+   * @apiParam {Number} page GET param  the result page (default 0)
+   * @apiParam {Number} limit GET param limit number of results per page (default 10)
+   * @apiParam {Number} recurse GET param 1 to recurse content (default 0)
+   * @apiParam {Number} depth GET param levels deep to limit recursion (default 2)
+   * @apiParamExample {url} Request Example:
+   *  /api/fun365/contributor_group?page=1&recurse=1&depth=2
+   *
+   * @apiSuccessExample {json} Paged Contributor Groups
+   * HTTP/1.1 200 OK
+   *  {
+   *    "limit": 10,
+   *    "page": 0,
+   *    "count": 2,
+   *    "results": [
+   *      {
+   *        "parent": "",
+   *        "type": "contributor_group",
+   *        "path": "wedding1",
+   *        "uuid": "da593707-2796-4f03-b75f-59a1515917b4",
+   *        "name": "Wedding",
+   *        "changed": "2016-12-07T13:09:00-0600",
+   *        ...
+   *      },
+   *      {
+   *        "parent": "",
+   *        "type": "contributor_group",
+   *        "path": "party-planning",
+   *        "uuid": "f31b8dd9-9aae-42c5-903d-410064005b12",
+   *        "name": "Party Planning",
+   *        "changed": "2016-12-07T13:09:10-0600",
+   *        ...
+   *      }
+   *    ]
+   *  }
+   *
+   * @param  Request $request the request
+   * @return CacheableJsonResponse
+   */
+  public function contributorGroup(Request $request) {
+    $options = [
+      'limit' => ($request->get('limit') ? intval($request->get('limit')) : 10),
+      'page' => $request->get('page') * 1,
+      'recurse' => (false || $request->get('recurse')),
+      'maxDepth' => ($request->get('depth') ? intval($request->get('depth')) : 2),
+    ];
+
+    $results = $this->restHelper->fetchAllTerms('contributor_group', $options);
+    $response = new CacheableJsonResponse($results);
+    $response->addCacheableDependency($this->restHelper->cacheMetaData($results, 'taxonomy_term'));
+
+    return $response;
+  }
+
+  /**
+   * @apiDescription Contributors for a given contributor_group.
+   *
+   * @api {get} /api/fun365/contributor_group/:uuid/content Request paginated list of contributors for a contributor_group.
+   * @apiName Content
+   * @apiGroup Contributor
+   *
+   * @apiParam {String} id Universally Unique ID or path alias for contributor_group
+   * @apiParam {Number} page GET param  the result page (default 0)
+   * @apiParam {Number} limit GET param limit number of results per page (default 10)   *
+   * @apiParam {Number} recurse GET param 1 to recurse content (default 0)
+   * @apiParam {Number} depth GET param levels deep to limit recursion (default 2)
+   * @apiParamExample {url} Request Example:
+   *  /api/fun365/contributor_group/da593707-2796-4f03-b75f-59a1515917b4/content?page=1&recurse=1&depth=2
+   *
+   * @apiSuccessExample {json} Paged Contributors
+   * HTTP/1.1 200 OK
+   *  {
+   *    "limit": 10,
+   *    "page": 0,
+   *    "published": true,
+   *    "count": 2,
+   *    "results": [
+   *      {
+   *        "uuid": "aae0ef1a-64b4-4a6c-8048-912ab0e86fe7",
+   *        "type": "contributor"
+   *      },
+   *      {
+   *      ...
+   *      }
+   *    ]
+   *  }
+   *
+   * @param  Request $request the request
+   * @param string $id uuid or path alias of contributor_group
+   * @return CacheableJsonResponse
+   */
+  public function contributorGroupContent(Request $request, $id) {
+    $options = [
+      'published' => $request->get('published') !== '0',
+      'limit' => ($request->get('limit') ? intval($request->get('limit')) : 10),
+      'page' => $request->get('page') * 1,
+      'recurse' => (false || $request->get('recurse')),
+      'maxDepth' => ($request->get('depth') ? intval($request->get('depth')) : 2),
+    ];
+
+    $results = $this->restHelper->fetchContributorGroupContent($id, $options);
+    $response = new CacheableJsonResponse($results);
+    $response->addCacheableDependency($this->restHelper->cacheMetaData($results, 'node'));
+
+    return $response;
+  }
+
+  /**
    * @apiDescription Base category api call.
    *
    * @api {get} /api/fun365/category Request paginated list of categories.
    * @apiName All
    * @apiGroup Category
    * @apiParam {Number} page GET param  the result page (default 0)
+   * @apiParam {Number} limit GET param limit number of results per page (default 10)
    * @apiParam {Number} recurse GET param 1 to recurse content (default 0)
    * @apiParam {Number} depth GET param levels deep to limit recursion (default 2)
    * @apiParamExample {url} Request Example:
@@ -98,6 +307,7 @@ class ApiController extends ControllerBase {
    */
   public function category(Request $request) {
     $options = [
+      'limit' => ($request->get('limit') ? intval($request->get('limit')) : 10),
       'page' => $request->get('page') * 1,
       'recurse' => (false || $request->get('recurse')),
       'maxDepth' => ($request->get('depth') ? intval($request->get('depth')) : 2),
@@ -111,52 +321,49 @@ class ApiController extends ControllerBase {
   }
 
   /**
-   * @apiDescription Contributed content api call.
-   *
-   * @api {get} /api/fun365/contributor/:id/content Request paginated list of content for a contributor.
-   * @apiName Content
-   * @apiGroup Contributor
-   *
-   * @apiParam {String} id Universally Unique ID or path alias for contributor
-   * @apiParam {Number} page GET param  the result page (default 0)
-   * @apiParam {Number} recurse GET param 1 to recurse content (default 0)
-   * @apiParam {Number} depth GET param levels deep to limit recursion (default 2)
-   * @apiParamExample {url} Request Example:
-   *  /api/fun365/contributor/abc93707-2796-4f03-c64e-59e1234917b4/content?page=1&recurse=1&depth=2
-   *
-   * @apiSuccessExample {json} Paged Contributor Content
-   * HTTP/1.1 200 OK
-   *  {
-   *    "limit": 10,
-   *    "page": 0,
-   *    "published": true,
-   *    "count": 2,
-   *    "results": [
-   *      {
-   *        "uuid": "ccf0cb1a-64e4-456c-8048-971dd0d86ee8",
-   *        "type": "project"
-   *      },
-   *      {
-   *      ...
-   *      }
-   *    ]
-   *  }
-   *
-   * @param  Request $request the request
-   * @param string $id uuid or path alias of contributor
-   * @return CacheableJsonResponse
-   */
-  public function contributorContent(Request $request, $id) {
+  * @apiDescription Specific tag api call.
+  *
+  * @api {get} /api/fun365/category/:id Request a specified category.
+  * @apiName Category by UUID or path alias
+  * @apiGroup Category
+  *
+  * @apiParam {String} id Universally Unique ID for category or path alias
+  * @apiParamExample {url} Request Example:
+  * // by uuid
+  *  /api/fun365/category/da593707-2796-4f03-b75f-59a1515917b4
+  *
+  * // by path alias
+  *  /api/fun365/category/wedding
+  *
+  * @apiSuccessExample [json] The specified category
+  *  HTTP/1.1 200 OK
+  *  {
+  *    "parent": "da593707-2796-4f03-b75f-59a1515917b4",
+  *    "uuid": "f31b8dd9-9aae-42c5-903d-410064005b12",
+  *    "name": "Child Category",
+  *    "description": null,
+  *    "weight": 0,
+  *    "changed": "2016-12-07T13:09:10-0600",
+  *    "field_3200x1391_img": {
+  *       "full": "http://example.com/path/to/image",
+  *       ...
+  *    },
+  *    ...
+  *  }
+  *
+  * @param  Request $request the request
+  * @param string $id the uuid or path alias of the category
+  * @return CacheableJsonResponse
+  */
+  public function lookupCategory(Request $request, $id) {
     $options = [
-      'published' => $request->get('published') !== '0',
-      'page' => $request->get('page') * 1,
-      'recurse' => (false || $request->get('recurse')),
-      'maxDepth' => ($request->get('depth') ? intval($request->get('depth')) : 2),
+    'recurse' => (false || $request->get('recurse')),
+    'maxDepth' => ($request->get('depth') ? intval($request->get('depth')) : 2),
     ];
 
-    $results = $this->restHelper->fetchContributorContent($id, $options);
+    $results = $this->restHelper->fetchOneTerm('category', $id, $options);
     $response = new CacheableJsonResponse($results);
-    $response->addCacheableDependency($this->restHelper->cacheMetaData($results, 'node'));
+    $response->addCacheableDependency($this->restHelper->cacheMetaData($results, 'taxonomy_term'));
 
     return $response;
   }
@@ -170,6 +377,7 @@ class ApiController extends ControllerBase {
    *
    * @apiParam {String} id Universally Unique ID or path alias for category
    * @apiParam {Number} page GET param  the result page (default 0)
+   * @apiParam {Number} limit GET param limit number of results per page (default 10)
    * @apiParam {Number} recurse GET param 1 to recurse content (default 0)
    * @apiParam {Number} depth GET param levels deep to limit recursion (default 2)
    * @apiParamExample {url} Request Example:
@@ -199,6 +407,7 @@ class ApiController extends ControllerBase {
    */
   public function categoryContent(Request $request, $id) {
     $options = [
+      'limit' => ($request->get('limit') ? intval($request->get('limit')) : 10),
       'published' => $request->get('published') !== '0',
       'page' => $request->get('page') * 1,
       'recurse' => (false || $request->get('recurse')),
@@ -219,6 +428,7 @@ class ApiController extends ControllerBase {
    * @apiName All
    * @apiGroup Tag
    * @apiParam {Number} page GET param  the result page (default 0)
+   * @apiParam {Number} limit GET param limit number of results per page (default 10)
    * @apiParam {Number} recurse GET param 1 to recurse content (default 0)
    * @apiParam {Number} depth GET param levels deep to limit recursion (default 2)
    * @apiParamExample {url} Request Example:
@@ -250,6 +460,7 @@ class ApiController extends ControllerBase {
    */
   public function tag(Request $request) {
     $options = [
+      'limit' => ($request->get('limit') ? intval($request->get('limit')) : 10),
       'page' => $request->get('page') * 1,
       'recurse' => (false || $request->get('recurse')),
       'maxDepth' => ($request->get('depth') ? intval($request->get('depth')) : 2),
@@ -261,7 +472,6 @@ class ApiController extends ControllerBase {
 
     return $response;
   }
-
 
   /**
    * @apiDescription Specific tag api call.
@@ -316,6 +526,7 @@ class ApiController extends ControllerBase {
    *
    * @apiParam {String} id Universally Unique ID for tag or path alias
    * @apiParam {Number} page GET param  the result page (default 0)
+   * @apiParam {Number} limit GET param limit number of results per page (default 10)
    * @apiParam {Number} recurse GET param 1 to recurse content (default 0)
    * @apiParam {Number} depth GET param levels deep to limit recursion (default 2)
    * @apiParamExample {url} Request Example:
@@ -349,6 +560,7 @@ class ApiController extends ControllerBase {
    */
   public function tagContent(Request $request, $id) {
     $options = [
+      'limit' => ($request->get('limit') ? intval($request->get('limit')) : 10),
       'published' => $request->get('published') !== '0',
       'page' => $request->get('page') * 1,
       'recurse' => (false || $request->get('recurse')),
@@ -358,67 +570,6 @@ class ApiController extends ControllerBase {
     $results = $this->restHelper->fetchTagContent($id, $options);
     $response = new CacheableJsonResponse($results);
     $response->addCacheableDependency($this->restHelper->cacheMetaData($results, 'node'));
-
-    return $response;
-  }
-
-  /**
-   * @apiDescription Specific tag api call.
-   *
-   * @api {get} /api/fun365/category/:id Request a specified category.
-   * @apiName Category by UUID or path alias
-   * @apiGroup Category
-   *
-   * @apiParam {String} id Universally Unique ID for category or path alias
-   * @apiParamExample {url} Request Example:
-   * // by uuid
-   *  /api/fun365/category/da593707-2796-4f03-b75f-59a1515917b4
-   *
-   * // by path alias
-   *  /api/fun365/category/wedding
-   *
-   * @apiSuccessExample [json] Paged Categories
-   *  HTTP/1.1 200 OK
-   *  {
-   *    "limit": 10,
-   *    "page": 0,
-   *    "count": 2,
-   *    "results": [
-   *      {
-   *        "parent": "da593707-2796-4f03-b75f-59a1515917b4",
-   *        "uuid": "f31b8dd9-9aae-42c5-903d-410064005b12",
-   *        "name": "Child Category",
-   *        "description": null,
-   *        "weight": 0,
-   *        "changed": "2016-12-07T13:09:10-0600",
-   *        "field_3200x1391_img": {
-   *          "full": "http://example.com/path/to/image",
-   *          ...
-   *        },
-   *        ...
-   *      },
-   *      {
-   *        "parent": "",
-   *        "uuid": "da593707-2796-4f03-b75f-59a1515917b4",
-   *        "name": "Parent Category",
-   *        ...
-   *      },
-   *    ]
-   *  }
-   *
-   * @param  Request $request the request
-   * @param string $id the uuid or path alias of the category
-   * @return CacheableJsonResponse
-   */
-  public function lookupCategory(Request $request, $id) {
-    $options = [
-      'recurse' => (false || $request->get('recurse')),
-      'maxDepth' => ($request->get('depth') ? intval($request->get('depth')) : 2),
-    ];
-
-    $results = $this->restHelper->fetchOneTerm('category', $id, $options);
-    $response = new CacheableJsonResponse($results);
-    $response->addCacheableDependency($this->restHelper->cacheMetaData($results, 'taxonomy_term'));
 
     return $response;
   }
@@ -436,6 +587,7 @@ class ApiController extends ControllerBase {
    *
    * @apiParam {String} contentType name of content type
    * @apiParam {Number} page GET param  the result page (default 0)
+   * @apiParam {Number} limit GET param limit number of results per page (default 10)
    * @apiParam {Number} recurse GET param 1 to recurse content (default 0)
    * @apiParam {Number} depth GET param levels deep to limit recursion (default 2)
    * @apiParam {Number} published GET param 1 for published only, 0 for all (default 1)
@@ -511,6 +663,7 @@ class ApiController extends ControllerBase {
    */
   public function base(Request $request, $contentType) {
     $options = [
+      'limit' => ($request->get('limit') ? intval($request->get('limit')) : 10),
       'published' => $request->get('published') !== '0',
       'page' => $request->get('page') * 1,
       'recurse' => (false || $request->get('recurse')),

@@ -120,7 +120,8 @@ class RestHelper implements RestHelperInterface {
   protected static function vocabularyPermitted($vocabulary) {
     return in_array($vocabulary, [
       'category',
-      'tag'
+      'tag',
+      'contributor_group',
     ]);
   }
 
@@ -142,6 +143,7 @@ class RestHelper implements RestHelperInterface {
     $defaults = [
       'page' => 0,
       'published' => true,
+      'limit' => 10, // result limit
       'recurse' => true, // toggle off recursion
       'maxDepth' => 2, // deepest level of recursion
       'currentDepth' => 0, // current depth of recursion
@@ -151,7 +153,7 @@ class RestHelper implements RestHelperInterface {
     ];
     $options = array_merge($defaults, $options);
 
-    $limit = 10;
+    $limit = $options['limit'];
     $response = [
       'limit' => $limit,
       'page' => $options['page'],
@@ -194,23 +196,23 @@ class RestHelper implements RestHelperInterface {
 
     $defaults = [
       'page' => 0,
-      'limit' => 10,
+      'limit' => 10, // result limit per page
       'recurse' => true, // toggle off recursion
       'maxDepth' => 2, // deepest level of recursion
       'currentDepth' => 0, // current depth of recursion
     ];
     $options = array_merge($defaults, $options);
 
-    $limit = 10;
+    $limit = $options['limit'];
     $response = [
-      'limit' => $options['limit'],
+      'limit' => $limit,
       'page' => $options['page'],
     ];
 
     $response['count'] = intval($this->newTermQuery($vocabulary)->count()->execute());
 
     $entity_ids = $this->newTermQuery($vocabulary, $options)
-      ->range($options['page'] * $options['limit'], $options['limit'])
+      ->range($options['page'] * $limit, $limit)
       ->execute();
 
     if ( ! $entity_ids ) {
@@ -320,6 +322,7 @@ class RestHelper implements RestHelperInterface {
   protected function fetchReferencedContent($uuid = '', $options = [], $field_name = 'field_category') {
     $defaults = [
       'page' => 0,
+      'limit' => 10, // result limit per page
       'published' => true,
       'conditions' => [
         $field_name . '.entity.uuid' => $uuid,
@@ -327,7 +330,7 @@ class RestHelper implements RestHelperInterface {
     ];
     $options = array_merge($defaults, $options);
 
-    $limit = 10;
+    $limit = $options['limit'];
     $response = [
       'limit' => $limit,
       'page' => $options['page'],
@@ -357,6 +360,31 @@ class RestHelper implements RestHelperInterface {
     }
 
     return $response;
+  }
+
+  /**
+   * Fetch all paginated content associated with a particular contributor group.
+   * @param  string $id the uuid or path alias of the contributor group
+   * @param array $options
+   * - boolean $recurse references are recursively dereferenced
+   * - integer $maxDepth levels of recursion
+   * - integer $page the current page
+   *
+   * @return object page of content results for a given contributor group
+   */
+  public function fetchContributorGroupContent($id = '', $options = []) {
+    $uuid = $id;
+
+    if ( ! self::isUuid($id) ) {
+      $term = $this->lookupTermByAlias($id);
+      if ( $term ) {
+        $uuid = $term->uuid->value;
+      } else {
+        return NULL;
+      }
+    }
+
+    return $this->fetchReferencedContent($uuid, $options, 'field_contributor_category');
   }
 
   /**

@@ -49,6 +49,51 @@ class RoutingService {
       ]
     ));
 
+    $routeCollection->add('otc_api.contributor_group_content', new Route(
+      // base contributor_group route
+      '/api/fun365/contributor_group/{id}/content',
+
+      // Route configuration parameters
+      [
+        '_controller' => '\Drupal\otc_api\ApiController::contributorGroupContent',
+      ],
+
+      // Route permission reqs
+      [
+        '_permission' => 'access content',
+      ]
+    ));
+
+    $routeCollection->add('otc_api.contributor_group_lookup', new Route(
+      // base contributor_group route
+      '/api/fun365/contributor_group/{id}',
+
+      // Route configuration parameters
+      [
+        '_controller' => '\Drupal\otc_api\ApiController::lookupContributorGroup',
+      ],
+
+      // Route permission reqs
+      [
+        '_permission' => 'access content',
+      ]
+    ));
+
+    $routeCollection->add('otc_api.contributor_group_base', new Route(
+      // base contributor_group route
+      '/api/fun365/contributor_group',
+
+      // Route configuration parameters
+      [
+        '_controller' => '\Drupal\otc_api\ApiController::contributorGroup',
+      ],
+
+      // Route permission reqs
+      [
+        '_permission' => 'access content',
+      ]
+    ));
+
     $routeCollection->add('otc_api.category_content', new Route(
       // base category route
       '/api/fun365/category/{id}/content',
@@ -71,6 +116,21 @@ class RoutingService {
       // Route configuration parameters
       [
         '_controller' => '\Drupal\otc_api\ApiController::lookupCategory',
+      ],
+
+      // Route permission reqs
+      [
+        '_permission' => 'access content',
+      ]
+    ));
+
+    $routeCollection->add('otc_api.category_base', new Route(
+      // base category route
+      '/api/fun365/category',
+
+      // Route configuration parameters
+      [
+        '_controller' => '\Drupal\otc_api\ApiController::category',
       ],
 
       // Route permission reqs
@@ -116,21 +176,6 @@ class RoutingService {
       // Route configuration parameters
       [
         '_controller' => '\Drupal\otc_api\ApiController::tag',
-      ],
-
-      // Route permission reqs
-      [
-        '_permission' => 'access content',
-      ]
-    ));
-
-    $routeCollection->add('otc_api.category_base', new Route(
-      // base category route
-      '/api/fun365/category',
-
-      // Route configuration parameters
-      [
-        '_controller' => '\Drupal\otc_api\ApiController::category',
       ],
 
       // Route permission reqs
