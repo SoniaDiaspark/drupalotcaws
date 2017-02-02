@@ -88,7 +88,7 @@ class ApiController extends ControllerBase {
   *
   * @api {get} /api/fun365/contributor_group/:id Request a specified contributor group.
   * @apiName Contributor Group by UUID or path alias
-  * @apiGroup Contributor Group
+  * @apiGroup Contributor
   *
   * @apiParam {String} id Universally Unique ID for contributor group or path alias
   * @apiParamExample {url} Request Example:
