@@ -6,6 +6,7 @@ use Drupal\Core\Controller\ControllerBase;
 use Symfony\Component\HttpFoundation\Request;
 use Drupal\Core\Cache\CacheableJsonResponse;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Exception;
 
 class ApiController extends ControllerBase {
 
@@ -76,11 +77,15 @@ class ApiController extends ControllerBase {
       'maxDepth' => ($request->get('depth') ? intval($request->get('depth')) : 2),
     ];
 
-    $results = $this->restHelper->fetchContributorContent($id, $options);
-    $response = new CacheableJsonResponse($results);
-    $response->addCacheableDependency($this->restHelper->cacheMetaData($results, 'node'));
+    try {
+      $results = $this->restHelper->fetchContributorContent($id, $options);
+      $response = new CacheableJsonResponse($results);
+      $response->addCacheableDependency($this->restHelper->cacheMetaData($results, 'node'));
 
-    return $response;
+      return $response;
+    } catch (Exception $e) {
+      return $this->handleException($e);
+    }
   }
 
   /**
@@ -119,11 +124,15 @@ class ApiController extends ControllerBase {
     'maxDepth' => ($request->get('depth') ? intval($request->get('depth')) : 2),
     ];
 
-    $results = $this->restHelper->fetchOneTerm('contributor_group', $id, $options);
-    $response = new CacheableJsonResponse($results);
-    $response->addCacheableDependency($this->restHelper->cacheMetaData($results, 'taxonomy_term'));
+    try {
+      $results = $this->restHelper->fetchOneTerm('contributor_group', $id, $options);
+      $response = new CacheableJsonResponse($results);
+      $response->addCacheableDependency($this->restHelper->cacheMetaData($results, 'taxonomy_term'));
 
-    return $response;
+      return $response;
+    } catch (Exception $e) {
+      return $this->handleException($e);
+    }
   }
 
   /**
@@ -178,11 +187,15 @@ class ApiController extends ControllerBase {
       'maxDepth' => ($request->get('depth') ? intval($request->get('depth')) : 2),
     ];
 
-    $results = $this->restHelper->fetchAllTerms('contributor_group', $options);
-    $response = new CacheableJsonResponse($results);
-    $response->addCacheableDependency($this->restHelper->cacheMetaData($results, 'taxonomy_term'));
+    try {
+      $results = $this->restHelper->fetchAllTerms('contributor_group', $options);
+      $response = new CacheableJsonResponse($results);
+      $response->addCacheableDependency($this->restHelper->cacheMetaData($results, 'taxonomy_term'));
 
-    return $response;
+      return $response;
+    } catch (Exception $e) {
+      return $this->handleException($e);
+    }
   }
 
   /**
@@ -231,11 +244,15 @@ class ApiController extends ControllerBase {
       'maxDepth' => ($request->get('depth') ? intval($request->get('depth')) : 2),
     ];
 
-    $results = $this->restHelper->fetchContributorGroupContent($id, $options);
-    $response = new CacheableJsonResponse($results);
-    $response->addCacheableDependency($this->restHelper->cacheMetaData($results, 'node'));
+    try {
+      $results = $this->restHelper->fetchContributorGroupContent($id, $options);
+      $response = new CacheableJsonResponse($results);
+      $response->addCacheableDependency($this->restHelper->cacheMetaData($results, 'node'));
 
-    return $response;
+      return $response;
+    } catch (Exception $e) {
+      return $this->handleException($e);
+    }
   }
 
   /**
@@ -313,11 +330,15 @@ class ApiController extends ControllerBase {
       'maxDepth' => ($request->get('depth') ? intval($request->get('depth')) : 2),
     ];
 
-    $results = $this->restHelper->fetchAllTerms('category', $options);
-    $response = new CacheableJsonResponse($results);
-    $response->addCacheableDependency($this->restHelper->cacheMetaData($results, 'taxonomy_term'));
+    try {
+      $results = $this->restHelper->fetchAllTerms('category', $options);
+      $response = new CacheableJsonResponse($results);
+      $response->addCacheableDependency($this->restHelper->cacheMetaData($results, 'taxonomy_term'));
 
-    return $response;
+      return $response;
+    } catch (Exception $e) {
+      return $this->handleException($e);
+    }
   }
 
   /**
@@ -361,11 +382,15 @@ class ApiController extends ControllerBase {
     'maxDepth' => ($request->get('depth') ? intval($request->get('depth')) : 2),
     ];
 
-    $results = $this->restHelper->fetchOneTerm('category', $id, $options);
-    $response = new CacheableJsonResponse($results);
-    $response->addCacheableDependency($this->restHelper->cacheMetaData($results, 'taxonomy_term'));
+    try {
+      $results = $this->restHelper->fetchOneTerm('category', $id, $options);
+      $response = new CacheableJsonResponse($results);
+      $response->addCacheableDependency($this->restHelper->cacheMetaData($results, 'taxonomy_term'));
 
-    return $response;
+      return $response;
+    } catch (Exception $e) {
+      return $this->handleException($e);
+    }
   }
 
   /**
@@ -414,11 +439,15 @@ class ApiController extends ControllerBase {
       'maxDepth' => ($request->get('depth') ? intval($request->get('depth')) : 2),
     ];
 
-    $results = $this->restHelper->fetchCategoryContent($id, $options);
-    $response = new CacheableJsonResponse($results);
-    $response->addCacheableDependency($this->restHelper->cacheMetaData($results, 'node'));
+    try {
+      $results = $this->restHelper->fetchCategoryContent($id, $options);
+      $response = new CacheableJsonResponse($results);
+      $response->addCacheableDependency($this->restHelper->cacheMetaData($results, 'node'));
 
-    return $response;
+      return $response;
+    } catch (Exception $e) {
+      return $this->handleException($e);
+    }
   }
 
   /**
@@ -466,11 +495,15 @@ class ApiController extends ControllerBase {
       'maxDepth' => ($request->get('depth') ? intval($request->get('depth')) : 2),
     ];
 
-    $results = $this->restHelper->fetchAllTerms('tag', $options);
-    $response = new CacheableJsonResponse($results);
-    $response->addCacheableDependency($this->restHelper->cacheMetaData($results, 'taxonomy_term'));
+    try {
+      $results = $this->restHelper->fetchAllTerms('tag', $options);
+      $response = new CacheableJsonResponse($results);
+      $response->addCacheableDependency($this->restHelper->cacheMetaData($results, 'taxonomy_term'));
 
-    return $response;
+      return $response;
+    } catch (Exception $e) {
+      return $this->handleException($e);
+    }
   }
 
   /**
@@ -509,12 +542,15 @@ class ApiController extends ControllerBase {
       'recurse' => (false || $request->get('recurse')),
       'maxDepth' => ($request->get('depth') ? intval($request->get('depth')) : 2),
     ];
+    try {
+      $results = $this->restHelper->fetchOneTerm('tag', $id, $options);
+      $response = new CacheableJsonResponse($results);
+      $response->addCacheableDependency($this->restHelper->cacheMetaData($results, 'taxonomy_term'));
 
-    $results = $this->restHelper->fetchOneTerm('tag', $id, $options);
-    $response = new CacheableJsonResponse($results);
-    $response->addCacheableDependency($this->restHelper->cacheMetaData($results, 'taxonomy_term'));
-
-    return $response;
+      return $response;
+    } catch (Exception $e) {
+      return $this->handleException($e);
+    }
   }
 
   /**
@@ -567,11 +603,15 @@ class ApiController extends ControllerBase {
       'maxDepth' => ($request->get('depth') ? intval($request->get('depth')) : 2),
     ];
 
-    $results = $this->restHelper->fetchTagContent($id, $options);
-    $response = new CacheableJsonResponse($results);
-    $response->addCacheableDependency($this->restHelper->cacheMetaData($results, 'node'));
+    try {
+      $results = $this->restHelper->fetchTagContent($id, $options);
+      $response = new CacheableJsonResponse($results);
+      $response->addCacheableDependency($this->restHelper->cacheMetaData($results, 'node'));
 
-    return $response;
+      return $response;
+    } catch (Exception $e) {
+      return $this->handleException($e);
+    }
   }
 
   /**
@@ -670,12 +710,16 @@ class ApiController extends ControllerBase {
       'maxDepth' => ($request->get('depth') ? intval($request->get('depth')) : 2),
     ];
 
-    $resultData = $this->restHelper->fetchAll($contentType, $options);
+    try {
+      $resultData = $this->restHelper->fetchAll($contentType, $options);
 
-    $response = new CacheableJsonResponse($resultData);
-    $response->addCacheableDependency($this->restHelper->cacheMetaData());
+      $response = new CacheableJsonResponse($resultData);
+      $response->addCacheableDependency($this->restHelper->cacheMetaData());
 
-    return $response;
+      return $response;
+    } catch (Exception $e) {
+      return $this->handleException($e);
+    }
   }
 
   /**
@@ -775,11 +819,31 @@ class ApiController extends ControllerBase {
       'maxDepth' => ($request->get('depth') ? intval($request->get('depth')) : 2),
     ];
 
-    $resultData = $this->restHelper->fetchOne($contentType, $id, $options);
+    try {
+      $resultData = $this->restHelper->fetchOne($contentType, $id, $options);
 
-    $response = new CacheableJsonResponse($resultData);
-    $response->addCacheableDependency($this->restHelper->cacheMetaData($resultData));
+      $response = new CacheableJsonResponse($resultData);
+      $response->addCacheableDependency($this->restHelper->cacheMetaData($resultData));
 
-    return $response;
+      return $response;
+
+    } catch (Exception $e) {
+      return $this->handleException($e);
+    }
+  }
+
+  /**
+   * Handle Exceptions
+   * @param  Exception $e the exception
+   * @return CacheableJsonResponse
+   */
+  protected function handleException(Exception $e) {
+    if ( $e instanceof Rest404Exception ) {
+      return new CacheableJsonResponse(['error' => $e->getMessage()], 404);
+    } elseif ($e instanceof Rest403Exception) {
+      return new CacheableJsonResponse(['error' => $e->getMessage()], 403);
+    }
+
+    return new CacheableJsonResponse(['error' => 'Internal server error.'], 500);
   }
 }

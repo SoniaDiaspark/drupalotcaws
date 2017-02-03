@@ -88,11 +88,20 @@ class RestHelper implements RestHelperInterface {
   }
 
   /**
+   * validate a content type exists
+   * @param  [type]  $contentType [description]
+   * @return boolean              [description]
+   */
+  public static function isContentType($contentType = NULL) {
+    return in_array($contentType, array_keys(NodeType::loadMultiple()));
+  }
+
+  /**
    * Validate content type string.
    * @param  string $contentType the content type
    * @return boolean
    */
-  public function contentTypePermitted($contentType = NULL) {
+  public static function contentTypePermitted($contentType = NULL) {
     $allowedContentTypes = [
       'landing',
       'article',
@@ -106,10 +115,7 @@ class RestHelper implements RestHelperInterface {
       'step',
     ];
 
-    return
-      $contentType
-      && in_array($contentType, $allowedContentTypes)
-      && in_array($contentType, array_keys(NodeType::loadMultiple()));
+    return in_array($contentType, $allowedContentTypes);
   }
 
   /**
@@ -136,8 +142,12 @@ class RestHelper implements RestHelperInterface {
   * @return array of nodes.
   */
   public function fetchAll($contentType, $options = []) {
+    if ( ! self::isContentType($contentType) ) {
+      throw new Rest404Exception;
+    }
+
     if ( ! self::contentTypePermitted($contentType) ) {
-      return [];
+      throw new Rest403Exception;
     }
 
     $defaults = [
@@ -190,8 +200,12 @@ class RestHelper implements RestHelperInterface {
    * @return array of terms.
    */
   public function fetchAllTerms($vocabulary, $options = []) {
+    if ( ! in_array($vocabulary, taxonomy_vocabulary_get_names())) {
+      throw new Rest404Exception;
+    }
+
     if ( ! self::vocabularyPermitted($vocabulary) ) {
-      return [];
+      throw new Rest403Exception;
     }
 
     $defaults = [
@@ -242,7 +256,7 @@ class RestHelper implements RestHelperInterface {
    */
   public function fetchOne($contentType, $id = '', $options = []) {
     if ( ! self::contentTypePermitted($contentType) ) {
-      return NULL;
+      throw new Rest403Exception;
     }
 
     $defaults = [
@@ -254,17 +268,14 @@ class RestHelper implements RestHelperInterface {
 
     if ( self::isUuid($id) ) {
       $result = $this->entityTypeManager->getStorage('node')->loadByProperties(['uuid' => $id]);
-      if ( ! $result ) {
-        return NULL;
-      }
+      if ( ! $result ) throw new Rest404Exception;
+
       $node = current($result);
     } else {
       $node = $this->lookupNodeByAlias($id);
     }
 
-    if ( ! self::contentTypePermitted($node->getType()) || $node->getType() !== $contentType ) {
-      return NULL;
-    }
+    if ( ! $node || ! self::contentTypePermitted($node->getType()) || $node->getType() !== $contentType ) throw new Rest404Exception;
 
     return $this->processNode($node, $options);
   }
@@ -281,7 +292,7 @@ class RestHelper implements RestHelperInterface {
    */
   public function fetchOneTerm($vocabulary, $id = '', $options = []) {
     if ( ! self::vocabularyPermitted($vocabulary) ) {
-      return NULL;
+      throw new Rest403Exception;
     }
 
     $defaults = [
@@ -294,15 +305,19 @@ class RestHelper implements RestHelperInterface {
     if ( self::isUuid($id) ) {
       $result = $this->entityTypeManager->getStorage('taxonomy_term')->loadByProperties(['uuid' => $id]);
       if ( ! $result ) {
-        return NULL;
+        throw new Rest404Exception;
       }
       $term = current($result);
     } else {
       $term = $this->lookupTermByAlias($id);
     }
 
+    if (! $term) {
+      throw new Rest404Exception;
+    }
+
     if ( ! self::vocabularyPermitted($term->getVocabularyId()) ) {
-      return NULL;
+      throw new Rest403Exception;
     }
 
     return $this->processTerm($term);
@@ -377,11 +392,9 @@ class RestHelper implements RestHelperInterface {
 
     if ( ! self::isUuid($id) ) {
       $term = $this->lookupTermByAlias($id);
-      if ( $term ) {
-        $uuid = $term->uuid->value;
-      } else {
-        return NULL;
-      }
+      if ( ! $term ) throw new Rest404Exception;
+
+      $uuid = $term->uuid->value;
     }
 
     return $this->fetchReferencedContent($uuid, $options, 'field_contributor_category');
@@ -402,11 +415,11 @@ class RestHelper implements RestHelperInterface {
 
     if ( ! self::isUuid($id) ) {
       $term = $this->lookupTermByAlias($id);
-      if ( $term ) {
-        $uuid = $term->uuid->value;
-      } else {
-        return NULL;
+      if ( ! $term ) {
+        throw new Rest404Exception;
       }
+
+      $uuid = $term->uuid->value;
     }
 
     return $this->fetchReferencedContent($uuid, $options, 'field_category');
@@ -426,7 +439,7 @@ class RestHelper implements RestHelperInterface {
     if ( self::isUuid($id) ) {
       $result = $this->entityTypeManager->getStorage('node')->loadByProperties(['uuid' => $id]);
       if ( ! $result ) {
-        return NULL;
+        throw new Rest404Exception;
       }
       $node = current($result);
     } else {
@@ -434,7 +447,7 @@ class RestHelper implements RestHelperInterface {
     }
 
     if ( ! $node ) {
-      return NULL;
+      throw new Rest404Exception;
     }
 
     $defaults = [
@@ -469,9 +482,9 @@ class RestHelper implements RestHelperInterface {
 
     if ( ! self::isUuid($id) ) {
       $term = $this->lookupTermByAlias($id);
-      if ( $term ) {
-        $uuid = $term->uuid->value;
-      }
+      if ( ! $term ) throw new Rest404Exception;
+
+      $uuid = $term->uuid->value;
     }
 
     return $this->fetchReferencedContent($uuid, $options, 'field_tag');

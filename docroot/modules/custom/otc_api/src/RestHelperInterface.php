@@ -10,13 +10,6 @@ namespace Drupal\otc_api;
 interface RestHelperInterface {
 
   /**
-   * Validate content type string.
-   * @param  string $contentType the content type
-   * @return boolean
-   */
-  public function contentTypePermitted($contentType);
-
-  /**
    * Fetch a list of nodes from a content type, in clean format for REST.
    * @param  string  $contentType the content type
    * @param  array $options
