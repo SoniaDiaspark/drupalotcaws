@@ -88,3 +88,5 @@ permissions:
   79: 'delete terms in tag'
   80: 'edit terms in tag'
   81: 'administer taxonomy'
+  82: 'view own unpublished content'
+  83: 'access content'
