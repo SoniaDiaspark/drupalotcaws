@@ -19,6 +19,21 @@ class RoutingService {
   public function routes() {
     $routeCollection = new RouteCollection();
 
+    $routeCollection->add('otc_api.idea', new Route(
+      // uuid/path lookup route
+      '/api/fun365/idea',
+
+      // Route configuration parameters
+      [
+        '_controller' => '\Drupal\otc_api\ApiController::idea',
+      ],
+
+      // Route permission reqs
+      [
+        '_permission'  => 'access content',
+      ]
+    ));
+
     $routeCollection->add('otc_api.lookup', new Route(
       // uuid/path lookup route
       '/api/fun365/{contentType}/{id}',

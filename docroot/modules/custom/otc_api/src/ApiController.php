@@ -31,6 +31,53 @@ class ApiController extends ControllerBase {
       );
   }
 
+ /**
+  * @apiDescription Specific tag api call.
+  *
+  * @api {get} /api/fun365/idea Get all article, recipe, look, project, download nodes.
+  * @apiName Gallery
+  * @apiGroup Idea
+  *
+  * @apiParam {Number} page GET param  the result page (default 0)
+  * @apiParam {Number} limit GET param limit number of results per page (default 10)
+  * @apiParam {Number} recurse GET param 1 to recurse content (default 0)
+  * @apiParam {Number} depth GET param levels deep to limit recursion (default 2)
+  * @apiParam {String} category[] GET param (multiple) category uuid or path alias
+  * @apiParam {String} tag[] GET param (multiple) tag uuid or path alias
+  * @apiParam {String} type[] GET param (multiple) content type
+  *
+  * @apiParamExample {url} Request Example:
+  * // first page of all ideas
+  *  /api/fun365/idea
+  *
+  * // second page of 15 articles only in either parent or child category, tagged christmas.
+  * // recursively load content up to 4 levels deep
+  *  /api/fun365/idea?page=1&limit=15&recurse=1&depth=4&category[]=parent-category&category[]=child-category&tag[]=christmas&type[]=article
+  *
+  */
+  public function idea(Request $request) {
+    $options = [
+      'category' => $request->get('category') ? $request->get('category') : [],
+      'tag' => $request->get('tag') ? $request->get('tag') : [],
+      'type' => $request->get('type') ? $request->get('type') : [],
+      'limit' => ($request->get('limit') ? intval($request->get('limit')) : 10),
+      'published' => $request->get('published') !== '0',
+      'page' => $request->get('page') * 1,
+      'recurse' => (false || $request->get('recurse')),
+      'maxDepth' => ($request->get('depth') ? intval($request->get('depth')) : 2),
+    ];
+
+    try {
+      $results = $this->restHelper->fetchAllIdeas($options);
+      $response = new CacheableJsonResponse($results);
+      $response->addCacheableDependency($this->restHelper->cacheMetaData($results, 'node'));
+
+      return $response;
+    } catch (Exception $e) {
+      return $this->handleException($e);
+    }
+  }
+
   /**
   * @apiDescription Contributed content api call.
   *

@@ -131,6 +131,72 @@ class RestHelper implements RestHelperInterface {
     ]);
   }
 
+
+  public function fetchAllIdeas($options = []) {
+    $defaults = [
+      'page' => 0,
+      'published' => true,
+      'limit' => 10, // result limit
+      'recurse' => true, // toggle off recursion
+      'maxDepth' => 2, // deepest level of recursion
+      'currentDepth' => 0, // current depth of recursion
+      'multiValueGroups' => [],
+    ];
+    $options = array_merge($defaults, $options);
+
+    $category_uuids = [];
+    if ($options['category'] && is_array($options['category'])) {
+      $category_uuids = $this->lookupTermUuids($options['category']);
+      if ( $category_uuids ) {
+        $options['multiValueGroups']['field_category.entity.uuid'] = $category_uuids;
+      }
+    }
+
+    $tag_uuids = [];
+    if ($options['tag'] && is_array($options['tag'])) {
+      $tag_uuids = $this->lookupTermUuids($options['tag']);
+      if ( $tag_uuids ) {
+        $options['multiValueGroups']['field_tag.entity.uuid'] = $tag_uuids;
+      }
+    }
+
+    $ideaTypes = array('look', 'project', 'article', 'recipe', 'download');
+    $options['multiValueGroups']['type'] = $ideaTypes;
+    if ( $options['type'] && is_array($options['type']) ) {
+      $types = array_intersect($options['type'], $ideaTypes);
+      if ($types) {
+        $options['multiValueGroups']['type'] = $types;
+      }
+    }
+
+    $limit = $options['limit'];
+    $response = [
+      'limit' => $limit,
+      'page' => $options['page'],
+      'published' => $options['published']
+    ];
+
+    $response['count'] = intval($this->newNodeQuery($options)->count()->execute());
+
+    $entity_ids = $this->newNodeQuery($options)
+    ->range($options['page'] * $limit, $limit)
+    ->execute();
+
+    if ( ! $entity_ids ) {
+      $response['results'] = [];
+      return $response;
+    }
+
+    $response['results'] = $this->processNodes(
+      \Drupal::entityTypeManager()
+      ->getStorage('node')
+      ->loadMultiple($entity_ids),
+      $options
+    );
+
+    return $response;
+  }
+
   /**
   * Fetch a list of nodes from a content type, in clean format for REST.
   * @param  string $contentType the content type
@@ -488,6 +554,26 @@ class RestHelper implements RestHelperInterface {
     }
 
     return $this->fetchReferencedContent($uuid, $options, 'field_tag');
+  }
+
+  /**
+   * Lookup term uuids from list of aliases or uuids.
+   * @param  mixed $ids uuids or path aliases
+   * @return [type]      [description]
+   */
+  protected function lookupTermUuids($ids = []) {
+    $uuids = [];
+    foreach ($ids as $id) {
+      if ( self::isUuid($id) ) {
+        $uuids[] = $id;
+      } else {
+        $term = $this->lookupTermByAlias($id);
+        if ( ! $term ) continue;
+        $uuids[] = $term->uuid->value;
+      }
+    }
+
+    return $uuids;
   }
 
   /**
