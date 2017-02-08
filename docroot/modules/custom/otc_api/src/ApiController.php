@@ -32,7 +32,7 @@ class ApiController extends ControllerBase {
   }
 
  /**
-  * @apiDescription Specific tag api call.
+  * @apiDescription Idea gallery API.
   *
   * @api {get} /api/fun365/idea Get all article, recipe, look, project, download nodes.
   * @apiName Gallery
