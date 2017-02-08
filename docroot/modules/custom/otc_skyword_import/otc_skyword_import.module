@@ -1,0 +1,24 @@
+<?php
+
+/**
+ * @file
+ * Contains otc_skyword_import.module..
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function otc_skyword_import_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the otc_skyword_import module.
+    case 'help.page.otc_skyword_import':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Import daily skyword export.') . '</p>';
+      return $output;
+
+    default:
+  }
+}
