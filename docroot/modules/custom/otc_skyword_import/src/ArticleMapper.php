@@ -39,11 +39,10 @@ class ArticleMapper implements FeedMapperInterface {
   }
 
   public function map(SimpleXMLElement $document, $article = []) {
-    if ( ! isset($article['filesTodo']) ) {
-      $article['filesTodo'] = [];
-    }
+    $article = $this->fileMap($document, $article);
 
     foreach ($document as $key => $value) {
+      if ( $this->isFileKey($key) ) continue;
 
       if ( ($field = $this->straightMapping($key)) ) {
         $article[$field] = (string) $value;
@@ -51,10 +50,6 @@ class ArticleMapper implements FeedMapperInterface {
       }
 
       switch ($key) {
-        // @TODO individual files when skyword xml is fixed
-        case 'file':
-          $article['filesTodo'][] = $this->fileUrlPrefix . $value;
-          break;
         case 'articles_content':
         case 'carousel':
           // recurse for simple mappings
@@ -77,6 +72,112 @@ class ArticleMapper implements FeedMapperInterface {
 
     if ( $article['field_display_title'] ) {
       $article['title'] = $article['field_display_title'];
+    }
+
+    return $article;
+  }
+
+  protected static function fileFieldMappings() {
+    return [
+      'field_1858x1062_img' => [
+        'field_1858x1062_img',
+        'field_1858x1062_img_url',
+        'field_1858x1062_img_name',
+      ],
+      'field_3200x1391_img' => [
+        'field_3200x1391_img',
+        'field_3200x1391_img_url',
+        'field_3200x1391_img_name',
+      ],
+      'field_828x473_img' => [
+        'field_828x473_img',
+        'field_828x473_img_url',
+        'field_828x473_img_name',
+      ],
+      'field_896x896_img' => [
+        'field_896x896_img',
+        'field_896x896_img_url',
+        'field_896x896_img_name',
+      ],
+      'field_929x1239_img' => [
+        'field_929x1239_img',
+        'field_929x1239_img_url',
+        'field_929x1239_img_name',
+      ],
+      'field_1088x818_img' => [
+        'field_1088x818_img',
+        'field_1088x818_img_url',
+        'field_1088x818_img_name',
+      ],
+      'field_1088x818_img' => [
+        'field_1088x818_img',
+        'field_1088x818_img_url',
+        'field_1088x818_img_name',
+      ],
+      'field_900x677_img' => [
+        'field_900x677_img',
+        'field_900x677_img_url',
+        'field_900x677_img_name',
+      ],
+      'field_1858x1062_multi_img' => [
+        'image',
+        'image_url',
+        'image_name',
+      ],
+      'field_download_file' => [
+        'PDF_upload',
+        'PDF_upload_url',
+        'PDF_upload_name',
+      ],
+    ];
+  }
+
+  protected function isFileKey($key) {
+    $files = [];
+    foreach (self::fileFieldMappings() as $fieldName => $elements) {
+      $files = array_merge($files, $elements);
+    }
+
+    return in_array($key, $files);
+  }
+
+  protected function fileMap(SimpleXMLElement $document, $article = []) {
+    $files = [];
+    foreach ( self::fileFieldMappings() as $fieldName => $elements ) {
+      $files[$fieldName] = [];
+      $items = [
+        'url' => [],
+        'name' => [],
+      ];
+
+      // gather
+      foreach ( $elements as $element ) {
+        if ( $fieldname === 'field_1858x1062_multi_img' ) {
+          $field = $document;
+        } else {
+          $field = $document->{$element};
+        }
+
+        foreach ($field as $key => $value) {
+          preg_match('/(url|name)$/', $key, $matches);
+          if ($matches[1]) {
+            $items[$matches[1]][] = (string) $value;
+          }
+        }
+
+      }
+
+      // collate
+      foreach ($items['url'] as $index => $value) {
+        $files[$fieldName][] = [
+          'url' => $value,
+          'name' => $items['name'][$index],
+        ];
+      }
+
+      if ( ! empty($items['url']) ) {
+        $article[$fieldName] = $files[$fieldName];
+      }
     }
 
     return $article;
