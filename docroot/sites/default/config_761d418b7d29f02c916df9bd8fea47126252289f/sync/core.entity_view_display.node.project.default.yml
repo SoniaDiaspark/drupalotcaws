@@ -21,11 +21,9 @@ dependencies:
     - field.field.node.project.field_photo_credit
     - field.field.node.project.field_products
     - field.field.node.project.field_project_lite
-    - field.field.node.project.field_related_article
     - field.field.node.project.field_related_look
     - field.field.node.project.field_skill
     - field.field.node.project.field_skyword_id
-    - field.field.node.project.field_skyword_related_article
     - field.field.node.project.field_skyword_related_look
     - field.field.node.project.field_step
     - field.field.node.project.field_suppress_fanreel
@@ -169,13 +167,6 @@ content:
       format_custom_true: ''
     third_party_settings: {  }
     type: boolean
-  field_related_article:
-    weight: 34
-    label: above
-    settings:
-      link: true
-    third_party_settings: {  }
-    type: entity_reference_label
   field_related_look:
     weight: 32
     label: above
@@ -197,17 +188,6 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     type: string
-  field_skyword_related_article:
-    weight: 33
-    label: above
-    settings:
-      trim_length: 80
-      url_only: false
-      url_plain: false
-      rel: ''
-      target: ''
-    third_party_settings: {  }
-    type: link
   field_skyword_related_look:
     weight: 31
     label: above

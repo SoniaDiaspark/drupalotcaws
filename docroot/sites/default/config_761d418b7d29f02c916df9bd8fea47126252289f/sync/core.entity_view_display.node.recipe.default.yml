@@ -15,16 +15,15 @@ dependencies:
     - field.field.node.recipe.field_ingredients
     - field.field.node.recipe.field_items_needed
     - field.field.node.recipe.field_meta_description
+    - field.field.node.recipe.field_meta_keywords
     - field.field.node.recipe.field_meta_title
     - field.field.node.recipe.field_needed_description
     - field.field.node.recipe.field_photo_credit
     - field.field.node.recipe.field_products
-    - field.field.node.recipe.field_related_articles
     - field.field.node.recipe.field_servings_max
     - field.field.node.recipe.field_servings_min
     - field.field.node.recipe.field_skill
     - field.field.node.recipe.field_skyword_id
-    - field.field.node.recipe.field_skyword_related_articles
     - field.field.node.recipe.field_step
     - field.field.node.recipe.field_suppress_fanreel
     - field.field.node.recipe.field_tag
@@ -34,7 +33,6 @@ dependencies:
   module:
     - file
     - image
-    - link
     - text
     - user
 id: node.recipe.default
@@ -124,6 +122,13 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: text_default
+  field_meta_keywords:
+    weight: 148
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
   field_meta_title:
     weight: 138
     label: above
@@ -144,13 +149,6 @@ content:
     type: text_default
   field_products:
     weight: 101
-    label: above
-    settings:
-      link: true
-    third_party_settings: {  }
-    type: entity_reference_label
-  field_related_articles:
-    weight: 133
     label: above
     settings:
       link: true
@@ -186,17 +184,6 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     type: string
-  field_skyword_related_articles:
-    weight: 132
-    label: above
-    settings:
-      trim_length: 80
-      url_only: false
-      url_plain: false
-      rel: ''
-      target: ''
-    third_party_settings: {  }
-    type: link
   field_step:
     weight: 126
     label: above

@@ -90,3 +90,6 @@ permissions:
   81: 'administer taxonomy'
   82: 'view own unpublished content'
   83: 'access content'
+  84: 'administer nodes'
+  85: 'schedule publishing of nodes'
+  86: 'view scheduled content'
