@@ -8,7 +8,6 @@ dependencies:
     - field.field.node.step.field_description
     - field.field.node.step.field_product_own
     - field.field.node.step.field_products
-    - field.field.node.step.field_skyword_id
     - node.type.step
   module:
     - image
@@ -55,13 +54,6 @@ content:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
-  field_skyword_id:
-    weight: 101
-    label: above
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    type: string
   links:
     weight: 100
 hidden: {  }

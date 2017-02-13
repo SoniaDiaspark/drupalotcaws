@@ -10,7 +10,7 @@ field_name: field_products
 entity_type: node
 bundle: step
 label: Products
-description: 'Optional products associated with this step.'
+description: 'Optional products associated with this step. Only used on projects. Ignored on list articles and recipes.'
 required: false
 translatable: true
 default_value: {  }

@@ -8,7 +8,6 @@ dependencies:
     - field.field.node.step.field_description
     - field.field.node.step.field_product_own
     - field.field.node.step.field_products
-    - field.field.node.step.field_skyword_id
     - image.style.thumbnail
     - node.type.step
   module:
@@ -56,13 +55,6 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: entity_reference_autocomplete
-  field_skyword_id:
-    weight: 5
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-    type: string_textfield
   title:
     type: string_textfield
     weight: 0

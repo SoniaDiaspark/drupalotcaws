@@ -4,22 +4,30 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
+    - field.field.node.project.field_1824x1371_img
+    - field.field.node.project.field_3200x1391_img
+    - field.field.node.project.field_828x828_img
+    - field.field.node.project.field_896x896_img
+    - field.field.node.project.field_900x677_img
     - field.field.node.project.field_category
     - field.field.node.project.field_contributor
     - field.field.node.project.field_description
     - field.field.node.project.field_display_title
     - field.field.node.project.field_download_file
+    - field.field.node.project.field_items_needed
     - field.field.node.project.field_meta_description
+    - field.field.node.project.field_meta_keywords
     - field.field.node.project.field_meta_title
+    - field.field.node.project.field_needed_description
     - field.field.node.project.field_photo_credit
     - field.field.node.project.field_products
     - field.field.node.project.field_project_lite
-    - field.field.node.project.field_related_article
     - field.field.node.project.field_related_look
     - field.field.node.project.field_skill
     - field.field.node.project.field_skyword_id
-    - field.field.node.project.field_skyword_related_article
     - field.field.node.project.field_skyword_related_look
+    - field.field.node.project.field_step
+    - field.field.node.project.field_suppress_fanreel
     - field.field.node.project.field_tag
     - field.field.node.project.field_time_max
     - field.field.node.project.field_time_min
@@ -34,22 +42,30 @@ content:
   links:
     weight: 100
 hidden:
+  field_1824x1371_img: true
+  field_3200x1391_img: true
+  field_828x828_img: true
+  field_896x896_img: true
+  field_900x677_img: true
   field_category: true
   field_contributor: true
   field_description: true
   field_display_title: true
   field_download_file: true
+  field_items_needed: true
   field_meta_description: true
+  field_meta_keywords: true
   field_meta_title: true
+  field_needed_description: true
   field_photo_credit: true
   field_products: true
   field_project_lite: true
-  field_related_article: true
   field_related_look: true
   field_skill: true
   field_skyword_id: true
-  field_skyword_related_article: true
   field_skyword_related_look: true
+  field_step: true
+  field_suppress_fanreel: true
   field_tag: true
   field_time_max: true
   field_time_min: true

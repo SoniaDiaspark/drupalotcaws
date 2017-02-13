@@ -10,7 +10,7 @@ field_name: field_product_own
 entity_type: node
 bundle: step
 label: 'Make it your own'
-description: '"Make it your own" product.'
+description: '"Make it your own" product. Used only on projects. Unused on articles and recipes.'
 required: false
 translatable: false
 default_value: {  }

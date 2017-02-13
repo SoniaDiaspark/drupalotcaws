@@ -12,7 +12,7 @@ field_name: field_1280x962_multi_img
 entity_type: node
 bundle: step
 label: 'Image - Step Wide Multivalue (1280x962)'
-description: 'Image assigned to each step; can accept multiple image references for interactive "Swipe to Play" functionality.'
+description: "Image assigned to each step; can accept multiple image references for interactive \"Swipe to Play\" functionality.\r\nUsed only on projects. Ignored on recipes and list articles."
 required: false
 translatable: false
 default_value: {  }
