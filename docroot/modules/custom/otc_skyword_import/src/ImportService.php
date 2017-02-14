@@ -137,8 +137,8 @@ class ImportService {
   }
 
   public function create($document, $type) {
+    // silently ignore existing skyword nodes
     if ( ! $document['field_skyword_id'] || $this->documentExists($document['field_skyword_id'])) {
-      echo "No skyword id, or document with id ({$document['field_skyword_id']}) exists\n";
       return false;
     }
 
