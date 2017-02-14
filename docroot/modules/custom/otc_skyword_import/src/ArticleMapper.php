@@ -14,7 +14,7 @@ class ArticleMapper implements FeedMapperInterface {
       'title' => 'field_display_title',
       'meta_title' => 'field_meta_title',
       'meta_description' => 'field_meta_description',
-      'meta_keywords' => 'field_meta_keyword',
+      'meta_keywords' => 'field_meta_keywords',
       'author' => 'field_contributor', // further processing needed
       'article_content_heading' => 'field_content_heading',
       'article_content_1' => 'field_content_1',
@@ -23,7 +23,7 @@ class ArticleMapper implements FeedMapperInterface {
       'article_quote_content' => 'field_quote_content',
       'article_products_used' => 'field_products', // further processing needed
       'article_items_needed' => 'field_items_needed', // further processing needed, single-value in skyword
-      'article_video_url' => 'field_video_embed', // further processing needed, only a URL in skyword?
+      'article_video_url' => 'field_video_embed',
       'photo_credit_content' => 'field_photo_credit',
       'wyn_description' => 'field_needed_description',
       'article_description_2' => 'field_description',
@@ -143,7 +143,8 @@ class ArticleMapper implements FeedMapperInterface {
 
   protected function fileMap(SimpleXMLElement $document, $article = []) {
     $files = [];
-    foreach ( self::fileFieldMappings() as $fieldName => $elements ) {
+    $fileFieldMappings = self::fileFieldMappings();
+    foreach ( $fileFieldMappings as $fieldName => $elements ) {
       $files[$fieldName] = [];
       $items = [
         'url' => [],
@@ -152,7 +153,7 @@ class ArticleMapper implements FeedMapperInterface {
 
       // gather
       foreach ( $elements as $element ) {
-        if ( $fieldname === 'field_1858x1062_multi_img' ) {
+        if ( $fieldName === 'field_1858x1062_multi_img' ) {
           $field = $document;
         } else {
           $field = $document->{$element};
@@ -160,7 +161,7 @@ class ArticleMapper implements FeedMapperInterface {
 
         foreach ($field as $key => $value) {
           preg_match('/(url|name)$/', $key, $matches);
-          if ($matches[1]) {
+          if ($matches[1] && strpos($key, $fileFieldMappings[$fieldName][0]) === 0) {
             $items[$matches[1]][] = (string) $value;
           }
         }
