@@ -179,6 +179,28 @@ class ImportService {
       // File fields
       } elseif ( $this->isFileType($fieldName) ) {
         $return[$fieldName] = $this->prepareFiles($fieldName, $data, $type);
+      // Product skus
+      } elseif ( $fieldName === 'field_products' ) {
+        $return[$fieldName] = $this->prepareProducts($data);
+      // Contributor Full Name
+      } elseif ( $fieldName === 'field_contributor' ) {
+        $return[$fieldName] = $this->prepareContributor($data);
+      // Items needed
+      } elseif ( $fieldName === 'field_items_needed' ) {
+        $return[$fieldName] = $this->prepareMultiLineText($data);
+      }
+    }
+
+    print_r($return);
+    die();
+    return $return;
+  }
+
+  protected function prepareMultiLineText($data) {
+    $return = [];
+    foreach (explode("\n", $data) as $line) {
+      if (trim($line)) {
+        $return[] = ['value' => trim($line)];
       }
     }
 
@@ -223,6 +245,46 @@ class ImportService {
 
       return false;
     }
+  }
+
+  protected function prepareContributor($data) {
+    $query = \Drupal::entityQuery('node');
+    $query->condition('field_full_name', trim($data));
+
+    foreach ( $query->execute() as $nid ) {
+      return ['target_id' => $nid];
+    }
+
+    return [];
+  }
+
+  protected function prepareProducts($data) {
+    $skus = array_map(function($sku){
+      return trim($sku);
+    }, explode(',', $data));
+
+    $return = [];
+    foreach ( $this->lookupProductsBySkus($skus) as $nid ) {
+      $return[] = ['target_id' => $nid];
+    }
+
+    return $return;
+  }
+
+  protected function lookupProductsBySkus($skus = []) {
+    if ( empty($skus) ) return [];
+
+    $query = \Drupal::entityQuery('node');
+    $or  = $query->orConditionGroup();
+    foreach( $skus as $sku ) {
+      if ( $sku ) {
+        $or->condition('field_sku', $sku);
+      }
+    }
+    $query->condition($or);
+    $products = $query->execute();
+
+    return $products;
   }
 
   protected function prepareDirectory($uri) {

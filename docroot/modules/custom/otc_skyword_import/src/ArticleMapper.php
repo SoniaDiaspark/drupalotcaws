@@ -86,55 +86,42 @@ class ArticleMapper implements FeedMapperInterface {
       'field_hero_bleed_d_img_2x' => 'field_3200x1391_img',
       'field_hero_bleed_d_img_2x_url' => 'field_3200x1391_img',
       'field_hero_bleed_d_img_2x_name' => 'field_3200x1391_img',
-
       'field_3200x1391_img' => 'field_3200x1391_img',
       'field_3200x1391_img_url' => 'field_3200x1391_img',
       'field_3200x1391_img_name' => 'field_3200x1391_img',
-
       'field_hero_bleed_m_img_2x' => 'field_828x473_img',
       'field_hero_bleed_m_img_2x_url' => 'field_828x473_img',
       'field_hero_bleed_m_img_2x_name' => 'field_828x473_img',
-
       'field_828x473_img' => 'field_828x473_img',
       'field_828x473_img_url' => 'field_828x473_img',
       'field_828x473_img_name' => 'field_828x473_img',
-
       'field_article_thumb_img_2x' => 'field_828x473_img2',
       'field_article_thumb_img_2x_url' => 'field_828x473_img2',
       'field_article_thumb_img_2x_name' => 'field_828x473_img2',
-
       'field_card_tile_img_2x' => 'field_896x896_img',
       'field_card_tile_img_2x_url' => 'field_896x896_img',
       'field_card_tile_img_2x_name' => 'field_896x896_img',
-
       'field_896x896_img' => 'field_896x896_img',
       'field_896x896_img_url' => 'field_896x896_img',
       'field_896x896_img_name' => 'field_896x896_img',
-
       'field_article_img_tall_2x' => 'field_929x1239_img',
       'field_article_img_tall_2x_url' => 'field_929x1239_img',
       'field_article_img_tall_2x_name' => 'field_929x1239_img',
-
       'field_quote_img_2x' => 'field_1088x818_img',
       'field_quote_img_2x_url' => 'field_1088x818_img',
       'field_quote_img_2x_name' => 'field_1088x818_img',
-
       'field_quote_img_2x' => 'field_1088x818_img',
       'field_quote_img_2x_url' => 'field_1088x818_img',
       'field_quote_img_2x_name' => 'field_1088x818_img',
-
       'field_whatneed_img_2x' => 'field_900x677_img',
       'field_whatneed_img_2x_url' => 'field_900x677_img',
       'field_whatneed_img_2x_name' => 'field_900x677_img',
-
       'field_article_img_wide_2x' => 'field_1858x1062_img',
       'field_article_img_wide_2x_url' => 'field_1858x1062_img',
       'field_article_img_wide_2x_name' => 'field_1858x1062_img',
-
       'field_article_carousel_img_2x' => 'field_1858x1062_multi_img',
       'field_article_carousel_img_2x_url' => 'field_1858x1062_multi_img',
       'field_article_carousel_img_2x_name' => 'field_1858x1062_multi_img',
-
       'field_article_PDF' => 'field_download_file',
       'field_article_PDF_url' => 'field_download_file',
       'field_article_PDF_name' => 'field_download_file',
