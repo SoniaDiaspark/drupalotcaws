@@ -60,6 +60,7 @@ class ArticleMapper implements FeedMapperInterface {
           break;
 
         // ignored skyword fields
+        case 'article_list_step_content':
         case 'publishedDate':
         case 'keyword':
         case 'assignment_title':
@@ -70,6 +71,21 @@ class ArticleMapper implements FeedMapperInterface {
           break;
         default:
           echo "UNMAPPED KEY: $key\n";
+      }
+    }
+
+    if ( isset($document->article_list_step_content) ) {
+      // hack: skyword feed has parent and child named the same thing
+      if ( trim((string) $document->article_list_step_content) ) {
+        $article['field_description'] = (string) $document->article_list_step_content;
+      } else {
+        $index = 0;
+        foreach ( $document->article_list_step_content as $key => $step ) {
+          $stepData = $this->map($step);
+          if ($stepData) {
+            $article['field_step'][$index++] = $stepData;
+          }
+        }
       }
     }
 
@@ -107,6 +123,9 @@ class ArticleMapper implements FeedMapperInterface {
       'field_article_img_tall_2x' => 'field_929x1239_img',
       'field_article_img_tall_2x_url' => 'field_929x1239_img',
       'field_article_img_tall_2x_name' => 'field_929x1239_img',
+      'field_929x1239_img' => 'field_929x1239_img',
+      'field_929x1239_img_url' => 'field_929x1239_img',
+      'field_929x1239_img_name' => 'field_929x1239_img',
       'field_quote_img_2x' => 'field_1088x818_img',
       'field_quote_img_2x_url' => 'field_1088x818_img',
       'field_quote_img_2x_name' => 'field_1088x818_img',

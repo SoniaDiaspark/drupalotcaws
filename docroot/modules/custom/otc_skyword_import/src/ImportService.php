@@ -93,12 +93,16 @@ class ImportService {
       }
 
       foreach ($this->mapImports($simplexml) as $type => $docs) {
+        if ( $type === 'article' ) {
+          print_r($docs);
+          die();
+        }
         foreach ($docs as $doc) {
           // @TODO implement this
           // $this->queueImportJob($type, $doc);
 
           // @TODO do this in worker
-          $this->create($doc, $type);
+          // $this->create($doc, $type);
         }
       }
 
@@ -191,8 +195,6 @@ class ImportService {
       }
     }
 
-    print_r($return);
-    die();
     return $return;
   }
 
