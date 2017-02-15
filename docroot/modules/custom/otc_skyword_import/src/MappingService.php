@@ -2,16 +2,13 @@
 
 namespace Drupal\otc_skyword_import;
 
-use Drupal\Core\Config\ConfigFactory;
-
 class MappingService implements MappingServiceInterface {
   private $mappers;
 
-  public function __construct(ConfigFactory $configFactory) {
-    $config = $configFactory->get('otc_skyword_import.config');
+  public function __construct() {
     $this->mappers = [
-      'article' => new ArticleMapper($config->get('fileUrlPrefix')),
-      'project' => new ProjectMapper($config->get('fileUrlPrefix')),
+      'article' => new ArticleMapper,
+      'project' => new ProjectMapper,
     ];
   }
 

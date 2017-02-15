@@ -1,7 +1,6 @@
 services:
   otc_skyword_import.mappers:
     class: Drupal\otc_skyword_import\MappingService
-    arguments: ['@config.factory']
   otc_skyword_import.default:
     class: Drupal\otc_skyword_import\ImportService
     arguments:

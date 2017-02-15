@@ -33,10 +33,6 @@ class ProjectMapper implements FeedMapperInterface {
     return ( in_array($key, array_keys($mappings)) ? $mappings[$key] : false );
   }
 
-  public function __construct($fileUrlPrefix) {
-    $this->fileUrlPrefix = $fileUrlPrefix;
-  }
-
   public function map(SimpleXMLElement $document, $project = []) {
     $project = $this->fileMap($document, $project);
 
