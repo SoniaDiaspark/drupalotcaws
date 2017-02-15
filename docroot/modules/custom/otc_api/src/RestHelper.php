@@ -776,6 +776,7 @@ class RestHelper implements RestHelperInterface {
 
     $view = [
       'parent' => $parent,
+      'type' => $term->getVocabularyId(),
     ];
 
     $fieldDefinitions = \Drupal::service('entity.manager')->getFieldDefinitions('taxonomy_term', $term->getVocabularyId());
