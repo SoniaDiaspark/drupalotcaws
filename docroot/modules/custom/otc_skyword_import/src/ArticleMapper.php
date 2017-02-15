@@ -32,6 +32,9 @@ class ArticleMapper implements FeedMapperInterface {
       'field_description_2' => 'field_description',
       'field_carousel_heading' => 'field_carousel_heading',
       'field_carousel_content' => 'field_carousel_content',
+      'field_list_heading' => 'field_display_title',
+      'field_list_content' => 'field_description',
+      'field_list_link' => 'field_cta_link', // further processing needed, @TODO uri and title
     ];
 
     return ( in_array($key, array_keys($mappings)) ? $mappings[$key] : false );
@@ -75,17 +78,16 @@ class ArticleMapper implements FeedMapperInterface {
     }
 
     if ( isset($document->article_list_step_content) ) {
-      // hack: skyword feed has parent and child named the same thing
-      if ( trim((string) $document->article_list_step_content) ) {
-        $article['field_description'] = (string) $document->article_list_step_content;
-      } else {
-        $index = 0;
-        foreach ( $document->article_list_step_content as $key => $step ) {
-          $stepData = $this->map($step);
-          if ($stepData) {
-            $article['field_step'][$index++] = $stepData;
-          }
+      $index = 0;
+      foreach ( $document->article_list_step_content as $key => $step ) {
+        $stepData = $this->map($step);
+        if ($stepData) {
+          $article['field_step'][$index++] = $stepData;
         }
+      }
+
+      if ( ! empty($article['field_step']) ) {
+        $article['field_article_list'] = true;
       }
     }
 

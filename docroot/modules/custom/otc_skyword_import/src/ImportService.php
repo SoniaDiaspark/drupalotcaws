@@ -73,7 +73,10 @@ class ImportService {
 
     $this->fieldConfig['storage'] = $entityFieldManager->getFieldStorageDefinitions('node');
     $this->fieldConfig['instance'] = [
+      'step' => $entityFieldManager->getFieldDefinitions('node', 'article'),
       'article' => $entityFieldManager->getFieldDefinitions('node', 'article'),
+      'recipe' => $entityFieldManager->getFieldDefinitions('node', 'recipe'),
+      'project' => $entityFieldManager->getFieldDefinitions('node', 'project'),
     ];
 
     $this->fs = $fs;
@@ -86,23 +89,26 @@ class ImportService {
     try {
       $res = $this->httpClient->request('GET', $this->importUrl);
       $xml = $res->getBody();
-      $simplexml = Security::scan((string) $xml);
+
+      // sanitize $xml to strip out untidy bits
+      $xml = (string) $xml;
+      $xml = preg_replace('/\<\>/', '', $xml); // empty tag
+      $xml = preg_replace('/\<script.*\<\/script\>/', '', $xml); // script tags
+
+      $simplexml = Security::scan($xml);
 
       if ( $res->getStatusCode() !== 200 || ! ( $simplexml instanceof SimpleXMLElement) ) {
         throw new \Exception($res->getBody());
       }
 
       foreach ($this->mapImports($simplexml) as $type => $docs) {
-        if ( $type === 'article' ) {
-          print_r($docs);
-          die();
-        }
+
         foreach ($docs as $doc) {
           // @TODO implement this
           // $this->queueImportJob($type, $doc);
 
           // @TODO do this in worker
-          // $this->create($doc, $type);
+          $this->create($doc, $type);
         }
       }
 
@@ -140,6 +146,11 @@ class ImportService {
   }
 
   public function create($document, $type) {
+    // @DEBUG article list step
+    if ( $type !== 'project' ) {
+      return false;
+    }
+
     // silently ignore existing skyword nodes
     if ( ! $document['field_skyword_id'] || $this->documentExists($document['field_skyword_id'])) {
       return false;
@@ -183,8 +194,11 @@ class ImportService {
       // File fields
       } elseif ( $this->isFileType($fieldName) ) {
         $return[$fieldName] = $this->prepareFiles($fieldName, $data, $type);
+      // entity reference field field_step
+      } elseif ( $fieldName === 'field_step' ) {
+        $return[$fieldName] = $this->prepareStep($data);
       // Product skus
-      } elseif ( $fieldName === 'field_products' ) {
+      } elseif ( $fieldName === 'field_products' || $fieldName === 'field_product_own' ) {
         $return[$fieldName] = $this->prepareProducts($data);
       // Contributor Full Name
       } elseif ( $fieldName === 'field_contributor' ) {
@@ -235,6 +249,14 @@ class ImportService {
     return $files;
   }
 
+  protected function prepareDirectory($uri) {
+    $baseDir = $this->fs->realpath($uri);
+    if ( ! $baseDir ) {
+      $this->fs->mkdir($uri, NULL, true);
+    }
+    return $this->fs->realpath($uri);
+  }
+
   protected function downloadFile($url, $target) {
     try {
       $response = $this->httpClient->request('GET', $url, ['sink' => $target]);
@@ -247,6 +269,20 @@ class ImportService {
 
       return false;
     }
+  }
+
+  protected function prepareStep($steps) {
+    $return = [];
+
+    foreach ( $steps as $stepData) {
+      if ( empty($stepData) ) continue;
+
+      $step = Node::create($this->prepare($stepData, 'step'));
+      $step->save();
+      $return[] = ['target_id' => $step->nid->value];
+    }
+
+    return $return;
   }
 
   protected function prepareContributor($data) {
@@ -289,14 +325,6 @@ class ImportService {
     return $products;
   }
 
-  protected function prepareDirectory($uri) {
-    $baseDir = $this->fs->realpath($uri);
-    if ( ! $baseDir ) {
-      $this->fs->mkdir($uri, NULL, true);
-    }
-    return $this->fs->realpath($uri);
-  }
-
   protected function isSimpleFieldType($fieldName) {
     return in_array($this->fieldConfig['storage'][$fieldName]->getType(), [
       'text',
@@ -305,6 +333,7 @@ class ImportService {
       'string_long',
       'integer',
       'float',
+      'boolean',
     ]);
   }
 
@@ -321,6 +350,10 @@ class ImportService {
         'field_contributor',
         'field_products',
         'field_items_needed',
+      ],
+      'step' => [
+        'field_products',
+        'field_product_own',
       ],
     ];
 
