@@ -11,6 +11,7 @@ class MappingService implements MappingServiceInterface {
     $config = $configFactory->get('otc_skyword_import.config');
     $this->mappers = [
       'article' => new ArticleMapper($config->get('fileUrlPrefix')),
+      'project' => new ProjectMapper($config->get('fileUrlPrefix')),
     ];
   }
 

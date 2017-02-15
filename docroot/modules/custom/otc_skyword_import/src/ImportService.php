@@ -103,12 +103,13 @@ class ImportService {
 
       foreach ($this->mapImports($simplexml) as $type => $docs) {
 
+        print_r($docs);
         foreach ($docs as $doc) {
           // @TODO implement this
           // $this->queueImportJob($type, $doc);
 
           // @TODO do this in worker
-          $this->create($doc, $type);
+          // $this->create($doc, $type);
         }
       }
 
@@ -136,8 +137,12 @@ class ImportService {
       switch ($type) {
         case 'article':
         case 'article-list':
-          $docs['article'][] = $this->mappingService->get('article')->map($document);
-        break;
+          // $docs['article'][] = $this->mappingService->get('article')->map($document);
+          break;
+        case 'Project':
+        case "Project-Lite":
+          $docs['project'][] = $this->mappingService->get('project')->map($document);
+          break;
         default:
       }
     }
