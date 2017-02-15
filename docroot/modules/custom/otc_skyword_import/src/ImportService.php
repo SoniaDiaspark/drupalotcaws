@@ -73,7 +73,7 @@ class ImportService {
 
     $this->fieldConfig['storage'] = $entityFieldManager->getFieldStorageDefinitions('node');
     $this->fieldConfig['instance'] = [
-      'step' => $entityFieldManager->getFieldDefinitions('node', 'article'),
+      'step' => $entityFieldManager->getFieldDefinitions('node', 'step'),
       'article' => $entityFieldManager->getFieldDefinitions('node', 'article'),
       'recipe' => $entityFieldManager->getFieldDefinitions('node', 'recipe'),
       'project' => $entityFieldManager->getFieldDefinitions('node', 'project'),
@@ -103,13 +103,12 @@ class ImportService {
 
       foreach ($this->mapImports($simplexml) as $type => $docs) {
 
-        print_r($docs);
         foreach ($docs as $doc) {
           // @TODO implement this
           // $this->queueImportJob($type, $doc);
 
           // @TODO do this in worker
-          // $this->create($doc, $type);
+          $this->create($doc, $type);
         }
       }
 
@@ -137,7 +136,7 @@ class ImportService {
       switch ($type) {
         case 'article':
         case 'article-list':
-          // $docs['article'][] = $this->mappingService->get('article')->map($document);
+          $docs['article'][] = $this->mappingService->get('article')->map($document);
           break;
         case 'Project':
         case "Project-Lite":
@@ -151,11 +150,6 @@ class ImportService {
   }
 
   public function create($document, $type) {
-    // @DEBUG article list step
-    if ( $type !== 'project' ) {
-      return false;
-    }
-
     // silently ignore existing skyword nodes
     if ( ! $document['field_skyword_id'] || $this->documentExists($document['field_skyword_id'])) {
       return false;
@@ -352,6 +346,11 @@ class ImportService {
   protected function isComplexValue($fieldName, $type) {
     $complex = [
       'article' => [
+        'field_contributor',
+        'field_products',
+        'field_items_needed',
+      ],
+      'project' => [
         'field_contributor',
         'field_products',
         'field_items_needed',

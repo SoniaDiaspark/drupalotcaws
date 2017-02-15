@@ -26,6 +26,7 @@ class ProjectMapper implements FeedMapperInterface {
       'field_product_own' => 'field_product_own',
       'field_items_needed' => 'field_items_needed', // further processing needed, single-value in skyword
       'field_product_need_description' => 'field_needed_description',
+      'body' => 'field_description',
       'field_description' => 'field_description',
       // 'field_short_description' => 'field_short_description', // not in CMS, can add later
     ];
@@ -58,7 +59,6 @@ class ProjectMapper implements FeedMapperInterface {
         case 'assignment_title':
         case 'otc_featured_products':
         case 'action':
-        case 'body':
         case 'field_short_description': // not in CMS, can add later
           break;
         default:
@@ -89,6 +89,7 @@ class ProjectMapper implements FeedMapperInterface {
 
       if ( ! empty($project['field_howtouse_description']) ) {
         $project['field_step'][$index++] = $project['field_howtouse_description'];
+        unset($project['field_howtouse_description']);
       }
 
       if ( ! empty($project['field_step']) ) {
