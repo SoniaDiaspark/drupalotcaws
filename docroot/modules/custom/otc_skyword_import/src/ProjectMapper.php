@@ -2,37 +2,9 @@
 
 namespace Drupal\otc_skyword_import;
 
-use ZendXml\Security as XmlSecurity;
 use SimpleXMLElement;
 
 class ProjectMapper implements FeedMapperInterface {
-  protected $fileUriPrefix;
-
-  protected function straightMapping($key = '') {
-    $mappings = [
-      'id' => 'field_skyword_id',
-      'title' => 'field_display_title',
-      'field_meta_title' => 'field_meta_title',
-      'field_skill' => 'field_skill',
-      'field_time_min' => 'field_time_min',
-      'field_time_max' => 'field_time_max',
-      'field_meta_description' => 'field_meta_description',
-      'field_meta_keywords' => 'field_meta_keywords',
-      'meta_title' => 'field_meta_title',
-      'meta_description' => 'field_meta_description',
-      'meta_keywords' => 'field_meta_keywords',
-      'author' => 'field_contributor', // further processing needed
-      'field_products_used' => 'field_products', // further processing needed
-      'field_product_own' => 'field_product_own',
-      'field_items_needed' => 'field_items_needed', // further processing needed, single-value in skyword
-      'field_product_need_description' => 'field_needed_description',
-      'body' => 'field_description',
-      'field_description' => 'field_description',
-      // 'field_short_description' => 'field_short_description', // not in CMS, can add later
-    ];
-
-    return ( in_array($key, array_keys($mappings)) ? $mappings[$key] : false );
-  }
 
   public function map(SimpleXMLElement $document, $project = []) {
     $project = $this->fileMap($document, $project);
@@ -113,6 +85,33 @@ class ProjectMapper implements FeedMapperInterface {
       $project['title'] = $project['field_display_title'];
     }
     return $project;
+  }
+
+
+  protected function straightMapping($key = '') {
+    $mappings = [
+      'id' => 'field_skyword_id',
+      'title' => 'field_display_title',
+      'field_meta_title' => 'field_meta_title',
+      'field_skill' => 'field_skill',
+      'field_time_min' => 'field_time_min',
+      'field_time_max' => 'field_time_max',
+      'field_meta_description' => 'field_meta_description',
+      'field_meta_keywords' => 'field_meta_keywords',
+      'meta_title' => 'field_meta_title',
+      'meta_description' => 'field_meta_description',
+      'meta_keywords' => 'field_meta_keywords',
+      'author' => 'field_contributor', // further processing needed
+      'field_products_used' => 'field_products', // further processing needed
+      'field_product_own' => 'field_product_own',
+      'field_items_needed' => 'field_items_needed', // @TODO Update when Skyword makes multivalue
+      'field_product_need_description' => 'field_needed_description',
+      'body' => 'field_description',
+      'field_description' => 'field_description',
+      // 'field_short_description' => 'field_short_description', // not in CMS, can add later
+    ];
+
+    return ( in_array($key, array_keys($mappings)) ? $mappings[$key] : false );
   }
 
   protected static function fileFieldMappings() {

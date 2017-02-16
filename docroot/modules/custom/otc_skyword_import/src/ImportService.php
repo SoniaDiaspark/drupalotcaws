@@ -102,7 +102,6 @@ class ImportService {
       }
 
       foreach ($this->mapImports($simplexml) as $type => $docs) {
-
         foreach ($docs as $doc) {
           // @TODO implement this
           // $this->queueImportJob($type, $doc);
@@ -136,11 +135,14 @@ class ImportService {
       switch ($type) {
         case 'article':
         case 'article-list':
-          $docs['article'][] = $this->mappingService->get('article')->map($document);
+          // $docs['article'][] = $this->mappingService->get('article')->map($document);
           break;
         case 'Project':
-        case "Project-Lite":
-          $docs['project'][] = $this->mappingService->get('project')->map($document);
+        case 'Project-Lite':
+          // $docs['project'][] = $this->mappingService->get('project')->map($document);
+          break;
+        case 'fun365recipe':
+          $docs['recipe'][] = $this->mappingService->get('recipe')->map($document);
           break;
         default:
       }
@@ -177,7 +179,7 @@ class ImportService {
       $simple =
         $this->isValidField($fieldName, $type)
         && $this->isSimpleFieldType($fieldName)
-        && ! $this->isComplexValue($fieldName, $type);
+        && ! $this->isComplexValue($fieldName);
 
       // Simple text fields with no processing
       if ( $simple ) {
@@ -192,10 +194,10 @@ class ImportService {
 
       // File fields
       } elseif ( $this->isFileType($fieldName) ) {
-        $return[$fieldName] = $this->prepareFiles($fieldName, $data, $type);
+        // $return[$fieldName] = $this->prepareFiles($fieldName, $data, $type);
       // entity reference field field_step
       } elseif ( $fieldName === 'field_step' ) {
-        $return[$fieldName] = $this->prepareStep($data);
+        // $return[$fieldName] = $this->prepareStep($data);
       // Product skus
       } elseif ( $fieldName === 'field_products' || $fieldName === 'field_product_own' ) {
         $return[$fieldName] = $this->prepareProducts($data);
@@ -205,15 +207,39 @@ class ImportService {
       // Items needed
       } elseif ( $fieldName === 'field_items_needed' ) {
         $return[$fieldName] = $this->prepareMultiLineText($data);
+      } elseif ( $fieldName === 'field_ingredients' ) {
+        $return[$fieldName] = $this->prepareMultiLineText($data, ',');
+      // @TODO Fix this when Skyword breaks these into two fields
+      } elseif ( $fieldName === 'field_servings_max' ) {
+        list($return['field_servings_min'], $return['field_servings_max']) = $this->prepareServings($data);
       }
     }
 
     return $return;
   }
 
-  protected function prepareMultiLineText($data) {
+  // @TODO remove when skyword splits these fields
+  protected function prepareServings($data) {
+    $servings = [];
+    foreach ( $this->prepareMultiLineText($data, '-') as $index => $value ) {
+      $servings[] = max(1, (int) $value['value']);
+    }
+
+    switch ( count($servings) ) {
+      case 2:
+        return [['value' => $servings[0]], ['value' => $servings[1]]];
+        break;
+      case 1:
+        return [['value' => 1], ['value' => $servings[0]]];
+        break;
+      default:
+        return [['value' => 1],['value' => 1]];
+    }
+  }
+
+  protected function prepareMultiLineText($data, $delimiter = "\n") {
     $return = [];
-    foreach (explode("\n", $data) as $line) {
+    foreach (explode($delimiter, $data) as $line) {
       if (trim($line)) {
         $return[] = ['value' => trim($line)];
       }
@@ -343,25 +369,17 @@ class ImportService {
     ]);
   }
 
-  protected function isComplexValue($fieldName, $type) {
+  protected function isComplexValue($fieldName) {
     $complex = [
-      'article' => [
-        'field_contributor',
-        'field_products',
-        'field_items_needed',
-      ],
-      'project' => [
-        'field_contributor',
-        'field_products',
-        'field_items_needed',
-      ],
-      'step' => [
-        'field_products',
-        'field_product_own',
-      ],
+      'field_contributor',
+      'field_products',
+      'field_items_needed', // @TODO Update when Skyword makes multivalue
+      'field_ingredients', // @TODO Update when Skyword makes multivalue
+      'field_servings_max', // @TODO Update when Skyword makes multivalue
+      'field_product_own',
     ];
 
-    return in_array($fieldName, $complex[$type]);
+    return in_array($fieldName, $complex);
   }
 
   protected function isValidField($fieldName, $type) {

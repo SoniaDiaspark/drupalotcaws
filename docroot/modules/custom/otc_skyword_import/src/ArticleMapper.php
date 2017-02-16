@@ -2,43 +2,9 @@
 
 namespace Drupal\otc_skyword_import;
 
-use ZendXml\Security as XmlSecurity;
 use SimpleXMLElement;
 
 class ArticleMapper implements FeedMapperInterface {
-  protected $fileUriPrefix;
-
-  protected function straightMapping($key = '') {
-    $mappings = [
-      'id' => 'field_skyword_id',
-      'title' => 'field_display_title',
-      'field_meta_title' => 'field_meta_title',
-      'field_meta_description' => 'field_meta_description',
-      'field_meta_keywords' => 'field_meta_keywords',
-      'meta_title' => 'field_meta_title',
-      'meta_description' => 'field_meta_description',
-      'meta_keywords' => 'field_meta_keywords',
-      'author' => 'field_contributor', // further processing needed
-      'field_content_heading' => 'field_content_heading',
-      'field_content_1' => 'field_content_1',
-      'field_content_2' => 'field_content_2',
-      'field_content_3' => 'field_content_3',
-      'field_quote_content' => 'field_quote_content',
-      'field_products_used' => 'field_products', // further processing needed
-      'field_items_needed' => 'field_items_needed', // further processing needed, single-value in skyword
-      'field_video_url' => 'field_video_embed',
-      'field_photo_credit' => 'field_photo_credit',
-      'field_product_need_description' => 'field_needed_description',
-      'field_description_2' => 'field_description',
-      'field_carousel_heading' => 'field_carousel_heading',
-      'field_carousel_content' => 'field_carousel_content',
-      'field_list_heading' => 'field_display_title',
-      'field_list_content' => 'field_description',
-      'field_list_link' => 'field_cta_link', // further processing needed, @TODO uri and title
-    ];
-
-    return ( in_array($key, array_keys($mappings)) ? $mappings[$key] : false );
-  }
 
   public function map(SimpleXMLElement $document, $article = []) {
     $article = $this->fileMap($document, $article);
@@ -65,7 +31,6 @@ class ArticleMapper implements FeedMapperInterface {
         case 'assignment_title':
         case 'otc_featured_products':
         case 'action':
-        case 'body':
         case 'photo_article_inspiration':
           break;
         default:
@@ -105,6 +70,39 @@ class ArticleMapper implements FeedMapperInterface {
       $article['title'] = $article['field_display_title'];
     }
     return $article;
+  }
+
+  protected function straightMapping($key = '') {
+    $mappings = [
+      'id' => 'field_skyword_id',
+      'title' => 'field_display_title',
+      'field_meta_title' => 'field_meta_title',
+      'field_meta_description' => 'field_meta_description',
+      'field_meta_keywords' => 'field_meta_keywords',
+      'meta_title' => 'field_meta_title',
+      'meta_description' => 'field_meta_description',
+      'meta_keywords' => 'field_meta_keywords',
+      'author' => 'field_contributor', // further processing needed
+      'field_content_heading' => 'field_content_heading',
+      'field_content_1' => 'field_content_1',
+      'field_content_2' => 'field_content_2',
+      'field_content_3' => 'field_content_3',
+      'field_quote_content' => 'field_quote_content',
+      'field_products_used' => 'field_products', // further processing needed
+      'field_items_needed' => 'field_items_needed', // @TODO Update when Skyword makes multivalue
+      'field_video_url' => 'field_video_embed',
+      'field_photo_credit' => 'field_photo_credit',
+      'field_product_need_description' => 'field_needed_description',
+      'body' => 'field_description',
+      'field_description_2' => 'field_description_2',
+      'field_carousel_heading' => 'field_carousel_heading',
+      'field_carousel_content' => 'field_carousel_content',
+      'field_list_heading' => 'field_display_title',
+      'field_list_content' => 'field_description',
+      'field_list_link' => 'field_cta_link', // further processing needed, @TODO uri and title
+    ];
+
+    return ( in_array($key, array_keys($mappings)) ? $mappings[$key] : false );
   }
 
   protected static function fileFieldMappings() {

@@ -9,6 +9,7 @@ class MappingService implements MappingServiceInterface {
     $this->mappers = [
       'article' => new ArticleMapper,
       'project' => new ProjectMapper,
+      'recipe' => new RecipeMapper,
     ];
   }
 
@@ -20,6 +21,6 @@ class MappingService implements MappingServiceInterface {
       return $this->mappers[$type];
     }
 
-    return false;
+    return new NullMapper;
   }
 }
