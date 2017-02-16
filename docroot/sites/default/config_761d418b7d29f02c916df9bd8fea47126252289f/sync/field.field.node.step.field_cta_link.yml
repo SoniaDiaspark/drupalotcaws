@@ -1,0 +1,23 @@
+uuid: 13ed3bb2-b9a3-492c-9ce9-3c79adf1e0ef
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_cta_link
+    - node.type.step
+  module:
+    - link
+id: node.step.field_cta_link
+field_name: field_cta_link
+entity_type: node
+bundle: step
+label: 'Article List Step Suggested Link'
+description: 'Call to Action link for Article lists. Ignored on Projects and Recipes.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  link_type: 17
+  title: 1
+field_type: link

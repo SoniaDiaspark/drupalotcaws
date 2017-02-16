@@ -12,7 +12,7 @@ field_name: field_929x1239_img
 entity_type: node
 bundle: step
 label: 'Image - Content Image Tall (929x1239)'
-description: 'Used on list article. Not used on project or recipe.'
+description: 'Used only list article. Ignored on Project and Recipe.'
 required: false
 translatable: true
 default_value: {  }

@@ -22,6 +22,7 @@ dependencies:
     - field.field.node.article.field_content_heading
     - field.field.node.article.field_contributor
     - field.field.node.article.field_description
+    - field.field.node.article.field_description_2
     - field.field.node.article.field_display_title
     - field.field.node.article.field_download_file
     - field.field.node.article.field_items_needed
@@ -183,6 +184,12 @@ content:
     type: entity_reference_label
   field_description:
     weight: 130
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+  field_description_2:
+    weight: 164
     label: above
     settings: {  }
     third_party_settings: {  }

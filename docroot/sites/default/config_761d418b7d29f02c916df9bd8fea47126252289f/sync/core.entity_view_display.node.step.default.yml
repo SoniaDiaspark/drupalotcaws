@@ -5,12 +5,15 @@ dependencies:
   config:
     - field.field.node.step.field_1280x962_multi_img
     - field.field.node.step.field_929x1239_img
+    - field.field.node.step.field_cta_link
     - field.field.node.step.field_description
+    - field.field.node.step.field_display_title
     - field.field.node.step.field_product_own
     - field.field.node.step.field_products
     - node.type.step
   module:
     - image
+    - link
     - text
     - user
 id: node.step.default
@@ -34,8 +37,25 @@ content:
       image_link: ''
     third_party_settings: {  }
     type: image
+  field_cta_link:
+    weight: 109
+    label: above
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    type: link
   field_description:
     weight: 102
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+  field_display_title:
+    weight: 108
     label: above
     settings: {  }
     third_party_settings: {  }

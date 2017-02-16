@@ -1,0 +1,21 @@
+uuid: 45adfef0-3a2c-40bc-ae05-699d4b4ebacf
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_display_title
+    - node.type.step
+  module:
+    - text
+id: node.step.field_display_title
+field_name: field_display_title
+entity_type: node
+bundle: step
+label: 'Article List Step Heading'
+description: 'Step Heading used for article lists. Ignored on Projects, Recipes.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text

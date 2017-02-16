@@ -5,13 +5,16 @@ dependencies:
   config:
     - field.field.node.step.field_1280x962_multi_img
     - field.field.node.step.field_929x1239_img
+    - field.field.node.step.field_cta_link
     - field.field.node.step.field_description
+    - field.field.node.step.field_display_title
     - field.field.node.step.field_product_own
     - field.field.node.step.field_products
     - image.style.thumbnail
     - node.type.step
   module:
     - image
+    - link
     - text
 id: node.step.default
 targetEntityType: node
@@ -19,19 +22,26 @@ bundle: step
 mode: default
 content:
   field_1280x962_multi_img:
-    weight: 27
+    weight: 4
     settings:
       progress_indicator: throbber
       preview_image_style: thumbnail
     third_party_settings: {  }
     type: image_image
   field_929x1239_img:
-    weight: 26
+    weight: 6
     settings:
       progress_indicator: throbber
       preview_image_style: thumbnail
     third_party_settings: {  }
     type: image_image
+  field_cta_link:
+    weight: 7
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+    type: link_default
   field_description:
     weight: 1
     settings:
@@ -39,8 +49,15 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: text_textarea
+  field_display_title:
+    weight: 5
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textfield
   field_product_own:
-    weight: 4
+    weight: 3
     settings:
       match_operator: CONTAINS
       size: 60
@@ -48,7 +65,7 @@ content:
     third_party_settings: {  }
     type: entity_reference_autocomplete
   field_products:
-    weight: 3
+    weight: 2
     settings:
       match_operator: CONTAINS
       size: 60
