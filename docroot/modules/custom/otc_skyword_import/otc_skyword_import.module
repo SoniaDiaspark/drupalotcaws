@@ -1,0 +1,42 @@
+<?php
+
+/**
+ * @file
+ * Contains otc_skyword_import.module..
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function otc_skyword_import_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the otc_skyword_import module.
+    case 'help.page.otc_skyword_import':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Import daily skyword export.') . '</p>';
+      return $output;
+
+    default:
+  }
+}
+
+/**
+ * Old school hook_mail type callback.
+ * @param  string $key message type
+ * @param  array $message the message
+ * @param  array $params passed parameters
+ */
+function otc_skyword_import_mail($key, &$message, $params) {
+  if ($key === 'worker') {
+    $message['subject'] = 'Problem Occured During Skyword Import';
+  } elseif($key === 'parse') {
+    $message['subject'] = 'Problem Occured Reading Skyword Feed';
+  } else {
+    $message['subject'] = 'Skyword Import Notice';
+  }
+
+  $message['body'][] = $params['message'];
+}
