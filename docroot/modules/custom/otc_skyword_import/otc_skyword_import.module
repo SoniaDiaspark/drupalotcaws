@@ -22,3 +22,21 @@ function otc_skyword_import_help($route_name, RouteMatchInterface $route_match) 
     default:
   }
 }
+
+/**
+ * Old school hook_mail type callback.
+ * @param  string $key message type
+ * @param  array $message the message
+ * @param  array $params passed parameters
+ */
+function otc_skyword_import_mail($key, &$message, $params) {
+  if ($key === 'worker') {
+    $message['subject'] = 'Problem Occured During Skyword Import';
+  } elseif($key === 'parse') {
+    $message['subject'] = 'Problem Occured Reading Skyword Feed';
+  } else {
+    $message['subject'] = 'Skyword Import Notice';
+  }
+
+  $message['body'][] = $params['message'];
+}

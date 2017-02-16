@@ -8,6 +8,7 @@ use Drupal\Core\Config\ConfigFactory;
 use Drupal\Core\Entity\EntityFieldManagerInterface;
 use Drupal\node\Entity\Node;
 use Drupal\file\Entity\File;
+use Drupal\user\Entity\User;
 use Drupal\Core\File\FileSystem;
 use GuzzleHttp\Client;
 use ZendXml\Security;
@@ -82,6 +83,9 @@ class ImportService {
     $this->fs = $fs;
   }
 
+  public function getLogger() {
+    return $this->logger;
+  }
   /**
    * Queue Import Jobs with drupal compatible data.
    */
@@ -103,11 +107,7 @@ class ImportService {
 
       foreach ($this->mapImports($simplexml) as $type => $docs) {
         foreach ($docs as $doc) {
-          // @TODO implement this
-          // $this->queueImportJob($type, $doc);
-
-          // @TODO do this in worker
-          $this->create($doc, $type);
+          $this->queueImportJob($type, $doc);
         }
       }
 
@@ -115,13 +115,30 @@ class ImportService {
       $this->logger->error('Error loading feed from skyword: @message', [
         '@message' => $e->getMessage()
       ]);
+
+      $this->sendFailureMessages('parse', t('Error loading feed from skyword: @message', [
+        '@message' => $e->getMessage()
+      ]));
+
+    }
+  }
+
+  public function sendFailureMessages($key, $message) {
+    $users = \Drupal::entityQuery('user')
+      ->condition('roles', 'administrator')
+      ->execute();
+
+    foreach ($users as $uid) {
+      $user = User::load($uid);
+      \Drupal::service('plugin.manager.mail')->mail('otc_skyword_import', $key, $user->mail->value, 'en', ['message' => $message]);
     }
   }
 
   protected function queueImportJob($type, $document) {
-    // @TODO queue document for import
-    echo "type: $type\n";
-    print_r($document);
+    $this->dbQueue->createItem([
+      'type' => $type,
+      'document' => $document,
+    ]);
   }
 
   /**
@@ -135,11 +152,11 @@ class ImportService {
       switch ($type) {
         case 'article':
         case 'article-list':
-          // $docs['article'][] = $this->mappingService->get('article')->map($document);
+          $docs['article'][] = $this->mappingService->get('article')->map($document);
           break;
         case 'Project':
         case 'Project-Lite':
-          // $docs['project'][] = $this->mappingService->get('project')->map($document);
+          $docs['project'][] = $this->mappingService->get('project')->map($document);
           break;
         case 'fun365recipe':
           $docs['recipe'][] = $this->mappingService->get('recipe')->map($document);
@@ -194,10 +211,10 @@ class ImportService {
 
       // File fields
       } elseif ( $this->isFileType($fieldName) ) {
-        // $return[$fieldName] = $this->prepareFiles($fieldName, $data, $type);
+        $return[$fieldName] = $this->prepareFiles($fieldName, $data, $type);
       // entity reference field field_step
       } elseif ( $fieldName === 'field_step' ) {
-        // $return[$fieldName] = $this->prepareStep($data);
+        $return[$fieldName] = $this->prepareStep($data);
       // Product skus
       } elseif ( $fieldName === 'field_products' || $fieldName === 'field_product_own' ) {
         $return[$fieldName] = $this->prepareProducts($data);
@@ -206,7 +223,7 @@ class ImportService {
         $return[$fieldName] = $this->prepareContributor($data);
       // Items needed
       } elseif ( $fieldName === 'field_items_needed' ) {
-        $return[$fieldName] = $this->prepareMultiLineText($data);
+        $return[$fieldName] = $this->prepareMultiLineText($data, ',');
       } elseif ( $fieldName === 'field_ingredients' ) {
         $return[$fieldName] = $this->prepareMultiLineText($data, ',');
       // @TODO Fix this when Skyword breaks these into two fields
