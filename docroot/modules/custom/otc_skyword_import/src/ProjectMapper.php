@@ -8,9 +8,11 @@ class ProjectMapper implements FeedMapperInterface {
 
   public function map(SimpleXMLElement $document, $project = []) {
     $project = $this->fileMap($document, $project);
+    $project = $this->multiFieldMap($document, $project);
 
     foreach ($document as $key => $value) {
       if ( $this->isFileKey($key) ) continue;
+      if ( $this->isMultiValue($key) ) continue;
 
       if ( ($field = $this->straightMapping($key)) ) {
         $project[$field] = (string) $value;
@@ -104,7 +106,6 @@ class ProjectMapper implements FeedMapperInterface {
       'author' => 'field_contributor', // further processing needed
       'field_products_used' => 'field_products', // further processing needed
       'field_product_own' => 'field_product_own',
-      'field_items_needed' => 'field_items_needed', // @TODO Update when Skyword makes multivalue
       'field_product_need_description' => 'field_needed_description',
       'body' => 'field_description',
       'field_description' => 'field_description',
@@ -112,6 +113,30 @@ class ProjectMapper implements FeedMapperInterface {
     ];
 
     return ( in_array($key, array_keys($mappings)) ? $mappings[$key] : false );
+  }
+
+  protected static function multiValue() {
+    // source/skyword => target/drupal
+    return [
+      'field_items_needed' => 'field_items_needed',
+    ];
+  }
+
+  protected function isMultiValue($fieldName) {
+    return in_array($fieldName, array_keys(self::multiValue()));
+  }
+
+  protected function multiFieldMap(SimpleXMLElement $document, $project = []) {
+    foreach (self::multiValue() as $source => $target) {
+      if ( isset($document->{$source}) ) {
+        $project[$target] = [];
+        foreach ($document->{$source} as $key => $value) {
+          $project[$target][] = (string) $value;
+        }
+      }
+    }
+
+    return $project;
   }
 
   protected static function fileFieldMappings() {

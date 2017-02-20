@@ -8,9 +8,11 @@ class RecipeMapper implements FeedMapperInterface {
 
   public function map(SimpleXMLElement $document, $recipe = []) {
     $recipe = $this->fileMap($document, $recipe);
+    $recipe = $this->multiFieldMap($document, $recipe);
 
     foreach ($document as $key => $value) {
       if ( $this->isFileKey($key) ) continue;
+      if ( $this->isMultiValue($key) ) continue;
 
       if ( ($field = $this->straightMapping($key)) ) {
         $recipe[$field] = (string) $value;
@@ -89,14 +91,36 @@ class RecipeMapper implements FeedMapperInterface {
       'body' => 'field_description',
       'field_description' => 'field_description',
       'field_product_need_description' => 'field_needed_description',
-      'field_items_needed' => 'field_items_needed', // @TODO Update when Skyword makes multivalue
-      'field_servings' => 'field_servings_max', // @TODO Update when Skyword makes multivalue
-      'field_ingredients' => 'field_ingredients', // @TODO Update when Skyword makes multivalue
-      // 'field_products_used' => 'field_products', // further processing needed
-      // 'field_product_own' => 'field_product_own',
+      'field_servings' => 'field_servings_min',
+      'field_servings_max' => 'field_servings_max',
     ];
 
     return ( in_array($key, array_keys($mappings)) ? $mappings[$key] : false );
+  }
+
+  protected static function multiValue() {
+    // source/skyword => target/drupal
+    return [
+      'field_ingredients' => 'field_ingredients',
+      'field_items_needed' => 'field_items_needed',
+    ];
+  }
+
+  protected function isMultiValue($fieldName) {
+    return in_array($fieldName, array_keys(self::multiValue()));
+  }
+
+  protected function multiFieldMap(SimpleXMLElement $document, $recipe = []) {
+    foreach (self::multiValue() as $source => $target) {
+      if ( isset($document->{$source}) ) {
+        $recipe[$target] = [];
+        foreach ($document->{$source} as $key => $value) {
+          $recipe[$target][] = (string) $value;
+        }
+      }
+    }
+
+    return $recipe;
   }
 
   protected static function fileFieldMappings() {

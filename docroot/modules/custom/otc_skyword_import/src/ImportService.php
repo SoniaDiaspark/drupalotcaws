@@ -221,37 +221,12 @@ class ImportService {
       // Contributor Full Name
       } elseif ( $fieldName === 'field_contributor' ) {
         $return[$fieldName] = $this->prepareContributor($data);
-      // Items needed
-      } elseif ( $fieldName === 'field_items_needed' ) {
-        $return[$fieldName] = $this->prepareMultiLineText($data, ',');
-      } elseif ( $fieldName === 'field_ingredients' ) {
-        $return[$fieldName] = $this->prepareMultiLineText($data, ',');
-      // @TODO Fix this when Skyword breaks these into two fields
-      } elseif ( $fieldName === 'field_servings_max' ) {
-        list($return['field_servings_min'], $return['field_servings_max']) = $this->prepareServings($data);
+      } elseif ( $this->isLinkType($fieldName) ) {
+        $return[$fieldName] = $data;
       }
     }
 
     return $return;
-  }
-
-  // @TODO remove when skyword splits these fields
-  protected function prepareServings($data) {
-    $servings = [];
-    foreach ( $this->prepareMultiLineText($data, '-') as $index => $value ) {
-      $servings[] = max(1, (int) $value['value']);
-    }
-
-    switch ( count($servings) ) {
-      case 2:
-        return [['value' => $servings[0]], ['value' => $servings[1]]];
-        break;
-      case 1:
-        return [['value' => 1], ['value' => $servings[0]]];
-        break;
-      default:
-        return [['value' => 1],['value' => 1]];
-    }
   }
 
   protected function prepareMultiLineText($data, $delimiter = "\n") {
@@ -271,11 +246,11 @@ class ImportService {
     $baseDir = $this->prepareDirectory($uri);
     if ( ! $baseDir ) return false;
 
+    $files = [];
     foreach ($data as $fileData) {
       $target = file_create_filename($fileData['name'], $baseDir);
       $baseName = basename($target);
 
-      $files = [];
       if ( $this->downloadFile($fileData['url'], $target) ) {
         $file = File::create([
           'uri' => $uri . '/' . $baseName,
@@ -379,6 +354,10 @@ class ImportService {
     ]);
   }
 
+  protected function isLinkType($fieldName) {
+    return 'link' === $this->fieldConfig['storage'][$fieldName]->getType();
+  }
+
   protected function isFileType($fieldName) {
     return in_array($this->fieldConfig['storage'][$fieldName]->getType(), [
       'file',
@@ -390,9 +369,6 @@ class ImportService {
     $complex = [
       'field_contributor',
       'field_products',
-      'field_items_needed', // @TODO Update when Skyword makes multivalue
-      'field_ingredients', // @TODO Update when Skyword makes multivalue
-      'field_servings_max', // @TODO Update when Skyword makes multivalue
       'field_product_own',
     ];
 
