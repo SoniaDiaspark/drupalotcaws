@@ -11,8 +11,8 @@ id: taxonomy_term.category.field_see_more_links
 field_name: field_see_more_links
 entity_type: taxonomy_term
 bundle: category
-label: 'See More Links'
-description: 'HTML content'
+label: 'Landing Page See More Links Section'
+description: "HTML content for patterned links section that appears on the Category Landing page. \r\nNot required for sub-categories.\r\n\r\nEdit carefully."
 required: false
 translatable: false
 default_value: {  }

@@ -1,0 +1,15 @@
+uuid: a86f983e-7d32-4283-ab77-a8de724344dd
+langcode: en
+status: true
+dependencies: {  }
+name: 533x232_img
+label: '2.3 Aspect Ratio - 533x232 Scaled'
+effects:
+  4d181701-da80-4fe0-ad2c-f2f312080e17:
+    uuid: 4d181701-da80-4fe0-ad2c-f2f312080e17
+    id: image_scale
+    weight: 1
+    data:
+      width: 533
+      height: 232
+      upscale: false

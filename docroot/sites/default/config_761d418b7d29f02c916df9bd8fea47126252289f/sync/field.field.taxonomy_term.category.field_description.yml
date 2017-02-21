@@ -11,8 +11,8 @@ id: taxonomy_term.category.field_description
 field_name: field_description
 entity_type: taxonomy_term
 bundle: category
-label: Description
-description: ''
+label: 'Landing Page Sub Heading'
+description: 'Sub heading text that appears under the heading at the top of primary category landing pages. Not required for sub-categories.'
 required: false
 translatable: false
 default_value: {  }

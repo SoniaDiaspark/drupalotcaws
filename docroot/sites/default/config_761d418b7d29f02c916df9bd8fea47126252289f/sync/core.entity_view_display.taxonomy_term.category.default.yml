@@ -3,6 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.taxonomy_term.category.field_1066x464_img
     - field.field.taxonomy_term.category.field_3200x1391_img
     - field.field.taxonomy_term.category.field_828x828_img
     - field.field.taxonomy_term.category.field_contributor
@@ -11,6 +12,7 @@ dependencies:
     - field.field.taxonomy_term.category.field_display_title
     - field.field.taxonomy_term.category.field_enable_fan_reel
     - field.field.taxonomy_term.category.field_featured_content
+    - field.field.taxonomy_term.category.field_heading
     - field.field.taxonomy_term.category.field_see_more_links
     - field.field.taxonomy_term.category.field_seo_meta_description
     - field.field.taxonomy_term.category.field_seo_meta_keywords
@@ -32,6 +34,14 @@ content:
     weight: 0
     settings: {  }
     third_party_settings: {  }
+  field_1066x464_img:
+    weight: 15
+    label: above
+    settings:
+      image_style: ''
+      image_link: ''
+    third_party_settings: {  }
+    type: image
   field_3200x1391_img:
     weight: 1
     label: above
@@ -94,6 +104,12 @@ content:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
+  field_heading:
+    weight: 14
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
   field_see_more_links:
     weight: 10
     label: above

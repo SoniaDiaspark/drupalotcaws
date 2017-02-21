@@ -9,8 +9,8 @@ id: taxonomy_term.category.field_text_stripe_color
 field_name: field_text_stripe_color
 entity_type: taxonomy_term
 bundle: category
-label: 'Text Stripe Color'
-description: "RGB hexadecimal color. \r\n\r\nExample: FFFFFF"
+label: 'Landing Page Heading Text Stripe Color'
+description: "RGB hexadecimal color. On category landing page, controls the background \"stripe color\" that appears behind the white text \"Landing Page Heading\".\r\n\r\nNot required for sub-categories.\r\n\r\nExample: FFFFFF"
 required: false
 translatable: false
 default_value: {  }

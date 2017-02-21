@@ -11,8 +11,8 @@ id: taxonomy_term.category.field_cta_link
 field_name: field_cta_link
 entity_type: taxonomy_term
 bundle: category
-label: 'CTA Link'
-description: ''
+label: 'Landing Page Heading CTA Link'
+description: 'The call to action that appears at the top of the category landing page for top-level categories. Not required for sub-categories.'
 required: false
 translatable: false
 default_value: {  }

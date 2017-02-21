@@ -12,7 +12,7 @@ field_name: field_display_title
 entity_type: taxonomy_term
 bundle: category
 label: 'Display Title'
-description: ''
+description: 'The displayed title of the category used across the site.'
 required: true
 translatable: false
 default_value: {  }

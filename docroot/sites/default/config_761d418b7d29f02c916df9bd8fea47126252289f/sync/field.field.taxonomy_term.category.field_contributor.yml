@@ -10,8 +10,8 @@ id: taxonomy_term.category.field_contributor
 field_name: field_contributor
 entity_type: taxonomy_term
 bundle: category
-label: Contributor
-description: ''
+label: 'Designer Spotlight'
+description: "On top-level category landing pages, this will select the featured contributor/designer to spotlight.\r\nNot required for sub-categories."
 required: false
 translatable: false
 default_value: {  }

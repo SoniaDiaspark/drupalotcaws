@@ -1237,6 +1237,7 @@ class RestHelper implements RestHelperInterface {
         ],
 
         '2.30' => [
+          '533x232_img',
           '1600x696_img',
         ],
       ];

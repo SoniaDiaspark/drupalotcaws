@@ -10,7 +10,7 @@ field_name: field_enable_fan_reel
 entity_type: taxonomy_term
 bundle: category
 label: 'Enable Fan Reel'
-description: ''
+description: "Used to enable or disable the curalate fan reel section on category landing pages of top-level categories, if applicable.\r\nNot required for sub-categories."
 required: false
 translatable: false
 default_value:
