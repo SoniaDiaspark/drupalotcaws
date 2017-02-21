@@ -14,6 +14,7 @@ dependencies:
     - field.field.node.recipe.field_download_file
     - field.field.node.recipe.field_ingredients
     - field.field.node.recipe.field_items_needed
+    - field.field.node.recipe.field_legacy_content
     - field.field.node.recipe.field_meta_description
     - field.field.node.recipe.field_meta_keywords
     - field.field.node.recipe.field_meta_title
@@ -112,6 +113,12 @@ content:
     type: text_default
   field_items_needed:
     weight: 136
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+  field_legacy_content:
+    weight: 149
     label: above
     settings: {  }
     third_party_settings: {  }

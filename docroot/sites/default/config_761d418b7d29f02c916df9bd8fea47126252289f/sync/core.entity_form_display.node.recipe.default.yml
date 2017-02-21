@@ -14,6 +14,7 @@ dependencies:
     - field.field.node.recipe.field_download_file
     - field.field.node.recipe.field_ingredients
     - field.field.node.recipe.field_items_needed
+    - field.field.node.recipe.field_legacy_content
     - field.field.node.recipe.field_meta_description
     - field.field.node.recipe.field_meta_keywords
     - field.field.node.recipe.field_meta_title
@@ -118,6 +119,13 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: text_textfield
+  field_legacy_content:
+    weight: 26
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea
   field_meta_description:
     weight: 5
     settings:
@@ -181,7 +189,7 @@ content:
     third_party_settings: {  }
     type: string_textfield
   field_skyword_id:
-    weight: 30
+    weight: 31
     settings:
       size: 60
       placeholder: ''
@@ -224,16 +232,16 @@ content:
     type: number
   path:
     type: path
-    weight: 26
+    weight: 27
     settings: {  }
     third_party_settings: {  }
   publish_on:
     type: datetime_timestamp_no_default
-    weight: 28
+    weight: 29
     settings: {  }
     third_party_settings: {  }
   scheduler_settings:
-    weight: 27
+    weight: 28
     settings: {  }
     third_party_settings: {  }
   title:
@@ -245,7 +253,7 @@ content:
     third_party_settings: {  }
   unpublish_on:
     type: datetime_timestamp_no_default
-    weight: 29
+    weight: 30
     settings: {  }
     third_party_settings: {  }
 hidden:

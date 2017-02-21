@@ -1,0 +1,21 @@
+uuid: 7a1fc983-5cbd-4b22-b43e-94ec6d6531f6
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_legacy_content
+    - node.type.project
+  module:
+    - text
+id: node.project.field_legacy_content
+field_name: field_legacy_content
+entity_type: node
+bundle: project
+label: 'Imported Legacy Content'
+description: 'Import Content from WordPress blog site.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long
