@@ -1,0 +1,22 @@
+uuid: 87468189-cdc9-4f18-a460-274ca826cf72
+langcode: en
+status: true
+dependencies:
+  module:
+    - user
+  theme:
+    - otctheme
+_core:
+  default_config_hash: IItlF4SKHgxduIysVQdvirDJ_v3HGuAviOkidAOJYRE
+id: otctheme_login
+theme: otctheme
+region: content
+weight: 10
+provider: null
+plugin: user_login_block
+settings:
+  id: user_login_block
+  label: 'User login'
+  provider: user
+  label_display: visible
+visibility: {  }

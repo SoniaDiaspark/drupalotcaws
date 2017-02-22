@@ -1,0 +1,20 @@
+uuid: 6e09577d-fea6-45ab-b842-feaca51c596e
+langcode: en
+status: true
+dependencies:
+  theme:
+    - otctheme
+_core:
+  default_config_hash: ZSpc3IoSaLd0PkB02nxjVPBMztIdsTdHek9SiGaqZ_c
+id: otctheme_page_title
+theme: otctheme
+region: header
+weight: -30
+provider: null
+plugin: page_title_block
+settings:
+  id: page_title_block
+  label: 'Page title'
+  provider: core
+  label_display: '0'
+visibility: {  }

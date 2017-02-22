@@ -1,0 +1,22 @@
+uuid: 7757dc50-3ed8-4b26-b072-5a5d3e1dccec
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - otctheme
+_core:
+  default_config_hash: WWu2OQswgCztl9OeXjD1stexIEMZsSgPMYIdC-JHx9c
+id: otctheme_breadcrumbs
+theme: otctheme
+region: breadcrumb
+weight: 0
+provider: null
+plugin: system_breadcrumb_block
+settings:
+  id: system_breadcrumb_block
+  label: Breadcrumbs
+  provider: system
+  label_display: '0'
+visibility: {  }

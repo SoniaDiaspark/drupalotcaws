@@ -1,0 +1,22 @@
+uuid: 244976d2-5d08-4e1d-9582-901c535df4d0
+langcode: en
+status: true
+dependencies:
+  theme:
+    - otctheme
+_core:
+  default_config_hash: ddy1OsBbWxjwEI8VL1viD4I69qcLHOkul4BxbTqLBTs
+id: otctheme_primary_local_tasks
+theme: otctheme
+region: header
+weight: 0
+provider: null
+plugin: local_tasks_block
+settings:
+  id: local_tasks_block
+  label: 'Primary tabs'
+  provider: core
+  label_display: '0'
+  primary: true
+  secondary: false
+visibility: {  }

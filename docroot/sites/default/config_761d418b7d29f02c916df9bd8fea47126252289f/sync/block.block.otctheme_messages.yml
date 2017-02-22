@@ -1,0 +1,22 @@
+uuid: 96d17abc-8b9f-4418-aa3c-2afa696fa713
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - otctheme
+_core:
+  default_config_hash: XJqWwLt1LDCnazcEN6QkJmCLjk4R0__-8s0OO9xeNjg
+id: otctheme_messages
+theme: otctheme
+region: highlighted
+weight: 0
+provider: null
+plugin: system_messages_block
+settings:
+  id: system_messages_block
+  label: 'Status messages'
+  provider: system
+  label_display: '0'
+visibility: {  }
