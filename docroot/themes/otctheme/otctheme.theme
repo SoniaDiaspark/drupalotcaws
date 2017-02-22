@@ -1,0 +1,23 @@
+<?php
+
+/**
+ * Implements hook_preprocess_HOOK() for HTML document templates.
+ */
+function otctheme_preprocess_node(&$variables) {
+  $node = $variables['elements']['#node'];
+  $type = $node->getType();
+  if ( ! in_array($type, [
+    'article',
+    'project',
+    'recipe',
+    'download',
+  ])) return;
+
+  $source = $node->toUrl()->getInternalPath();
+  $lang = $node->language()->getId();
+  $path = \Drupal::service('path.alias_storage')->lookupPathAlias('/' . $source, $lang);
+  $path = preg_replace('/^\//', '', $path);
+
+  $variables['previewUrl'] = 'http://cloud.otc.resource.com/latest/fun365/app/';
+  $variables['previewUrl'] .= $type . '/' . $path;
+}

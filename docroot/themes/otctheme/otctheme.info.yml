@@ -1,0 +1,7 @@
+name: OTC Theme
+type: theme
+description: 'An intentionally plain theme with no styling based on stark.'
+package: OTC
+
+base theme: 'stark'
+core: '8.x'
