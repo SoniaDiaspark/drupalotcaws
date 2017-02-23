@@ -1,0 +1,12 @@
+services:
+  otc_legacy_import.wordpress:
+    class: Drupal\otc_legacy_import\WordPressDatabaseService
+    arguments:
+      - "@config.factory"
+  otc_legacy_import.image_resizer:
+    class: Drupal\otc_legacy_import\ImageUrlResizerService
+    arguments:
+      - "@image.toolkit.manager"
+      - "@image.toolkit.operation.manager"
+      - "@http_client"
+      - "@file_system"

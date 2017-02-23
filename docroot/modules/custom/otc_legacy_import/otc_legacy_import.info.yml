@@ -1,0 +1,5 @@
+name: OTC WordPress Legacy Import
+type: module
+description: Module for performing legacy import task from WordPress database.
+core: 8.x
+package: OTC
