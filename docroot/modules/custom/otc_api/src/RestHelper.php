@@ -386,7 +386,7 @@ class RestHelper implements RestHelperInterface {
       throw new Rest403Exception;
     }
 
-    return $this->processTerm($term);
+    return $this->processTerm($term, $options);
   }
 
   /**
