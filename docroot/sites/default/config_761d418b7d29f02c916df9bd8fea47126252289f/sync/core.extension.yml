@@ -29,6 +29,7 @@ module:
   options: 0
   otc_api: 0
   otc_product_import: 0
+  otc_skyword_import: 0
   page_cache: 0
   path: 0
   rest: 0
@@ -54,7 +55,6 @@ theme:
   classy: 0
   bartik: 0
   seven: 0
-  stark: 0
   otctheme: 0
 _core:
   default_config_hash: m2GVq11UAOVuNgj8x0t5fMOPujpvQQ_zxLoaly1BMEU

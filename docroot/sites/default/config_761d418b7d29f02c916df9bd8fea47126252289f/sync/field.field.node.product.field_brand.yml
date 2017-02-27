@@ -6,6 +6,8 @@ dependencies:
     - field.storage.node.field_brand
     - node.type.product
     - taxonomy.vocabulary.brand
+  content:
+    - 'taxonomy_term:brand:5c60becf-73c2-4309-9dc0-34ba7579bba7'
 id: node.product.field_brand
 field_name: field_brand
 entity_type: node
@@ -14,7 +16,9 @@ label: Brand
 description: ''
 required: false
 translatable: false
-default_value: {  }
+default_value:
+  -
+    target_uuid: 5c60becf-73c2-4309-9dc0-34ba7579bba7
 default_value_callback: ''
 settings:
   handler: 'default:taxonomy_term'
