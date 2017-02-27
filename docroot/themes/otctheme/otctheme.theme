@@ -11,6 +11,7 @@ function otctheme_preprocess_node(&$variables) {
     'project',
     'recipe',
     'download',
+    'look',
   ])) return;
 
   $source = $node->toUrl()->getInternalPath();

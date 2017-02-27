@@ -1,7 +1,7 @@
 name: OTC Theme
 type: theme
-description: 'An intentionally plain theme with no styling based on stark.'
+description: 'An intentionally plain theme with no styling based on seven.'
 package: OTC
 
-base theme: 'stark'
+base theme: 'seven'
 core: '8.x'
