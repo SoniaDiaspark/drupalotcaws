@@ -1,0 +1,19 @@
+uuid: d93ad230-700c-46cb-8449-336ca6118e51
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_meta_keywords
+    - node.type.download
+id: node.download.field_meta_keywords
+field_name: field_meta_keywords
+entity_type: node
+bundle: download
+label: 'SEO - Meta Keywords'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

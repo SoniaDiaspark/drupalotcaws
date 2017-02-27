@@ -1,0 +1,21 @@
+uuid: bcf7d0b0-665d-470c-9cd0-d6403ce2e38a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_meta_description
+    - node.type.download
+  module:
+    - text
+id: node.download.field_meta_description
+field_name: field_meta_description
+entity_type: node
+bundle: download
+label: 'SEO - Meta Description'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

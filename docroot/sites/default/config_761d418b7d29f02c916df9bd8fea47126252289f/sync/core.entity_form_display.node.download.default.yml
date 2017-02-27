@@ -9,7 +9,9 @@ dependencies:
     - field.field.node.download.field_description
     - field.field.node.download.field_display_title
     - field.field.node.download.field_download_file
-    - field.field.node.download.field_project
+    - field.field.node.download.field_meta_description
+    - field.field.node.download.field_meta_keywords
+    - field.field.node.download.field_meta_title
     - image.style.thumbnail
     - node.type.download
   module:
@@ -64,14 +66,27 @@ content:
       progress_indicator: throbber
     third_party_settings: {  }
     type: file_generic
-  field_project:
-    weight: 4
+  field_meta_description:
+    weight: 35
     settings:
-      match_operator: CONTAINS
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea
+  field_meta_keywords:
+    weight: 36
+    settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-    type: entity_reference_autocomplete
+    type: string_textfield
+  field_meta_title:
+    weight: 34
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textfield
   path:
     type: path
     weight: 5

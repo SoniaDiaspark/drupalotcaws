@@ -16,9 +16,9 @@ third_party_settings:
     unpublish_enable: true
     unpublish_required: false
     unpublish_revision: false
-name: Download
+name: Printables
 type: download
-description: 'Download content type.'
+description: 'Printables / downloads content type.'
 help: ''
 new_revision: false
 preview_mode: 0
