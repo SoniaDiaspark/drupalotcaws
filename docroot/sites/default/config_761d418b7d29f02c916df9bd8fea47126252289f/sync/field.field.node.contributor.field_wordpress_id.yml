@@ -1,0 +1,23 @@
+uuid: 78c5b435-617b-4874-8f71-205795fca032
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_wordpress_id
+    - node.type.contributor
+id: node.contributor.field_wordpress_id
+field_name: field_wordpress_id
+entity_type: node
+bundle: contributor
+label: wordpress_id
+description: 'The id from the WordPress blog. Do not edit this field, it will be used during content import.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer

@@ -19,6 +19,7 @@ dependencies:
     - field.field.node.contributor.field_skyword_id
     - field.field.node.contributor.field_twitter
     - field.field.node.contributor.field_website
+    - field.field.node.contributor.field_wordpress_id
     - node.type.contributor
   module:
     - image
@@ -161,6 +162,14 @@ content:
       target: ''
     third_party_settings: {  }
     type: link
+  field_wordpress_id:
+    weight: 119
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    type: number_integer
   links:
     weight: 100
 hidden: {  }

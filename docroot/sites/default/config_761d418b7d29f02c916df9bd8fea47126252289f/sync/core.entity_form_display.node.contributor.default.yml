@@ -19,6 +19,7 @@ dependencies:
     - field.field.node.contributor.field_skyword_id
     - field.field.node.contributor.field_twitter
     - field.field.node.contributor.field_website
+    - field.field.node.contributor.field_wordpress_id
     - image.style.thumbnail
     - node.type.contributor
   module:
@@ -123,7 +124,7 @@ content:
     third_party_settings: {  }
     type: text_textfield
   field_skyword_id:
-    weight: 16
+    weight: 20
     settings:
       size: 60
       placeholder: ''
@@ -143,18 +144,24 @@ content:
       placeholder_title: ''
     third_party_settings: {  }
     type: link_default
+  field_wordpress_id:
+    weight: 21
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: number
   path:
     type: path
-    weight: 17
+    weight: 16
     settings: {  }
     third_party_settings: {  }
   publish_on:
     type: datetime_timestamp_no_default
-    weight: 18
+    weight: 17
     settings: {  }
     third_party_settings: {  }
   scheduler_settings:
-    weight: 20
+    weight: 19
     settings: {  }
     third_party_settings: {  }
   title:
@@ -166,7 +173,7 @@ content:
     third_party_settings: {  }
   unpublish_on:
     type: datetime_timestamp_no_default
-    weight: 19
+    weight: 18
     settings: {  }
     third_party_settings: {  }
 hidden:
