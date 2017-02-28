@@ -93,3 +93,4 @@ permissions:
   84: 'administer nodes'
   85: 'schedule publishing of nodes'
   86: 'view scheduled content'
+  88: 'create url aliases'

@@ -30,6 +30,7 @@ dependencies:
     - field.field.node.recipe.field_tag
     - field.field.node.recipe.field_time_max
     - field.field.node.recipe.field_time_min
+    - field.field.node.recipe.field_wordpress_id
     - image.style.thumbnail
     - node.type.recipe
   module:
@@ -188,13 +189,6 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
-  field_skyword_id:
-    weight: 31
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-    type: string_textfield
   field_step:
     weight: 15
     settings:
@@ -258,6 +252,8 @@ content:
     third_party_settings: {  }
 hidden:
   created: true
+  field_skyword_id: true
+  field_wordpress_id: true
   promote: true
   sticky: true
   uid: true

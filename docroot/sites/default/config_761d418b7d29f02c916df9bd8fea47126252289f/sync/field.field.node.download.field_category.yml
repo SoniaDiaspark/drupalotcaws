@@ -1,26 +1,26 @@
-uuid: 32f78571-437a-4dab-b7a4-849db5c52425
+uuid: 892cd445-abc1-4946-927d-19c7c94ff19c
 langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_contributor
-    - node.type.contributor
-    - node.type.landing
-id: node.landing.field_contributor
-field_name: field_contributor
+    - field.storage.node.field_category
+    - node.type.download
+    - taxonomy.vocabulary.category
+id: node.download.field_category
+field_name: field_category
 entity_type: node
-bundle: landing
-label: 'Designer Spotlight'
+bundle: download
+label: Category
 description: ''
 required: false
 translatable: true
 default_value: {  }
 default_value_callback: ''
 settings:
-  handler: 'default:node'
+  handler: 'default:taxonomy_term'
   handler_settings:
     target_bundles:
-      contributor: contributor
+      category: category
     sort:
       field: _none
     auto_create: false

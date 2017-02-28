@@ -18,7 +18,7 @@ third_party_settings:
     unpublish_revision: false
 name: Step
 type: step
-description: "Article steps, Project steps, etc. Used for multi-field steps with fields and images.\r\nThis content type is for relating steps to other content types.\r\n\r\nDO NOT ADD or EDIT steps directly unless you know how to associate them with the parent content type."
+description: "Article steps, Project steps, etc. Used for multi-field steps with fields and images.\r\nThis content type is for relating steps to other content types.\r\n\r\n<strong>DO NOT ADD, EDIT, or DELETE</strong> steps directly."
 help: ''
 new_revision: true
 preview_mode: 1

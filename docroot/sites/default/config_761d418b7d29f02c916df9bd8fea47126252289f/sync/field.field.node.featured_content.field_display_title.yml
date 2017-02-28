@@ -11,7 +11,7 @@ id: node.featured_content.field_display_title
 field_name: field_display_title
 entity_type: node
 bundle: featured_content
-label: 'Display Title'
+label: 'Content Header'
 description: ''
 required: true
 translatable: true

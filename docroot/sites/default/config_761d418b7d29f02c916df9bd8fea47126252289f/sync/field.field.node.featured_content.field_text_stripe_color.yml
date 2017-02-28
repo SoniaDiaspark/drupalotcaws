@@ -9,7 +9,7 @@ id: node.featured_content.field_text_stripe_color
 field_name: field_text_stripe_color
 entity_type: node
 bundle: featured_content
-label: 'text stripe color'
+label: 'Content Header Text Background Strip'
 description: "6 character hexadecimal color value. Use a tool like photoshop or www.colorpicker.com to get an appropriate value.\r\nExample: FFFFFF"
 required: false
 translatable: false

@@ -31,6 +31,7 @@ dependencies:
     - field.field.node.project.field_tag
     - field.field.node.project.field_time_max
     - field.field.node.project.field_time_min
+    - field.field.node.project.field_wordpress_id
     - node.type.project
   module:
     - file
@@ -239,6 +240,14 @@ content:
     type: number_integer
   field_time_min:
     weight: 8
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    type: number_integer
+  field_wordpress_id:
+    weight: 52
     label: above
     settings:
       thousand_separator: ''

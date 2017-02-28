@@ -6,12 +6,14 @@ dependencies:
     - field.field.node.download.field_1824x1371_img
     - field.field.node.download.field_828x828_img
     - field.field.node.download.field_896x896_img
+    - field.field.node.download.field_category
     - field.field.node.download.field_description
     - field.field.node.download.field_display_title
     - field.field.node.download.field_download_file
     - field.field.node.download.field_meta_description
     - field.field.node.download.field_meta_keywords
     - field.field.node.download.field_meta_title
+    - field.field.node.download.field_tag
     - image.style.thumbnail
     - node.type.download
   module:
@@ -46,6 +48,11 @@ content:
       preview_image_style: thumbnail
     third_party_settings: {  }
     type: image_image
+  field_category:
+    weight: 37
+    settings: {  }
+    third_party_settings: {  }
+    type: options_buttons
   field_description:
     weight: 3
     settings:
@@ -87,6 +94,11 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: text_textfield
+  field_tag:
+    weight: 38
+    settings: {  }
+    third_party_settings: {  }
+    type: options_buttons
   path:
     type: path
     weight: 5
@@ -99,6 +111,8 @@ content:
     third_party_settings: {  }
   scheduler_settings:
     weight: 20
+    settings: {  }
+    third_party_settings: {  }
   title:
     type: string_textfield
     weight: 0

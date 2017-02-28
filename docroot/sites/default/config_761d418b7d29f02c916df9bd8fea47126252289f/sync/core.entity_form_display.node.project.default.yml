@@ -31,6 +31,7 @@ dependencies:
     - field.field.node.project.field_tag
     - field.field.node.project.field_time_max
     - field.field.node.project.field_time_min
+    - field.field.node.project.field_wordpress_id
     - image.style.thumbnail
     - node.type.project
   module:
@@ -192,13 +193,6 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
-  field_skyword_id:
-    weight: 28
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-    type: string_textfield
   field_skyword_related_look:
     weight: 14
     settings:
@@ -243,16 +237,16 @@ content:
     type: number
   path:
     type: path
-    weight: 29
+    weight: 28
     settings: {  }
     third_party_settings: {  }
   publish_on:
     type: datetime_timestamp_no_default
-    weight: 30
+    weight: 29
     settings: {  }
     third_party_settings: {  }
   scheduler_settings:
-    weight: 32
+    weight: 31
     settings: {  }
     third_party_settings: {  }
   title:
@@ -264,11 +258,13 @@ content:
     third_party_settings: {  }
   unpublish_on:
     type: datetime_timestamp_no_default
-    weight: 31
+    weight: 30
     settings: {  }
     third_party_settings: {  }
 hidden:
   created: true
+  field_skyword_id: true
+  field_wordpress_id: true
   promote: true
   sticky: true
   uid: true

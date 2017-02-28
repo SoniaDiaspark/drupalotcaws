@@ -40,6 +40,7 @@ dependencies:
     - field.field.node.article.field_step
     - field.field.node.article.field_tag
     - field.field.node.article.field_video_embed
+    - field.field.node.article.field_wordpress_id
     - node.type.article
   module:
     - file
@@ -308,6 +309,14 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: text_default
+  field_wordpress_id:
+    weight: 166
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    type: number_integer
   links:
     weight: 100
 hidden: {  }

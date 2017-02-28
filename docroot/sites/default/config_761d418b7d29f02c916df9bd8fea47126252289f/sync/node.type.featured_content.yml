@@ -18,7 +18,7 @@ third_party_settings:
     unpublish_revision: false
 name: 'Featured Content'
 type: featured_content
-description: 'Featured content for landing pages.'
+description: 'Featured content for landing pages. This content type is for relating the hero carousel and trending ideas sections to the Fun 365 home page, as well as the "Articles and Stories" section of the category landing. <strong>DO NOT ADD, EDIT, or DELETE</strong> featured content directly.'
 help: ''
 new_revision: true
 preview_mode: 0

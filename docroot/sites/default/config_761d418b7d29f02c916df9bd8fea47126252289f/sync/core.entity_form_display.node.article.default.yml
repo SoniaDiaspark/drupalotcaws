@@ -40,6 +40,7 @@ dependencies:
     - field.field.node.article.field_step
     - field.field.node.article.field_tag
     - field.field.node.article.field_video_embed
+    - field.field.node.article.field_wordpress_id
     - image.style.thumbnail
     - node.type.article
   module:
@@ -285,13 +286,6 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: entity_reference_autocomplete
-  field_skyword_id:
-    weight: 37
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-    type: string_textfield
   field_step:
     weight: 25
     settings:
@@ -318,16 +312,16 @@ content:
     type: text_textarea
   path:
     type: path
-    weight: 38
+    weight: 37
     settings: {  }
     third_party_settings: {  }
   publish_on:
     type: datetime_timestamp_no_default
-    weight: 41
+    weight: 40
     settings: {  }
     third_party_settings: {  }
   scheduler_settings:
-    weight: 39
+    weight: 38
     settings: {  }
     third_party_settings: {  }
   title:
@@ -339,11 +333,13 @@ content:
     third_party_settings: {  }
   unpublish_on:
     type: datetime_timestamp_no_default
-    weight: 40
+    weight: 39
     settings: {  }
     third_party_settings: {  }
 hidden:
   created: true
+  field_skyword_id: true
+  field_wordpress_id: true
   promote: true
   sticky: true
   uid: true

@@ -16,9 +16,9 @@ third_party_settings:
     unpublish_enable: false
     unpublish_required: false
     unpublish_revision: false
-name: Landing
+name: 'Home Page'
 type: landing
-description: 'Fun365 Landing page. There should only be one of these.'
+description: 'Fun365 Home page. There should only be one of these.'
 help: ''
 new_revision: false
 preview_mode: 1

@@ -16,9 +16,9 @@ third_party_settings:
     unpublish_enable: true
     unpublish_required: false
     unpublish_revision: false
-name: Look
+name: 'Shop the Look'
 type: look
-description: 'Look content type.'
+description: '"Shop the look" page content type.'
 help: ''
 new_revision: false
 preview_mode: 0

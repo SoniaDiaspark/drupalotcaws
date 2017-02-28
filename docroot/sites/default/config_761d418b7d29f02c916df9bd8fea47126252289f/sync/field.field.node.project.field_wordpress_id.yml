@@ -1,0 +1,23 @@
+uuid: c9bed982-faa5-4fdf-94fc-b1b0e0024cb2
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_wordpress_id
+    - node.type.project
+id: node.project.field_wordpress_id
+field_name: field_wordpress_id
+entity_type: node
+bundle: project
+label: wordpress_id
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer
