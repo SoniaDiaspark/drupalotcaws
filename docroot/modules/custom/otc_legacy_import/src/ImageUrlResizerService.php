@@ -11,6 +11,16 @@ use \Drupal\Core\ImageToolkit\ImageToolkitOperationManagerInterface;
 
 class ImageUrlResizerService {
   /**
+   * @var \Drupal\Core\ImageToolkit\ImageToolkitManager
+   */
+  private $toolkitManager;
+
+  /**
+   * @var \Drupal\Core\ImageToolkit\ImageToolkitOperationManagerInterface
+   */
+  private $toolkitOperationsManager;
+
+  /**
    * @var \Drupal\Core\ImageToolkit\ImageToolkitInterface
    */
   private $toolkit;
@@ -54,14 +64,25 @@ class ImageUrlResizerService {
     ClientInterface $httpClient,
     FileSystemInterface $fileSystem
   ) {
+    $this->toolkitManager = $imageToolkitManager;
+    $this->toolkitOperationsManager = $imageToolkitOperationManager;
+
     // the toolkit (GD implementation)
-    $this->toolkit = $imageToolkitManager->getDefaultToolkit();
+    $this->toolkit = $this->toolkitManager->getDefaultToolkit();
 
     // this scale and crop operation that uses the toolkit
-    $this->operation = $imageToolkitOperationManager->getToolkitOperation($this->toolkit, 'scale_and_crop');
+    $this->operation = $this->toolkitOperationsManager->getToolkitOperation($this->toolkit, 'scale_and_crop');
 
     $this->httpClient = $httpClient;
     $this->fs = $fileSystem;
+  }
+
+  public function reset() {
+    // the toolkit (GD implementation)
+    $this->toolkit = $this->toolkitManager->getDefaultToolkit();
+
+    // this scale and crop operation that uses the toolkit
+    $this->operation = $this->toolkitOperationsManager->getToolkitOperation($this->toolkit, 'scale_and_crop');
   }
 
   /**
@@ -93,7 +114,7 @@ class ImageUrlResizerService {
     }
 
     $request = new Request('GET', $this->sourceUrl);
-    $this->httpClient->sendAsync($request)->then(array($this, 'resize'))->wait();
+    return $this->httpClient->sendAsync($request)->then(array($this, 'resize'))->wait();
   }
 
   /**

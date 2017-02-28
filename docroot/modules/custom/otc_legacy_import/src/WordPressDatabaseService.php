@@ -37,7 +37,7 @@ class WordPressDatabaseService {
       $posts[] = $post;
     }
 
-    return $posts;
+    return (array) $posts;
   }
 
   protected function attachPostMeta($post) {
@@ -129,10 +129,9 @@ class WordPressDatabaseService {
     $users = [];
     while($user = $statement->fetchObject()) {
       $user = $this->attachUserMeta($user);
-      $users[] = $user;
+      $user = $this->attachUserAvatar($user);
+      $users[] = (array) $user;
     }
-
-    $users = $this->attachUserAvatars($users);
 
     return $users;
   }
@@ -178,23 +177,11 @@ class WordPressDatabaseService {
     return $user;
   }
 
-  protected function attachUserAvatars($users = []) {
-    $processedUsers = [];
-    foreach ($users as $user) {
-      if ( isset($user->wp_user_avatar) ) {
-        $processedUsers[] = $this->attachUserAvatar($user);
-        continue;
-      }
-
-      $processedUsers[] = $user;
-    }
-    return $processedUsers;
-  }
-
   protected function attachUserAvatar($user) {
-    $query = sprintf("SELECT p.guid FROM wp_posts p WHERE p.ID='%s' AND post_type='attachment'", $user->wp_user_avatar);
-    echo $query . "\n";
 
+    if ( ! isset($user->wp_user_avatar) ) return $user;
+
+    $query = sprintf("SELECT p.guid FROM wp_posts p WHERE p.ID='%s' AND post_type='attachment'", $user->wp_user_avatar);
     $statement = $this->dbh->prepare($query);
     $statement->execute();
     if ( !($avatar = $statement->fetchObject()) ) return $user;

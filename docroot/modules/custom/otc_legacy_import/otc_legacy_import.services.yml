@@ -3,6 +3,8 @@ services:
     class: Drupal\otc_legacy_import\WordPressDatabaseService
     arguments:
       - "@config.factory"
+  otc_legacy_import.mappers:
+    class: Drupal\otc_legacy_import\MappingService
   otc_legacy_import.image_resizer:
     class: Drupal\otc_legacy_import\ImageUrlResizerService
     arguments:
@@ -10,3 +12,14 @@ services:
       - "@image.toolkit.operation.manager"
       - "@http_client"
       - "@file_system"
+  otc_legacy_import.default:
+    class: Drupal\otc_legacy_import\ImportService
+    arguments:
+      - "@queue.database"
+      - "@http_client"
+      - "@logger.factory"
+      - "@entity_field.manager"
+      - "@file_system"
+      - "@otc_legacy_import.wordpress"
+      - "@otc_legacy_import.mappers"
+      - "@otc_legacy_import.image_resizer"
