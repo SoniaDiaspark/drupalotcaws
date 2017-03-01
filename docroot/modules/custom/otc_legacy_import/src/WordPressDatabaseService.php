@@ -34,10 +34,15 @@ class WordPressDatabaseService {
     while($post = $statement->fetchObject()) {
       $post = $this->attachPostMeta($post);
       $post = $this->attachTaxonomyTerms($post);
-      $posts[] = $post;
+      $posts[] = (array) $post;
     }
 
-    return (array) $posts;
+    $postsByType = [];
+    foreach ( $posts as $post ) {
+      $postsByType[$post['type']][] = $post;
+    }
+
+    return $postsByType;
   }
 
   protected function attachPostMeta($post) {
@@ -55,12 +60,13 @@ class WordPressDatabaseService {
       'skyword_content_type',
       'skyword_seo_title',
       'skyword_metadescription',
+      'skyword_tracking_tag',
     ];
 
     $statement = $this->dbh->prepare(sprintf("SELECT m.meta_key, m.meta_value FROM wp_postmeta m WHERE m.post_id='%s'", $post->ID));
     $statement->execute();
     while($meta = $statement->fetchObject()) {
-      if ( true || in_array($meta->meta_key, $metaKeys) ) {
+      if ( in_array($meta->meta_key, $metaKeys) ) {
         $post->{str_replace('-','_',$meta->meta_key)} = $meta->meta_value;
       }
     }
@@ -90,6 +96,10 @@ class WordPressDatabaseService {
         'name' => $term->name,
         'term_id' => $term->term_id,
       ];
+
+      if ( $term->taxonomy === 'post_tag' && in_array($term->name, ['article', 'project', 'recipe']) ) {
+        $post->type = $term->name;
+      }
     }
 
     return $post;
@@ -109,7 +119,11 @@ class WordPressDatabaseService {
 
     $columns = implode(',', $colNames);
 
-    $query = "SELECT $columns FROM wp_posts p WHERE p.post_status='publish' AND p.post_type='post'";
+    $query = "SELECT $columns FROM wp_posts p, wp_terms t, wp_term_taxonomy tt, wp_term_relationships tr";
+    $query .= " WHERE p.post_status='publish' AND p.post_type='post'";
+    $query .= " AND p.ID=tr.object_id AND t.term_id=tt.term_id AND tr.term_taxonomy_id=tt.term_taxonomy_id";
+    $query .= " AND tt.taxonomy='post_tag' AND t.name IN ('article', 'project', 'recipe')";
+
     if ($dateString) {
       $query .= " AND p.post_date > '$dateString'";
     }
@@ -118,7 +132,6 @@ class WordPressDatabaseService {
       $query .= sprintf(" LIMIT %s", max((int) $limit, 1));
     }
 
-    echo $query . "\n";
     return $query;
   }
 

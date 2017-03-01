@@ -10,7 +10,7 @@ class MappingService implements MappingServiceInterface {
       'contributor' => new ContributorMapper,
       'article' => new DefaultMapper,
       'project' => new DefaultMapper,
-      'recipe' => new RecipeMapper,
+      'recipe' => new DefaultMapper,
     ];
   }
 

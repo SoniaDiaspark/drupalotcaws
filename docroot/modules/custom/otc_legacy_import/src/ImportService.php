@@ -9,6 +9,7 @@ use Drupal\node\Entity\Node;
 use Drupal\file\Entity\File;
 use Drupal\Core\File\FileSystem;
 use GuzzleHttp\Client;
+use Drupal\Core\StreamWrapper\StreamWrapperManager;
 
 class ImportService {
   /**
@@ -52,6 +53,11 @@ class ImportService {
    */
   private $imageUrlResizerService;
 
+  /**
+   * @var Drupal\Core\StreamWrapper\StreamWrapperManager
+   */
+  private $streamWrapperManager;
+
   public function __construct(
     QueueDatabaseFactory $queueFactory,
     Client $httpClient,
@@ -60,7 +66,8 @@ class ImportService {
     FileSystem $fs,
     WordPressDatabaseService $wordPressDatabaseService,
     MappingServiceInterface $mappingService,
-    ImageUrlResizerService $imageUrlResizerService
+    ImageUrlResizerService $imageUrlResizerService,
+    StreamWrapperManager $streamWrapperManager
   ) {
 
     $this->dbQueue = $queueFactory->get('otc_legacy_import');
@@ -80,10 +87,31 @@ class ImportService {
     $this->wordPressDatabaseService = $wordPressDatabaseService;
     $this->mappingService = $mappingService;
     $this->imageUrlResizerService = $imageUrlResizerService;
+    $this->streamWrapperManager = $streamWrapperManager;
   }
 
   public function getLogger() {
     return $this->logger;
+  }
+
+  public function queueImportJobs($datestring = '') {
+    try {
+      $postsByType = $this->wordPressDatabaseService->getPosts($dateString, -1);
+      foreach ($postsByType as $type => $docs) {
+        $docs = $this->mappingService->get($type)->map($docs);
+        foreach ( $docs as $doc ) {
+          $this->dbQueue->createItem([
+            'type' => $type,
+            'document' => $doc,
+          ]);
+        }
+      }
+
+    } catch (Exception $e) {
+      $this->getLogger()->error("Error queueing legacy import. Message: @message", [
+        '@message' => $e->getMessage(),
+      ]);
+    }
   }
 
   public function queueContributorImportJobs($datestring = '') {
@@ -91,7 +119,6 @@ class ImportService {
       $users = $this->wordPressDatabaseService->getUsers($dateString, -1);
       $users = $this->mappingService->get('contributor')->map($users);
 
-      // @TODO convert to job, handle with worker
       foreach ( $users as $user ) {
         $this->dbQueue->createItem([
           'type' => 'contributor',
@@ -108,18 +135,20 @@ class ImportService {
 
   public function create($document, $type) {
     // silently ignore existing skyword nodes
-    if ( ! $document['field_wordpress_id'] || $this->documentExists($document['field_wordpress_id'])) {
+    if ( ! $document['field_wordpress_id'] || $this->documentExists($document['field_wordpress_id'], $type)) {
       return false;
     }
 
+    echo "Creating $type with WordPress id {$document['field_wordpress_id']}\n";
     $prepared = $this->prepare($document, $type);
 
     return Node::create($prepared)->save();
   }
 
-  protected function documentExists($wordPressId) {
+  protected function documentExists($wordPressId, $type) {
     $query = \Drupal::entityQuery('node');
     $query->condition('field_wordpress_id', $wordPressId);
+    $query->condition('type', $type);
     $documents = $query->execute();
 
     return ! empty($documents);
@@ -149,6 +178,9 @@ class ImportService {
         } else {
           $return[$fieldName]['value'] = $data;
         }
+      } elseif ( $fieldName === 'field_step' ) {
+        $return[$fieldName] = $this->prepareStep($data);
+      } elseif ( $fieldName === 'images' ) {
 
       // File fields
       } elseif ( $this->isImageType($fieldName) ) {
@@ -157,17 +189,37 @@ class ImportService {
       } elseif ( $fieldName === 'field_products' ) {
         $return[$fieldName] = $this->prepareProducts($data);
       // Contributor Full Name
-      // } elseif ( $fieldName === 'field_contributor' ) {
-        // $return[$fieldName] = $this->prepareContributor($data);
+      } elseif ( $fieldName === 'field_contributor' ) {
+        $return[$fieldName] = $this->prepareContributor($data);
       } elseif ( $this->isLinkType($fieldName) ) {
         $return[$fieldName] = $data;
+      } elseif ( $fieldName === 'field_legacy_content' ) {
+        $return['field_legacy_content'] = $this->replaceImages($document);
       }
     }
 
     return $return;
   }
 
+  protected function prepareStep($steps) {
+    $return = [];
+
+    foreach ( $steps as $stepData) {
+      if ( empty($stepData) ) continue;
+
+      $step = Node::create($this->prepare($stepData, 'step'));
+      $step->save();
+      $return[] = ['target_id' => $step->nid->value];
+    }
+
+    return $return;
+  }
+
   protected function prepareImage($fieldName, $data, $type) {
+    if ( ! is_object($this->fieldConfig['instance'][$type][$fieldName]) ) {
+      return [];
+    }
+
     $imageSettings = $this->fieldConfig['instance'][$type][$fieldName]->getSettings();
 
     $dimensions = [];
@@ -197,6 +249,47 @@ class ImportService {
     return [];
   }
 
+  protected function replaceImages($document) {
+    $legacyContent = $document['field_legacy_content'];
+    $return = [
+      'value' => &$legacyContent,
+    ];
+
+    $queuedImageDownloads = [];
+    foreach ($document['images'] as &$image) {
+      $sourceUrl = $image['sourceUrl'];
+      $destinationUri = $image['destinationUri'];
+      $baseFileName = basename($destinationUri);
+      $directoryUri =  dirname($destinationUri);
+
+      $baseDir = $this->prepareDirectory($directoryUri);
+      $targetFilePath = file_create_filename($baseFileName, $baseDir);
+      $targetUrl = $this->streamWrapperManager->getViaUri($directoryUri . '/' . basename($targetFilePath))->getExternalUrl();
+
+      $legacyContent = str_replace($sourceUrl, $targetUrl, $legacyContent);
+      $queuedImageDownloads[] = ['sourceUrl' => $sourceUrl, 'targetFilePath' => $targetFilePath];
+    }
+
+    foreach ( $queuedImageDownloads as $download ) {
+      $this->dbQueue->createItem([
+        'type' => 'image',
+        'document' => $download,
+      ]);
+    }
+
+    return $return;
+  }
+
+  public function downloadImage($sourceUrl, $targetFilePath) {
+    echo "Downloading file.\n Source $sourceUrl\nTarget: $targetFilePath\n";
+    $directory = dirname($targetFilePath);
+    if ( ! file_exists($directory) ) {
+      echo "Creating directory $directory\n";
+      mkdir(dirname($targetFilePath), 0777, true);
+    }
+    $this->httpClient->request('GET', $sourceUrl, ['sink' => $targetFilePath, 'connect_timeout' => 100]);
+  }
+
   protected function prepareDirectory($uri) {
     $baseDir = $this->fs->realpath($uri);
     if ( ! $baseDir ) {
@@ -204,6 +297,50 @@ class ImportService {
     }
     return $this->fs->realpath($uri);
   }
+
+  protected function prepareProducts($skus) {
+    $return = [];
+    foreach ( $this->lookupProductsBySkus($skus) as $nid ) {
+      $return[] = ['target_id' => $nid];
+    }
+
+    return $return;
+  }
+
+  protected function lookupProductsBySkus($skus = []) {
+    if ( empty($skus) ) return [];
+
+    $query = \Drupal::entityQuery('node');
+    $or  = $query->orConditionGroup();
+    foreach( $skus as $sku ) {
+      if ( $sku ) {
+        $or->condition('field_sku', $sku);
+      }
+    }
+    $query->condition($or);
+    $products = $query->execute();
+
+    return $products;
+  }
+
+  protected function prepareContributor($id) {
+    $return = [];
+    foreach ( $this->lookupContributorByWPId($id) as $nid ) {
+      $return[] = ['target_id' => $nid];
+    }
+
+    return $return;
+  }
+
+  protected function lookupContributorByWPId($id) {
+    $query = \Drupal::entityQuery('node');
+    $query->condition('field_wordpress_id', $id);
+    $query->condition('type', 'contributor');
+    $contributor = $query->execute();
+
+    return $contributor;
+  }
+
 
   protected function isSimpleFieldType($fieldName) {
     return in_array($this->fieldConfig['storage'][$fieldName]->getType(), [
@@ -228,7 +365,9 @@ class ImportService {
   }
 
   protected function isComplexValue($fieldName) {
-    $complex = [];
+    $complex = [
+      'field_legacy_content',
+    ];
     return in_array($fieldName, $complex);
   }
 

@@ -21,13 +21,19 @@ class LegacyImportWorker extends QueueWorkerBase {
   public function processItem($job) {
     $Importer = \Drupal::service('otc_legacy_import.default');
     try {
-      $Importer->create($job['document'], $job['type']);
+      if ( $job['type'] === 'image' ) {
+        $Importer->downloadImage($job['document']['sourceUrl'], $job['document']['targetFilePath']);
+      } else {
+        $Importer->create($job['document'], $job['type']);
+      }
     } catch(Exception $e) {
       $Importer->getLogger()->error("Error creating @type @title. Message: @message", [
         '@type' => $data['type'],
         '@title' => $data['document']['title'],
         '@message' => $e->getMessage()
       ]);
+
+      throw new \Drupal\Core\Queue\RequeueException;
     }
 
   }

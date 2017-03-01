@@ -19,7 +19,7 @@ if (
   )
 ) {
   echo "Invalid date.\n";
-  drush_set_error('Usage: drush @<alias> scr contributor-import.php [yyyy-mm-dd]');
+  drush_set_error('Usage: drush @<alias> scr legacy-import.php [yyyy-mm-dd]');
   die();
 }
 
@@ -29,4 +29,4 @@ if ($date) {
 }
 
 $importer = \Drupal::service('otc_legacy_import.default');
-$importer->queueContributorImportJobs($dateString);
+$importer->queueImportJobs($dateString);
