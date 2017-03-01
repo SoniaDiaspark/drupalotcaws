@@ -66,65 +66,47 @@ class ImageUrlResizerService {
   ) {
     $this->toolkitManager = $imageToolkitManager;
     $this->toolkitOperationsManager = $imageToolkitOperationManager;
-
-    // the toolkit (GD implementation)
-    $this->toolkit = $this->toolkitManager->getDefaultToolkit();
-
-    // this scale and crop operation that uses the toolkit
-    $this->operation = $this->toolkitOperationsManager->getToolkitOperation($this->toolkit, 'scale_and_crop');
-
     $this->httpClient = $httpClient;
     $this->fs = $fileSystem;
   }
 
-  public function reset() {
+  /**
+   * Execute the resize operation
+   *
+   * @param string $url the image source url
+   * @param string $destinationFilePath full path to the destination file
+   * @param array $targetSize [width, height]
+   *
+   * @return boolean
+   * @throws Drupal\otc_legacy_import\ImageResizerException
+   */
+  public function resize($sourceUrl, $destinationFilePath, $targetSize = ['width' => 200, 'height' => 200] ) {
+    $this->sourceUrl = $sourceUrl;
+    $this->destination = $destinationFilePath;
+    $this->targetSize = $targetSize;
+
+    if ( ! ($this->sourceUrl && $this->destination && $this->targetSize) ) {
+      throw new ImageResizerException("Missing url, destination, or target size.");
+    }
+
     // the toolkit (GD implementation)
     $this->toolkit = $this->toolkitManager->getDefaultToolkit();
 
     // this scale and crop operation that uses the toolkit
     $this->operation = $this->toolkitOperationsManager->getToolkitOperation($this->toolkit, 'scale_and_crop');
-  }
-
-  /**
-   * Set the source image url
-   * @param string $url the image source url
-   */
-  public function setSourceUrl($url) {
-    $this->sourceUrl = $url;
-  }
-
-  /**
-   * Set the target destination and size.
-   * @param string $destinationFilePath full path to the destination file
-   * @param array $targetSize [width, height]
-   */
-  public function setOutcome($destinationFilePath, $targetSize = ['width' => 200, 'height' => 200]) {
-    $this->destination = $destinationFilePath;
-    $this->targetSize = $targetSize;
-  }
-
-  /**
-   * Execute the resize operation
-   * @return null
-   * @throws Drupal\otc_legacy_import\ImageResizerException
-   */
-  public function execute() {
-    if ( ! ($this->sourceUrl && $this->destination && $this->targetSize) ) {
-      throw new ImageResizerException("Missing url, destination, or target size.");
-    }
 
     $request = new Request('GET', $this->sourceUrl);
-    return $this->httpClient->sendAsync($request)->then(array($this, 'resize'))->wait();
+    return $this->httpClient->sendAsync($request)->then(array($this, 'resizeCallback'))->wait();
   }
 
   /**
-   * Resize callsback method, public so that httpClient has access.
+   * Resize callback method, public so that httpClient has access.
    * Not to be called directly.
    *
    * @param  ResponseInterface $response the http response
    * @return boolean success
    */
-  public function resize(ResponseInterface $response) {
+  public function resizeCallback(ResponseInterface $response) {
     $tempName = $this->fs->realpath(drupal_tempnam('temporary://', 'gd_'));
     $saved = file_put_contents($tempName, $response->getBody());
     $this->toolkit->setSource($tempName);
@@ -133,7 +115,9 @@ class ImageUrlResizerService {
 
     // scale and crop to this dimension
     $this->operation->apply($this->targetSize);
+    $status = $this->toolkit->save($this->destination);
+    unlink($tempName);
 
-    return $this->toolkit->save($this->destination);
+    return $status;
   }
 }

@@ -93,14 +93,17 @@ class ImportService {
 
       // @TODO convert to job, handle with worker
       foreach ( $users as $user ) {
-        $this->create($user, 'contributor');
+        $this->dbQueue->createItem([
+          'type' => 'contributor',
+          'document' => $user,
+        ]);
       }
 
     } catch (Exception $e) {
-      print_r($e);
-      echo $e->getMessage() . "\n";
+      $this->getLogger()->error("Error queueing contributor import. Message: @message", [
+        '@message' => $e->getMessage(),
+      ]);
     }
-
   }
 
   public function create($document, $type) {
@@ -173,18 +176,15 @@ class ImportService {
     $dimensions['width'] = (int) $dimensions['width'];
     $dimensions['height'] = (int) $dimensions['height'];
 
-    $url = $data;
-    $baseFileName = basename($url);
+    $sourceUrl = $data;
+    $baseFileName = basename($sourceUrl);
     $directoryUri = "public://" . $imageSettings['file_directory'];
     $baseDir = $this->prepareDirectory($directoryUri);
-    $target = file_create_filename($baseFileName, $baseDir);
+    $targetFilePath = file_create_filename($baseFileName, $baseDir);
 
-    $this->imageUrlResizerService->reset();
-    $this->imageUrlResizerService->setSourceUrl($url);
-    $this->imageUrlResizerService->setOutcome($target, $dimensions);
-    if ( $this->imageUrlResizerService->execute() ) {
+    if ( $this->imageUrlResizerService->resize($sourceUrl, $targetFilePath, $dimensions) ) {
       $file = File::create([
-        'uri' => $directoryUri . '/' . basename($target),
+        'uri' => $directoryUri . '/' . basename($targetFilePath),
         'uid' => \Drupal::currentUser()->uid,
         'status' => FILE_STATUS_PERMANENT,
       ]);

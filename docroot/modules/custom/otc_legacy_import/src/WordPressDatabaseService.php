@@ -157,7 +157,6 @@ class WordPressDatabaseService {
       $query .= sprintf(" LIMIT %s", max((int) $limit, 1));
     }
 
-    echo $query . "\n";
     return $query;
   }
 
