@@ -16,7 +16,7 @@ class DefaultMapper implements WordPressMapperInterface {
         }
       }
 
-      $mapped['title'] = $mapped['field_display_title'];
+      $mapped['title'] = $mapped['field_meta_keywords'] = $mapped['field_display_title'];
 
       if ( ! empty($mapped['field_legacy_content']) ) {
         $mapped = $this->extractProducts($mapped);
@@ -28,6 +28,10 @@ class DefaultMapper implements WordPressMapperInterface {
         $mapped = $this->mapRecipeFields($mapped, $document);
       }
 
+      if ( $document['field_meta_description'] ) {
+        $document['field_description'] = $document['field_meta_description'];
+      }
+
       $return[] = $mapped;
     }
 
@@ -36,18 +40,21 @@ class DefaultMapper implements WordPressMapperInterface {
 
   protected function mapRecipeFields($mapped, $document) {
 
-    if ( $document['directions'] ) {
+    if ( $document['directions']  ) {
       $directions = explode("\n", $document['directions']);
-      $steps = [];
-      foreach ($directions as $index => $direction) {
-        $step = [
-          'type' => 'step',
-          'title' => 'Step ' . ($index + 1),
-          'field_description' => $direction,
-        ];
-        $steps[] = $step;
+      if ( count($directions) > 1 ) {
+        $steps = [];
+        foreach ($directions as $index => $direction) {
+          $step = [
+            'type' => 'step',
+            'title' => 'Step ' . ($index + 1),
+            'field_description' => $direction,
+          ];
+          $steps[] = $step;
+        }
+
+        $mapped['field_step'] = $steps;
       }
-      $mapped['field_step'] = $steps;
     }
 
     if ( $document['ingredients'] ) {
@@ -98,12 +105,9 @@ class DefaultMapper implements WordPressMapperInterface {
       'ID' => 'field_wordpress_id',
       'post_title' => 'field_display_title',
       'post_content' => 'field_legacy_content',
-      'seoDescription' => 'field_meta_description',
       '_yoast_wpseo_metadesc' => 'field_meta_description',
-      'skyword_seo_title' => 'field_meta_title',
       '_yoast_wpseo_title' => 'field_meta_title',
       'skyword_content_id' => 'field_skyword_id',
-      'skyword_keyword' => 'field_meta_keywords',
       'skyword_tracking_tag' => 'skyword_tracking_tag',
       'post_author' => 'field_contributor',
       'recipe_yield' => 'field_needed_description',
@@ -155,6 +159,7 @@ class DefaultMapper implements WordPressMapperInterface {
 
     if ( $images ) {
       $mapped['images'] = $images;
+      $mapped['field_896x896_img'] = $images[0]['sourceUrl'];
       $mapped['field_828x828_img'] = $images[0]['sourceUrl'];
       if ( $mapped['type'] === 'article' ) {
         $mapped['field_828x473_img2'] = $images[0]['sourceUrl'];

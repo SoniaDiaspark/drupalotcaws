@@ -77,6 +77,7 @@ class ImportService {
 
     $this->fieldConfig['storage'] = $entityFieldManager->getFieldStorageDefinitions('node');
     $this->fieldConfig['instance'] = [
+      'step' => $entityFieldManager->getFieldDefinitions('node', 'step'),
       'contributor' => $entityFieldManager->getFieldDefinitions('node', 'contributor'),
       'article' => $entityFieldManager->getFieldDefinitions('node', 'article'),
       'recipe' => $entityFieldManager->getFieldDefinitions('node', 'recipe'),
