@@ -147,7 +147,7 @@ class DefaultMapper implements WordPressMapperInterface {
       foreach ( $matches[1] as $image ) {
         $image = [
           'sourceUrl' => $image,
-          'destinationUri' => "public://legacy/" . $mapped['type'] . '/' . $mapped['field_wordpress_id'] . '/' . basename($image),
+          'destinationUri' => "public://inline-images/legacy/" . $mapped['type'] . '/' . $mapped['field_wordpress_id'] . '/' . basename($image),
         ];
         $images[] = $image;
       }
