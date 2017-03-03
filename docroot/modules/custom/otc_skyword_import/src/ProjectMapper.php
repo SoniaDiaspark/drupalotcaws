@@ -9,6 +9,7 @@ class ProjectMapper implements FeedMapperInterface {
   public function map(SimpleXMLElement $document, $project = []) {
     $project = $this->fileMap($document, $project);
     $project = $this->multiFieldMap($document, $project);
+    $project = $this->linkMap($document, $project);
 
     foreach ($document as $key => $value) {
       if ( $this->isFileKey($key) ) continue;
@@ -26,6 +27,7 @@ class ProjectMapper implements FeedMapperInterface {
           break;
 
         // ignored skyword fields
+        case 'photo_article_inspiration':
         case 'project_step_data':
         case 'field_howtouse_description':
         case 'publishedDate':
@@ -33,6 +35,7 @@ class ProjectMapper implements FeedMapperInterface {
         case 'assignment_title':
         case 'otc_featured_products':
         case 'action':
+        case 'field_related_look':
         case 'field_short_description': // not in CMS, can add later
           break;
         default:
@@ -141,6 +144,39 @@ class ProjectMapper implements FeedMapperInterface {
 
     return $project;
   }
+
+  protected static function linkFieldMappings() {
+
+    return [
+      'field_skyword_related_look' => [
+        'uri' => 'field_related_look',
+        'title' => 'field_related_look',
+      ],
+    ];
+  }
+
+  protected function isLinkKey($key) {
+    foreach ( self::linkFieldMappings() as $fieldName => $skywordFields ) {
+      if ( in_array($key, $skywordFields) ) return true;
+    }
+
+    return false;
+  }
+
+  protected function linkMap(SimpleXMLElement $document, $article = []) {
+
+    foreach ( self::linkFieldMappings() as $fieldName => $skywordFields ) {
+      if ( isset($document->{$skywordFields['uri']}) && isset($document->{$skywordFields['title']}) ) {
+        $article[$fieldName] = [
+          'uri' => (string) $document->{$skywordFields['uri']},
+          'title' => (string) $document->{$skywordFields['title']},
+        ];
+      }
+    }
+
+    return $article;
+  }
+
 
   protected static function fileFieldMappings() {
     // source/skyword => target/drupal

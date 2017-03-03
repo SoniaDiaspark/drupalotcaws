@@ -30,6 +30,7 @@ class ArticleMapper implements FeedMapperInterface {
           break;
 
         // ignored skyword fields
+        case 'article_products_used':
         case 'article_list_step_content':
         case 'publishedDate':
         case 'keyword':
@@ -40,6 +41,18 @@ class ArticleMapper implements FeedMapperInterface {
           break;
         default:
           echo "UNMAPPED KEY: $key\n";
+      }
+    }
+
+    if ( isset($document->article_products_used) ) {
+      $skus = [];
+      $skus = array_filter(array_unique(array_merge(
+        $skus, array_map(function($sku){
+          return trim($sku);
+        }, explode(',', (string) $document->article_products_used))
+      )));
+      if ( ! empty($skus) ) {
+        $article['field_products'] = implode(',', $skus);
       }
     }
 

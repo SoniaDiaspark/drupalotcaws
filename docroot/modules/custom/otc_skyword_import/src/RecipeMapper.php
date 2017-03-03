@@ -32,9 +32,23 @@ class RecipeMapper implements FeedMapperInterface {
         case 'assignment_title':
         case 'otc_featured_products':
         case 'action':
+        case 'field_products':
+        case 'photo_article_inspiration':
           break;
         default:
           echo "UNMAPPED KEY: $key\n";
+      }
+    }
+
+    if ( isset($document->field_products) ) {
+      $skus = [];
+      $skus = array_filter(array_unique(array_merge(
+        $skus, array_map(function($sku){
+          return trim($sku);
+        }, explode(',', (string) $document->field_products))
+      )));
+      if ( ! empty($skus) ) {
+        $article['field_products'] = implode(',', $skus);
       }
     }
 
