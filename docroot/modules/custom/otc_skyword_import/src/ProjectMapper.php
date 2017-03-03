@@ -92,10 +92,13 @@ class ProjectMapper implements FeedMapperInterface {
 
   protected function straightMapping($key = '') {
     $mappings = [
+      // feed => drupal
       'id' => 'field_skyword_id',
       'title' => 'field_display_title',
       'field_meta_title' => 'field_meta_title',
       'field_skill' => 'field_skill',
+      'field_skill_level' => 'field_skill',
+      'field_photo_credit' => 'field_photo_credit',
       'field_time_min' => 'field_time_min',
       'field_time_max' => 'field_time_max',
       'field_meta_description' => 'field_meta_description',

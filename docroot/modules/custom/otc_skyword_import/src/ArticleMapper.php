@@ -79,6 +79,7 @@ class ArticleMapper implements FeedMapperInterface {
 
   protected function straightMapping($key = '') {
     $mappings = [
+      // feed => drupal
       'id' => 'field_skyword_id',
       'title' => 'field_display_title',
       'field_meta_title' => 'field_meta_title',
@@ -213,6 +214,9 @@ class ArticleMapper implements FeedMapperInterface {
       'field_article_PDF' => 'field_download_file',
       'field_article_PDF_url' => 'field_download_file',
       'field_article_PDF_name' => 'field_download_file',
+      'atricle_pdf_upload' => 'field_download_file',
+      'atricle_pdf_upload_url' => 'field_download_file',
+      'atricle_pdf_upload_name' => 'field_download_file',
     ];
   }
 

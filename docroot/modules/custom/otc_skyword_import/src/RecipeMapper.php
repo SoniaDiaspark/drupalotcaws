@@ -76,10 +76,12 @@ class RecipeMapper implements FeedMapperInterface {
 
   protected function straightMapping($key = '') {
     $mappings = [
+      // feed => drupal
       'id' => 'field_skyword_id',
       'title' => 'field_display_title',
       'field_meta_title' => 'field_meta_title',
       'field_skill' => 'field_skill',
+      'field_photo_credit' => 'field_photo_credit',
       'field_time_min' => 'field_time_min',
       'field_time_max' => 'field_time_max',
       'field_meta_description' => 'field_meta_description',
@@ -138,6 +140,9 @@ class RecipeMapper implements FeedMapperInterface {
       'hero_half_desktop' => 'field_1824x1371_img',
       'hero_half_desktop_url' => 'field_1824x1371_img',
       'hero_half_desktop_name' => 'field_1824x1371_img',
+      'field_step_img_2x' => 'field_1280x962_multi_img',
+      'field_step_img_2x_url' => 'field_1280x962_multi_img',
+      'field_step_img_2x_name' => 'field_1280x962_multi_img',
     ];
   }
 
