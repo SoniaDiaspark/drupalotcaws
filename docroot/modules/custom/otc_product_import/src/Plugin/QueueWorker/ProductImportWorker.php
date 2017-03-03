@@ -25,10 +25,8 @@ class ProductImportWorker extends QueueWorkerBase {
       try {
         if ( ($nids = $Importer->product_exists($data['field_sku'])) ) {
           $Importer->update(current($nids), $data);
-          $Importer->getLogger()->notice("Updating product @sku", ["@sku" => $data['field_sku']]);
         } else {
           $Importer->create($data);
-          $Importer->getLogger()->notice("Creating product @sku", ["@sku" => $data['field_sku']]);
         }
       } catch(Exception $e) {
         $error = $Importer->getLogger()->error("Error creating or updating product @title (@sku). Message: @message", [

@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - field.field.node.product.field_brand
+    - field.field.node.product.field_checksum
     - field.field.node.product.field_display_title
     - field.field.node.product.field_image_url_product_thumb_1x
     - field.field.node.product.field_image_url_product_thumb_2x
@@ -29,6 +30,13 @@ content:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
+  field_checksum:
+    weight: 120
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
   field_display_title:
     weight: 113
     label: above

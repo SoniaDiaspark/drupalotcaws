@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - field.field.node.product.field_brand
+    - field.field.node.product.field_checksum
     - field.field.node.product.field_display_title
     - field.field.node.product.field_image_url_product_thumb_1x
     - field.field.node.product.field_image_url_product_thumb_2x
@@ -102,6 +103,7 @@ content:
     third_party_settings: {  }
 hidden:
   created: true
+  field_checksum: true
   promote: true
   publish_on: true
   sticky: true

@@ -1,0 +1,19 @@
+uuid: d37f4eff-3953-4b7c-8c1c-373fa7e391bf
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_checksum
+    - node.type.product
+id: node.product.field_checksum
+field_name: field_checksum
+entity_type: node
+bundle: product
+label: Checksum
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

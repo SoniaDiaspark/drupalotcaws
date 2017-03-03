@@ -100,19 +100,7 @@ class ProductImportService implements ProductImportServiceInterface {
         $data['field_image_url_product_tile_2x']
       ) = explode('|', $line);
 
-      $lines[] = $data;
-
-      /**
-       * Queue 250 products at a time.
-       */
-      if ( count($lines) > 250 ) {
-        $this->dbQueue->createItem($lines);
-        $lines = [];
-      }
-    }
-
-    if ( ! empty($lines) ) {
-      $this->dbQueue->createItem($lines);
+      $this->dbQueue->createItem([$data]);
     }
 
     fclose($this->sourceFileHandle);
@@ -136,6 +124,7 @@ class ProductImportService implements ProductImportServiceInterface {
    *   the new product node
    */
   public function create($data) {
+    $this->getLogger()->notice("Creating product @sku", ["@sku" => $data['field_sku']]);
     return Node::create($this->prepare($data))->save();
   }
 
@@ -144,12 +133,21 @@ class ProductImportService implements ProductImportServiceInterface {
    * @param  array $nid array containing the node id
    * @param  array $data the product data
    *
-   * @return \Drupal\node\Entity\Node
+   * @return mixed boolean false or \Drupal\node\Entity\Node
    *   the updated product node, if any change was necessary
    */
   public function update($nid, $data) {
-    $node = Node::load($nid);
-    if ( $this->is_updated($node, $data) ) {
+    $node = false;
+    $data['field_checksum'] = $this->checksum($data);
+
+    if ( $this->is_updated($data) ) {
+      $this->getLogger()->notice("Updating product sku @sku with node id @nid", [
+        '@sku' => $data['field_sku'],
+        '@nid' => $nid,
+      ]);
+
+      $node = Node::load($nid);
+
       foreach( $data as $key => $value ) {
         if ( $key === 'title' ) {
           $node->title = $value;
@@ -160,6 +158,12 @@ class ProductImportService implements ProductImportServiceInterface {
       }
 
       $node->save();
+    } else {
+      $this->getLogger()->notice('Skipping product sku @sku with node id @nid. No change to checksum @checksum.', [
+        '@sku' => $data['field_sku'],
+        '@nid' => $nid,
+        '@checksum' => $data['field_checksum'],
+      ]);
     }
 
     return $node;
@@ -167,12 +171,15 @@ class ProductImportService implements ProductImportServiceInterface {
 
   /**
    * Check to see if update to product node is necessary
-   * @param  Node    $node the product node
    * @param  array  $data the candidate product data
    * @return boolean
    */
-  protected function is_updated(Node $node, $data) {
-    $next = md5(sprintf('%s%s%s%s%s%s%s%s%s',
+  protected function is_updated($data) {
+    return ! count($this->query()->condition('field_checksum', $this->checksum($data), '=')->execute());
+  }
+
+  protected function checksum($data) {
+    return md5(sprintf('%s%s%s%s%s%s%s%s%s',
       $data['field_sku'],
       $data['title'],
       $data['field_quantity_description'],
@@ -184,21 +191,6 @@ class ProductImportService implements ProductImportServiceInterface {
       $data['field_image_url_product_tile_2x']
       )
     );
-
-    $current = md5(sprintf('%s%s%s%s%s%s%s%s%s',
-      $node->field_sku->value,
-      $node->title->value,
-      $node->field_quantity_description->value,
-      $node->field_price->value,
-      $node->field_sale_price->value,
-      $node->field_image_url_product_thumb_1x->value,
-      $node->field_image_url_product_thumb_2x->value,
-      $node->field_image_url_product_tile_1x->value,
-      $node->field_image_url_product_tile_2x->value
-      )
-    );
-
-    return $next !== $current;
   }
 
   /**
@@ -208,6 +200,8 @@ class ProductImportService implements ProductImportServiceInterface {
    *   the product creation array
    */
   private function prepare($values = []) {
+    $values['field_checksum'] = $this->checksum($values);
+
     $return = [
       'type' => 'product',
     ];
