@@ -195,7 +195,7 @@ class ImportService {
       } elseif ( $this->isLinkType($fieldName) ) {
         $return[$fieldName] = $data;
       } elseif ( $fieldName === 'field_legacy_content' ) {
-        $return['field_legacy_content'] = $this->replaceImages($document);
+        $return['field_legacy_content'] = $this->processLegacyContent($document);
       }
     }
 
@@ -250,10 +250,11 @@ class ImportService {
     return [];
   }
 
-  protected function replaceImages($document) {
+  protected function processLegacyContent($document) {
     $legacyContent = $document['field_legacy_content'];
     $return = [
       'value' => &$legacyContent,
+      'format' => 'full_html',
     ];
 
     $queuedImageDownloads = [];
