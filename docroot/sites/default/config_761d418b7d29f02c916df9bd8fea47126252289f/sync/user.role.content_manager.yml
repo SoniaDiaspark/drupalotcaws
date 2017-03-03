@@ -94,3 +94,4 @@ permissions:
   85: 'schedule publishing of nodes'
   86: 'view scheduled content'
   88: 'create url aliases'
+  89: 'bypass node access'
