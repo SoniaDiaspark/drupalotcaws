@@ -146,7 +146,7 @@ class DefaultMapper implements WordPressMapperInterface {
   protected function extractImages($mapped) {
     $matches = [];
     $images = [];
-    preg_match_all('/img.*?src="(http.*?)"/', $mapped['field_legacy_content'], $matches);
+    preg_match_all('/img.*?src="(http.*?wp-content.*?)"/', $mapped['field_legacy_content'], $matches);
     if ( count($matches) === 2 ) {
       foreach ( $matches[1] as $image ) {
         $image = [
