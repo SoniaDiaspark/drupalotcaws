@@ -583,17 +583,19 @@ class RestHelper implements RestHelperInterface {
    */
   protected function lookupTermByAlias($alias = '') {
     if ( ! $alias ) {
-      return FALSE;
+      return false;
     }
 
     $source = $this->lookupPathSource($alias);
     preg_match('/taxonomy\/term\/(\d+)/', $source, $matches);
 
     if ( ! isset($matches[1]) ) {
-      return FALSE;
+      return false;
     }
     $tid = $matches[1];
-    return Term::load($tid);
+    $term = Term::load($tid);
+
+    return ($term ? $term : false);
   }
 
   /**
@@ -603,16 +605,18 @@ class RestHelper implements RestHelperInterface {
    */
   protected function lookupNodeByAlias($alias = '') {
     if ( ! $alias ) {
-      return FALSE;
+      return false;
     }
 
     $source = $this->lookupPathSource($alias);
     preg_match('/node\/(\d+)/', $source, $matches);
     if ( ! isset($matches[1]) ) {
-      return FALSE;
+      return false;
     }
     $nid = $matches[1];
-    return Node::load($nid);
+    $node = Node::load($nid);
+
+    return ($node ? $node : false);
   }
 
   /**
@@ -771,7 +775,10 @@ class RestHelper implements RestHelperInterface {
     $parents = \Drupal::service('entity_type.manager')->getStorage('taxonomy_term')->loadParents($term->tid->value);
     $parent = '';
     if ( $parents ) {
-      $parent = Term::load(current($parents)->tid->value)->uuid->value;
+      $term = Term::load(current($parents)->tid->value);
+      if ( $term ) {
+        $parent = $term->uuid->value;
+      }
     }
 
     $view = [
@@ -1011,12 +1018,16 @@ class RestHelper implements RestHelperInterface {
       if ( $options['multiValue'] ) {
         foreach ( $referenceData as $index => $target ) {
           $node = Node::load($target['target_id']);
-          $return[] = ($recurse ? $this->processNode($node, $options) : $this->shallowEntity($node));
+          if ( $node ) {
+            $return[] = ($recurse ? $this->processNode($node, $options) : $this->shallowEntity($node));
+          }
         }
         return $return;
       } else {
         $node = Node::load(current($referenceData)['target_id']);
-        return ($recurse ? $this->processNode($node, $options) : $this->shallowEntity($node));
+        if ( $node ) {
+          return ($recurse ? $this->processNode($node, $options) : $this->shallowEntity($node));
+        }
       }
     }
 
@@ -1040,12 +1051,16 @@ class RestHelper implements RestHelperInterface {
       if ( $options['multiValue'] ) {
         foreach ( $referenceData as $index => $target ) {
           $term = Term::load($target['target_id']);
-          $return[] = ($recurse ? $this->processTerm($term, $options) : $this->shallowEntity($term));
+          if ( $term ) {
+            $return[] = ($recurse ? $this->processTerm($term, $options) : $this->shallowEntity($term));
+          }
         }
         return $return;
       } else {
         $term = Term::load(current($referenceData)['target_id']);
-        return ($recurse ? $this->processTerm($term, $options) : $this->shallowEntity($term));
+        if ( $term ) {
+          return ($recurse ? $this->processTerm($term, $options) : $this->shallowEntity($term));
+        }
       }
     }
 
@@ -1088,13 +1103,19 @@ class RestHelper implements RestHelperInterface {
     if ( $fileData ) {
       if ( $options['multiValue'] ) {
         foreach ( $fileData as $target ) {
-          $return[] = File::load($target['target_id'])->url();
+          $file = File::load($target['target_id']);
+          if ( $file ) {
+            $return[] = $file->url();
+          }
         }
         return $return;
       }
 
       // single
-      return File::load(current($fileData)['target_id'])->url();
+      $file = File::load(current($fileData)['target_id']);
+      if ( $file ) {
+        return $file->url();
+      }
     }
 
     return $return;
@@ -1166,8 +1187,8 @@ class RestHelper implements RestHelperInterface {
     foreach ( $resolutions as $resolution ) {
       $styleName = $resolution;
       $style = ImageStyle::load($resolution);
-      if ($style) {
-        $result[$styleName] =  $style ->buildUrl($internalUri);
+      if ( $style ) {
+        $result[$styleName] = $style ->buildUrl($internalUri);
       }
     }
 
