@@ -85,13 +85,17 @@ class ProductImportService implements ProductImportServiceInterface {
   public function batchImport() {
     if ( ! $this->open() ) return;
 
-    $lines = [];
     while( ($line = fgets($this->sourceFileHandle)) !== false ) {
       $data = [];
+
+      // id|brand|name|quantity_description|item_type|prefix|price|sale_price|thumb_image|thumb_image_2_x|tile_image|tile_image_2_x
       list(
         $data['field_sku'],
+        $data['field_brand'],
         $data['title'],
         $data['field_quantity_description'],
+        $data['field_item_type'],
+        $data['field_prefix'],
         $data['field_price'],
         $data['field_sale_price'],
         $data['field_image_url_product_thumb_1x'],
@@ -179,10 +183,13 @@ class ProductImportService implements ProductImportServiceInterface {
   }
 
   protected function checksum($data) {
-    return md5(sprintf('%s%s%s%s%s%s%s%s%s',
+    return md5(sprintf('%s%s%s%s%s%s%s%s%s%s%s%s',
       $data['field_sku'],
+      $data['field_brand'],
       $data['title'],
       $data['field_quantity_description'],
+      $data['field_item_type'],
+      $data['field_prefix'],
       $data['field_price'],
       $data['field_sale_price'],
       $data['field_image_url_product_thumb_1x'],
@@ -211,11 +218,25 @@ class ProductImportService implements ProductImportServiceInterface {
         $return[$key] = $value;
         $key = 'field_display_title';
       }
+
       $return[$key] = [
         'value' => $value
       ];
+
+      if ( $key === 'field_brand' ) {
+        $return[$key] = $this->lookupBrand($value);
+      }
     }
 
     return $return;
+  }
+
+  protected function lookupBrand($name) {
+    $query = \Drupal::entityQuery('taxonomy_term');
+    $query->condition('name', $name);
+
+    foreach ( $query->execute() as $tid ) {
+      return ['target_id' => $tid];
+    }
   }
 }

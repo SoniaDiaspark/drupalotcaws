@@ -10,6 +10,8 @@ dependencies:
     - field.field.node.product.field_image_url_product_thumb_2x
     - field.field.node.product.field_image_url_product_tile_1x
     - field.field.node.product.field_image_url_product_tile_2x
+    - field.field.node.product.field_item_type
+    - field.field.node.product.field_prefix
     - field.field.node.product.field_price
     - field.field.node.product.field_quantity_description
     - field.field.node.product.field_sale_price
@@ -58,6 +60,20 @@ content:
     type: string_textfield
   field_image_url_product_tile_2x:
     weight: 11
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_item_type:
+    weight: 26
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_prefix:
+    weight: 27
     settings:
       size: 60
       placeholder: ''
