@@ -1,0 +1,21 @@
+uuid: 8ed4304b-bd74-40e4-8b2d-b8b8fbe3726e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_quote_color
+    - node.type.article
+id: node.article.field_quote_color
+field_name: field_quote_color
+entity_type: node
+bundle: article
+label: 'Article Quote Color '
+description: 'Hexadecimal RGB color used to theme the pull quote. Example F9B6AD (pink color from prototype).'
+required: false
+translatable: false
+default_value:
+  -
+    value: F9B6AD
+default_value_callback: ''
+settings: {  }
+field_type: string

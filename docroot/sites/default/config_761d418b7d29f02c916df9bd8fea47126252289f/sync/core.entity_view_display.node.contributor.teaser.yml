@@ -4,6 +4,23 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
+    - field.field.node.contributor.field_800x800_img
+    - field.field.node.contributor.field_bio
+    - field.field.node.contributor.field_contributed_content
+    - field.field.node.contributor.field_contributor_category
+    - field.field.node.contributor.field_facebook
+    - field.field.node.contributor.field_first_name
+    - field.field.node.contributor.field_full_name
+    - field.field.node.contributor.field_instagram
+    - field.field.node.contributor.field_last_name
+    - field.field.node.contributor.field_middle_name
+    - field.field.node.contributor.field_occupation
+    - field.field.node.contributor.field_pinterest
+    - field.field.node.contributor.field_quote_content
+    - field.field.node.contributor.field_skyword_id
+    - field.field.node.contributor.field_twitter
+    - field.field.node.contributor.field_website
+    - field.field.node.contributor.field_wordpress_id
     - node.type.contributor
   module:
     - user
@@ -13,5 +30,24 @@ bundle: contributor
 mode: teaser
 content:
   links:
-    weight: 100
-hidden: {  }
+    weight: 0
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  field_800x800_img: true
+  field_bio: true
+  field_contributed_content: true
+  field_contributor_category: true
+  field_facebook: true
+  field_first_name: true
+  field_full_name: true
+  field_instagram: true
+  field_last_name: true
+  field_middle_name: true
+  field_occupation: true
+  field_pinterest: true
+  field_quote_content: true
+  field_skyword_id: true
+  field_twitter: true
+  field_website: true
+  field_wordpress_id: true

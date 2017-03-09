@@ -123,6 +123,13 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: text_textfield
+  field_skyword_id:
+    type: string_textfield
+    weight: 20
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
   field_twitter:
     weight: 11
     settings:
@@ -165,7 +172,6 @@ content:
     third_party_settings: {  }
 hidden:
   created: true
-  field_skyword_id: true
   field_wordpress_id: true
   promote: true
   sticky: true
