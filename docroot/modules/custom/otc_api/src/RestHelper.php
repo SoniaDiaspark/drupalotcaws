@@ -775,9 +775,9 @@ class RestHelper implements RestHelperInterface {
     $parents = \Drupal::service('entity_type.manager')->getStorage('taxonomy_term')->loadParents($term->tid->value);
     $parent = '';
     if ( $parents ) {
-      $term = Term::load(current($parents)->tid->value);
-      if ( $term ) {
-        $parent = $term->uuid->value;
+      $parentTerm = Term::load(current($parents)->tid->value);
+      if ( $parentTerm ) {
+        $parent = $parentTerm->uuid->value;
       }
     }
 
