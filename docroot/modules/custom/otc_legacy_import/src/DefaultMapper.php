@@ -146,16 +146,18 @@ class DefaultMapper implements WordPressMapperInterface {
   protected function extractImages($mapped) {
     $matches = [];
     $images = [];
-    preg_match_all('/img.*?src="(http.*?wp-content.*?)"/', $mapped['field_legacy_content'], $matches);
-    if ( count($matches) === 2 ) {
-      foreach ( $matches[1] as $image ) {
+    preg_match_all('/img.*?src="(http.*?wp-content.*?([0-9]{4}).([0-9]{2}).*?)"/', $mapped['field_legacy_content'], $matches);
+    if ( ! empty($matches[1]) ) {
+      foreach ( $matches[1] as $index => $image ) {
         $image = [
           'sourceUrl' => $image,
-          'destinationUri' => "public://inline-images/legacy/" . $mapped['type'] . '/' . $mapped['field_wordpress_id'] . '/' . basename($image),
+          'destinationUri' => "public://inline-images/legacy/{$matches[2][$index]}/{$matches[3][$index]}/" . basename($image),
         ];
         $images[] = $image;
       }
     }
+    print_r($images);
+    die();
 
     if ( $images ) {
       $mapped['images'] = $images;
