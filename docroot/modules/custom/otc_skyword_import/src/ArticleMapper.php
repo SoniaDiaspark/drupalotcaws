@@ -101,7 +101,7 @@ class ArticleMapper implements FeedMapperInterface {
       'meta_title' => 'field_meta_title',
       'meta_description' => 'field_meta_description',
       'meta_keywords' => 'field_meta_keywords',
-      'author' => 'field_contributor', // further processing needed
+      'authorId' => 'field_contributor', // further processing needed
       'field_content_heading' => 'field_content_heading',
       'field_content_1' => 'field_content_1',
       'field_content_2' => 'field_content_2',

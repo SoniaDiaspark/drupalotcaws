@@ -28,8 +28,8 @@ class DefaultMapper implements WordPressMapperInterface {
         $mapped = $this->mapRecipeFields($mapped, $document);
       }
 
-      if ( $document['field_meta_description'] ) {
-        $document['field_description'] = $document['field_meta_description'];
+      if ( $mapped['field_meta_description'] ) {
+        $mapped['field_description'] = $mapped['field_meta_description'];
       }
 
       $return[] = $mapped;

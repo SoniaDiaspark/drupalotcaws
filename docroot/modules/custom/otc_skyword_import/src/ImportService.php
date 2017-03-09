@@ -304,7 +304,8 @@ class ImportService {
 
   protected function prepareContributor($data) {
     $query = \Drupal::entityQuery('node');
-    $query->condition('field_full_name', trim($data));
+    $query->condition('field_skyword_id', trim($data));
+    $query->condition('type', 'contributor');
 
     foreach ( $query->execute() as $nid ) {
       return ['target_id' => $nid];

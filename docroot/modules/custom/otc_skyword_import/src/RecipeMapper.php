@@ -103,7 +103,7 @@ class RecipeMapper implements FeedMapperInterface {
       'meta_title' => 'field_meta_title',
       'meta_description' => 'field_meta_description',
       'meta_keywords' => 'field_meta_keywords',
-      'author' => 'field_contributor', // further processing needed
+      'authorId' => 'field_contributor', // further processing needed
       'body' => 'field_description',
       'field_description' => 'field_description',
       'field_product_need_description' => 'field_needed_description',

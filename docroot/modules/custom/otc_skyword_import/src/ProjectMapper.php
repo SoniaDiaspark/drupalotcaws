@@ -109,7 +109,7 @@ class ProjectMapper implements FeedMapperInterface {
       'meta_title' => 'field_meta_title',
       'meta_description' => 'field_meta_description',
       'meta_keywords' => 'field_meta_keywords',
-      'author' => 'field_contributor', // further processing needed
+      'authorId' => 'field_contributor', // further processing needed
       'field_products_used' => 'field_products', // further processing needed
       'field_product_own' => 'field_product_own',
       'field_product_need_description' => 'field_needed_description',
