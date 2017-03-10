@@ -156,8 +156,6 @@ class DefaultMapper implements WordPressMapperInterface {
         $images[] = $image;
       }
     }
-    print_r($images);
-    die();
 
     if ( $images ) {
       $mapped['images'] = $images;
