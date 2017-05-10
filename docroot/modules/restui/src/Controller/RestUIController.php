@@ -3,20 +3,20 @@
 namespace Drupal\restui\Controller;
 
 use Drupal\Core\Entity\EntityStorageInterface;
+use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Drupal\rest\Plugin\Type\ResourcePluginManager;
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
-use Drupal\Core\Routing\RouteBuilderInterface;
 use Drupal\Core\Url;
 
 /**
  * Controller routines for REST resources.
  */
 class RestUIController implements ContainerInjectionInterface {
+
+  use StringTranslationTrait;
 
   /**
    * Resource plugin manager.
@@ -33,13 +33,6 @@ class RestUIController implements ContainerInjectionInterface {
   protected $urlGenerator;
 
   /**
-   * The route builder used to rebuild all routes.
-   *
-   * @var \Drupal\Core\Routing\RouteBuilderInterface
-   */
-  protected $routeBuilder;
-
-  /**
    * Configuration entity to store enabled REST resources.
    *
    * @var \Drupal\rest\RestResourceConfigInterface
@@ -53,7 +46,6 @@ class RestUIController implements ContainerInjectionInterface {
     return new static(
       $container->get('plugin.manager.rest'),
       $container->get('url_generator'),
-      $container->get('router.builder'),
       $container->get('entity_type.manager')->getStorage('rest_resource_config')
     );
   }
@@ -65,15 +57,12 @@ class RestUIController implements ContainerInjectionInterface {
    *   The REST resource plugin manager.
    * @param \Symfony\Component\Routing\Generator\UrlGeneratorInterface $url_generator
    *   The URL generator.
-   * @param \Drupal\Core\Routing\RouteBuilderInterface $routeBuilder
-   *   The router builder.
-   * @param \Drupal\Core\Entity\EntityStorageInterface
+   * @param \Drupal\Core\Entity\EntityStorageInterface $resource_config_storage
    *   The REST resource config storage.
    */
-  public function __construct(ResourcePluginManager $resourcePluginManager, UrlGeneratorInterface $url_generator, RouteBuilderInterface $routeBuilder, EntityStorageInterface $resource_config_storage) {
+  public function __construct(ResourcePluginManager $resourcePluginManager, UrlGeneratorInterface $url_generator, EntityStorageInterface $resource_config_storage) {
     $this->resourcePluginManager = $resourcePluginManager;
     $this->urlGenerator = $url_generator;
-    $this->routeBuilder= $routeBuilder;
     $this->resourceConfigStorage = $resource_config_storage;
   }
 
@@ -93,12 +82,13 @@ class RestUIController implements ContainerInjectionInterface {
     $available_resources = array('enabled' => array(), 'disabled' => array());
     $resources = $this->resourcePluginManager->getDefinitions();
     foreach ($resources as $id => $resource) {
-      $status = in_array($this->getResourceKey($id), $enabled_resources) ? 'enabled' : 'disabled';
+      $key = $this->getResourceKey($id);
+      $status = (in_array($key, $enabled_resources) && $config[$key]->status()) ? 'enabled' : 'disabled';
       $available_resources[$status][$id] = $resource;
     }
 
     // Sort the list of resources by label.
-    $sort_resources = function($resource_a, $resource_b) {
+    $sort_resources = function ($resource_a, $resource_b) {
       return strcmp($resource_a['label'], $resource_b['label']);
     };
     if (!empty($available_resources['enabled'])) {
@@ -110,15 +100,13 @@ class RestUIController implements ContainerInjectionInterface {
 
     // Heading.
     $list['resources_title'] = array(
-      '#markup' => '<h2>' . t('REST resources') . '</h2>',
+      '#markup' => '<h2>' . $this->t('REST resources') . '</h2>',
     );
     $list['resources_help'] = array(
-      '#markup' => '<p>' . t('Here you can enable and disable available resources. Once a resource ' .
-                             'has been enabled, you can restrict its formats and authentication by ' .
-                             'clicking on its "Edit" link.') . '</p>',
+      '#markup' => '<p>' . $this->t('Here you can enable and disable available resources. Once a resource has been enabled, you can restrict its formats and authentication by clicking on its "Edit" link.') . '</p>',
     );
-    $list['enabled']['heading']['#markup'] = '<h2>' . t('Enabled') . '</h2>';
-    $list['disabled']['heading']['#markup'] = '<h2>' . t('Disabled') . '</h2>';
+    $list['enabled']['heading']['#markup'] = '<h2>' . $this->t('Enabled') . '</h2>';
+    $list['disabled']['heading']['#markup'] = '<h2>' . $this->t('Disabled') . '</h2>';
 
     // List of resources.
     foreach (array('enabled', 'disabled') as $status) {
@@ -128,37 +116,44 @@ class RestUIController implements ContainerInjectionInterface {
         '#theme' => 'table',
         '#header' => array(
           'resource_name' => array(
-            'data' => t('Resource name'),
+            'data' => $this->t('Resource name'),
             'class' => array('rest-ui-name'),
           ),
           'path' => array(
-            'data' => t('Path'),
+            'data' => $this->t('Path'),
             'class' => array('views-ui-path'),
           ),
           'description' => array(
-            'data' => t('Description'),
+            'data' => $this->t('Description'),
             'class' => array('rest-ui-description'),
           ),
           'operations' => array(
-            'data' => t('Operations'),
+            'data' => $this->t('Operations'),
             'class' => array('rest-ui-operations'),
           ),
         ),
         '#rows' => array(),
       );
       foreach ($available_resources[$status] as $id => $resource) {
-        $uri_paths = '<code>' . $resource['uri_paths']['canonical'] . '</code>';
+        $uri_paths = '';
+        if (!empty($resource['uri_paths']['canonical'])) {
+          $uri_paths = '<code>' . $resource['uri_paths']['canonical'] . '</code>';
+        }
 
+        // @todo Remove this when https://www.drupal.org/node/2300677 is fixed.
+        $is_config_entity = isset($resource['serialization_class']) && is_subclass_of($resource['serialization_class'], \Drupal\Core\Config\Entity\ConfigEntityInterface::class, TRUE);
         $list[$status]['table']['#rows'][$id] = array(
           'data' => array(
-            'name' => $resource['label'],
-            'path' =>  array('data' => array(
-              '#type' => 'inline_template',
-              '#template' => $uri_paths,
-            )),
+            'name' => !$is_config_entity ? $resource['label'] : $this->t('@label <sup>(read-only)</sup>', ['@label' => $resource['label']]),
+            'path' => array(
+              'data' => array(
+                '#type' => 'inline_template',
+                '#template' => $uri_paths,
+              ),
+            ),
             'description' => array(),
             'operations' => array(),
-          )
+          ),
         );
 
         if ($status == 'disabled') {
@@ -166,7 +161,7 @@ class RestUIController implements ContainerInjectionInterface {
             '#type' => 'operations',
             '#links' => array(
               'enable' => array(
-                'title' => t('Enable'),
+                'title' => $this->t('Enable'),
                 'url' => Url::fromRoute('restui.edit', array('resource_id' => $id)),
               ),
             ),
@@ -177,32 +172,33 @@ class RestUIController implements ContainerInjectionInterface {
             '#type' => 'operations',
             '#links' => array(
               'edit' => array(
-                'title' => t('Edit'),
+                'title' => $this->t('Edit'),
                 'url' => Url::fromRoute('restui.edit', array('resource_id' => $id)),
 
               ),
               'disable' => array(
-                'title' => t('Disable'),
+                'title' => $this->t('Disable'),
                 'url' => Url::fromRoute('restui.disable', array('resource_id' => $id)),
               ),
               'permissions' => array(
-                'title' => t('Permissions'),
+                'title' => $this->t('Permissions'),
                 'url' => Url::fromRoute('user.admin_permissions', array(), array('fragment' => 'module-rest')),
-              )
+              ),
             ),
           );
 
           $list[$status]['table']['#rows'][$id]['data']['description']['data'] = array(
             '#theme' => 'restui_resource_info',
-            '#resource' => $config[$this->getResourceKey($id)]->get('configuration'),
+            '#granularity' => $config[$this->getResourceKey($id)]->get('granularity'),
+            '#configuration' => $config[$this->getResourceKey($id)]->get('configuration'),
           );
         }
       }
     }
 
-    $list['enabled']['table']['#empty'] = t('There are no enabled resources.');
-    $list['disabled']['table']['#empty'] = t('There are no disabled resources.');
-    $list['#title'] = t('REST resources');
+    $list['enabled']['table']['#empty'] = $this->t('There are no enabled resources.');
+    $list['disabled']['table']['#empty'] = $this->t('There are no disabled resources.');
+    $list['#title'] = $this->t('REST resources');
     return $list;
   }
 
@@ -222,9 +218,7 @@ class RestUIController implements ContainerInjectionInterface {
     $resources = $this->resourceConfigStorage->loadMultiple();
 
     if ($resources[$this->getResourceKey($resource_id)]) {
-      $resources[$this->getResourceKey($resource_id)]->delete();
-      // Rebuild routing cache.
-      $this->routeBuilder->rebuild();
+      $resources[$this->getResourceKey($resource_id)]->disable()->save();
       drupal_set_message(t('The resource was disabled successfully.'));
     }
 
