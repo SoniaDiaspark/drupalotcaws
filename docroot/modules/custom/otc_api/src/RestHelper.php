@@ -432,9 +432,10 @@ class RestHelper implements RestHelperInterface {
     $nodes = \Drupal::entityTypeManager()
       ->getStorage('node')
       ->loadMultiple($entity_ids);
+
     foreach ($nodes as $node) {
       if ($options['recurse']) {
-        $response['results'][] = $this->processNode($node);
+        $response['results'][] = $this->processNode($node, $options);
       } else {
         $response['results'][] = $this->shallowEntity($node);
       }

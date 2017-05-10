@@ -284,8 +284,8 @@ class ApiController extends ControllerBase {
    */
   public function contributorGroupContent(Request $request, $id) {
     $options = [
-      'published' => $request->get('published') !== '0',
       'limit' => ($request->get('limit') ? intval($request->get('limit')) : 10),
+      'published' => $request->get('published') !== '0',
       'page' => $request->get('page') * 1,
       'recurse' => (false || $request->get('recurse')),
       'maxDepth' => ($request->get('depth') ? intval($request->get('depth')) : 2),
