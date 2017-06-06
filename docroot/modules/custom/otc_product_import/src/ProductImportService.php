@@ -82,7 +82,7 @@ class ProductImportService implements ProductImportServiceInterface {
   /**
    * Queue the import items
    */
-  public function batchImport() {
+  public function batchImport( $forceUpdate = false ) {
     if ( ! $this->open() ) return;
 
     while( ($line = fgets($this->sourceFileHandle)) !== false ) {
@@ -103,6 +103,8 @@ class ProductImportService implements ProductImportServiceInterface {
         $data['field_image_url_product_tile_1x'],
         $data['field_image_url_product_tile_2x']
       ) = explode('|', $line);
+
+      $data['force'] = $forceUpdate;
 
       $this->dbQueue->createItem([$data]);
     }
@@ -145,6 +147,8 @@ class ProductImportService implements ProductImportServiceInterface {
     $data['field_checksum'] = $this->checksum($data);
 
     if ( $this->is_updated($data) ) {
+      unset($data['force']);
+
       $this->getLogger()->notice("Updating product sku @sku with node id @nid", [
         '@sku' => $data['field_sku'],
         '@nid' => $nid,
@@ -179,6 +183,10 @@ class ProductImportService implements ProductImportServiceInterface {
    * @return boolean
    */
   protected function is_updated($data) {
+    if ( isset($data['force']) && $data['force'] ) {
+      return true;
+    }
+
     return ! count($this->query()->condition('field_checksum', $this->checksum($data), '=')->execute());
   }
 
