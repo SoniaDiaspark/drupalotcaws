@@ -180,6 +180,7 @@ class RestHelper implements RestHelperInterface {
 
     $entity_ids = $this->newNodeQuery($options)
     ->range($options['page'] * $limit, $limit)
+    ->sort('changed' , 'DESC')
     ->execute();
 
     if ( ! $entity_ids ) {
