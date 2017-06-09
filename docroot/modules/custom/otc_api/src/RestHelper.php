@@ -141,6 +141,10 @@ class RestHelper implements RestHelperInterface {
       'maxDepth' => 2, // deepest level of recursion
       'currentDepth' => 0, // current depth of recursion
       'multiValueGroups' => [],
+      'sort' => [
+        'field_sort_by_date' => 'DESC',
+        'changed' => 'DESC',
+      ],
     ];
     $options = array_merge($defaults, $options);
 
@@ -180,7 +184,6 @@ class RestHelper implements RestHelperInterface {
 
     $entity_ids = $this->newNodeQuery($options)
     ->range($options['page'] * $limit, $limit)
-    ->sort('changed' , 'DESC')
     ->execute();
 
     if ( ! $entity_ids ) {
@@ -228,6 +231,12 @@ class RestHelper implements RestHelperInterface {
         'type' => $contentType,
       ],
     ];
+    if ( $contentType === 'contributor' ) {
+      $defaults['sort'] = [
+        'field_full_name' => 'ASC',
+        'changed' => 'DESC',
+      ];
+    }
     $options = array_merge($defaults, $options);
 
     $limit = $options['limit'];
@@ -410,6 +419,12 @@ class RestHelper implements RestHelperInterface {
         $field_name . '.entity.uuid' => $uuid,
       ]
     ];
+    if ( $field_name === 'field_contributor_category' ) {
+      $options['sort'] = [
+        'field_full_name' => 'ASC',
+        'changed' => 'DESC',
+      ];
+    }
     $options = array_merge($defaults, $options);
 
     $limit = $options['limit'];
@@ -679,6 +694,15 @@ class RestHelper implements RestHelperInterface {
       foreach ($options['conditions'] as $key => $value ) {
         $query->condition($key, $value);
       }
+    }
+
+    if ( ! empty($options['sort']) ) {
+      foreach ($options['sort'] as $field => $direction ) {
+        $query->sort($field, $direction);
+      }
+    }
+    else {
+      $query->sort('changed', 'DESC');
     }
 
     return $query;
