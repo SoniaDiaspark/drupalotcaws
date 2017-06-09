@@ -156,13 +156,8 @@ class ProductImportService implements ProductImportServiceInterface {
 
       $node = Node::load($nid);
 
-      foreach( $data as $key => $value ) {
-        if ( $key === 'title' ) {
-          $node->title = $value;
-          $key = 'field_display_title';
-        }
-
-        $node->{$key}->value = $value;
+      foreach ( $this->prepare($data) as $key => $value ) {
+        $node->{$key} = $value;
       }
 
       $node->save();
