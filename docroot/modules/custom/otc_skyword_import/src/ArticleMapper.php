@@ -32,7 +32,7 @@ class ArticleMapper implements FeedMapperInterface {
 
         // ignored skyword fields
         case 'article_products_used':
-        case 'article_list_step_content':
+        case 'article_list_content':
         case 'publishedDate':
         case 'keyword':
         case 'assignment_title':
@@ -57,9 +57,9 @@ class ArticleMapper implements FeedMapperInterface {
       }
     }
 
-    if ( isset($document->article_list_step_content) ) {
+    if ( isset($document->article_list_content) ) {
       $index = 0;
-      foreach ( $document->article_list_step_content as $key => $step ) {
+      foreach ( $document->article_list_content as $key => $step ) {
         $stepData = $this->map($step);
         if ($stepData) {
           $article['field_step'][$index++] = $stepData;
