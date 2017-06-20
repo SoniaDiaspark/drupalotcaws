@@ -25,6 +25,7 @@ class ArticleMapper implements FeedMapperInterface {
         case 'additional_al_requirements':
         case 'articles_content':
         case 'carousel':
+        case 'metainformation':
           // recurse for simple mappings
           $article = $this->map($value, $article);
           break;
@@ -95,11 +96,10 @@ class ArticleMapper implements FeedMapperInterface {
       // feed => drupal
       'id' => 'field_skyword_id',
       'title' => 'field_display_title',
-      'field_meta_title' => 'field_meta_title',
-      'field_meta_description' => 'field_meta_description',
+      'seoTitle' => 'field_meta_title',
+      'seoDescription' => 'field_meta_description',
       'field_meta_keywords' => 'field_meta_keywords',
       'meta_title' => 'field_meta_title',
-      'meta_description' => 'field_meta_description',
       'meta_keywords' => 'field_meta_keywords',
       'authorId' => 'field_contributor', // further processing needed
       'field_content_heading' => 'field_content_heading',
