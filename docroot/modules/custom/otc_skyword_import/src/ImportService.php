@@ -107,7 +107,7 @@ class ImportService {
 
       foreach ($this->mapImports($simplexml) as $type => $docs) {
         foreach ($docs as $doc) {
-          echo $doc;
+          print_r($doc);
           // $this->queueImportJob($type, $doc);
         }
       }
