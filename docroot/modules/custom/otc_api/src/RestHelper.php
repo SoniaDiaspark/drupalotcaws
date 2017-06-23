@@ -494,6 +494,14 @@ class RestHelper implements RestHelperInterface {
    * @return object page of content results for a given category
    */
   public function fetchCategoryContent($id = '', $options = []) {
+    $defaults = [
+      'sort' => [
+        'field_sort_by_date' => 'DESC',
+        'changed' => 'DESC',
+      ],
+    ];
+    $options = array_merge($defaults, $options);
+
     $uuid = $id;
 
     if ( ! self::isUuid($id) ) {
