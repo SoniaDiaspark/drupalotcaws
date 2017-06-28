@@ -33,6 +33,7 @@ class ArticleMapper implements FeedMapperInterface {
           break;
 
         // ignored skyword fields
+        case 'author':
         case 'productsused':
         case 'itemsused';
         case 'article_items_needed':
@@ -48,6 +49,10 @@ class ArticleMapper implements FeedMapperInterface {
         default:
           echo "UNMAPPED KEY: $key\n";
       }
+    }
+
+    if ( isset($document->carousel) ) {
+      
     }
 
     if ( isset($document->productsused) ) {
@@ -258,9 +263,9 @@ class ArticleMapper implements FeedMapperInterface {
       'field_article_img_wide_2x' => 'field_1858x1062_img',
       'field_article_img_wide_2x_url' => 'field_1858x1062_img',
       'field_article_img_wide_2x_name' => 'field_1858x1062_img',
-      'field_article_carousel_img_2x' => 'field_1858x1062_multi_img',
-      'field_article_carousel_img_2x_url' => 'field_1858x1062_multi_img',
-      'field_article_carousel_img_2x_name' => 'field_1858x1062_multi_img',
+      'image' => 'field_1858x1062_multi_img',
+      'image_url' => 'field_1858x1062_multi_img',
+      'image_name' => 'field_1858x1062_multi_img',
       'field_article_PDF' => 'field_download_file',
       'field_article_PDF_url' => 'field_download_file',
       'field_article_PDF_name' => 'field_download_file',
