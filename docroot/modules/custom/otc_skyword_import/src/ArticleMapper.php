@@ -23,37 +23,78 @@ class ArticleMapper implements FeedMapperInterface {
 
       switch ($key) {
         case 'additional_al_requirements':
+        case 'additional_content':
         case 'articles_content':
         case 'carousel':
+        case 'featured_data':
         case 'metainformation':
           // recurse for simple mappings
           $article = $this->map($value, $article);
           break;
 
         // ignored skyword fields
-        case 'article_products_used':
+        case 'productsused':
+        case 'itemsused';
+        case 'article_items_needed':
+        case 'field_items_needed':
         case 'article_list_content':
         case 'publishedDate':
-        case 'keyword':
         case 'assignment_title':
         case 'otc_featured_products':
         case 'action':
         case 'photo_article_inspiration':
+        case 'link':
           break;
         default:
           echo "UNMAPPED KEY: $key\n";
       }
     }
 
-    if ( isset($document->article_products_used) ) {
+    if ( isset($document->productsused) ) {
       $skus = [];
       $skus = array_filter(array_unique(array_merge(
         $skus, array_map(function($sku){
           return trim($sku);
-        }, explode(',', (string) $document->article_products_used))
+        }, explode(',', (string) $document->productsused))
       )));
       if ( ! empty($skus) ) {
         $article['field_products'] = implode(',', $skus);
+      }
+    }
+
+    if ( isset($document->itemsused) ) {
+      $skus = [];
+      $skus = array_filter(array_unique(array_merge(
+        $skus, array_map(function($sku){
+          return trim($sku);
+        }, explode(',', (string) $document->itemsused))
+      )));
+      if ( ! empty($skus) ) {
+        $article['field_products'] = implode(',', $skus);
+      }
+    }
+
+    if ( isset($document->article_items_needed) ) {
+      $items = [];
+      $items = array_filter(array_unique(array_merge(
+        $items, array_map(function($item){
+          return trim($item);
+        }, explode(',', (string) $document->article_items_needed))
+      )));
+      if ( ! empty($items) ) {
+        $article['field_items_needed'] = $items;
+      }
+    }
+
+    if ( isset($document->field_items_needed) ) {
+      $items = [];
+      $items = array_filter(array_unique(array_merge(
+        $items, array_map(function($item){
+          return trim($item);
+        }, explode(',', (string) $document->field_items_needed))
+      )));
+      if ( ! empty($items) ) {
+        $article['field_items_needed'] = implode(',', $items);
       }
     }
 
@@ -100,7 +141,7 @@ class ArticleMapper implements FeedMapperInterface {
       'seoDescription' => 'field_meta_description',
       'field_meta_keywords' => 'field_meta_keywords',
       'meta_title' => 'field_meta_title',
-      'meta_keywords' => 'field_meta_keywords',
+      'keyword' => 'field_meta_keywords',
       'authorId' => 'field_contributor', // further processing needed
       'field_content_heading' => 'field_content_heading',
       'field_content_1' => 'field_content_1',
@@ -125,8 +166,7 @@ class ArticleMapper implements FeedMapperInterface {
   protected static function multiValue() {
     // source/skyword => target/drupal
     return [
-      'article_items_needed' => 'field_items_needed',
-      'field_items_needed' => 'field_items_needed',
+      
     ];
   }
 
@@ -151,7 +191,7 @@ class ArticleMapper implements FeedMapperInterface {
 
     return [
       'field_cta_link' => [
-        'uri' => 'field_list_link_url',
+        'uri' => 'link_url',
         'title' => 'field_link_text',
       ],
     ];
@@ -182,12 +222,9 @@ class ArticleMapper implements FeedMapperInterface {
   protected static function fileFieldMappings() {
     // source/skyword => target/drupal
     return [
-      'field_hero_bleed_d_img_2x' => 'field_3200x1391_img',
-      'field_hero_bleed_d_img_2x_url' => 'field_3200x1391_img',
-      'field_hero_bleed_d_img_2x_name' => 'field_3200x1391_img',
-      'field_3200x1391_img' => 'field_3200x1391_img',
-      'field_3200x1391_img_url' => 'field_3200x1391_img',
-      'field_3200x1391_img_name' => 'field_3200x1391_img',
+      'hero_bleed_desktop' => 'field_3200x1391_img',
+      'hero_bleed_desktop_url' => 'field_3200x1391_img',
+      'hero_bleed_desktop_name' => 'field_3200x1391_img',
       'field_hero_bleed_m_img_2x' => 'field_828x473_img',
       'field_hero_bleed_m_img_2x_url' => 'field_828x473_img',
       'field_hero_bleed_m_img_2x_name' => 'field_828x473_img',
