@@ -28,6 +28,10 @@ class ArticleMapper implements FeedMapperInterface {
         case 'carousel':
         case 'featured_data':
         case 'metainformation':
+        case 'imagewide_content':
+        case 'bodycontent':
+        case 'imagetall_container':
+        case 'pulledquote':
           // recurse for simple mappings
           $article = $this->map($value, $article);
           break;
@@ -52,7 +56,7 @@ class ArticleMapper implements FeedMapperInterface {
     }
 
     if ( isset($document->carousel) ) {
-      
+
     }
 
     if ( isset($document->productsused) ) {
@@ -148,17 +152,17 @@ class ArticleMapper implements FeedMapperInterface {
       'meta_title' => 'field_meta_title',
       'keyword' => 'field_meta_keywords',
       'authorId' => 'field_contributor', // further processing needed
-      'field_content_heading' => 'field_content_heading',
-      'field_content_1' => 'field_content_1',
+      'headline' => 'field_content_heading',
+      'body_copy' => 'field_content_1',
       'field_content_2' => 'field_content_2',
-      'field_content_3' => 'field_content_3',
-      'field_quote_content' => 'field_quote_content',
-      'field_products_used' => 'field_products', // further processing needed
+      'bodycopy' => 'field_content_3',
+      'pullquotetext' => 'field_quote_content',
       'field_video_url' => 'field_video_embed',
       'field_photo_credit' => 'field_photo_credit',
+      'photocredit' => 'field_photo_credit',
       'field_product_need_description' => 'field_needed_description',
       'body' => 'field_description',
-      'field_description_2' => 'field_description_2',
+      'articlecontent' => 'field_description_2',
       'field_carousel_heading' => 'field_carousel_heading',
       'field_carousel_content' => 'field_carousel_content',
       'field_list_heading' => 'field_display_title',
@@ -227,6 +231,9 @@ class ArticleMapper implements FeedMapperInterface {
   protected static function fileFieldMappings() {
     // source/skyword => target/drupal
     return [
+      'hero_bleed' => 'field_3200x1391_img',
+      'hero_bleed_url' => 'field_3200x1391_img',
+      'hero_bleed_name' => 'field_3200x1391_img',
       'hero_bleed_desktop' => 'field_3200x1391_img',
       'hero_bleed_desktop_url' => 'field_3200x1391_img',
       'hero_bleed_desktop_name' => 'field_3200x1391_img',
@@ -242,18 +249,12 @@ class ArticleMapper implements FeedMapperInterface {
       'field_card_tile_img_2x' => 'field_896x896_img',
       'field_card_tile_img_2x_url' => 'field_896x896_img',
       'field_card_tile_img_2x_name' => 'field_896x896_img',
-      'field_896x896_img' => 'field_896x896_img',
-      'field_896x896_img_url' => 'field_896x896_img',
-      'field_896x896_img_name' => 'field_896x896_img',
-      'field_article_img_tall_2x' => 'field_929x1239_img',
-      'field_article_img_tall_2x_url' => 'field_929x1239_img',
-      'field_article_img_tall_2x_name' => 'field_929x1239_img',
+      'imagetall' => 'field_929x1239_img',
+      'imagetall_url' => 'field_929x1239_img',
+      'imagetall_name' => 'field_929x1239_img',
       'field_929x1239_img' => 'field_929x1239_img',
       'field_929x1239_img_url' => 'field_929x1239_img',
       'field_929x1239_img_name' => 'field_929x1239_img',
-      'field_quote_img_2x' => 'field_1088x818_img',
-      'field_quote_img_2x_url' => 'field_1088x818_img',
-      'field_quote_img_2x_name' => 'field_1088x818_img',
       'field_quote_img_2x' => 'field_1088x818_img',
       'field_quote_img_2x_url' => 'field_1088x818_img',
       'field_quote_img_2x_name' => 'field_1088x818_img',
