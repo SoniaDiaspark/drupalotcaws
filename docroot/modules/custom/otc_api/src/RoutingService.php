@@ -214,6 +214,65 @@ class RoutingService {
       ]
     ));
 
+    $routeCollection->add('otc_api.product_sku1', new Route(
+      // SKU to lookup route
+      '/api/fun365/product/{sku1}/content',
+
+      // Route configuration parameters
+      [
+        '_controller' => '\Drupal\otc_api\ProductApiController::productSKU',
+      ],
+
+      // Route permission reqs
+      [
+        '_permission'  => 'access content',
+      ]
+    ));
+
+    $routeCollection->add('otc_api.product_sku2', new Route(
+      // SKU to lookup route
+      '/api/fun365/product/{sku1}/{sku2}/content',
+
+      // Route configuration parameters
+      [
+        '_controller' => '\Drupal\otc_api\ProductApiController::productSKU',
+      ],
+
+      // Route permission reqs
+      [
+        '_permission'  => 'access content',
+      ]
+    ));
+    
+    $routeCollection->add('otc_api.product_count_sku1', new Route(
+      // SKU to lookup route
+      '/api/fun365/product/{sku1}/contentcount',
+
+      // Route configuration parameters
+      [
+        '_controller' => '\Drupal\otc_api\ProductApiController::productCountSKU',
+      ],
+
+      // Route permission reqs
+      [
+        '_permission'  => 'access content',
+      ]
+    ));
+    $routeCollection->add('otc_api.product_count_sku2', new Route(
+      // SKU to lookup route
+      '/api/fun365/product/{sku1}/{sku2}/contentcount',
+
+      // Route configuration parameters
+      [
+        '_controller' => '\Drupal\otc_api\ProductApiController::productCountSKU',
+      ],
+
+      // Route permission reqs
+      [
+        '_permission'  => 'access content',
+      ]
+    ));
+
     return $routeCollection;
   }
 
