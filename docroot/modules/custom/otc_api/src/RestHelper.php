@@ -419,12 +419,72 @@ class RestHelper implements RestHelperInterface {
         $field_name . '.entity.uuid' => $uuid,
       ]
     ];
+    
     if ( $field_name === 'field_contributor_category' ) {
       $options['sort'] = [
         'field_full_name' => 'ASC',
         'changed' => 'DESC',
       ];
     }
+
+    if ( $options['isReferencedContentBySKU'] == 'yes' ) {
+      $options['sort'] = [
+        'created' => 'DESC',
+      ];
+    }
+
+    $options = array_merge($defaults, $options);
+
+    $limit = $options['limit'];
+    $response = [
+      'limit' => $limit,
+      'page' => $options['page'],
+      'published' => $options['published']
+    ];
+
+    $response['count'] = intval($this->newNodeQuery($options)->count()->execute());
+
+    $entity_ids = $this->newNodeQuery($options)
+    ->range($options['page'] * $limit, $limit)
+    ->execute();
+
+    // Return result count content by sku
+    if ($options['countSKUContent'] == 'yes') {
+      return array('count' => $response['count']);
+    }
+    if ( ! $entity_ids ) {
+      $response['results'] = [];
+      return $response;
+    }
+
+    $nodes = \Drupal::entityTypeManager()
+      ->getStorage('node')
+      ->loadMultiple($entity_ids);
+
+    foreach ($nodes as $node) {
+      if ($options['recurse']) {
+        $response['results'][] = $this->processNode($node, $options);
+      } else {
+        $response['results'][] = $this->shallowEntity($node);
+      }
+    }
+
+    return $response;
+  }
+
+
+/*protected function fetchReferencedProductContent($uuid = '', $options = [], $field_name = 'field_products') {
+
+    $defaults = [
+      'page' => 0,
+      'limit' => 10, // result limit per page
+      'published' => true,
+      'conditions' => [
+        $field_name . '.entity.uuid' => $uuid,
+      ]
+    ];
+
+    //$options['recurse'] = true;
     $options = array_merge($defaults, $options);
 
     $limit = $options['limit'];
@@ -453,12 +513,12 @@ class RestHelper implements RestHelperInterface {
       if ($options['recurse']) {
         $response['results'][] = $this->processNode($node, $options);
       } else {
-        $response['results'][] = $this->shallowEntity($node);
+        $response['results'][] = $this->productReferencedEntity($node, $options);
       }
     }
 
     return $response;
-  }
+  } */
 
   /**
    * Fetch all paginated content associated with a particular contributor group.
@@ -501,7 +561,7 @@ class RestHelper implements RestHelperInterface {
       ],
     ];
     $options = array_merge($defaults, $options);
-
+      
     $uuid = $id;
 
     if ( ! self::isUuid($id) ) {
@@ -556,6 +616,60 @@ class RestHelper implements RestHelperInterface {
 
     $uuid = $node->uuid->value;
     return $this->fetchReferencedContent($uuid, $options, 'field_contributor');
+  }
+
+  /**
+   * Fetch all paginated content associated with a particular product sku.
+   * @param  string $id the sku of the product.
+   * @param array $options
+   * - boolean $recurse references are recursively dereferenced
+   * - integer $maxDepth levels of recursion
+   * - integer $page the current page
+   *
+   * @return object page of content results for a given contributor
+   */
+  public function fetchProductSKUContent($id = '', $options = []) {
+
+      $result = $this->entityTypeManager->getStorage('node')->loadByProperties(['field_sku' => $id]);
+
+      if ( ! $result ) {
+        throw new Rest404Exception;
+      }
+      $node = current($result);
+
+
+    if ( ! $node ) {
+      throw new Rest404Exception;
+    }
+
+    $defaults = [
+      'multiValueGroups' => [
+        'type' => [
+          'article',
+          'step',
+          'project',
+          'look',
+          'recipe',
+        ]
+      ]
+    ];
+
+    $options = array_merge($defaults, $options);
+
+    $options['isReferencedContentBySKU'] = 'yes'; // Set flag for product referenced content.
+    $options['full_image_style'] = 'yes'; // Show only full style of image.
+    // Show only listed field on product referenced content.
+    $options['referencedContentBySKUField'] = array(
+      "type" => "type", 
+      "created" => "created", 
+      "path" => "path", 
+      "field_896x896_img" => "field_896x896_img", 
+      "field_display_title" =>"field_display_title"
+    );
+
+    $uuid = $node->uuid->value;
+
+    return $this->fetchReferencedContent($uuid, $options, 'field_products');
   }
 
   /**
@@ -760,6 +874,9 @@ class RestHelper implements RestHelperInterface {
     $storageDefinitions = \Drupal::service('entity.manager')->getFieldStorageDefinitions('node');
 
     foreach ( $fieldDefinitions as $name => $fieldDefinition ) {
+      if($options['isReferencedContentBySKU'] == 'yes'){
+        if(!in_array($name, $options['referencedContentBySKUField'])) continue;
+      }
       $options['fieldDefinition'] = $fieldDefinition;
       $options['storageDefinition'] = $storageDefinitions[$name];
       $options['multiValue'] = method_exists($options['storageDefinition'], 'isMultiple') && ($options['storageDefinition']->isMultiple() || $options['storageDefinition']->getCardinality() > 1);
@@ -772,7 +889,10 @@ class RestHelper implements RestHelperInterface {
       if ( $supported && ! $ignored ) {
         // no value
         if ( ! $node->$name ) {
-          $view[$name] = NULL;
+           if($options['isReferencedContentBySKU'] != 'yes'){
+             $view[$name] = NULL;
+          }
+
           continue;
         }
 
@@ -1182,6 +1302,7 @@ class RestHelper implements RestHelperInterface {
   protected function getImageFieldValue(FieldItemListInterface $field, $options = []) {
     $imageData = $field->getValue();
     $resolution = $options['fieldDefinition']->getSettings()['max_resolution'];
+
     $resolutions = $this->imageStyles($resolution);
 
     $return = ($options['multiValue'] ? [] : NULL);
@@ -1192,13 +1313,16 @@ class RestHelper implements RestHelperInterface {
         }
         return $return;
       }
-
+      if( $options['full_image_style'] == 'yes'){
+         return $this->processImage(current($imageData)['target_id']);
+      }
       // single
       return $this->processImage(current($imageData)['target_id'], $resolutions);
     }
 
     return $return;
   }
+
 
   /**
    * Process an image field.
