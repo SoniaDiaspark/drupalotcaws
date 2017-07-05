@@ -43,6 +43,7 @@ class ProjectMapper implements FeedMapperInterface {
         case 'itemsused':
         case 'field_items_needed':
         case 'link':
+        case 'steptitle':
           break;
         default:
           echo "UNMAPPED KEY: $key\n";
