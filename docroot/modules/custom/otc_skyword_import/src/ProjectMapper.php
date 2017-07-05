@@ -55,7 +55,10 @@ class ProjectMapper implements FeedMapperInterface {
     }
 
     if ( isset($document->field_products_used) ) {
-      $skus = !empty($project['field_products']) ? $project['field_products'] : [];
+      print_r($project['field_products']);
+      echo $project['field_products'];
+      echo gettype($project['field_products']);
+      $skus = (is_array($project['field_products']) && !empty($project['field_products'])) ? $project['field_products'] : [];
       $skus = array_filter(array_unique(array_merge(
         $skus, array_map(function($sku){
           return trim($sku);
