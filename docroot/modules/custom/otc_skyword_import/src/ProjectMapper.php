@@ -48,6 +48,7 @@ class ProjectMapper implements FeedMapperInterface {
         case 'field_article_thumb_img_2x_url':
         case 'field_article_thumb_img_2x_name':
         case 'numberitmakes':
+        case 'field_products_used':
           break;
         default:
           echo "UNMAPPED KEY: $key\n";
@@ -70,6 +71,9 @@ class ProjectMapper implements FeedMapperInterface {
     }
 
     if ( isset($document->itemsused) ) {
+      print_r($project['field_products']);
+      echo $project['field_products'];
+      echo gettype($project['field_products']);
       $skus = !empty($project['field_products']) ? $project['field_products'] : [];
       $skus = array_filter(array_unique(array_merge(
         $skus, array_map(function($sku){
@@ -120,6 +124,9 @@ class ProjectMapper implements FeedMapperInterface {
       }
 
       if ( ! empty($project['field_step']) ) {
+        print_r($project['field_products']);
+        echo $project['field_products'];
+        echo gettype($project['field_products']);
         $skus = !empty($project['field_products']) ? $project['field_products'] : [];
         foreach ( $project['field_step'] as $step ) {
           if ( $step['field_products'] ) {
@@ -160,7 +167,6 @@ class ProjectMapper implements FeedMapperInterface {
       'seoDescription' => 'field_meta_description',
       'meta_keywords' => 'field_meta_keywords',
       'authorId' => 'field_contributor', // further processing needed
-      'field_products_used' => 'field_products', // further processing needed
       'field_product_own' => 'field_product_own',
       'field_product_need_description' => 'field_needed_description',
       'body' => 'field_description',
