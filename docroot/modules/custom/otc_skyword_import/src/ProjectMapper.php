@@ -56,9 +56,7 @@ class ProjectMapper implements FeedMapperInterface {
     }
 
     if ( isset($document->field_products_used) ) {
-      print_r($project['field_products']);
       $skus = !empty($project['field_products']) ? explode(',', (string) $project['field_products']) : [];
-      print_r($skus);
       $skus = array_filter(array_unique(array_merge(
         $skus, array_map(function($sku){
           return trim($sku);
@@ -70,9 +68,7 @@ class ProjectMapper implements FeedMapperInterface {
     }
 
     if ( isset($document->itemsused) ) {
-      print_r($project['field_products']);
       $skus = !empty($project['field_products']) ? explode(',', (string) $project['field_products']) : [];
-      print_r($skus);
       $skus = array_filter(array_unique(array_merge(
         $skus, array_map(function($sku){
           return trim($sku);
@@ -122,9 +118,7 @@ class ProjectMapper implements FeedMapperInterface {
       }
 
       if ( ! empty($project['field_step']) ) {
-        print_r($project['field_products']);
         $skus = !empty($project['field_products']) ? explode(',', (string) $project['field_products']) : [];
-        print_r($skus);
         foreach ( $project['field_step'] as $step ) {
           if ( $step['field_products'] ) {
             $skus = array_filter(array_unique(array_merge(
