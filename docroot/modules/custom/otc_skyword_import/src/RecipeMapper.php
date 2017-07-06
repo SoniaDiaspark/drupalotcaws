@@ -26,6 +26,7 @@ class RecipeMapper implements FeedMapperInterface {
           break;
 
         // ignored skyword fields
+        case 'author':
         case 'recipe_step_requirements':
         case 'publishedDate':
         case 'keyword':
@@ -48,7 +49,7 @@ class RecipeMapper implements FeedMapperInterface {
         }, explode(',', (string) $document->field_products))
       )));
       if ( ! empty($skus) ) {
-        $article['field_products'] = implode(',', $skus);
+        $recipe['field_products'] = implode(',', $skus);
       }
     }
 
@@ -93,22 +94,20 @@ class RecipeMapper implements FeedMapperInterface {
       // feed => drupal
       'id' => 'field_skyword_id',
       'title' => 'field_display_title',
-      'field_meta_title' => 'field_meta_title',
       'field_skill' => 'field_skill',
       'field_photo_credit' => 'field_photo_credit',
       'field_time_min' => 'field_time_min',
       'field_time_max' => 'field_time_max',
       'field_meta_description' => 'field_meta_description',
       'field_meta_keywords' => 'field_meta_keywords',
-      'meta_title' => 'field_meta_title',
-      'meta_description' => 'field_meta_description',
-      'meta_keywords' => 'field_meta_keywords',
+      'field_meta_title' => 'field_meta_title',
       'authorId' => 'field_contributor', // further processing needed
       'body' => 'field_description',
       'field_description' => 'field_description',
       'field_product_need_description' => 'field_needed_description',
-      'field_servings' => 'field_servings_min',
+      'field_servings_min' => 'field_servings_min',
       'field_servings_max' => 'field_servings_max',
+      'field_items_needed' => 'field_items_needed',
     ];
 
     return ( in_array($key, array_keys($mappings)) ? $mappings[$key] : false );
@@ -118,7 +117,6 @@ class RecipeMapper implements FeedMapperInterface {
     // source/skyword => target/drupal
     return [
       'field_ingredients' => 'field_ingredients',
-      'field_items_needed' => 'field_items_needed',
     ];
   }
 
