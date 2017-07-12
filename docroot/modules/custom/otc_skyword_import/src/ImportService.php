@@ -109,7 +109,7 @@ class ImportService {
         foreach ($docs as $doc) {
           print_r($doc);
           // $this->queueImportJob($type, $doc);
-          // $this->create($doc, $type);
+          $this->create($doc, $type);
         }
       }
 
