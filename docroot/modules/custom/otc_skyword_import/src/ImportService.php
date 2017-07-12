@@ -109,7 +109,15 @@ class ImportService {
         foreach ($docs as $doc) {
           print_r($doc);
           // $this->queueImportJob($type, $doc);
-          $this->create($doc, $type);
+          
+          try {
+            $this->create($doc, $type);
+            echo("\n\r============ SUCCESS ============\n\r");
+          } catch(Exception $e) {
+            echo("\n\r************ ERROR ************\n\r");
+            print_r($e->getMessage());
+          }
+
         }
       }
 
