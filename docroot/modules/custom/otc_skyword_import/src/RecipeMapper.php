@@ -91,7 +91,6 @@ class RecipeMapper implements FeedMapperInterface {
       'field_product_need_description' => 'field_needed_description',
       'field_servings_min' => 'field_servings_min',
       'field_servings_max' => 'field_servings_max',
-      'field_items_needed' => 'field_items_needed',
     ];
 
     return ( in_array($key, array_keys($mappings)) ? $mappings[$key] : false );
@@ -101,6 +100,7 @@ class RecipeMapper implements FeedMapperInterface {
     // source/skyword => target/drupal
     return [
       'field_ingredients' => 'field_ingredients',
+      'field_items_needed' => 'field_items_needed',
     ];
   }
 
