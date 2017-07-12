@@ -27,7 +27,7 @@ class RecipeMapper implements FeedMapperInterface {
 
         // ignored skyword fields
         case 'author':
-        case 'recipe_step_requirements':
+        case 'field_step':
         case 'publishedDate':
         case 'keyword':
         case 'assignment_title':
@@ -53,9 +53,9 @@ class RecipeMapper implements FeedMapperInterface {
       }
     }
 
-    if ( isset($document->recipe_step_requirements) ) {
+    if ( isset($document->field_step) ) {
       $index = 0;
-      foreach ( $document->recipe_step_requirements as $key => $step ) {
+      foreach ( $document->field_step as $key => $step ) {
         $stepData = $this->map($step);
         if ($stepData) {
           $stepIndex = $index++;
@@ -63,22 +63,6 @@ class RecipeMapper implements FeedMapperInterface {
             $stepData['title'] = 'Step ' . ($stepIndex + 1);
           }
           $recipe['field_step'][$stepIndex] = $stepData;
-        }
-      }
-
-      if ( ! empty($recipe['field_step']) ) {
-        $skus = [];
-        foreach ( $recipe['field_step'] as $step ) {
-          if ( $step['field_products'] ) {
-            $skus = array_filter(array_unique(array_merge(
-              $skus, array_map(function($sku){
-                return trim($sku);
-              }, explode(',', $step['field_products']))
-            )));
-          }
-        }
-        if ( ! empty($skus) ) {
-          $recipe['field_products'] = implode(',', $skus);
         }
       }
     }
@@ -155,6 +139,9 @@ class RecipeMapper implements FeedMapperInterface {
       'field_step_img_2x' => 'field_1280x962_multi_img',
       'field_step_img_2x_url' => 'field_1280x962_multi_img',
       'field_step_img_2x_name' => 'field_1280x962_multi_img',
+      'field_download_file' => 'field_download_file',
+      'field_download_file_url' => 'field_download_file',
+      'field_download_file_name' => 'field_download_file',
     ];
   }
 
