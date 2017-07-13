@@ -14,6 +14,7 @@ class ProjectMapper implements FeedMapperInterface {
     foreach ($document as $key => $value) {
       if ( $this->isFileKey($key) ) continue;
       if ( $this->isMultiValue($key) ) continue;
+      if ( $this->isLinkKey($key) ) continue;
 
       if ( ($field = $this->straightMapping($key)) ) {
         $project[$field] = (string) $value;
@@ -21,12 +22,15 @@ class ProjectMapper implements FeedMapperInterface {
       }
 
       switch ($key) {
+        case 'metainformation':
         case 'additional_project_fields':
+        case 'featured_data':
           // recurse for simple mappings
           $project = $this->map($value, $project);
           break;
 
         // ignored skyword fields
+        case 'author':
         case 'photo_article_inspiration':
         case 'project_step_data':
         case 'field_howtouse_description':
@@ -35,11 +39,55 @@ class ProjectMapper implements FeedMapperInterface {
         case 'assignment_title':
         case 'otc_featured_products':
         case 'action':
-        case 'field_related_look':
         case 'field_short_description': // not in CMS, can add later
+        case 'itemsused':
+        case 'field_items_needed':
+        case 'link':
+        case 'steptitle':
+        case 'field_article_thumb_img_2x':
+        case 'field_article_thumb_img_2x_url':
+        case 'field_article_thumb_img_2x_name':
+        case 'numberitmakes':
+        case 'field_products_used':
           break;
         default:
           echo "UNMAPPED KEY: $key\n";
+      }
+    }
+
+    if ( isset($document->field_products_used) ) {
+      $skus = !empty($project['field_products']) ? explode(',', (string) $project['field_products']) : [];
+      $skus = array_filter(array_unique(array_merge(
+        $skus, array_map(function($sku){
+          return trim($sku);
+        }, explode(',', (string) $document->field_products_used))
+      )));
+      if ( ! empty($skus) ) {
+        $project['field_products'] = implode(',', $skus);
+      }
+    }
+
+    if ( isset($document->itemsused) ) {
+      $skus = !empty($project['field_products']) ? explode(',', (string) $project['field_products']) : [];
+      $skus = array_filter(array_unique(array_merge(
+        $skus, array_map(function($sku){
+          return trim($sku);
+        }, explode(',', (string) $document->itemsused))
+      )));
+      if ( ! empty($skus) ) {
+        $project['field_products'] = implode(',', $skus);
+      }
+    }
+
+    if ( isset($document->field_items_needed) ) {
+      $items = [];
+      $items = array_filter(array_unique(array_merge(
+        $items, array_map(function($item){
+          return trim($item);
+        }, explode(',', (string) $document->field_items_needed))
+      )));
+      if ( ! empty($items) ) {
+        $project['field_items_needed'] = $items;
       }
     }
 
@@ -70,7 +118,7 @@ class ProjectMapper implements FeedMapperInterface {
       }
 
       if ( ! empty($project['field_step']) ) {
-        $skus = [];
+        $skus = !empty($project['field_products']) ? explode(',', (string) $project['field_products']) : [];
         foreach ( $project['field_step'] as $step ) {
           if ( $step['field_products'] ) {
             $skus = array_filter(array_unique(array_merge(
@@ -106,11 +154,10 @@ class ProjectMapper implements FeedMapperInterface {
       'field_time_max' => 'field_time_max',
       'field_meta_description' => 'field_meta_description',
       'field_meta_keywords' => 'field_meta_keywords',
-      'meta_title' => 'field_meta_title',
-      'meta_description' => 'field_meta_description',
+      'seoTitle' => 'field_meta_title',
+      'seoDescription' => 'field_meta_description',
       'meta_keywords' => 'field_meta_keywords',
       'authorId' => 'field_contributor', // further processing needed
-      'field_products_used' => 'field_products', // further processing needed
       'field_product_own' => 'field_product_own',
       'field_product_need_description' => 'field_needed_description',
       'body' => 'field_description',
@@ -124,7 +171,6 @@ class ProjectMapper implements FeedMapperInterface {
   protected static function multiValue() {
     // source/skyword => target/drupal
     return [
-      'field_items_needed' => 'field_items_needed',
     ];
   }
 
@@ -149,8 +195,8 @@ class ProjectMapper implements FeedMapperInterface {
 
     return [
       'field_skyword_related_look' => [
-        'uri' => 'field_related_look',
-        'title' => 'field_related_look',
+        'uri' => 'field_related_look_url',
+        'title' => 'field_related_look_link_text',
       ],
     ];
   }
@@ -163,18 +209,18 @@ class ProjectMapper implements FeedMapperInterface {
     return false;
   }
 
-  protected function linkMap(SimpleXMLElement $document, $article = []) {
+  protected function linkMap(SimpleXMLElement $document, $project = []) {
 
     foreach ( self::linkFieldMappings() as $fieldName => $skywordFields ) {
       if ( isset($document->{$skywordFields['uri']}) && isset($document->{$skywordFields['title']}) ) {
-        $article[$fieldName] = [
+        $project[$fieldName] = [
           'uri' => (string) $document->{$skywordFields['uri']},
           'title' => (string) $document->{$skywordFields['title']},
         ];
       }
     }
 
-    return $article;
+    return $project;
   }
 
 
@@ -184,21 +230,21 @@ class ProjectMapper implements FeedMapperInterface {
       'field_1824x1371_img' => 'field_1824x1371_img',
       'field_1824x1371_img_url' => 'field_1824x1371_img',
       'field_1824x1371_img_name' => 'field_1824x1371_img',
-      'field_828x828_img' => 'field_828x828_img',
-      'field_828x828_img_url' => 'field_828x828_img',
-      'field_828x828_img_name' => 'field_828x828_img',
+      'field_hero_m_img_2x' => 'field_828x828_img',
+      'field_hero_m_img_2x_url' => 'field_828x828_img',
+      'field_hero_m_img_2x_name' => 'field_828x828_img',
       'field_900x677_img' => 'field_900x677_img',
       'field_900x677_img_url' => 'field_900x677_img',
       'field_900x677_img_name' => 'field_900x677_img',
-      'field_3200x1391_img' => 'field_3200x1391_img',
-      'field_3200x1391_img_url' => 'field_3200x1391_img',
-      'field_3200x1391_img_name' => 'field_3200x1391_img',
+      'field_hero_bleed_d_img_2x' => 'field_3200x1391_img',
+      'field_hero_bleed_d_img_2x_url' => 'field_3200x1391_img',
+      'field_hero_bleed_d_img_2x_name' => 'field_3200x1391_img',
       'field_828x473_img' => 'field_828x473_img',
       'field_828x473_img_url' => 'field_828x473_img',
       'field_828x473_img_name' => 'field_828x473_img',
-      'field_896x896_img' => 'field_896x896_img',
-      'field_896x896_img_url' => 'field_896x896_img',
-      'field_896x896_img_name' => 'field_896x896_img',
+      'field_card_tile_img_2x' => 'field_896x896_img',
+      'field_card_tile_img_2x_url' => 'field_896x896_img',
+      'field_card_tile_img_2x_name' => 'field_896x896_img',
       'field_929x1239_img' => 'field_929x1239_img',
       'field_929x1239_img_url' => 'field_929x1239_img',
       'field_929x1239_img_name' => 'field_929x1239_img',

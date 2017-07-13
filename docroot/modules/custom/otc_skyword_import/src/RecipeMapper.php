@@ -26,7 +26,8 @@ class RecipeMapper implements FeedMapperInterface {
           break;
 
         // ignored skyword fields
-        case 'recipe_step_requirements':
+        case 'author':
+        case 'field_step':
         case 'publishedDate':
         case 'keyword':
         case 'assignment_title':
@@ -48,13 +49,13 @@ class RecipeMapper implements FeedMapperInterface {
         }, explode(',', (string) $document->field_products))
       )));
       if ( ! empty($skus) ) {
-        $article['field_products'] = implode(',', $skus);
+        $recipe['field_products'] = implode(',', $skus);
       }
     }
 
-    if ( isset($document->recipe_step_requirements) ) {
+    if ( isset($document->field_step) ) {
       $index = 0;
-      foreach ( $document->recipe_step_requirements as $key => $step ) {
+      foreach ( $document->field_step as $key => $step ) {
         $stepData = $this->map($step);
         if ($stepData) {
           $stepIndex = $index++;
@@ -62,22 +63,6 @@ class RecipeMapper implements FeedMapperInterface {
             $stepData['title'] = 'Step ' . ($stepIndex + 1);
           }
           $recipe['field_step'][$stepIndex] = $stepData;
-        }
-      }
-
-      if ( ! empty($recipe['field_step']) ) {
-        $skus = [];
-        foreach ( $recipe['field_step'] as $step ) {
-          if ( $step['field_products'] ) {
-            $skus = array_filter(array_unique(array_merge(
-              $skus, array_map(function($sku){
-                return trim($sku);
-              }, explode(',', $step['field_products']))
-            )));
-          }
-        }
-        if ( ! empty($skus) ) {
-          $recipe['field_products'] = implode(',', $skus);
         }
       }
     }
@@ -93,21 +78,18 @@ class RecipeMapper implements FeedMapperInterface {
       // feed => drupal
       'id' => 'field_skyword_id',
       'title' => 'field_display_title',
-      'field_meta_title' => 'field_meta_title',
       'field_skill' => 'field_skill',
       'field_photo_credit' => 'field_photo_credit',
       'field_time_min' => 'field_time_min',
       'field_time_max' => 'field_time_max',
       'field_meta_description' => 'field_meta_description',
       'field_meta_keywords' => 'field_meta_keywords',
-      'meta_title' => 'field_meta_title',
-      'meta_description' => 'field_meta_description',
-      'meta_keywords' => 'field_meta_keywords',
+      'field_meta_title' => 'field_meta_title',
       'authorId' => 'field_contributor', // further processing needed
       'body' => 'field_description',
       'field_description' => 'field_description',
       'field_product_need_description' => 'field_needed_description',
-      'field_servings' => 'field_servings_min',
+      'field_servings_min' => 'field_servings_min',
       'field_servings_max' => 'field_servings_max',
     ];
 
@@ -157,6 +139,9 @@ class RecipeMapper implements FeedMapperInterface {
       'field_step_img_2x' => 'field_1280x962_multi_img',
       'field_step_img_2x_url' => 'field_1280x962_multi_img',
       'field_step_img_2x_name' => 'field_1280x962_multi_img',
+      'field_download_file' => 'field_download_file',
+      'field_download_file_url' => 'field_download_file',
+      'field_download_file_name' => 'field_download_file',
     ];
   }
 
