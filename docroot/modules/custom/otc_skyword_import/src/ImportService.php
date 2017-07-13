@@ -107,16 +107,16 @@ class ImportService {
 
       foreach ($this->mapImports($simplexml) as $type => $docs) {
         foreach ($docs as $doc) {
-          print_r($doc);
+          // print_r($doc);
           // $this->queueImportJob($type, $doc);
           
-          try {
-            $this->create($doc, $type);
-            echo("============ SUCCESS ============\n\r\n\r");
-          } catch(Exception $e) {
-            echo("************ ERROR ************\n\r\n\r");
-            print_r($e->getMessage());
-          }
+          // try {
+          //   $this->create($doc, $type);
+          //   echo("============ SUCCESS ============\n\r\n\r");
+          // } catch(Exception $e) {
+          //   echo("************ ERROR ************\n\r\n\r");
+          //   print_r($e->getMessage());
+          // }
 
         }
       }
@@ -162,11 +162,11 @@ class ImportService {
       switch ($type) {
         case 'article':
         case 'article-list':
-          // $docs['article'][] = $this->mappingService->get('article')->map($document);
+          $docs['article'][] = $this->mappingService->get('article')->map($document);
           break;
         case 'Project':
         case 'Project-Lite':
-          $docs['project'][] = $this->mappingService->get('project')->map($document);
+          // $docs['project'][] = $this->mappingService->get('project')->map($document);
           break;
         case 'fun365recipe':
           // $docs['recipe'][] = $this->mappingService->get('recipe')->map($document);
