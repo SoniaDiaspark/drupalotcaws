@@ -110,13 +110,13 @@ class ImportService {
           print_r($doc);
           // $this->queueImportJob($type, $doc);
           
-          // try {
-          //   $this->create($doc, $type);
-          //   echo("============ SUCCESS ============\n\r\n\r");
-          // } catch(Exception $e) {
-          //   echo("************ ERROR ************\n\r\n\r");
-          //   print_r($e->getMessage());
-          // }
+          try {
+            $this->create($doc, $type);
+            echo("============ SUCCESS ============\n\r\n\r");
+          } catch(Exception $e) {
+            echo("************ ERROR ************\n\r\n\r");
+            print_r($e->getMessage());
+          }
 
         }
       }
