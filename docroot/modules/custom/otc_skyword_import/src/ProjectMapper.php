@@ -14,6 +14,7 @@ class ProjectMapper implements FeedMapperInterface {
     foreach ($document as $key => $value) {
       if ( $this->isFileKey($key) ) continue;
       if ( $this->isMultiValue($key) ) continue;
+      if ( $this->isLinkKey($key) ) continue;
 
       if ( ($field = $this->straightMapping($key)) ) {
         $project[$field] = (string) $value;
@@ -38,7 +39,6 @@ class ProjectMapper implements FeedMapperInterface {
         case 'assignment_title':
         case 'otc_featured_products':
         case 'action':
-        case 'field_related_look':
         case 'field_short_description': // not in CMS, can add later
         case 'itemsused':
         case 'field_items_needed':
@@ -195,8 +195,8 @@ class ProjectMapper implements FeedMapperInterface {
 
     return [
       'field_skyword_related_look' => [
-        'uri' => 'field_related_look',
-        'title' => 'field_related_look',
+        'uri' => 'field_related_look_url',
+        'title' => 'field_related_look_link_text',
       ],
     ];
   }
