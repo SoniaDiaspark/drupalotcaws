@@ -2,6 +2,767 @@
 <entries>
     <fun365recipe>
         <action>create</action>
+        <id>281474979774202</id> 
+        <title><![CDATA[Jesse test recipe title]]></title> 
+        <author>John Dillick</author>
+        <authorId>229491</authorId>
+        <body><![CDATA[Jesse test recipe description<script async type="text/javascript" src="//tracking.skyword.com/tracker.js?contentId=281474979774202"></script>]]></body>
+        <publishedDate>2017-07-12T19:44:03Z</publishedDate>  
+        <keyword><![CDATA[jesse test seo optimization keyword]]></keyword>
+        <assignment_title><![CDATA[Jesse test assignment title]]></assignment_title>
+        <otc_featured_products><![CDATA[Jesse test OTC featured products]]></otc_featured_products>
+        <photo_article_inspiration><![CDATA[Jesse test inspiration]]></photo_article_inspiration>
+        <field_skill><![CDATA[Jesse test skill]]></field_skill>
+        <field_time_min><![CDATA[222]]></field_time_min>
+        <field_time_max><![CDATA[333]]></field_time_max>
+        <field_servings_min><![CDATA[111]]></field_servings_min>
+        <field_servings_max><![CDATA[444]]></field_servings_max>
+        <field_ingredients><![CDATA[Jesse test recipe ingredients 1]]></field_ingredients>
+        <field_ingredients><![CDATA[Jesse test recipe ingredients 2]]></field_ingredients>
+        <field_ingredients><![CDATA[Jesse test recipe ingredients 3]]></field_ingredients>
+        <field_step>
+            <field_description><![CDATA[<p>Jesse test recipe step copy 1</p>]]></field_description>
+            <field_step_img_2x>459189</field_step_img_2x>
+            <field_step_img_2x_url><![CDATA[https://api.skyword.com/file?key=qep7eumvwqd6czpdxr4g&file=459189]]></field_step_img_2x_url>
+            <field_step_img_2x_name>1280x962.png</field_step_img_2x_name>
+        </field_step>
+        <field_step>
+            <field_description><![CDATA[<p>Jesse test recipe step copy 2</p>]]></field_description>
+            <field_step_img_2x>459193</field_step_img_2x>
+            <field_step_img_2x_url><![CDATA[https://api.skyword.com/file?key=qep7eumvwqd6czpdxr4g&file=459193]]></field_step_img_2x_url>
+            <field_step_img_2x_name>1280x962.png</field_step_img_2x_name>
+        </field_step>
+        <field_step>
+            <field_description><![CDATA[<p>Jesse test recipe step copy 3</p>]]></field_description>
+            <field_step_img_2x>459196</field_step_img_2x>
+            <field_step_img_2x_url><![CDATA[https://api.skyword.com/file?key=qep7eumvwqd6czpdxr4g&file=459196]]></field_step_img_2x_url>
+            <field_step_img_2x_name>1280x962.png</field_step_img_2x_name>
+        </field_step>
+        <hero_half_desktop>459200</hero_half_desktop>
+        <hero_half_desktop_url><![CDATA[https://api.skyword.com/file?key=qep7eumvwqd6czpdxr4g&file=459200]]></hero_half_desktop_url>
+        <hero_half_desktop_name>1824x1371.png</hero_half_desktop_name>
+        <hero_mobile>459201</hero_mobile>
+        <hero_mobile_url><![CDATA[https://api.skyword.com/file?key=qep7eumvwqd6czpdxr4g&file=459201]]></hero_mobile_url>
+        <hero_mobile_name>828x828.png</hero_mobile_name>
+        <field_product_need_description><![CDATA[Jesse test what youll need description]]></field_product_need_description>
+        <field_card_tile_img_2x>459205</field_card_tile_img_2x>
+        <field_card_tile_img_2x_url><![CDATA[https://api.skyword.com/file?key=qep7eumvwqd6czpdxr4g&file=459205]]></field_card_tile_img_2x_url>
+        <field_card_tile_img_2x_name>896x896.png</field_card_tile_img_2x_name>
+        <field_whatneed_img_2x>459206</field_whatneed_img_2x>
+        <field_whatneed_img_2x_url><![CDATA[https://api.skyword.com/file?key=qep7eumvwqd6czpdxr4g&file=459206]]></field_whatneed_img_2x_url>
+        <field_whatneed_img_2x_name>900x677.png</field_whatneed_img_2x_name>
+        <field_photo_credit><![CDATA[Jesse test photo credit]]></field_photo_credit>
+        <field_items_needed><![CDATA[<p>Jesse test recipe items needed</p>]]></field_items_needed>
+        <field_products><![CDATA[Jesse test recipe products used]]></field_products>
+        <field_meta_description><![CDATA[Jesse test meta description]]></field_meta_description>
+        <field_meta_title><![CDATA[Jesse test meta title]]></field_meta_title>
+        <field_meta_keywords><![CDATA[Jesse test, meta, keywords]]></field_meta_keywords>
+        <field_download_file>459210</field_download_file>
+        <field_download_file_url><![CDATA[https://api.skyword.com/file?key=qep7eumvwqd6czpdxr4g&file=459210]]></field_download_file_url>
+        <field_download_file_name>optional-pdf-download.pdf</field_download_file_name>
+    </fun365recipe>
+    <Project-Lite>
+        <action>create</action>
+        <id>281474979774194</id> 
+        <title><![CDATA[Jesse Test project title]]></title> 
+        <author>John Dillick</author>
+        <authorId>229491</authorId>
+        <body><![CDATA[Jesse Test project description<script async type="text/javascript" src="//tracking.skyword.com/tracker.js?contentId=281474979774194"></script>]]></body>
+        <publishedDate>2017-07-12T17:35:14Z</publishedDate>  
+        <keyword><![CDATA[jesse test seo optimization keyword]]></keyword>
+        <assignment_title><![CDATA[Jesse Test assignment title]]></assignment_title>
+        <otc_featured_products><![CDATA[Jesse Test otc featured products]]></otc_featured_products>
+        <photo_article_inspiration><![CDATA[Jesse Test inspiration]]></photo_article_inspiration>
+        <field_related_look><![CDATA[Jesse Test related look]]></field_related_look>
+        <field_time_min><![CDATA[111]]></field_time_min>
+        <field_time_max><![CDATA[333]]></field_time_max>
+        <field_skill><![CDATA[Jesse Test skill]]></field_skill>
+        <project_step_data>
+            <field_step_img_2x>459043</field_step_img_2x>
+            <field_step_img_2x_url><![CDATA[https://api.skyword.com/file?key=qep7eumvwqd6czpdxr4g&file=459043]]></field_step_img_2x_url>
+            <field_step_img_2x_name>1280x962.png</field_step_img_2x_name>
+            <field_description><![CDATA[Jesse Test step description 1]]></field_description>
+            <steptitle><![CDATA[Jesse Test step headline 1]]></steptitle>
+        </project_step_data>
+        <project_step_data>
+            <field_step_img_2x>459044</field_step_img_2x>
+            <field_step_img_2x_url><![CDATA[https://api.skyword.com/file?key=qep7eumvwqd6czpdxr4g&file=459044]]></field_step_img_2x_url>
+            <field_step_img_2x_name>1280x962.png</field_step_img_2x_name>
+            <field_description><![CDATA[Jesse Test step description 2]]></field_description>
+            <steptitle><![CDATA[Jesse Test step description 2]]></steptitle>
+        </project_step_data>
+        <additional_project_fields>
+            <field_product_need_description><![CDATA[Jesse Test what you will need description]]></field_product_need_description>
+            <field_900x677_img>459045</field_900x677_img>
+            <field_900x677_img_url><![CDATA[https://api.skyword.com/file?key=qep7eumvwqd6czpdxr4g&file=459045]]></field_900x677_img_url>
+            <field_900x677_img_name>900x677.png</field_900x677_img_name>
+            <field_products_used><![CDATA[Jesse Test project, products used]]></field_products_used>
+            <field_items_needed><![CDATA[Jesse Test, items needed]]></field_items_needed>
+            <field_project_PDF>459048</field_project_PDF>
+            <field_project_PDF_url><![CDATA[https://api.skyword.com/file?key=qep7eumvwqd6czpdxr4g&file=459048]]></field_project_PDF_url>
+            <field_project_PDF_name>optional-pdf-download.pdf</field_project_PDF_name>
+        </additional_project_fields>
+        <featured_data>
+            <field_hero_bleed_d_img_2x>459051</field_hero_bleed_d_img_2x>
+            <field_hero_bleed_d_img_2x_url><![CDATA[https://api.skyword.com/file?key=qep7eumvwqd6czpdxr4g&file=459051]]></field_hero_bleed_d_img_2x_url>
+            <field_hero_bleed_d_img_2x_name>3200x1391.png</field_hero_bleed_d_img_2x_name>
+            <field_1824x1371_img>459053</field_1824x1371_img>
+            <field_1824x1371_img_url><![CDATA[https://api.skyword.com/file?key=qep7eumvwqd6czpdxr4g&file=459053]]></field_1824x1371_img_url>
+            <field_1824x1371_img_name>1824x1371.png</field_1824x1371_img_name>
+            <field_card_tile_img_2x>459055</field_card_tile_img_2x>
+            <field_card_tile_img_2x_url><![CDATA[https://api.skyword.com/file?key=qep7eumvwqd6czpdxr4g&file=459055]]></field_card_tile_img_2x_url>
+            <field_card_tile_img_2x_name>896x896.png</field_card_tile_img_2x_name>
+            <field_hero_m_img_2x>459056</field_hero_m_img_2x>
+            <field_hero_m_img_2x_url><![CDATA[https://api.skyword.com/file?key=qep7eumvwqd6czpdxr4g&file=459056]]></field_hero_m_img_2x_url>
+            <field_hero_m_img_2x_name>828x828.png</field_hero_m_img_2x_name>
+        </featured_data>
+        <field_photo_credit><![CDATA[Jesse Test photo credit]]></field_photo_credit>
+        <field_meta_title><![CDATA[Jesse Test meta title]]></field_meta_title>
+        <field_meta_description><![CDATA[Jesse Test meta description]]></field_meta_description>
+    </Project-Lite>
+    <article-list>
+        <action>create</action>
+        <id>281474979774195</id> 
+        <title><![CDATA[Jesse Test article title]]></title> 
+        <author>John Dillick</author>
+        <authorId>229491</authorId>
+        <body><![CDATA[<p> Jesse Test article description</p><script async type="text/javascript" src="//tracking.skyword.com/tracker.js?contentId=281474979774195"></script>]]></body>
+        <publishedDate>2017-07-12T17:21:46Z</publishedDate>  
+        <keyword><![CDATA[jesse test seo optimization keyword]]></keyword>
+        <otc_featured_products><![CDATA[<p> Jesse Test otc featured products</p>]]></otc_featured_products>
+        <photo_article_inspiration><![CDATA[Jesse Test inspiration]]></photo_article_inspiration>
+        <article_list_content>
+            <field_list_heading><![CDATA[Jesse Test section heading 1]]></field_list_heading>
+            <field_list_content><![CDATA[<p> Jesse Test section content 1</p>]]></field_list_content>
+            <link_url><![CDATA[Jesse Test section button url 1]]></link_url>
+            <field_link_text><![CDATA[Jesse Test section link text 1]]></field_link_text>
+            <field_929x1239_img>459030</field_929x1239_img>
+            <field_929x1239_img_url><![CDATA[https://api.skyword.com/file?key=qep7eumvwqd6czpdxr4g&file=459030]]></field_929x1239_img_url>
+            <field_929x1239_img_name>929x1239-1.png</field_929x1239_img_name>
+        </article_list_content>
+        <article_list_content>
+            <field_list_heading><![CDATA[Jesse Test section heading 2]]></field_list_heading>
+            <field_list_content><![CDATA[<p>Jesse Test section content 2</p>]]></field_list_content>
+            <link_url><![CDATA[Jesse Test section buton url 2]]></link_url>
+            <field_link_text><![CDATA[Jesse Test section link txt 2]]></field_link_text>
+            <field_929x1239_img>459033</field_929x1239_img>
+            <field_929x1239_img_url><![CDATA[https://api.skyword.com/file?key=qep7eumvwqd6czpdxr4g&file=459033]]></field_929x1239_img_url>
+            <field_929x1239_img_name>929x1239.png</field_929x1239_img_name>
+        </article_list_content>
+        <article_list_content>
+            <field_list_heading><![CDATA[Jesse Test section heading 3]]></field_list_heading>
+            <field_list_content><![CDATA[<p>Jesse Test section content 3</p>]]></field_list_content>
+            <link_url><![CDATA[Jesse Test section button url 3]]></link_url>
+            <field_link_text><![CDATA[Jesse Test section link text 3]]></field_link_text>
+            <field_929x1239_img>459034</field_929x1239_img>
+            <field_929x1239_img_url><![CDATA[https://api.skyword.com/file?key=qep7eumvwqd6czpdxr4g&file=459034]]></field_929x1239_img_url>
+            <field_929x1239_img_name>929x1239-1.png</field_929x1239_img_name>
+        </article_list_content>
+        <article_list_content>
+            <field_list_heading><![CDATA[Jesse Test section heading 2]]></field_list_heading>
+            <field_list_content><![CDATA[<p>Jesse Test section heading 2</p>]]></field_list_content>
+            <link_url><![CDATA[Jesse Test section button url 2]]></link_url>
+            <field_link_text><![CDATA[Jesse Test section link text 2]]></field_link_text>
+            <field_929x1239_img>459038</field_929x1239_img>
+            <field_929x1239_img_url><![CDATA[https://api.skyword.com/file?key=qep7eumvwqd6czpdxr4g&file=459038]]></field_929x1239_img_url>
+            <field_929x1239_img_name>929x1239.png</field_929x1239_img_name>
+        </article_list_content>
+        <additional_al_requirements>
+            <field_product_need_description><![CDATA[<p> Jesse Test what you need description</p>]]></field_product_need_description>
+            <field_whatneed_img_2x>459035</field_whatneed_img_2x>
+            <field_whatneed_img_2x_url><![CDATA[https://api.skyword.com/file?key=qep7eumvwqd6czpdxr4g&file=459035]]></field_whatneed_img_2x_url>
+            <field_whatneed_img_2x_name>900x677.png</field_whatneed_img_2x_name>
+            <productsused><![CDATA[Jesse Test, otc items used]]></productsused>
+            <article_items_needed><![CDATA[Jesse Test , non otc items needed]]></article_items_needed>
+            <atricle_pdf_upload>459036</atricle_pdf_upload>
+            <atricle_pdf_upload_url><![CDATA[https://api.skyword.com/file?key=qep7eumvwqd6czpdxr4g&file=459036]]></atricle_pdf_upload_url>
+            <atricle_pdf_upload_name>optional-pdf-download.pdf</atricle_pdf_upload_name>
+        </additional_al_requirements>
+        <field_meta_keywords><![CDATA[Jesse Test meta keywords]]></field_meta_keywords>
+        <featured_data>
+            <hero_bleed_desktop>459037</hero_bleed_desktop>
+            <hero_bleed_desktop_url><![CDATA[https://api.skyword.com/file?key=qep7eumvwqd6czpdxr4g&file=459037]]></hero_bleed_desktop_url>
+            <hero_bleed_desktop_name>3200x1391.png</hero_bleed_desktop_name>
+            <card_tile_image>459039</card_tile_image>
+            <card_tile_image_url><![CDATA[https://api.skyword.com/file?key=qep7eumvwqd6czpdxr4g&file=459039]]></card_tile_image_url>
+            <card_tile_image_name>896x896.png</card_tile_image_name>
+            <hero_bleed_mobile>459040</hero_bleed_mobile>
+            <hero_bleed_mobile_url><![CDATA[https://api.skyword.com/file?key=qep7eumvwqd6czpdxr4g&file=459040]]></hero_bleed_mobile_url>
+            <hero_bleed_mobile_name>828x473.png</hero_bleed_mobile_name>
+            <article_thumbnail_image>459041</article_thumbnail_image>
+            <article_thumbnail_image_url><![CDATA[https://api.skyword.com/file?key=qep7eumvwqd6czpdxr4g&file=459041]]></article_thumbnail_image_url>
+            <article_thumbnail_image_name>828x473-1.png</article_thumbnail_image_name>
+            <field_photo_credit><![CDATA[Jesse Test photo credit]]></field_photo_credit>
+        </featured_data>
+        <metainformation>
+            <seoTitle><![CDATA[Jesse Test meta title]]></seoTitle>
+            <seoDescription><![CDATA[Jesse Test meta description]]></seoDescription>
+        </metainformation>
+        <link><![CDATA[Jesse Test high res images]]></link>
+    </article-list>
+    <Project>
+        <action>create</action>
+        <id>281474979774188</id> 
+        <title><![CDATA[Jesse Test project title]]></title> 
+        <author>John Dillick</author>
+        <authorId>229491</authorId>
+        <body><![CDATA[<p>Jesse Test project description</p><script async type="text/javascript" src="//tracking.skyword.com/tracker.js?contentId=281474979774188"></script>]]></body>
+        <publishedDate>2017-07-12T16:59:29Z</publishedDate>  
+        <keyword><![CDATA[jesse test seo optimization keyword]]></keyword>
+        <assignment_title><![CDATA[Jesse Test assignment title]]></assignment_title>
+        <otc_featured_products><![CDATA[Jesse Test otc featured producs]]></otc_featured_products>
+        <photo_article_inspiration><![CDATA[Jesse Test inspiration]]></photo_article_inspiration>
+        <field_skill_level><![CDATA[Jesse Test skill]]></field_skill_level>
+        <field_time_min><![CDATA[111]]></field_time_min>
+        <field_time_max><![CDATA[222]]></field_time_max>
+        <project_step_data>
+            <field_step_img_2x>459020</field_step_img_2x>
+            <field_step_img_2x_url><![CDATA[https://api.skyword.com/file?key=qep7eumvwqd6czpdxr4g&file=459020]]></field_step_img_2x_url>
+            <field_step_img_2x_name>1280x962.png</field_step_img_2x_name>
+            <steptitle><![CDATA[Jesse Test step headline 1]]></steptitle>
+            <field_description><![CDATA[<p>Jesse Test step description 1</p>]]></field_description>
+        </project_step_data>
+        <project_step_data>
+            <field_step_img_2x>459022</field_step_img_2x>
+            <field_step_img_2x_url><![CDATA[https://api.skyword.com/file?key=qep7eumvwqd6czpdxr4g&file=459022]]></field_step_img_2x_url>
+            <field_step_img_2x_name>1280x962.png</field_step_img_2x_name>
+            <steptitle><![CDATA[Jesse Test step headline 2]]></steptitle>
+            <field_description><![CDATA[<p>Jesse Test step description 2</p>]]></field_description>
+        </project_step_data>
+        <additional_project_fields>
+            <numberitmakes><![CDATA[Jesse Test number it makes]]></numberitmakes>
+            <field_900x677_img>459023</field_900x677_img>
+            <field_900x677_img_url><![CDATA[https://api.skyword.com/file?key=qep7eumvwqd6czpdxr4g&file=459023]]></field_900x677_img_url>
+            <field_900x677_img_name>900x677.png</field_900x677_img_name>
+            <itemsused><![CDATA[Jesse Test, otc items used]]></itemsused>
+            <field_items_needed><![CDATA[Jesse Test, non-otc items needed]]></field_items_needed>
+            <field_project_PDF>459024</field_project_PDF>
+            <field_project_PDF_url><![CDATA[https://api.skyword.com/file?key=qep7eumvwqd6czpdxr4g&file=459024]]></field_project_PDF_url>
+            <field_project_PDF_name>optional-pdf-download.pdf</field_project_PDF_name>
+            <field_related_look><![CDATA[Jesse Test related shop the look]]></field_related_look>
+            <field_product_need_description><![CDATA[Jesse Test what you need description]]></field_product_need_description>
+        </additional_project_fields>
+        <featured_data>
+            <field_hero_bleed_d_img_2x>459026</field_hero_bleed_d_img_2x>
+            <field_hero_bleed_d_img_2x_url><![CDATA[https://api.skyword.com/file?key=qep7eumvwqd6czpdxr4g&file=459026]]></field_hero_bleed_d_img_2x_url>
+            <field_hero_bleed_d_img_2x_name>3200x1391.png</field_hero_bleed_d_img_2x_name>
+            <field_card_tile_img_2x>459027</field_card_tile_img_2x>
+            <field_card_tile_img_2x_url><![CDATA[https://api.skyword.com/file?key=qep7eumvwqd6czpdxr4g&file=459027]]></field_card_tile_img_2x_url>
+            <field_card_tile_img_2x_name>896x896.png</field_card_tile_img_2x_name>
+            <field_hero_m_img_2x>459028</field_hero_m_img_2x>
+            <field_hero_m_img_2x_url><![CDATA[https://api.skyword.com/file?key=qep7eumvwqd6czpdxr4g&file=459028]]></field_hero_m_img_2x_url>
+            <field_hero_m_img_2x_name>828x828.png</field_hero_m_img_2x_name>
+        </featured_data>
+        <field_photo_credit><![CDATA[Jesse Test photo credit]]></field_photo_credit>
+        <metainformation>
+            <seoTitle><![CDATA[Jesse Test meta title]]></seoTitle>
+            <seoDescription><![CDATA[Jesse Test meta description]]></seoDescription>
+        </metainformation>
+        <field_meta_keywords><![CDATA[Jesse Test meta keywords]]></field_meta_keywords>
+        <link><![CDATA[Jesse Test hig res images]]></link>
+    </Project>
+    <article-list>
+        <action>create</action>
+        <id>281474979774184</id> 
+        <title><![CDATA[Jesse Test title]]></title> 
+        <author>John Dillick</author>
+        <authorId>229491</authorId>
+        <body><![CDATA[<p>Jesse Test article description</p><script async type="text/javascript" src="//tracking.skyword.com/tracker.js?contentId=281474979774184"></script>]]></body>
+        <publishedDate>2017-07-12T16:43:41Z</publishedDate>  
+        <keyword><![CDATA[jesse test seo optimization keyword]]></keyword>
+        <otc_featured_products><![CDATA[<p>Jesse Test otc featured products</p>]]></otc_featured_products>
+        <photo_article_inspiration><![CDATA[Jesse Test inspiration]]></photo_article_inspiration>
+        <article_list_content>
+            <field_list_heading><![CDATA[Jesse Test section heading 1]]></field_list_heading>
+            <field_list_content><![CDATA[<p>Jesse Test section content 1</p>]]></field_list_content>
+            <link_url><![CDATA[Jesse Test section button url 1]]></link_url>
+            <field_link_text><![CDATA[Jesse Test section link text 1]]></field_link_text>
+            <field_929x1239_img>458999</field_929x1239_img>
+            <field_929x1239_img_url><![CDATA[https://api.skyword.com/file?key=qep7eumvwqd6czpdxr4g&file=458999]]></field_929x1239_img_url>
+            <field_929x1239_img_name>929x1239-1.png</field_929x1239_img_name>
+        </article_list_content>
+        <article_list_content>
+            <field_list_heading><![CDATA[Jesse Test section heading 2]]></field_list_heading>
+            <field_list_content><![CDATA[<p>Jesse Test section content 2</p>]]></field_list_content>
+            <link_url><![CDATA[Jesse Test section button url 2]]></link_url>
+            <field_link_text><![CDATA[Jesse Test section link text 2]]></field_link_text>
+            <field_929x1239_img>459001</field_929x1239_img>
+            <field_929x1239_img_url><![CDATA[https://api.skyword.com/file?key=qep7eumvwqd6czpdxr4g&file=459001]]></field_929x1239_img_url>
+            <field_929x1239_img_name>929x1239-1.png</field_929x1239_img_name>
+        </article_list_content>
+        <article_list_content>
+            <field_list_heading><![CDATA[Jesse Test section heading 3]]></field_list_heading>
+            <field_list_content><![CDATA[<p>Jesse Test section content 3</p>]]></field_list_content>
+            <link_url><![CDATA[Jesse Test section button url]]></link_url>
+            <field_link_text><![CDATA[Jesse Test section link text]]></field_link_text>
+            <field_929x1239_img>459003</field_929x1239_img>
+            <field_929x1239_img_url><![CDATA[https://api.skyword.com/file?key=qep7eumvwqd6czpdxr4g&file=459003]]></field_929x1239_img_url>
+            <field_929x1239_img_name>929x1239.png</field_929x1239_img_name>
+        </article_list_content>
+        <additional_al_requirements>
+            <field_product_need_description><![CDATA[<p>Jesse Test what you need description</p>]]></field_product_need_description>
+            <field_whatneed_img_2x>459006</field_whatneed_img_2x>
+            <field_whatneed_img_2x_url><![CDATA[https://api.skyword.com/file?key=qep7eumvwqd6czpdxr4g&file=459006]]></field_whatneed_img_2x_url>
+            <field_whatneed_img_2x_name>900x677.png</field_whatneed_img_2x_name>
+            <productsused><![CDATA[Jesse Test, OTC items used]]></productsused>
+            <article_items_needed><![CDATA[Jesse Test, Non OTC items]]></article_items_needed>
+            <atricle_pdf_upload>459008</atricle_pdf_upload>
+            <atricle_pdf_upload_url><![CDATA[https://api.skyword.com/file?key=qep7eumvwqd6czpdxr4g&file=459008]]></atricle_pdf_upload_url>
+            <atricle_pdf_upload_name>optional-pdf-download.pdf</atricle_pdf_upload_name>
+        </additional_al_requirements>
+        <field_meta_keywords><![CDATA[Jesse Test meta keywords]]></field_meta_keywords>
+        <featured_data>
+            <hero_bleed_desktop>459010</hero_bleed_desktop>
+            <hero_bleed_desktop_url><![CDATA[https://api.skyword.com/file?key=qep7eumvwqd6czpdxr4g&file=459010]]></hero_bleed_desktop_url>
+            <hero_bleed_desktop_name>3200x1391.png</hero_bleed_desktop_name>
+            <card_tile_image>459011</card_tile_image>
+            <card_tile_image_url><![CDATA[https://api.skyword.com/file?key=qep7eumvwqd6czpdxr4g&file=459011]]></card_tile_image_url>
+            <card_tile_image_name>896x896.png</card_tile_image_name>
+            <hero_bleed_mobile>459012</hero_bleed_mobile>
+            <hero_bleed_mobile_url><![CDATA[https://api.skyword.com/file?key=qep7eumvwqd6czpdxr4g&file=459012]]></hero_bleed_mobile_url>
+            <hero_bleed_mobile_name>828x473-1.png</hero_bleed_mobile_name>
+            <article_thumbnail_image>459014</article_thumbnail_image>
+            <article_thumbnail_image_url><![CDATA[https://api.skyword.com/file?key=qep7eumvwqd6czpdxr4g&file=459014]]></article_thumbnail_image_url>
+            <article_thumbnail_image_name>828x473.png</article_thumbnail_image_name>
+            <field_photo_credit><![CDATA[Jesse Test photo credit]]></field_photo_credit>
+        </featured_data>
+        <metainformation>
+            <seoTitle><![CDATA[Jesse Test meta title]]></seoTitle>
+            <seoDescription><![CDATA[Jesse Test meta description]]></seoDescription>
+        </metainformation>
+        <link><![CDATA[Jesse Test high res images]]></link>
+    </article-list>
+    <article>
+        <action>create</action>
+        <id>281474979774174</id> 
+        <title><![CDATA[Jesse Test Article Title]]></title> 
+        <author>John Dillick</author>
+        <authorId>229491</authorId>
+        <body><![CDATA[<p>Jesse Test Article Description</p><script async type="text/javascript" src="//tracking.skyword.com/tracker.js?contentId=281474979774174"></script>]]></body>
+        <publishedDate>2017-07-12T16:28:02Z</publishedDate>  
+        <keyword><![CDATA[jesse test seo optimization keyword]]></keyword>
+        <otc_featured_products><![CDATA[<p>Jesse Test Featured Products</p>]]></otc_featured_products>
+        <photo_article_inspiration><![CDATA[Jesse Test Inspiration]]></photo_article_inspiration>
+        <carousel>
+            <image>458972</image>
+            <image_url><![CDATA[https://api.skyword.com/file?key=qep7eumvwqd6czpdxr4g&file=458972]]></image_url>
+            <image_name>1858x1062.png</image_name>
+            <image>458973</image>
+            <image_url><![CDATA[https://api.skyword.com/file?key=qep7eumvwqd6czpdxr4g&file=458973]]></image_url>
+            <image_name>1858x1062-1.png</image_name>
+            <image>458974</image>
+            <image_url><![CDATA[https://api.skyword.com/file?key=qep7eumvwqd6czpdxr4g&file=458974]]></image_url>
+            <image_name>1858x1062-2.png</image_name>
+            <field_carousel_heading><![CDATA[Jesse Test Carousel Headline]]></field_carousel_heading>
+            <field_carousel_content><![CDATA[<p>Jesse Test Carousel Caption</p>]]></field_carousel_content>
+        </carousel>
+        <imagewide_content>
+            <headline><![CDATA[Jesse Test Image Wide Headline]]></headline>
+            <body_copy><![CDATA[<p>Jesse Test Image Wide Body Copy</p>]]></body_copy>
+            <field_article_img_wide_2x>458980</field_article_img_wide_2x>
+            <field_article_img_wide_2x_url><![CDATA[https://api.skyword.com/file?key=qep7eumvwqd6czpdxr4g&file=458980]]></field_article_img_wide_2x_url>
+            <field_article_img_wide_2x_name>1858x1062-5.png</field_article_img_wide_2x_name>
+        </imagewide_content>
+        <field_quote_img_2x>458982</field_quote_img_2x>
+        <field_quote_img_2x_url><![CDATA[https://api.skyword.com/file?key=qep7eumvwqd6czpdxr4g&file=458982]]></field_quote_img_2x_url>
+        <field_quote_img_2x_name>1088x818.png</field_quote_img_2x_name>
+        <bodycontent>
+            <articlecontent><![CDATA[<p>Jesse Test Body Content</p>]]></articlecontent>
+        </bodycontent>
+        <imagetall_container>
+            <bodycopy><![CDATA[<p>Jesse Test Image Tall Content Body Copy</p>]]></bodycopy>
+            <imagetall>458984</imagetall>
+            <imagetall_url><![CDATA[https://api.skyword.com/file?key=qep7eumvwqd6czpdxr4g&file=458984]]></imagetall_url>
+            <imagetall_name>929x1239.png</imagetall_name>
+        </imagetall_container>
+        <field_meta_keywords><![CDATA[Jesse Test Meta Keywords]]></field_meta_keywords>
+        <featured_data>
+            <hero_bleed>458985</hero_bleed>
+            <hero_bleed_url><![CDATA[https://api.skyword.com/file?key=qep7eumvwqd6czpdxr4g&file=458985]]></hero_bleed_url>
+            <hero_bleed_name>3200x1391.png</hero_bleed_name>
+            <field_hero_bleed_m_img_2x>458989</field_hero_bleed_m_img_2x>
+            <field_hero_bleed_m_img_2x_url><![CDATA[https://api.skyword.com/file?key=qep7eumvwqd6czpdxr4g&file=458989]]></field_hero_bleed_m_img_2x_url>
+            <field_hero_bleed_m_img_2x_name>828x473-1.png</field_hero_bleed_m_img_2x_name>
+            <field_card_tile_img_2x>458990</field_card_tile_img_2x>
+            <field_card_tile_img_2x_url><![CDATA[https://api.skyword.com/file?key=qep7eumvwqd6czpdxr4g&file=458990]]></field_card_tile_img_2x_url>
+            <field_card_tile_img_2x_name>896x896.png</field_card_tile_img_2x_name>
+            <field_article_thumb_img_2x>458991</field_article_thumb_img_2x>
+            <field_article_thumb_img_2x_url><![CDATA[https://api.skyword.com/file?key=qep7eumvwqd6czpdxr4g&file=458991]]></field_article_thumb_img_2x_url>
+            <field_article_thumb_img_2x_name>828x473.png</field_article_thumb_img_2x_name>
+            <photocredit><![CDATA[Jesse Test photo credits]]></photocredit>
+        </featured_data>
+        <additional_content>
+            <field_product_need_description><![CDATA[<p>Jesse Test what you need description</p>]]></field_product_need_description>
+            <field_whatneed_img_2x>458993</field_whatneed_img_2x>
+            <field_whatneed_img_2x_url><![CDATA[https://api.skyword.com/file?key=qep7eumvwqd6czpdxr4g&file=458993]]></field_whatneed_img_2x_url>
+            <field_whatneed_img_2x_name>900x677.png</field_whatneed_img_2x_name>
+            <field_items_needed><![CDATA[Jesse Test, Non-OTC items]]></field_items_needed>
+            <itemsused><![CDATA[Jesse Test, OTC items used]]></itemsused>
+            <field_article_PDF>458994</field_article_PDF>
+            <field_article_PDF_url><![CDATA[https://api.skyword.com/file?key=qep7eumvwqd6czpdxr4g&file=458994]]></field_article_PDF_url>
+            <field_article_PDF_name>optional-pdf-download.pdf</field_article_PDF_name>
+            <field_video_url><![CDATA[Jesse Test article video url]]></field_video_url>
+        </additional_content>
+        <metainformation>
+            <seoTitle><![CDATA[Jesse Test meta title]]></seoTitle>
+            <seoDescription><![CDATA[Jesse Test meta description]]></seoDescription>
+        </metainformation>
+        <link><![CDATA[Jesse Test link for high res images]]></link>
+    </article>
+    <article-list>
+        <action>create</action>
+        <id>281474979773998</id> 
+        <title><![CDATA[Test Article Paper Bag Puppets]]></title> 
+        <author>Lindsey C.</author>
+        <authorId>19</authorId>
+        <body><![CDATA[Create your own paper bag puppet animals and put on a puppet show this summer! Simply choose your favorite animal and use construction paper, markers and glue to make each paper bag puppet come to life. Ella and Annie have provided you with some ideas for a cat, lizard, panda, pig and giraffe! Need a stage for your puppets to perform? Check out how to make your very own <a href="http://www.fun365.orientaltrading.com/article/puppet-craft-and-cardboard-theater">puppet theater</a>.<script async type="text/javascript" src="//tracking.skyword.com/tracker.js?contentId=281474979773998"></script>]]></body>
+        <publishedDate>2017-07-11T21:26:21Z</publishedDate>  
+        <otc_featured_products><![CDATA[<p>what products the blogger will be using in the article.</p>]]></otc_featured_products>
+        <article_list_content>
+            <field_list_heading><![CDATA[CAT PAPER BAG PUPPET]]></field_list_heading>
+            <field_list_content><![CDATA[<p>Create this cuddly cat puppet using our large kraft bags; these bags are more durable and larger than a paper lunch sack and will last multiple puppet shows! To create our kitty cat puppet you will need construction paper, pom poms, googly eyes and glue. Each cat can be different; choose from a variety of colors and make sure to add little details, like spots!</p>]]></field_list_content>
+            <link_url><![CDATA[http://www.fun365.orientaltrading.com/project/cat-paper-bag-puppet]]></link_url>
+            <field_link_text><![CDATA[Make the Project]]></field_link_text>
+            <field_929x1239_img>458755</field_929x1239_img>
+            <field_929x1239_img_url><![CDATA[https://api.skyword.com/file?key=qep7eumvwqd6czpdxr4g&file=458755]]></field_929x1239_img_url>
+            <field_929x1239_img_name>diy-paper-bag-puppets-1.jpg</field_929x1239_img_name>
+        </article_list_content>
+        <article_list_content>
+            <field_list_heading><![CDATA[LIZARD PAPER BAG PUPPET]]></field_list_heading>
+            <field_list_content><![CDATA[<p>This lazy lizard makes the perfect puppet pet! Boys, hold off on catching those lizards in your yard! Create our silly lizard puppet with kraft paper bags, construction paper, googly eyes, markers and glue. Add fun details such as a curly-q tounge! Did you know that some lizards change colors due to the reflection of light? Make lizards in a variety of colors for fun!</p>]]></field_list_content>
+            <link_url><![CDATA[http://www.fun365.orientaltrading.com/project/lizard-paper-bag-puppet]]></link_url>
+            <field_link_text><![CDATA[Make the Project]]></field_link_text>
+            <field_929x1239_img>458756</field_929x1239_img>
+            <field_929x1239_img_url><![CDATA[https://api.skyword.com/file?key=qep7eumvwqd6czpdxr4g&file=458756]]></field_929x1239_img_url>
+            <field_929x1239_img_name>diy-paper-bag-puppets-2.jpg</field_929x1239_img_name>
+        </article_list_content>
+        <article_list_content>
+            <field_list_heading><![CDATA[PANDA PAPER BAG PUPPET]]></field_list_heading>
+            <field_list_content><![CDATA[<p>Don't you just love our perfect panda puppet? The panda puppet is super easy to make and pretty stinkin cute! Create our panda puppet using durable kraft bags, construction paper, googly eyes and glue. Try adding white felt to make a fuzzy panda tummy! Your panda can almost double as a raccoon puppet, right?</p>]]></field_list_content>
+            <link_url><![CDATA[http://www.fun365.orientaltrading.com/project/panda-paper-bag-puppet]]></link_url>
+            <field_link_text><![CDATA[Make the Project]]></field_link_text>
+            <field_929x1239_img>458757</field_929x1239_img>
+            <field_929x1239_img_url><![CDATA[https://api.skyword.com/file?key=qep7eumvwqd6czpdxr4g&file=458757]]></field_929x1239_img_url>
+            <field_929x1239_img_name>diy-paper-bag-puppets-3.jpg</field_929x1239_img_name>
+        </article_list_content>
+        <article_list_content>
+            <field_list_heading><![CDATA[GIRAFFE PAPER BAG PUPPET]]></field_list_heading>
+            <field_list_content><![CDATA[<p>How cute is our Geoffry the giraffe puppet? Create this darling giraffe puppet using kraft paper bags, construction paper, googly eyes, stencils and glue. It is pretty clear that giraffes are one of the most adorable animals ever; according to my kids. Have you visited your local zoo to see a real giraffe?</p>]]></field_list_content>
+            <link_url><![CDATA[http://www.fun365.orientaltrading.com/project/panda-paper-bag-puppet]]></link_url>
+            <field_link_text><![CDATA[Make the Project]]></field_link_text>
+            <field_929x1239_img>458760</field_929x1239_img>
+            <field_929x1239_img_url><![CDATA[https://api.skyword.com/file?key=qep7eumvwqd6czpdxr4g&file=458760]]></field_929x1239_img_url>
+            <field_929x1239_img_name>diy-paper-bag-puppets-4.jpg</field_929x1239_img_name>
+        </article_list_content>
+        <article_list_content>
+            <field_list_heading><![CDATA[PIG PAPER BAG PUPPET]]></field_list_heading>
+            <field_list_content><![CDATA[<p>Our piggy puppet is too cute for words and really easy to put together. Create this little piggy with kraft paper bags, felt, construction paper, markers, googly eyes and glue. Use patterned scrapbook paper to make clothes for each pig and let your kids put on a puppet show to tell the story of the three little pigs!</p>]]></field_list_content>
+            <link_url><![CDATA[http://www.fun365.orientaltrading.com/project/pig-paper-bag-puppet]]></link_url>
+            <field_link_text><![CDATA[Make the Project]]></field_link_text>
+            <field_929x1239_img>458763</field_929x1239_img>
+            <field_929x1239_img_url><![CDATA[https://api.skyword.com/file?key=qep7eumvwqd6czpdxr4g&file=458763]]></field_929x1239_img_url>
+            <field_929x1239_img_name>diy-paper-bag-puppets-5.jpg</field_929x1239_img_name>
+        </article_list_content>
+        <additional_al_requirements>
+            <field_product_need_description><![CDATA[<p>Makes 5 Paper Bag Puppets</p>]]></field_product_need_description>
+            <field_whatneed_img_2x>458772</field_whatneed_img_2x>
+            <field_whatneed_img_2x_url><![CDATA[https://api.skyword.com/file?key=qep7eumvwqd6czpdxr4g&file=458772]]></field_whatneed_img_2x_url>
+            <field_whatneed_img_2x_name>diy-paper-bag-puppets-1.jpg</field_whatneed_img_2x_name>
+            <productsused><![CDATA[3/173,57/4504,13659962,48/993,73/64775,57/2504,73/44012,57/8006]]></productsused>
+            <article_items_needed><![CDATA[Scissors, Hole Punch]]></article_items_needed>
+            <atricle_pdf_upload>458776</atricle_pdf_upload>
+            <atricle_pdf_upload_url><![CDATA[https://api.skyword.com/file?key=qep7eumvwqd6czpdxr4g&file=458776]]></atricle_pdf_upload_url>
+            <atricle_pdf_upload_name>paper-plate-animals-template.pdf</atricle_pdf_upload_name>
+        </additional_al_requirements>
+        <field_meta_keywords><![CDATA[Craft Round Up]]></field_meta_keywords>
+        <featured_data>
+            <hero_bleed_desktop>458780</hero_bleed_desktop>
+            <hero_bleed_desktop_url><![CDATA[https://api.skyword.com/file?key=qep7eumvwqd6czpdxr4g&file=458780]]></hero_bleed_desktop_url>
+            <hero_bleed_desktop_name>puppet-hero.jpg</hero_bleed_desktop_name>
+            <card_tile_image>458783</card_tile_image>
+            <card_tile_image_url><![CDATA[https://api.skyword.com/file?key=qep7eumvwqd6czpdxr4g&file=458783]]></card_tile_image_url>
+            <card_tile_image_name>puppets-card.jpg</card_tile_image_name>
+            <hero_bleed_mobile>458784</hero_bleed_mobile>
+            <hero_bleed_mobile_url><![CDATA[https://api.skyword.com/file?key=qep7eumvwqd6czpdxr4g&file=458784]]></hero_bleed_mobile_url>
+            <hero_bleed_mobile_name>puppets-mhero.jpg</hero_bleed_mobile_name>
+            <article_thumbnail_image>458785</article_thumbnail_image>
+            <article_thumbnail_image_url><![CDATA[https://api.skyword.com/file?key=qep7eumvwqd6czpdxr4g&file=458785]]></article_thumbnail_image_url>
+            <article_thumbnail_image_name>puppet-thumbnail.jpg</article_thumbnail_image_name>
+            <field_photo_credit><![CDATA[Shauna Krantz]]></field_photo_credit>
+        </featured_data>
+        <metainformation>
+            <seoTitle><![CDATA[Paper Bag Puppets]]></seoTitle>
+            <seoDescription><![CDATA[Create your own paper bag puppet animals and put on a puppet show this summer! Simply choose your favorite animal and craft away!]]></seoDescription>
+        </metainformation>
+        <link><![CDATA[https://www.dropbox.com/sh/u3air1rd8od95ws/AADXYWfimCMT8ixHqtIqGqKLa?dl=0]]></link>
+    </article-list>
+    <fun365recipe>
+        <action>create</action>
+        <id>281474979772286</id> 
+        <title><![CDATA[jesse test recipe recipe title]]></title> 
+        <author>John Dillick</author>
+        <authorId>229491</authorId>
+        <body><![CDATA[jesse test recipe recipe description<script async type="text/javascript" src="//tracking.skyword.com/tracker.js?contentId=281474979772286"></script>]]></body>
+        <publishedDate>2017-07-05T22:47:58Z</publishedDate>  
+        <keyword><![CDATA[jesse test recipe seo optimization keyword]]></keyword>
+        <assignment_title><![CDATA[jesse test recipe assignment title]]></assignment_title>
+        <otc_featured_products><![CDATA[jesse test recipe OTC Featured Products]]></otc_featured_products>
+        <photo_article_inspiration><![CDATA[jesse test recipe inspiration]]></photo_article_inspiration>
+        <field_skill><![CDATA[test skill level]]></field_skill>
+        <field_time_min><![CDATA[222]]></field_time_min>
+        <field_time_max><![CDATA[333]]></field_time_max>
+        <field_servings_min><![CDATA[111]]></field_servings_min>
+        <field_servings_max><![CDATA[444]]></field_servings_max>
+        <field_ingredients><![CDATA[jesse test recipe recipe ingredients]]></field_ingredients>
+        <field_ingredients><![CDATA[jesse test recipe recipe ingredients 2]]></field_ingredients>
+        <field_ingredients><![CDATA[jesse test recipe recipe ingredients 3]]></field_ingredients>
+        <hero_half_desktop>456792</hero_half_desktop>
+        <hero_half_desktop_url><![CDATA[https://api.skyword.com/file?key=qep7eumvwqd6czpdxr4g&file=456792]]></hero_half_desktop_url>
+        <hero_half_desktop_name>1824x1371.png</hero_half_desktop_name>
+        <field_product_need_description><![CDATA[jesse test recipe what you'll need description]]></field_product_need_description>
+        <field_whatneed_img_2x>456793</field_whatneed_img_2x>
+        <field_whatneed_img_2x_url><![CDATA[https://api.skyword.com/file?key=qep7eumvwqd6czpdxr4g&file=456793]]></field_whatneed_img_2x_url>
+        <field_whatneed_img_2x_name>900x677.png</field_whatneed_img_2x_name>
+        <field_photo_credit><![CDATA[jesse test recipe photo credit]]></field_photo_credit>
+        <field_items_needed><![CDATA[<p>jesse test recipe recipe items needed</p>]]></field_items_needed>
+        <field_products><![CDATA[jesse test recipe recipe products used]]></field_products>
+        <field_meta_description><![CDATA[jesse test recipe meta description]]></field_meta_description>
+        <field_meta_title><![CDATA[jesse test recipe meta title]]></field_meta_title>
+        <field_meta_keywords><![CDATA[jesse test recipe meta keywords]]></field_meta_keywords>
+    </fun365recipe>
+    <Project-Lite>
+        <action>create</action>
+        <id>281474979770912</id> 
+        <title><![CDATA[jesse test project lite project title]]></title> 
+        <author>John Dillick</author>
+        <authorId>229491</authorId>
+        <body><![CDATA[jesse test project lite prject description jesse test project lite prject description jesse test project lite prject description jesse test project lite prject description jesse test project lite prject description jesse test project lite prject description jesse test project lite prject description jesse test project lite prject description jesse test project lite prject description jesse test project lite prject description jesse test project lite prject description jesse test project lite prject description jesse test project lite prject description jesse test project<script async type="text/javascript" src="//tracking.skyword.com/tracker.js?contentId=281474979770912"></script>]]></body>
+        <publishedDate>2017-06-29T20:07:55Z</publishedDate>  
+        <keyword><![CDATA[jesse test project lite seo optimization keyword]]></keyword>
+        <assignment_title><![CDATA[jesse test project lite assignment title]]></assignment_title>
+        <otc_featured_products><![CDATA[jesse test project lite otc featured products]]></otc_featured_products>
+        <photo_article_inspiration><![CDATA[jesse test project lite inspiration]]></photo_article_inspiration>
+        <field_time_min><![CDATA[111]]></field_time_min>
+        <field_time_max><![CDATA[222]]></field_time_max>
+        <field_skill><![CDATA[beginner skill]]></field_skill>
+        <project_step_data>
+            <field_description><![CDATA[jesse test project lite step 1 description]]></field_description>
+        </project_step_data>
+        <project_step_data>
+            <field_description><![CDATA[jesse test project lite step 2 description]]></field_description>
+        </project_step_data>
+        <additional_project_fields>
+            <field_product_need_description><![CDATA[jesse test project lite how to use what you need description]]></field_product_need_description>
+            <field_900x677_img>455519</field_900x677_img>
+            <field_900x677_img_url><![CDATA[https://api.skyword.com/file?key=qep7eumvwqd6czpdxr4g&file=455519]]></field_900x677_img_url>
+            <field_900x677_img_name>900x677.png</field_900x677_img_name>
+            <field_products_used><![CDATA[jesse test project, lite how to use, products used]]></field_products_used>
+            <field_items_needed><![CDATA[jesse test project lite, how to use, items needed]]></field_items_needed>
+            <field_project_PDF>455520</field_project_PDF>
+            <field_project_PDF_url><![CDATA[https://api.skyword.com/file?key=qep7eumvwqd6czpdxr4g&file=455520]]></field_project_PDF_url>
+            <field_project_PDF_name>optional-pdf-download.pdf</field_project_PDF_name>
+        </additional_project_fields>
+        <featured_data>
+            <field_hero_bleed_d_img_2x>455534</field_hero_bleed_d_img_2x>
+            <field_hero_bleed_d_img_2x_url><![CDATA[https://api.skyword.com/file?key=qep7eumvwqd6czpdxr4g&file=455534]]></field_hero_bleed_d_img_2x_url>
+            <field_hero_bleed_d_img_2x_name>3200x1391.png</field_hero_bleed_d_img_2x_name>
+            <field_1824x1371_img>455535</field_1824x1371_img>
+            <field_1824x1371_img_url><![CDATA[https://api.skyword.com/file?key=qep7eumvwqd6czpdxr4g&file=455535]]></field_1824x1371_img_url>
+            <field_1824x1371_img_name>1824x1371.png</field_1824x1371_img_name>
+            <field_card_tile_img_2x>455536</field_card_tile_img_2x>
+            <field_card_tile_img_2x_url><![CDATA[https://api.skyword.com/file?key=qep7eumvwqd6czpdxr4g&file=455536]]></field_card_tile_img_2x_url>
+            <field_card_tile_img_2x_name>896x896.png</field_card_tile_img_2x_name>
+            <field_hero_m_img_2x>455537</field_hero_m_img_2x>
+            <field_hero_m_img_2x_url><![CDATA[https://api.skyword.com/file?key=qep7eumvwqd6czpdxr4g&file=455537]]></field_hero_m_img_2x_url>
+            <field_hero_m_img_2x_name>828x828.png</field_hero_m_img_2x_name>
+        </featured_data>
+        <field_photo_credit><![CDATA[jesse test project lite photo credit]]></field_photo_credit>
+        <field_meta_title><![CDATA[jesse test project lite meta title]]></field_meta_title>
+        <field_meta_description><![CDATA[jesse test project lite meta description]]></field_meta_description>
+    </Project-Lite>
+    <Project>
+        <action>create</action>
+        <id>281474979770876</id> 
+        <title><![CDATA[Jesse test project project title]]></title> 
+        <author>John Dillick</author>
+        <authorId>229491</authorId>
+        <body><![CDATA[<p>Jesse test project project description</p><script async type="text/javascript" src="//tracking.skyword.com/tracker.js?contentId=281474979770876"></script>]]></body>
+        <publishedDate>2017-06-29T18:44:45Z</publishedDate>  
+        <keyword><![CDATA[jesse test project seo optimization keyword]]></keyword>
+        <assignment_title><![CDATA[Jesse test project assignmet title]]></assignment_title>
+        <otc_featured_products><![CDATA[Jesse test project otc featured products]]></otc_featured_products>
+        <photo_article_inspiration><![CDATA[Jesse test project inspiration]]></photo_article_inspiration>
+        <field_skill_level><![CDATA[Experienced]]></field_skill_level>
+        <field_time_min><![CDATA[111]]></field_time_min>
+        <field_time_max><![CDATA[222]]></field_time_max>
+        <project_step_data>
+            <field_step_img_2x>455473</field_step_img_2x>
+            <field_step_img_2x_url><![CDATA[https://api.skyword.com/file?key=qep7eumvwqd6czpdxr4g&file=455473]]></field_step_img_2x_url>
+            <field_step_img_2x_name>1280x962.png</field_step_img_2x_name>
+            <steptitle><![CDATA[Jesse test project Step headline 1]]></steptitle>
+            <field_description><![CDATA[<p>Jesse test project step description 1</p>]]></field_description>
+        </project_step_data>
+        <project_step_data>
+            <field_step_img_2x>455479</field_step_img_2x>
+            <field_step_img_2x_url><![CDATA[https://api.skyword.com/file?key=qep7eumvwqd6czpdxr4g&file=455479]]></field_step_img_2x_url>
+            <field_step_img_2x_name>1280x962.png</field_step_img_2x_name>
+            <steptitle><![CDATA[Jesse test project step headline 2]]></steptitle>
+            <field_description><![CDATA[<p>Jesse test project step description 2</p>]]></field_description>
+        </project_step_data>
+        <additional_project_fields>
+            <numberitmakes><![CDATA[Jesse test project number it makes]]></numberitmakes>
+            <field_900x677_img>455481</field_900x677_img>
+            <field_900x677_img_url><![CDATA[https://api.skyword.com/file?key=qep7eumvwqd6czpdxr4g&file=455481]]></field_900x677_img_url>
+            <field_900x677_img_name>900x677.png</field_900x677_img_name>
+            <itemsused><![CDATA[OTC/MME/Learn365 Items Used, Jesse test project]]></itemsused>
+            <field_items_needed><![CDATA[Non-OTC/MME/Learn365 Items Needed, Jesse test project]]></field_items_needed>
+            <field_project_PDF>455482</field_project_PDF>
+            <field_project_PDF_url><![CDATA[https://api.skyword.com/file?key=qep7eumvwqd6czpdxr4g&file=455482]]></field_project_PDF_url>
+            <field_project_PDF_name>optional-pdf-download.pdf</field_project_PDF_name>
+        </additional_project_fields>
+        <featured_data>
+            <field_hero_bleed_d_img_2x>455483</field_hero_bleed_d_img_2x>
+            <field_hero_bleed_d_img_2x_url><![CDATA[https://api.skyword.com/file?key=qep7eumvwqd6czpdxr4g&file=455483]]></field_hero_bleed_d_img_2x_url>
+            <field_hero_bleed_d_img_2x_name>3200x1391.png</field_hero_bleed_d_img_2x_name>
+        </featured_data>
+        <metainformation>
+            <seoTitle><![CDATA[Jesse test project project meta title]]></seoTitle>
+            <seoDescription><![CDATA[Jesse test project meta description]]></seoDescription>
+        </metainformation>
+        <field_meta_keywords><![CDATA[Jesse test project,​ meta keywords]]></field_meta_keywords>
+        <link><![CDATA[Jesse test project Link For High Res Images]]></link>
+    </Project>
+    <article-list>
+        <action>create</action>
+        <id>281474979769803</id> 
+        <title><![CDATA[jesse test article list article title]]></title> 
+        <author>John Dillick</author>
+        <authorId>229491</authorId>
+        <body><![CDATA[<p>jesse test article list description</p><script async type="text/javascript" src="//tracking.skyword.com/tracker.js?contentId=281474979769803"></script>]]></body>
+        <publishedDate>2017-06-26T20:42:49Z</publishedDate>  
+        <keyword><![CDATA[jesse test article list seo keyword]]></keyword>
+        <otc_featured_products><![CDATA[<p>jesse test article list featured products</p>]]></otc_featured_products>
+        <photo_article_inspiration><![CDATA[jesse test article list inspiration]]></photo_article_inspiration>
+        <article_list_content>
+            <field_list_heading><![CDATA[jesse test article list sec 1 heading]]></field_list_heading>
+            <field_list_content><![CDATA[<p>jesse test article list sec 1 content</p>]]></field_list_content>
+            <link_url><![CDATA[jesse test article list sec 1 url]]></link_url>
+            <field_link_text><![CDATA[jesse test article list sec1 linktxt]]></field_link_text>
+            <field_929x1239_img>454028</field_929x1239_img>
+            <field_929x1239_img_url><![CDATA[https://api.skyword.com/file?key=qep7eumvwqd6czpdxr4g&file=454028]]></field_929x1239_img_url>
+            <field_929x1239_img_name>929x1239-1.png</field_929x1239_img_name>
+        </article_list_content>
+        <article_list_content>
+            <field_list_heading><![CDATA[jesse test article list sec 2 heading]]></field_list_heading>
+            <field_list_content><![CDATA[<p>jesse test article list sec 2 content</p>]]></field_list_content>
+            <link_url><![CDATA[jesse test article list sec 2 url]]></link_url>
+            <field_link_text><![CDATA[jesse test article list sec2 linktxt]]></field_link_text>
+            <field_929x1239_img>454030</field_929x1239_img>
+            <field_929x1239_img_url><![CDATA[https://api.skyword.com/file?key=qep7eumvwqd6czpdxr4g&file=454030]]></field_929x1239_img_url>
+            <field_929x1239_img_name>929x1239-1.png</field_929x1239_img_name>
+        </article_list_content>
+        <additional_al_requirements>
+            <field_whatneed_img_2x>454031</field_whatneed_img_2x>
+            <field_whatneed_img_2x_url><![CDATA[https://api.skyword.com/file?key=qep7eumvwqd6czpdxr4g&file=454031]]></field_whatneed_img_2x_url>
+            <field_whatneed_img_2x_name>900x677.png</field_whatneed_img_2x_name>
+            <productsused><![CDATA[jesse, test, article, list, otc items used]]></productsused>
+            <article_items_needed><![CDATA[jesse test article list, non-otc items needed]]></article_items_needed>
+            <atricle_pdf_upload>454032</atricle_pdf_upload>
+            <atricle_pdf_upload_url><![CDATA[https://api.skyword.com/file?key=qep7eumvwqd6czpdxr4g&file=454032]]></atricle_pdf_upload_url>
+            <atricle_pdf_upload_name>optional-pdf-download.pdf</atricle_pdf_upload_name>
+        </additional_al_requirements>
+        <featured_data>
+            <hero_bleed_desktop>454033</hero_bleed_desktop>
+            <hero_bleed_desktop_url><![CDATA[https://api.skyword.com/file?key=qep7eumvwqd6czpdxr4g&file=454033]]></hero_bleed_desktop_url>
+            <hero_bleed_desktop_name>3200x1391.png</hero_bleed_desktop_name>
+            <field_photo_credit><![CDATA[jesse test article list photo credit]]></field_photo_credit>
+        </featured_data>
+        <metainformation>
+            <seoTitle><![CDATA[jesse test article list meta title]]></seoTitle>
+            <seoDescription><![CDATA[jesse test article list meta description]]></seoDescription>
+        </metainformation>
+        <link><![CDATA[jesse test article list hi res imgs]]></link>
+    </article-list>
+    <article>
+        <action>create</action>
+        <id>281474979769075</id> 
+        <title><![CDATA[Jesse test article title]]></title> 
+        <author>John Dillick</author>
+        <authorId>229491</authorId>
+        <body><![CDATA[<p> jesse test article description</p><script async type="text/javascript" src="//tracking.skyword.com/tracker.js?contentId=281474979769075"></script>]]></body>
+        <publishedDate>2017-06-23T17:17:40Z</publishedDate>  
+        <keyword><![CDATA[jesse test seo optimization]]></keyword>
+        <otc_featured_products><![CDATA[<p> Jesse test featured products</p>]]></otc_featured_products>
+        <photo_article_inspiration><![CDATA[jesse test inspiration]]></photo_article_inspiration>
+        <carousel>
+            <image>453290</image>
+            <image_url><![CDATA[https://api.skyword.com/file?key=qep7eumvwqd6czpdxr4g&file=453290]]></image_url>
+            <image_name>1858x1062.png</image_name>
+            <image>453291</image>
+            <image_url><![CDATA[https://api.skyword.com/file?key=qep7eumvwqd6czpdxr4g&file=453291]]></image_url>
+            <image_name>1858x1062-1.png</image_name>
+            <image>453292</image>
+            <image_url><![CDATA[https://api.skyword.com/file?key=qep7eumvwqd6czpdxr4g&file=453292]]></image_url>
+            <image_name>1858x1062-2.png</image_name>
+            <image>453293</image>
+            <image_url><![CDATA[https://api.skyword.com/file?key=qep7eumvwqd6czpdxr4g&file=453293]]></image_url>
+            <image_name>1858x1062-3.png</image_name>
+            <image>453294</image>
+            <image_url><![CDATA[https://api.skyword.com/file?key=qep7eumvwqd6czpdxr4g&file=453294]]></image_url>
+            <image_name>1858x1062-4.png</image_name>
+            <field_carousel_heading><![CDATA[Jesse test carousel headline]]></field_carousel_heading>
+            <field_carousel_content><![CDATA[<p> Jesse's test carousel caption copy</p>]]></field_carousel_content>
+        </carousel>
+        <imagewide_content>
+            <headline><![CDATA[Jesse image wide headline]]></headline>
+            <body_copy><![CDATA[<p> Jesse image wide body copy</p>]]></body_copy>
+            <field_article_img_wide_2x>453295</field_article_img_wide_2x>
+            <field_article_img_wide_2x_url><![CDATA[https://api.skyword.com/file?key=qep7eumvwqd6czpdxr4g&file=453295]]></field_article_img_wide_2x_url>
+            <field_article_img_wide_2x_name>1858x1062-5.png</field_article_img_wide_2x_name>
+        </imagewide_content>
+        <bodycontent>
+            <articlecontent><![CDATA[<p> Jesse test body content no image</p>]]></articlecontent>
+        </bodycontent>
+        <imagetall_container>
+            <bodycopy><![CDATA[<p> jesse test image tall body copy</p>]]></bodycopy>
+            <imagetall>453302</imagetall>
+            <imagetall_url><![CDATA[https://api.skyword.com/file?key=qep7eumvwqd6czpdxr4g&file=453302]]></imagetall_url>
+            <imagetall_name>929x1239.png</imagetall_name>
+        </imagetall_container>
+        <featured_data>
+            <hero_bleed>453305</hero_bleed>
+            <hero_bleed_url><![CDATA[https://api.skyword.com/file?key=qep7eumvwqd6czpdxr4g&file=453305]]></hero_bleed_url>
+            <hero_bleed_name>3200x1391.png</hero_bleed_name>
+            <field_hero_bleed_m_img_2x>453307</field_hero_bleed_m_img_2x>
+            <field_hero_bleed_m_img_2x_url><![CDATA[https://api.skyword.com/file?key=qep7eumvwqd6czpdxr4g&file=453307]]></field_hero_bleed_m_img_2x_url>
+            <field_hero_bleed_m_img_2x_name>828x473.png</field_hero_bleed_m_img_2x_name>
+            <field_card_tile_img_2x>453308</field_card_tile_img_2x>
+            <field_card_tile_img_2x_url><![CDATA[https://api.skyword.com/file?key=qep7eumvwqd6czpdxr4g&file=453308]]></field_card_tile_img_2x_url>
+            <field_card_tile_img_2x_name>896x896.png</field_card_tile_img_2x_name>
+            <field_article_thumb_img_2x>453309</field_article_thumb_img_2x>
+            <field_article_thumb_img_2x_url><![CDATA[https://api.skyword.com/file?key=qep7eumvwqd6czpdxr4g&file=453309]]></field_article_thumb_img_2x_url>
+            <field_article_thumb_img_2x_name>828x473-1.png</field_article_thumb_img_2x_name>
+            <photocredit><![CDATA[Jesse test photo credits]]></photocredit>
+        </featured_data>
+        <additional_content>
+            <field_whatneed_img_2x>453311</field_whatneed_img_2x>
+            <field_whatneed_img_2x_url><![CDATA[https://api.skyword.com/file?key=qep7eumvwqd6czpdxr4g&file=453311]]></field_whatneed_img_2x_url>
+            <field_whatneed_img_2x_name>900x677.png</field_whatneed_img_2x_name>
+            <field_items_needed><![CDATA[NON-OTC, jesse, test, non-otc, mme, learn365, itmes, needed]]></field_items_needed>
+            <itemsused><![CDATA[OTC, jesse, test, otc, mme, learn365, itmes, needed]]></itemsused>
+            <field_article_PDF>453334</field_article_PDF>
+            <field_article_PDF_url><![CDATA[https://api.skyword.com/file?key=qep7eumvwqd6czpdxr4g&file=453334]]></field_article_PDF_url>
+            <field_article_PDF_name>optional-pdf-download.pdf</field_article_PDF_name>
+            <field_video_url><![CDATA[https://www.youtube.com/watch?v=5IXQ6f6eMxQ]]></field_video_url>
+        </additional_content>
+        <metainformation>
+            <seoTitle><![CDATA[Jesse test article title]]></seoTitle>
+            <seoDescription><![CDATA[Jesse test article meta description]]></seoDescription>
+        </metainformation>
+        <link><![CDATA[jesse-test.com/link/for/high/res/images]]></link>
+    </article>
+    <fun365recipe>
+        <action>create</action>
         <id>281474979695880</id> 
         <title><![CDATA[Mini Naked Cakes - Test 2]]></title> 
         <author>Kaelin Zawilinski</author>
@@ -27,7 +788,6 @@
         <field_whatneed_img_2x_name>nakedcakesupplies.jpg</field_whatneed_img_2x_name>
         <field_photo_credit><![CDATA[Photo Credit]]></field_photo_credit>
         <field_items_needed><![CDATA[<p> Biscuit Cutter, Cookie Cutter, Items Needed</p>]]></field_items_needed>
-        <field_description2><![CDATA[--- Recipe Steps -- I'm in love with naked cakes. They're so elegant yet they have that homemade, rustic loveliness I adore. There's no need to spend a fortune on cakes from the bakery or spend hours in the kitchen baking them yourself. With this quick and easy mini naked cake recipe, you'll be in and out of the kitchen in no time with beautiful, rustic-chic cakes. Treat your guests to their own mini desserts that are as lovely as they are scrumptious!]]></field_description2>
         <field_products><![CDATA[13762735, 13700387]]></field_products>
         <field_meta_description><![CDATA[Meta Description should go here.]]></field_meta_description>
         <field_meta_title><![CDATA[Meta Title Should Go Here]]></field_meta_title>
@@ -211,8 +971,8 @@
             <image>425990</image>
             <image_url><![CDATA[https://api.skyword.com/file?key=qep7eumvwqd6czpdxr4g&file=425990]]></image_url>
             <image_name>3.png</image_name>
-            <headline><![CDATA[Happy Hour All Day Every Day]]></headline>
-            <body><![CDATA[<p> All of my drinks required pineapple juice, so I filled the <a href="http://www.orientaltrading.com/beverage-dispenser-a2-13578139.fltr">Glass Beverage Dispenser</a> with ice and lots of pineapple juice. Plus, if you have a guest who is pregnant or not drinking alcohol, they can still participate since guests will be adding in their own alcohol. Stock your bar with all of your favorite alcohol. Using vodka, rum, flavored vodka, and a few unique liqueurs you can create the ultimate DIY drink bar.</p>]]></body>
+            <field_carousel_heading><![CDATA[Happy Hour All Day Every Day]]></field_carousel_heading>
+            <field_carousel_content><![CDATA[<p> All of my drinks required pineapple juice, so I filled the <a href="http://www.orientaltrading.com/beverage-dispenser-a2-13578139.fltr">Glass Beverage Dispenser</a> with ice and lots of pineapple juice. Plus, if you have a guest who is pregnant or not drinking alcohol, they can still participate since guests will be adding in their own alcohol. Stock your bar with all of your favorite alcohol. Using vodka, rum, flavored vodka, and a few unique liqueurs you can create the ultimate DIY drink bar.</p>]]></field_carousel_content>
         </carousel>
         <imagewide_content>
             <headline><![CDATA[DIY Bar Cart & Tumblers]]></headline>
@@ -230,12 +990,6 @@
             <imagetall_url><![CDATA[https://api.skyword.com/file?key=qep7eumvwqd6czpdxr4g&file=425994]]></imagetall_url>
             <imagetall_name>copy-of-article-img-tall-929x1239.png</imagetall_name>
         </imagetall_container>
-        <pulledquote>
-            <pullquotetext><![CDATA[A special thank you for all our guests.]]></pullquotetext>
-            <field_quote_img_2x>425996</field_quote_img_2x>
-            <field_quote_img_2x_url><![CDATA[https://api.skyword.com/file?key=qep7eumvwqd6czpdxr4g&file=425996]]></field_quote_img_2x_url>
-            <field_quote_img_2x_name>copy-of-pulled-quote-image-1088x818.png</field_quote_img_2x_name>
-        </pulledquote>
         <featured_data>
             <hero_bleed>426609</hero_bleed>
             <hero_bleed_url><![CDATA[https://api.skyword.com/file?key=qep7eumvwqd6czpdxr4g&file=426609]]></hero_bleed_url>
@@ -272,6 +1026,24 @@
         <field_time_max><![CDATA[15]]></field_time_max>
         <field_servings_min><![CDATA[2]]></field_servings_min>
         <field_ingredients><![CDATA[1 Cup Milk, 2 Cups Vanilla Ice Cream, 20 oz. Can Pineapple Chunks, 1/2 Cup Shredded Coconut, 1/3 Cup Crushed Ice]]></field_ingredients>
+        <field_step>
+            <field_description><![CDATA[<p> Combine the milk, ice cream, pineapple and coconut in the blender and blend for 30 seconds.</p>]]></field_description>
+            <field_step_img_2x>426021</field_step_img_2x>
+            <field_step_img_2x_url><![CDATA[https://api.skyword.com/file?key=qep7eumvwqd6czpdxr4g&file=426021]]></field_step_img_2x_url>
+            <field_step_img_2x_name>1.png</field_step_img_2x_name>
+        </field_step>
+        <field_step>
+            <field_description><![CDATA[<p> Add the crushed ice and blend until smooth. Add the crushed ice and blend until smooth.</p>]]></field_description>
+            <field_step_img_2x>426022</field_step_img_2x>
+            <field_step_img_2x_url><![CDATA[https://api.skyword.com/file?key=qep7eumvwqd6czpdxr4g&file=426022]]></field_step_img_2x_url>
+            <field_step_img_2x_name>2.png</field_step_img_2x_name>
+        </field_step>
+        <field_step>
+            <field_description><![CDATA[<p> Pour into the <a href="http://www.orientaltrading.com/ceramic-pineapple-tumblers-with-lids-a2-13739671.fltr?source=shoppingcart">Ceramic Pineapple Tumblers with Lids</a>. Pour into the <a href="http://www.orientaltrading.com/ceramic-pineapple-tumblers-with-lids-a2-13739671.fltr?source=shoppingcart">Ceramic Pineapple Tumblers with Lids</a>. Pour into the <a href="http://www.orientaltrading.com/ceramic-pineapple-tumblers-with-lids-a2-13739671.fltr?source=shoppingcart">Ceramic Pineapple Tumblers with Lids</a>. Pour into the <a href="http://www.orientaltrading.com/ceramic-pineapple-tumblers-with-lids-a2-13739671.fltr?source=shoppingcart">Ceramic Pineapple Tumblers with Lids</a>.</p>]]></field_description>
+            <field_step_img_2x>426102</field_step_img_2x>
+            <field_step_img_2x_url><![CDATA[https://api.skyword.com/file?key=qep7eumvwqd6czpdxr4g&file=426102]]></field_step_img_2x_url>
+            <field_step_img_2x_name>3.png</field_step_img_2x_name>
+        </field_step>
         <field_meta_keywords><![CDATA[milkshake]]></field_meta_keywords>
     </fun365recipe>
     <Project>
@@ -317,7 +1089,9 @@
             <field_description><![CDATA[Allow the finished pom pom design to dry on the branch (or branches) for at least 1 hour before handling. Then, gently place your finished DIY Pom-Pom Petaled Live Cut Branches into a Large Cylinder Glass Vase. You may choose to leave the vase empty save for the branches, or you can fill the negative space with small rocks, pebbles or sand. After that, you're all ready to style the finished decora]]></field_description>
         </project_step_data>
         <additional_project_fields>
+            <field_product_need_description><![CDATA[5]]></field_product_need_description>
         </additional_project_fields>
+        <field_photo_credit><![CDATA[Carrie Waller]]></field_photo_credit>
         <metainformation>
             <seoTitle><![CDATA[SW - Pom Pom Branches]]></seoTitle>
         </metainformation>
@@ -340,9 +1114,27 @@
         <field_time_max><![CDATA[40]]></field_time_max>
         <field_servings_min><![CDATA[2]]></field_servings_min>
         <field_servings_max><![CDATA[6]]></field_servings_max>
+        <field_step>
+            <field_description><![CDATA[Step one: Fun 365 Recipe - Test]]></field_description>
+            <field_step_img_2x>404086</field_step_img_2x>
+            <field_step_img_2x_url><![CDATA[https://api.skyword.com/file?key=qep7eumvwqd6czpdxr4g&file=404086]]></field_step_img_2x_url>
+            <field_step_img_2x_name>totten.jpg</field_step_img_2x_name>
+        </field_step>
+        <field_step>
+            <field_description><![CDATA[step two of two: Fun 365 Recipe - Test]]></field_description>
+            <field_step_img_2x>404088</field_step_img_2x>
+            <field_step_img_2x_url><![CDATA[https://api.skyword.com/file?key=qep7eumvwqd6czpdxr4g&file=404088]]></field_step_img_2x_url>
+            <field_step_img_2x_name>accent-wall-green-stencil.jpg</field_step_img_2x_name>
+        </field_step>
         <hero_half_desktop>404085</hero_half_desktop>
         <hero_half_desktop_url><![CDATA[https://api.skyword.com/file?key=qep7eumvwqd6czpdxr4g&file=404085]]></hero_half_desktop_url>
         <hero_half_desktop_name>dark-cabinets.jpg</hero_half_desktop_name>
+        <hero_mobile>404084</hero_mobile>
+        <hero_mobile_url><![CDATA[https://api.skyword.com/file?key=qep7eumvwqd6czpdxr4g&file=404084]]></hero_mobile_url>
+        <hero_mobile_name>test-kitchen.jpg</hero_mobile_name>
+        <field_card_tile_img_2x>404083</field_card_tile_img_2x>
+        <field_card_tile_img_2x_url><![CDATA[https://api.skyword.com/file?key=qep7eumvwqd6czpdxr4g&file=404083]]></field_card_tile_img_2x_url>
+        <field_card_tile_img_2x_name>home-interiors-online-cataloghome-interior.jpg</field_card_tile_img_2x_name>
         <field_whatneed_img_2x>404082</field_whatneed_img_2x>
         <field_whatneed_img_2x_url><![CDATA[https://api.skyword.com/file?key=qep7eumvwqd6czpdxr4g&file=404082]]></field_whatneed_img_2x_url>
         <field_whatneed_img_2x_name>accent-wall-green-stencil.jpg</field_whatneed_img_2x_name>
@@ -382,7 +1174,10 @@
             <field_project_PDF>404040</field_project_PDF>
             <field_project_PDF_url><![CDATA[https://api.skyword.com/file?key=qep7eumvwqd6czpdxr4g&file=404040]]></field_project_PDF_url>
             <field_project_PDF_name>otc_corpgivingapp_32930.pdf</field_project_PDF_name>
+            <field_related_look><![CDATA[Related Shop The Look Link input field: Fun 365 Project - Test]]></field_related_look>
+            <field_product_need_description><![CDATA[Project What You'll Need Description: Fun 365 Project - Test]]></field_product_need_description>
         </additional_project_fields>
+        <field_photo_credit><![CDATA[Photo Credit: Fun 365 Project - Test]]></field_photo_credit>
         <metainformation>
             <seoTitle><![CDATA[Project Title for Fun 365 Project test]]></seoTitle>
         </metainformation>
@@ -399,7 +1194,9 @@
         <keyword><![CDATA[drupal test article]]></keyword>
         <otc_featured_products><![CDATA[Test OTC Featured Products field value]]></otc_featured_products>
         <photo_article_inspiration><![CDATA[The inspiration for the article is a test.]]></photo_article_inspiration>
+        <field_meta_keywords><![CDATA[Drupal Test Article]]></field_meta_keywords>
         <additional_content>
+            <field_product_need_description><![CDATA[What you'll need description.]]></field_product_need_description>
             <field_article_PDF>395517</field_article_PDF>
             <field_article_PDF_url><![CDATA[https://api.skyword.com/file?key=qep7eumvwqd6czpdxr4g&file=395517]]></field_article_PDF_url>
             <field_article_PDF_name>hero.pdf</field_article_PDF_name>
@@ -425,14 +1222,16 @@
         <field_time_max><![CDATA[30]]></field_time_max>
         <field_skill><![CDATA[Novice]]></field_skill>
         <project_step_data>
+            <field_step_img_2x>404052</field_step_img_2x>
+            <field_step_img_2x_url><![CDATA[https://api.skyword.com/file?key=qep7eumvwqd6czpdxr4g&file=404052]]></field_step_img_2x_url>
+            <field_step_img_2x_name>brick-house.jpg</field_step_img_2x_name>
             <field_description><![CDATA[FIRST STEP (1 of 2): Fun 365 Project Lite - Test]]></field_description>
-            <field_products_used><![CDATA[5/784,12/1801,12/2484]]></field_products_used>
-            <field_product_own><![CDATA[39/1649]]></field_product_own>
         </project_step_data>
         <project_step_data>
+            <field_step_img_2x>404056</field_step_img_2x>
+            <field_step_img_2x_url><![CDATA[https://api.skyword.com/file?key=qep7eumvwqd6czpdxr4g&file=404056]]></field_step_img_2x_url>
+            <field_step_img_2x_name>home-interiors-online-cataloghome-interior.jpg</field_step_img_2x_name>
             <field_description><![CDATA[TWO of TWO: Fun 365 Project Lite - Test]]></field_description>
-            <field_products_used><![CDATA[12/37,12/4067]]></field_products_used>
-            <field_product_own><![CDATA[5/765]]></field_product_own>
         </project_step_data>
         <additional_project_fields>
             <field_product_need_description><![CDATA[What You'll Need Description: Fun 365 Project Lite - Test]]></field_product_need_description>
@@ -440,12 +1239,10 @@
             <field_project_PDF>404057</field_project_PDF>
             <field_project_PDF_url><![CDATA[https://api.skyword.com/file?key=qep7eumvwqd6czpdxr4g&file=404057]]></field_project_PDF_url>
             <field_project_PDF_name>otc_corpgivingapp_32930.pdf</field_project_PDF_name>
-            <field_howtouse_description><![CDATA[Project Customer How to Use: Fun 365 Project Lite - Test Nunc pharetra aliquam ullamcorper. In vitae nibh vitae nunc gravida tempus. Donec dignissim erat vitae ex viverra, suscipit fringilla erat fermentum. Morbi interdum, nisi at viverra ullamcorper, turpis nisl venenatis quam, mollis ornare enim risus eget turpis. Sed sit amet nunc convallis, cursus mi eget, rhoncus mauris. (END OF TEXT)]]></field_howtouse_description>
         </additional_project_fields>
         <field_photo_credit><![CDATA[Photo Credit: Fun 365 Project Lite - Test]]></field_photo_credit>
         <field_meta_title><![CDATA[meta title: Fun 365 Project Lite - Test]]></field_meta_title>
         <field_meta_description><![CDATA[meta description: Fun 365 Project Lite - Test]]></field_meta_description>
-        <field_meta_keywords><![CDATA[meta keywords: fun 365 project lite - test]]></field_meta_keywords>
     </Project-Lite>
     <article-list>
         <action>create</action>
@@ -484,10 +1281,12 @@
             <field_link_text><![CDATA[Finish it off with a link to OTC!]]></field_link_text>
         </article_list_content>
         <additional_al_requirements>
+            <field_product_need_description><![CDATA[Article What You'll Need Description: Fun 365 Artilcle List - Test]]></field_product_need_description>
             <atricle_pdf_upload>403987</atricle_pdf_upload>
             <atricle_pdf_upload_url><![CDATA[https://api.skyword.com/file?key=qep7eumvwqd6czpdxr4g&file=403987]]></atricle_pdf_upload_url>
             <atricle_pdf_upload_name>otc_corpgivingapp_32930.pdf</atricle_pdf_upload_name>
         </additional_al_requirements>
+        <field_meta_keywords><![CDATA[Meta KEYWORDS: Fun 365 Artilcle List - Test]]></field_meta_keywords>
         <metainformation>
             <seoTitle><![CDATA[Title for Article List page]]></seoTitle>
         </metainformation>
@@ -503,7 +1302,9 @@
         <keyword><![CDATA[seo optimization keyword fun 365 artilcle - test]]></keyword>
         <otc_featured_products><![CDATA[Featured Products - Line 1/4 Featured Products - Line 2/4 Featured Products - Line 3/4 Featured Products - Line 4/4]]></otc_featured_products>
         <photo_article_inspiration><![CDATA[Photo Inspiration: Fun 365 Article - Test]]></photo_article_inspiration>
+        <field_meta_keywords><![CDATA[Meta Keywords: Fun 365 ​Artilcle - Test]]></field_meta_keywords>
         <additional_content>
+            <field_product_need_description><![CDATA[Artilce What You Need Description: Fun 365 Artilcle - Test]]></field_product_need_description>
             <field_article_PDF>403938</field_article_PDF>
             <field_article_PDF_url><![CDATA[https://api.skyword.com/file?key=qep7eumvwqd6czpdxr4g&file=403938]]></field_article_PDF_url>
             <field_article_PDF_name>otc_corpgivingapp_32930.pdf</field_article_PDF_name>
@@ -540,6 +1341,7 @@
         </article_list_content>
         <additional_al_requirements>
         </additional_al_requirements>
+        <field_meta_keywords><![CDATA[GREAT DIY WEDDING IDEAS​]]></field_meta_keywords>
         <metainformation>
             <seoTitle><![CDATA[5 GREAT DIY WEDDING IDEAS]]></seoTitle>
         </metainformation>
@@ -559,13 +1361,9 @@
         <field_skill><![CDATA[Beginner]]></field_skill>
         <project_step_data>
             <field_description><![CDATA[Glue the clothespins together so that the clip part of the clothespins are on each side.]]></field_description>
-            <field_products_used><![CDATA[13711268,13603479]]></field_products_used>
-            <field_product_own><![CDATA[13711268]]></field_product_own>
         </project_step_data>
         <project_step_data>
             <field_description><![CDATA[Adhere a strip of Washi tape to the top of the clothespins. Use a craft knife to cut off the excess tape. Download the template PDF!]]></field_description>
-            <field_products_used><![CDATA[13711268,13603479]]></field_products_used>
-            <field_product_own><![CDATA[13711268]]></field_product_own>
         </project_step_data>
         <additional_project_fields>
             <field_product_need_description><![CDATA[Makes 24]]></field_product_need_description>
@@ -573,11 +1371,9 @@
             <field_project_PDF>399105</field_project_PDF>
             <field_project_PDF_url><![CDATA[https://api.skyword.com/file?key=qep7eumvwqd6czpdxr4g&file=399105]]></field_project_PDF_url>
             <field_project_PDF_name>hero.pdf</field_project_PDF_name>
-            <field_howtouse_description><![CDATA[Clip the metal jack end of the earbuds into one of the clothespins.Wrap the earbud wire around the clothespins.Clip the earbuds onto the remaining clothespin clip.]]></field_howtouse_description>
         </additional_project_fields>
         <field_meta_title><![CDATA[WASHI TAPE CLOTHESPIN EARBUD IDEA]]></field_meta_title>
         <field_meta_description><![CDATA[Are you looking for a cool way to keep those earbud wires organized? Try including this Washi Tape Clothespin Tidy Idea to your craft supplies. Using that DIY side of your brain, follow the directions below to create a method of keeping your earbuds and all those crazy wires free and untangled! Give the finished product as a cool Easter, birthday or Mother's Day gift! Or, keep it all to yourself and enjoy your worry-free music experience!]]></field_meta_description>
-        <field_meta_keywords><![CDATA[WASHI TAPE CLOTHESPIN EARBUD IDEA​]]></field_meta_keywords>
     </Project-Lite>
     <Project>
         <action>create</action>
@@ -611,6 +1407,7 @@
             <field_project_PDF>399046</field_project_PDF>
             <field_project_PDF_url><![CDATA[https://api.skyword.com/file?key=qep7eumvwqd6czpdxr4g&file=399046]]></field_project_PDF_url>
             <field_project_PDF_name>hero.pdf</field_project_PDF_name>
+            <field_product_need_description><![CDATA[Makes 24]]></field_product_need_description>
         </additional_project_fields>
         <metainformation>
             <seoTitle><![CDATA[DIY MINI VALENTINE TREAT BAGS]]></seoTitle>
@@ -633,9 +1430,30 @@
         <field_time_max><![CDATA[10]]></field_time_max>
         <field_servings_min><![CDATA[4]]></field_servings_min>
         <field_servings_max><![CDATA[6]]></field_servings_max>
+        <field_step>
+            <field_description><![CDATA[STEP 1 Start by preparing the avocado and cutting into bite-sized chunks. Put into a zip-loc bag and cover with some of the salad dressing, until just covered.]]></field_description>
+        </field_step>
+        <field_step>
+            <field_description><![CDATA[STEP 2 Do the same with the pears, removing skin and cutting into bite sized chunks, then placing in plastic bag and covering lightly with dressing. This will not only give the pears and avocados flavor, but the vinegar prevents them from browning.]]></field_description>
+        </field_step>
+        <field_step>
+            <field_description><![CDATA[STEP 3 While those marinate, assemble the rest of your salad, topping the lettuce mix with the onion, cheese, bacon, and nuts then finally topping with the pears and avocados.Toss lightly.]]></field_description>
+        </field_step>
+        <field_step>
+            <field_description><![CDATA[STEP 4 You can add a bit of additional dressing if desired, but the dressing in the pears and avocados will be a good starting base.]]></field_description>
+        </field_step>
+        <field_step>
+            <field_description><![CDATA[STEP 5 Serve and enjoy this delightful salad! It's so yummy!]]></field_description>
+        </field_step>
         <hero_half_desktop>395406</hero_half_desktop>
         <hero_half_desktop_url><![CDATA[https://api.skyword.com/file?key=qep7eumvwqd6czpdxr4g&file=395406]]></hero_half_desktop_url>
         <hero_half_desktop_name>hero.jpg</hero_half_desktop_name>
+        <hero_mobile>395408</hero_mobile>
+        <hero_mobile_url><![CDATA[https://api.skyword.com/file?key=qep7eumvwqd6czpdxr4g&file=395408]]></hero_mobile_url>
+        <hero_mobile_name>hero.jpg</hero_mobile_name>
+        <field_card_tile_img_2x>395407</field_card_tile_img_2x>
+        <field_card_tile_img_2x_url><![CDATA[https://api.skyword.com/file?key=qep7eumvwqd6czpdxr4g&file=395407]]></field_card_tile_img_2x_url>
+        <field_card_tile_img_2x_name>hero.jpg</field_card_tile_img_2x_name>
     </fun365recipe>
     <fun365recipe>
         <action>create</action>
@@ -652,9 +1470,21 @@
         <field_time_max><![CDATA[10]]></field_time_max>
         <field_servings_min><![CDATA[3]]></field_servings_min>
         <field_servings_max><![CDATA[4]]></field_servings_max>
+        <field_step>
+            <field_description><![CDATA[Start by preparing the avocado and cutting into bite-sized chunks. Put into a zip-loc bag and cover with some of the salad dressing, until just covered.]]></field_description>
+        </field_step>
+        <field_step>
+            <field_description><![CDATA[Do the same with the pears, removing skin and cutting into bite sized chunks, then placing in plastic bag and covering lightly with dressing. This will not only give the pears and avocados flavor, but the vinegar prevents them from browning.]]></field_description>
+        </field_step>
         <hero_half_desktop>399084</hero_half_desktop>
         <hero_half_desktop_url><![CDATA[https://api.skyword.com/file?key=qep7eumvwqd6czpdxr4g&file=399084]]></hero_half_desktop_url>
         <hero_half_desktop_name>1824x1371.png</hero_half_desktop_name>
+        <hero_mobile>399085</hero_mobile>
+        <hero_mobile_url><![CDATA[https://api.skyword.com/file?key=qep7eumvwqd6czpdxr4g&file=399085]]></hero_mobile_url>
+        <hero_mobile_name>828x828.png</hero_mobile_name>
+        <field_card_tile_img_2x>399087</field_card_tile_img_2x>
+        <field_card_tile_img_2x_url><![CDATA[https://api.skyword.com/file?key=qep7eumvwqd6czpdxr4g&file=399087]]></field_card_tile_img_2x_url>
+        <field_card_tile_img_2x_name>896x896.png</field_card_tile_img_2x_name>
         <field_whatneed_img_2x>399089</field_whatneed_img_2x>
         <field_whatneed_img_2x_url><![CDATA[https://api.skyword.com/file?key=qep7eumvwqd6czpdxr4g&file=399089]]></field_whatneed_img_2x_url>
         <field_whatneed_img_2x_name>900x677.png</field_whatneed_img_2x_name>
@@ -671,6 +1501,7 @@
         <body><![CDATA[There are all different kinds of parties and gatherings during the holiday season– family parties, and work parties, and neighborhood parties. But there wasn't really a party geared towards my little girl and her friends. She is in ballet class and we took her to see The Nutcracker for the first time this year, which she watched in complete awe and fascination. She was dancing in the isles and her favorite part of the production was the Sugar Plum Fairy. That gave me an idea: a Sugar Plum Fairy themed ballerina party for her and her friends during Christmastime.<script async type="text/javascript" src="//tracking.skyword.com/tracker.js?contentId=281474979609635"></script>]]></body>
         <publishedDate>2017-02-06T20:54:25Z</publishedDate>  
         <keyword><![CDATA[sugar plum fairy party]]></keyword>
+        <field_meta_keywords><![CDATA[party supplies, party favors, party decorations, Halloween costumes, birthday party supplies, party ideas, novelties, crafts, candy, small toys, balloons, scrapbook supplies, beads, arts and crafts, crafts for kids]]></field_meta_keywords>
         <additional_content>
         </additional_content>
         <metainformation>
@@ -688,6 +1519,7 @@
         <keyword><![CDATA[great wedding ideas]]></keyword>
         <article_list_content>
         </article_list_content>
+        <field_meta_keywords><![CDATA[party supplies, party favors, party decorations, Halloween costumes, birthday party supplies, party ideas, novelties, crafts, candy, small toys, balloons, scrapbook supplies, beads, arts and crafts, crafts for kids]]></field_meta_keywords>
         <metainformation>
             <seoTitle><![CDATA[5 GREAT DIY WEDDING IDEAS]]></seoTitle>
         </metainformation>
