@@ -786,5 +786,3 @@ if (file_exists('/var/www/site-php')) {
   // Memcache settings.
   $settings['cache']['default'] = 'cache.backend.memcache';
 }
-$settings['memcache']['extension'] = 'Memcache';
-$settings['memcache']['debug'] = TRUE;
