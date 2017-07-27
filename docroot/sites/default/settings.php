@@ -784,5 +784,5 @@ $settings['trusted_host_patterns'] = array(
 
 if (file_exists('/var/www/site-php')) { 
   // Memcache settings.
-  //$settings['cache']['default'] = 'cache.backend.memcache';
+  $settings['cache']['default'] = 'cache.backend.memcache';
 }
