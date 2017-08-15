@@ -12,7 +12,7 @@ use Drupal\Core\Url;
 use Drupal\search_api_solr\SolrConnector\SolrConnectorPluginBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\acquia_search\EventSubscriber\SearchSubscriber;
-use Solarium\Client;
+use Solarium\Core\Client\Client;
 
 /**
  * Class SearchApiSolrAcquiaConnector.
@@ -34,9 +34,9 @@ class SearchApiSolrAcquiaConnector extends SolrConnectorPluginBase {
    */
   public function defaultConfiguration() {
     $configuration = parent::defaultConfiguration();
-
-    $configuration['index_id'] = Storage::getIdentifier();
-    $configuration['path'] = '/solr/' . Storage::getIdentifier();
+    $storage = new Storage();
+    $configuration['index_id'] = $storage->getIdentifier();
+    $configuration['path'] = '/solr/' . $storage->getIdentifier();
     $configuration['host'] = acquia_search_get_search_host();
     $configuration['port'] = '80';
     $configuration['scheme'] = 'http';
@@ -211,6 +211,17 @@ class SearchApiSolrAcquiaConnector extends SolrConnectorPluginBase {
     $this->connect();
     $query = $this->solr->createExtract();
     $query->setHandler('extract/tika');
+    return $query;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getMoreLikeThisQuery() {
+    $this->connect();
+    $query = $this->solr->createMoreLikeThis();
+    $query->setHandler('select');
+    $query->addParam('qt', 'mlt');
     return $query;
   }
 
