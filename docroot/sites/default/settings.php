@@ -780,3 +780,11 @@ $settings['trusted_host_patterns'] = array(
   '^.*orientaltrading.com$',
   '^otc.*.acquia-sites.com$',
 );
+// Enabling Memcache
+
+if (file_exists('/var/www/site-php')) {
+  if (isset($conf['memcache_servers'])) { 
+    // Memcache settings.
+    $settings['cache']['default'] = 'cache.backend.memcache';
+  }  
+}

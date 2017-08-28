@@ -178,31 +178,33 @@ class SetupForm extends ConfigFormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    $storage = $form_state->getStorage();
-    if (isset($storage['choose']) && isset($storage['response']['subscription'][$form_state->getValue('subscription')])) {
+    $form_data = $form_state->getStorage();
+    if (isset($form_data['choose']) && isset($form_data['response']['subscription'][$form_state->getValue('subscription')])) {
       $config = $this->config('acquia_connector.settings');
-      $sub = $storage['response']['subscription'][$form_state->getValue('subscription')];
+      $sub = $form_data['response']['subscription'][$form_state->getValue('subscription')];
       $config->set('subscription_name', $sub['name'])->save();
 
-      Storage::setKey($sub['key']);
-      Storage::setIdentifier($sub['identifier']);
+      $storage = new Storage();
+      $storage->setKey($sub['key']);
+      $storage->setIdentifier($sub['identifier']);
     }
     else {
       $this->automaticStartSubmit($form_state);
     }
 
     // Don't set message or redirect if multistep.
-    if (!$form_state->getErrors($form_state) && empty($storage['rebuild'])) {
+    if (!$form_state->getErrors() && empty($form_data['rebuild'])) {
       // Check subscription and send a heartbeat to Acquia Network via XML-RPC.
       // Our status gets updated locally via the return data.
-      $subscription = Subscription::update();
+      $subscription = new Subscription();
+      $subscription_data = $subscription->update();
 
       // Redirect to the path without the suffix.
-      if ($subscription) {
+      if ($subscription_data) {
         $form_state->setRedirect('acquia_connector.settings');
       }
 
-      if ($subscription['active']) {
+      if ($subscription_data['active']) {
         drupal_set_message($this->t('<h3>Connection successful!</h3>You are now connected to Acquia Cloud. Please enter a name for your site to begin sending profile data.'));
         // @todo https://www.drupal.org/node/2560867
         drupal_flush_all_caches();
@@ -234,8 +236,9 @@ class SetupForm extends ConfigFormBase {
       $sub = $storage['response']['subscription'][0];
       $config->set('subscription_name', $sub['name'])->save();
 
-      Storage::setKey($sub['key']);
-      Storage::setIdentifier($sub['identifier']);
+      $storage = new Storage();
+      $storage->setKey($sub['key']);
+      $storage->setIdentifier($sub['identifier']);
     }
   }
 
