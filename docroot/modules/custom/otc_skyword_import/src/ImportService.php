@@ -11,7 +11,7 @@ use Drupal\file\Entity\File;
 use Drupal\user\Entity\User;
 use Drupal\Core\File\FileSystem;
 use GuzzleHttp\Client;
-use ZendXml\Security as Security;
+use ZendXml\Security;
 use SimpleXMLElement;
 
 class ImportService {
