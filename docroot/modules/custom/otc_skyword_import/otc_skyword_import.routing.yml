@@ -1,0 +1,6 @@
+otc_skyword_import.article_import:
+  path: '/mannual_run/skyword_import'
+  defaults:
+    _controller: '\Drupal\otc_skyword_import\Controller\ServiceCallController::callImportService'
+  requirements:
+    _permission: 'access content'
