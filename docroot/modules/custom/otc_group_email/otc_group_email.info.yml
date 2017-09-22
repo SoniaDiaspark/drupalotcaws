@@ -1,0 +1,6 @@
+name: Group email address
+description: Group email address
+core: 8.x
+package: Custom
+type: module
+configure: otc_group_email.settings_form

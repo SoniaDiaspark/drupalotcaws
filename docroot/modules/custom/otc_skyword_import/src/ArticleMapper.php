@@ -167,6 +167,7 @@ class ArticleMapper implements FeedMapperInterface {
       'field_carousel_content' => 'field_carousel_content',
       'field_list_heading' => 'field_display_title',
       'field_list_content' => 'field_description',
+      'field_legacy_content' => 'field_legacy_content',
     ];
 
     return ( in_array($key, array_keys($mappings)) ? $mappings[$key] : false );

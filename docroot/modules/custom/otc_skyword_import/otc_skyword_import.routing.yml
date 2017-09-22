@@ -3,4 +3,6 @@ otc_skyword_import.article_import:
   defaults:
     _controller: '\Drupal\otc_skyword_import\Controller\ServiceCallController::callImportService'
   requirements:
-    _permission: 'access content'
+    _permission: 'access administration pages'
+  options:
+    _admin_route: TRUE 

@@ -106,10 +106,21 @@ class ImportService {
       }
 
       foreach ($this->mapImports($simplexml) as $type => $docs) {
+        $display_type .= $type;  
         foreach ($docs as $doc) {
-          $this->queueImportJob($type, $doc);
+          $this->queueImportJob($type, $doc);          
+          $data .= '<p>'.$display_type . '|' . $doc['field_skyword_id'] . '|' . $doc['field_display_title'].'<br /></p>';  
         }
-      }
+        $display_type = '';
+      }      
+      
+      $message = '<p>Job has been triggred</p> </br>' .$data;
+      $config = \Drupal::config('otc_group_email.settings');
+      $otc_group_email = $config->get('otc_group_email');
+      if (!isset($otc_group_email) && empty($otc_group_email)) {
+        $otc_group_email = '';
+      }      
+      \Drupal::service('plugin.manager.mail')->mail('otc_skyword_import', $key, $otc_group_email, 'en', ['message' => $message]);
 
     } catch (\Exception $e) {
       $this->logger->error('Error loading feed from skyword: @message', [
