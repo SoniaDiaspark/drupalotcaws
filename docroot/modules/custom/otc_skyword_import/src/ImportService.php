@@ -135,14 +135,18 @@ class ImportService {
   }
 
   public function sendFailureMessages($key, $message) {
-    $users = \Drupal::entityQuery('user')
+    $config = \Drupal::config('otc_group_email.settings');
+    $otc_group_email = $config->get('otc_group_email'); 
+    \Drupal::service('plugin.manager.mail')->mail('otc_skyword_import', $key, $otc_group_email, 'en', ['message' => $message]);
+
+    /*$users = \Drupal::entityQuery('user')
       ->condition('roles', 'administrator')
       ->execute();
 
     foreach ($users as $uid) {
       $user = User::load($uid);
       \Drupal::service('plugin.manager.mail')->mail('otc_skyword_import', $key, $user->mail->value, 'en', ['message' => $message]);
-    }
+    }*/
   }
 
   protected function queueImportJob($type, $document) {
