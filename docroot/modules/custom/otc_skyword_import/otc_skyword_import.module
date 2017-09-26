@@ -30,8 +30,8 @@ function otc_skyword_import_help($route_name, RouteMatchInterface $route_match) 
  * @param  array $params passed parameters
  */
 function otc_skyword_import_mail($key, &$message, $params) {
-  if (isset($_ENV['PANTHEON_ENVIRONMENT'])) {
-    $env_variable = $_ENV['PANTHEON_ENVIRONMENT'];
+  if (isset($_ENV['AH_SITE_ENVIRONMENT'])) {
+    $env_variable = $_ENV['AH_SITE_ENVIRONMENT'];
   }
   if ($key === 'worker') {
     $message['subject'] = 'Problem Occured During Skyword Import in '.$env_variable;
