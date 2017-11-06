@@ -1,0 +1,61 @@
+<?php
+
+/**
+ * @file
+ * OTC Skyword Update module.
+ */
+
+use Drupal\Core\Entity\EntityInterface;
+
+/**
+ * Implements hook_ENTITY_TYPE_postinsert().
+ */
+function otc_skyword_update_node_postinsert(EntityInterface $entity) {  
+  $id = $entity->id();
+  $bundle = $entity->bundle();
+  $is_published = $entity->isPublished();
+  $skyword_id = $entity->get('field_skyword_id')->getValue();
+  $skyword_node_id = $skyword_id[0]['value'];
+  skyword_update($bundle, $is_published, $skyword_node_id);   
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_postupdate().
+ */
+function otc_skyword_update_node_postupdate(EntityInterface $entity) {
+  $id = $entity->id();
+  $bundle = $entity->bundle();
+  $is_published = $entity->isPublished();
+  $skyword_id = $entity->get('field_skyword_id')->getValue();
+  $skyword_node_id = $skyword_id[0]['value'];  
+  skyword_update($bundle, $is_published, $skyword_node_id);
+}
+
+/**
+ * Implements skyword_update().
+ */
+function skyword_update($bundle, $is_published, $skyword_id) {
+  
+  if (($bundle == 'article') || ($bundle == 'project') || ($bundle == 'recipe')) {
+    if ($is_published == '1') { 
+      try {
+        if (isset($_ENV['AH_SITE_ENVIRONMENT'])) {
+            $env_variable = $_ENV['AH_SITE_ENVIRONMENT'];
+        }
+        if ($env_variable == 'prod') {
+            $skyword_key = 'qep7eumvwqd6czpdxr4g';
+        } else {
+            $skyword_key = '3jbwqd5z9untd704yj6j';
+        }
+                
+        $client = \Drupal::httpClient();  
+        $client->request('GET', 'https://api.skyword.com/publish?key='.$skyword_key.'&contentId='.$skyword_id.'url=');           
+      }
+      catch (RequestException $e) {
+        return FALSE; 
+      }        
+    }  
+
+  }
+  
+}
