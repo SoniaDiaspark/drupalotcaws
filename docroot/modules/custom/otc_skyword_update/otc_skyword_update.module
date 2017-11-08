@@ -53,7 +53,9 @@ function skyword_update($bundle, $is_published, $skyword_id) {
         }
                 
         $client = \Drupal::httpClient();  
-        $client->request('GET', 'https://api.skyword.com/publish?key='.$skyword_key.'&contentId='.$skyword_id.'url=');           
+        $mess = $client->request('GET', 'https://api.skyword.com/publish?key='.$skyword_key.'&contentId='.$skyword_id.'url='); 
+        \Drupal::logger('otc_skyword_update')
+        ->info("Status {$mess}");          
       }
       catch (RequestException $e) {
         return FALSE; 
