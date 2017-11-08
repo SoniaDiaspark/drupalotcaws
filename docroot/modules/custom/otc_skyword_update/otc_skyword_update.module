@@ -23,6 +23,8 @@ function otc_skyword_update_node_postinsert(EntityInterface $entity) {
  * Implements hook_ENTITY_TYPE_postupdate().
  */
 function otc_skyword_update_node_postupdate(EntityInterface $entity) {
+  \Drupal::logger('otc_skyword_update')
+        ->info("otc_skyword_update_node_postupdate");
   $id = $entity->id();
   $bundle = $entity->bundle();
   $is_published = $entity->isPublished();
@@ -39,6 +41,8 @@ function skyword_update($bundle, $is_published, $skyword_id) {
   if (($bundle == 'article') || ($bundle == 'project') || ($bundle == 'recipe')) {
     if ($is_published == '1') { 
       try {
+        \Drupal::logger('otc_skyword_update')
+        ->info("This published {$bundle} node having id {$skyword_id} will be removed from skyword feed");
         if (isset($_ENV['AH_SITE_ENVIRONMENT'])) {
             $env_variable = $_ENV['AH_SITE_ENVIRONMENT'];
         }
