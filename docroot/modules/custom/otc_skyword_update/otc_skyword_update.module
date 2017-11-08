@@ -6,6 +6,10 @@
  */
 
 use Drupal\Core\Entity\EntityInterface;
+use GuzzleHttp\Client as GuzzleClient;
+use GuzzleHttp\Psr7\Request;
+use Psr\Http\Message\UriInterface;
+use GuzzleHttp\Exception\RequestException;
 
 /**
  * Implements hook_ENTITY_TYPE_postinsert().
@@ -54,9 +58,15 @@ function skyword_update($bundle, $is_published, $skyword_id) {
 
         \Drupal::logger('otc_skyword_update')
         ->info("Status {$env_variable}");
-                 
-        $client = \Drupal::httpClient();
-        $response = $client->get('https://api.skyword.com/publish?key='.$skyword_key.'&contentId='.$skyword_id.'url=');   
+
+        $client = new GuzzleClient();
+        $api_url = 'https://api.skyword.com/publish?key='.$skyword_key.'&contentId='.$skyword_id;
+        $response = $client->request('GET',$api_url);
+        $contents = $response->getBody()->getContents();
+        print '<pre>';print_r($contents); exit;
+
+        //$client = \Drupal::httpClient();
+        //$response = $client->get('https://api.skyword.com/publish?key='.$skyword_key.'&contentId='.$skyword_id.'url=');   
         //$mess = $client->request('GET', 'https://api.skyword.com/publish?key='.$skyword_key.'&contentId='.$skyword_id.'url='); 
 
         \Drupal::logger('otc_skyword_update')
