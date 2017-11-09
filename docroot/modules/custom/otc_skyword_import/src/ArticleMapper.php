@@ -58,7 +58,33 @@ class ArticleMapper implements FeedMapperInterface {
     if ( isset($document->carousel) ) {
 
     }
+    if ( isset($document->field_legacy_content) ) {
+      $doc = new \DOMDocument();
+      @$doc->loadHTML($document->field_legacy_content); 
 
+      // Get the images.
+      $images = $doc->getElementsByTagName('img');
+      foreach ($images as $image) {
+        $break_image = explode(':', $image->getAttribute('src'));
+        // Change the value of an attribute based on the current value.
+        if ($break_image[0] == 'SKYWORD-FILE') {
+          // Create file object from remote URL.
+          $data = file_get_contents('https://api.skyword.com/file?key=qep7eumvwqd6czpdxr4g&file='.$break_image[1]);
+          $size = getimagesize('https://api.skyword.com/file?key=qep7eumvwqd6czpdxr4g&file='.$break_image[1]);
+          $extension = image_type_to_extension($size[2]);
+          //print '<pre>'; print_r($extension); exit;  
+          $file = file_save_data($data, 'public://'.$break_image[1].$extension.'', FILE_EXISTS_RENAME);
+          $uri = $file->getFileUri();
+          $file_path = file_create_url($uri);
+          //print '<pre>'; print_r($file_path); exit;          
+          $image->setAttribute('src', $file_path);  
+        }
+      }
+
+      // Get the new HTML
+      $new_html = $doc->saveHTML();
+      $article['field_legacy_content'] = $new_html;
+    }
     if ( isset($document->productsused) ) {
       $skus = [];
       $skus = array_filter(array_unique(array_merge(

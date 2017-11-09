@@ -67,15 +67,7 @@ class ImportService {
   ) {
     $this->dbQueue = $queueFactory->get('otc_skyword_import');
     $this->logger = $logFactory->get('otc_skyword_import');
-    
-    if (isset($_ENV['AH_SITE_ENVIRONMENT'])) {
-            $env_variable = $_ENV['AH_SITE_ENVIRONMENT'];
-    }
-    if ($env_variable == 'prod') {
-        $this->httpClient = $httpClient;
-    } else {
-        $this->httpClient = 'https://api.skyword.com/feed?key=3jbwqd5z9untd704yj6j';
-    }
+    $this->httpClient = $httpClient;
     $config = $configFactory->get('otc_skyword_import.config');
     $this->importUrl = $config->get('url');
     $this->mappingService = $mappingService;
@@ -99,6 +91,12 @@ class ImportService {
    */
   public function queueImportJobs() {
     try {
+      if (isset($_ENV['AH_SITE_ENVIRONMENT'])) {
+          if ($_ENV['AH_SITE_ENVIRONMENT'] != 'prod') {
+            $this->importUrl = 'https://api.skyword.com/feed?key=3jbwqd5z9untd704yj6j';
+          }
+      }
+      
       $res = $this->httpClient->request('GET', $this->importUrl);
       $xml = $res->getBody();
 
