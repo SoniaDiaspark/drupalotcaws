@@ -101,7 +101,10 @@ class ProductImportService implements ProductImportServiceInterface {
         $data['field_image_url_product_thumb_1x'],
         $data['field_image_url_product_thumb_2x'],
         $data['field_image_url_product_tile_1x'],
-        $data['field_image_url_product_tile_2x']
+        $data['field_image_url_product_tile_2x'],
+        $data['product_url'],
+      $data['field_product_closeout_status'],
+      $data['field_product_in_stock_status']
       ) = explode('|', $line);
 
       $data['force'] = $forceUpdate;
@@ -198,7 +201,10 @@ class ProductImportService implements ProductImportServiceInterface {
       $data['field_image_url_product_thumb_1x'],
       $data['field_image_url_product_thumb_2x'],
       $data['field_image_url_product_tile_1x'],
-      $data['field_image_url_product_tile_2x']
+      $data['field_image_url_product_tile_2x'],
+      $data['product_url'],
+      $data['field_product_closeout_status'],
+      $data['field_product_in_stock_status']
       )
     );
   }
