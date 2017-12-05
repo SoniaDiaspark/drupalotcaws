@@ -1,0 +1,8 @@
+otc_product_import.product_import:
+  path: '/mannual_run/product_import'
+  defaults:
+    _controller: '\Drupal\otc_product_import\Controller\ProductCallController::callProductService'
+  requirements:
+    _permission: 'access administration pages'
+  options:
+    _admin_route: TRUE 
