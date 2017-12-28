@@ -71,12 +71,10 @@ class ArticleMapper implements FeedMapperInterface {
           // Create file object from remote URL.
           $data = file_get_contents('https://api.skyword.com/file?key=qep7eumvwqd6czpdxr4g&file='.$break_image[1]);
           $size = getimagesize('https://api.skyword.com/file?key=qep7eumvwqd6czpdxr4g&file='.$break_image[1]);
-          $extension = image_type_to_extension($size[2]);
-          //print '<pre>'; print_r($extension); exit;  
+          $extension = image_type_to_extension($size[2]);           
           $file = file_save_data($data, 'public://'.$break_image[1].$extension.'', FILE_EXISTS_RENAME);
           $uri = $file->getFileUri();
-          $file_path = file_create_url($uri);
-          //print '<pre>'; print_r($file_path); exit;          
+          $file_path = file_create_url($uri);                  
           $image->setAttribute('src', $file_path);  
         }
       }
