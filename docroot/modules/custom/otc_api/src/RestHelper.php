@@ -1330,7 +1330,7 @@ class RestHelper implements RestHelperInterface {
    * @param  array $resolutions image style names that might apply to this image.
    * @return array of image urls
    */
-  protected function processImage($target_id, $resolutions) {
+  protected function processImage($target_id, $resolutions = []) {
     $streamWrapper = \Drupal::service('stream_wrapper_manager');
     $baseFile = \Drupal::service('entity.manager')
       ->getStorage('file')
