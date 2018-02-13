@@ -1314,7 +1314,7 @@ class RestHelper implements RestHelperInterface {
         return $return;
       }
       if( $options['full_image_style'] == 'yes'){
-         return $this->processImage(current($imageData)['target_id']);
+         return $this->processImage(current($imageData)['target_id'], []);
       }
       // single
       return $this->processImage(current($imageData)['target_id'], $resolutions);
