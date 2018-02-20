@@ -1,0 +1,28 @@
+<?php
+
+/**
+ * Implements hook_schema().
+ */
+function otc_skyword_update_schema() {
+
+$schema = array();
+
+$schema['publish_node_details'] = array(
+  'description' => 'Publish node details records.',
+  'fields' => array(
+    'id'       => array('type' => 'serial', 'not null' => TRUE),
+    'node_id'       => array('type' => 'int', 'not null' => TRUE, 'default' => 0),
+    'node_title'       => array('type' => 'varchar', 'length' => 255, 'default' => ''),
+    'node_type'   => array('type' => 'varchar', 'length' => 255, 'default' => ''),
+    'date'     => array('type' => 'varchar','length' => 255,'not null' => TRUE, 'default' => ''),
+    'status'   => array('type' => 'int', 'not null' => TRUE, 'default' => 1),
+    'skyword_id'   => array('type' => 'varchar', 'length' => 255, 'default' => ''),
+  ),
+
+  'primary key' => array('id'),
+
+);
+
+return $schema;
+
+}

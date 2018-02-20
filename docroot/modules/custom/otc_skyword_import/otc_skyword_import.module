@@ -37,6 +37,8 @@ function otc_skyword_import_mail($key, &$message, $params) {
     $message['subject'] = 'Problem Occured During Skyword Import in '.$env_variable;
   } elseif($key === 'parse') {
     $message['subject'] = 'Problem Occured Reading Skyword Feed in '.$env_variable;
+  } elseif($key === 'pnd') {
+    $message['subject'] = 'Publish Node Details';
   } else {
     $message['subject'] = 'Skyword Import Notice in '.$env_variable;
   }

@@ -3,6 +3,4 @@ type: module
 description: 'Removal of approved content from Skyword feed'
 core: 8.x
 package: OTC
-dependencies:
-  - hook_post_action
 

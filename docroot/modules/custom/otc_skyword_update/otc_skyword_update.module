@@ -10,52 +10,27 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Request;
 use Psr\Http\Message\UriInterface;
 use GuzzleHttp\Exception\RequestException;
-
-/**
- * Implements hook_ENTITY_TYPE_postinsert().
- */
-function otc_skyword_update_node_postinsert(EntityInterface $entity) {  
-  $id = $entity->id();
-  $bundle = $entity->bundle();
-  $is_published = $entity->isPublished();
-  $skyword_id = $entity->get('field_skyword_id')->getValue();
-  $skyword_node_id = $skyword_id[0]['value'];
-  skyword_update($bundle, $is_published, $skyword_node_id);   
-}
-
-/**
- * Implements hook_ENTITY_TYPE_postupdate().
- */
-function otc_skyword_update_node_postupdate(EntityInterface $entity) {
-  $id = $entity->id();
-  $bundle = $entity->bundle();
-  $is_published = $entity->isPublished();
-  $skyword_id = $entity->get('field_skyword_id')->getValue();
-  $skyword_node_id = $skyword_id[0]['value'];  
-  skyword_update($bundle, $is_published, $skyword_node_id);
-}
+use Drupal\Core\Config;
 
 /**
  * Implements skyword_update().
  */
-function skyword_update($bundle, $is_published, $skyword_id) {
+function skyword_update($bundle, $is_published, $skyword_id) {  
   
-  if (($bundle == 'article') || ($bundle == 'project') || ($bundle == 'recipe')) {
-    if ($is_published == '1') { 
       try {
         
+        $skyword_get_url = \Drupal::config('otc_skyword_update.config')->get('url');
+
         if (isset($_ENV['AH_SITE_ENVIRONMENT'])) {
-            $env_variable = $_ENV['AH_SITE_ENVIRONMENT'];
+          if ($_ENV['AH_SITE_ENVIRONMENT'] != 'prod') {
+            $skyword_get_url = 'https://api.skyword.com/publish?key=3jbwqd5z9untd704yj6j';
+          }
         }
-        if ($env_variable == 'prod') {
-            $skyword_key = 'qep7eumvwqd6czpdxr4g';
-        } else {
-            $skyword_key = '3jbwqd5z9untd704yj6j';
-        }
-
-        $client = \Drupal::httpClient();
-        $response = $client->get('https://api.skyword.com/publish?key='.$skyword_key.'&contentId='.$skyword_id.'&url=');   
-
+        
+        $client = \Drupal::httpClient();  
+        $skyword_key = $skyword_get_url.'&contentId='.$skyword_id.'&url='; 
+        $response = $client->get($skyword_key);        
+        
         \Drupal::logger('otc_skyword_update')
         ->info("This {$bundle} with id {$skyword_id} will be removed from skyword feed.");
                   
@@ -63,8 +38,89 @@ function skyword_update($bundle, $is_published, $skyword_id) {
       catch (RequestException $e) {         
         return FALSE; 
       }        
-    }  
-
-  }
+}  
   
+
+/**
+ * Implements hook_entity_presave().
+ */
+function otc_skyword_update_entity_presave(Drupal\Core\Entity\EntityInterface $entity) {
+    //$servives = \Drupal::service('otc_skyword_update.default')->emailsend();              
+    $type = $entity->bundle();
+    $entity_type = array(
+        "article",
+        "project",
+        "recipe",
+    );    
+
+    if (in_array($type, $entity_type)) {
+        $entity_original = $entity->original;
+        // Check if node is new.
+        if (!$entity->isNew()) {
+            
+            /* Alredy exit check */
+            $queryalredy = \Drupal::database()->select('publish_node_details', 'pnd');
+            $queryalredy->fields('pnd', ['node_id']);            
+            $queryalredy->condition('node_id',$entity->id(),'=');
+            $z_results = $queryalredy->execute()->fetchAll();        
+            
+            // Get previous node status.
+            $old_status = $entity_original->isPublished();
+            // Get updated node status.
+            $new_status = $entity->isPublished();
+            if ($old_status != 1 && $new_status == 1) {
+                $cur_date = \Drupal::service('date.formatter')->format(time(), 'custom', 'Y-m-d', $config_data_default_timezone);
+                $nodetitle = $entity->getTitle();
+                
+                $skyword_id = $entity->get('field_skyword_id')->getValue();
+                $skyword_node_id = $skyword_id[0]['value'] ? $skyword_id[0]['value'] : 0;                 
+                
+                if($z_results[0]->node_id==""){
+                    $query = \Drupal::database()->insert('publish_node_details');
+                    $query->fields([
+                        'node_id',
+                        'node_type',
+                        'node_title',
+                        'date',
+                        'status',
+                        'skyword_id'
+                    ]);
+                    $query->values([$entity->id(), $type, $nodetitle, $cur_date, 1,$skyword_node_id]);
+                    $result = $query->execute();
+                }                
+                $id = $entity->id();
+                //$bundle = $entity->bundle();
+                $is_published = $entity->isPublished();                 
+                skyword_update($type, $is_published, $skyword_node_id);
+            }
+        } else {
+            $new_status = $entity->isPublished();
+
+            if ($new_status == 1) {
+
+                $config = \Drupal::config('system.date');
+                $config_data_default_timezone = $config->get('timezone.default');
+                $cur_date = \Drupal::service('date.formatter')->format(time(), 'custom', 'Y-m-d', $config_data_default_timezone);
+                $nodetitle = $entity->getTitle();
+                $query = \Drupal::database()->insert('publish_node_details');
+                $query->fields([
+                    'node_id',
+                    'node_type',
+                    'node_title',
+                    'date',
+                    'status',
+                    'skyword_id'
+                ]);
+                
+                $skyword_id = $entity->get('field_skyword_id')->getValue();
+                $skyword_node_id = $skyword_id[0]['value'] ? $skyword_id[0]['value'] : 0;
+                $query->values([0, $type, $nodetitle, $cur_date, 1,$skyword_node_id]);
+                $result = $query->execute();
+                $id = $entity->id();                
+                $is_published = $entity->isPublished();               
+                skyword_update($type, $is_published, $skyword_node_id);
+               
+            }
+        }
+    }
 }
