@@ -28,8 +28,8 @@ function skyword_update($bundle, $is_published, $skyword_id) {
         }
         
         $client = \Drupal::httpClient();  
-        $skyword_key = $skyword_get_url.'&contentId='.$skyword_id.'&url='; 
-        $response = $client->get($skyword_key);        
+        $skyword_updated_url = $skyword_get_url.'&contentId='.$skyword_id; 
+        $response = $client->get($skyword_updated_url);        
         
         \Drupal::logger('otc_skyword_update')
         ->info("This {$bundle} with id {$skyword_id} will be removed from skyword feed.");
