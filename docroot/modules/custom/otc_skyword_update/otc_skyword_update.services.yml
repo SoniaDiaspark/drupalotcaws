@@ -1,4 +1,4 @@
 services:
   otc_skyword_update.default:
     class: Drupal\otc_skyword_update\PublishNodeDetails
-    arguments: ['@entity.query', '@logger.factory', '@queue.database']  
+    arguments: []  
