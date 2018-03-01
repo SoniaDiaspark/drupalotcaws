@@ -15,7 +15,7 @@ use Drupal\Core\Config;
 /**
  * Implements skyword_update().
  */
-function skyword_update($bundle, $is_published, $skyword_id) {  
+function skyword_update($bundle, $is_published, $skyword_id,$fun365_url) {  
   
       try {
         
@@ -28,7 +28,9 @@ function skyword_update($bundle, $is_published, $skyword_id) {
         }
         
         $client = \Drupal::httpClient();  
-        $skyword_updated_url = $skyword_get_url.'&contentId='.$skyword_id; 
+        $with_base_url = 'http://www.fun365.orientaltrading.com/'.$fun365_url;         
+        $skyword_updated_url = $skyword_get_url.'&contentId='.$skyword_id.'&url='.urlencode($with_base_url);   
+        //$skyword_updated_url = $skyword_get_url.'&contentId='.$skyword_id; 
         $response = $client->get($skyword_updated_url);        
         
         \Drupal::logger('otc_skyword_update')
@@ -90,8 +92,14 @@ function otc_skyword_update_entity_presave(Drupal\Core\Entity\EntityInterface $e
                 }                
                 $id = $entity->id();
                 //$bundle = $entity->bundle();
-                $is_published = $entity->isPublished();                 
-                skyword_update($type, $is_published, $skyword_node_id);
+                $is_published = $entity->isPublished();  
+                /* Create Fun365 Url */
+                $source = $entity->toUrl()->getInternalPath();
+                $lang = $entity->language()->getId();
+                $path = \Drupal::service('path.alias_storage')->lookupPathAlias('/' . $source, $lang);
+                $path = preg_replace('/^\//', '', $path);
+                $fun365_url = $type . '/' . $path;               
+                skyword_update($type, $is_published, $skyword_node_id,$fun365_url);
             }
         } else {
             $new_status = $entity->isPublished();
@@ -117,8 +125,14 @@ function otc_skyword_update_entity_presave(Drupal\Core\Entity\EntityInterface $e
                 $query->values([0, $type, $nodetitle, $cur_date, 1,$skyword_node_id]);
                 $result = $query->execute();
                 $id = $entity->id();                
-                $is_published = $entity->isPublished();               
-                skyword_update($type, $is_published, $skyword_node_id);
+                $is_published = $entity->isPublished();  
+                /* Create Fun365 Url */
+                $source = $entity->toUrl()->getInternalPath();
+                $lang = $entity->language()->getId();
+                $path = \Drupal::service('path.alias_storage')->lookupPathAlias('/' . $source, $lang);
+                $path = preg_replace('/^\//', '', $path);
+                $fun365_url = $type . '/' . $path;             
+                skyword_update($type, $is_published, $skyword_node_id,$fun365_url);
                
             }
         }
