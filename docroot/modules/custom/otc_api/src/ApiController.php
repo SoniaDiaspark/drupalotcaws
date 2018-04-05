@@ -761,7 +761,7 @@ class ApiController extends ControllerBase {
       $resultData = $this->restHelper->fetchAll($contentType, $options);
 
       $response = new CacheableJsonResponse($resultData);
-      $response->addCacheableDependency($this->restHelper->cacheMetaData());
+      $response->addCacheableDependency($this->restHelper->cacheMetaData($resultData,'node'));
 
       return $response;
     } catch (Exception $e) {
