@@ -996,6 +996,9 @@ class RestHelper implements RestHelperInterface {
       }
       return $return;
     }
+    if ( $field->getName() == "field_product_in_stock_status" ) {
+      return trim($field->value);
+    }
 
     return $field->value;
   }
