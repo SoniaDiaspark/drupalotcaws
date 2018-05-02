@@ -1,0 +1,5 @@
+name: OTC Custom
+type: module
+description: Set publication date automatically when node status changed from unpublish to publish.
+package: OTC
+core: '8.x'

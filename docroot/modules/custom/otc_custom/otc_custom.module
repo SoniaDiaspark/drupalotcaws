@@ -1,0 +1,48 @@
+<?php
+
+use Drupal\Core\Entity;
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Datetime\DrupalDateTime;
+/**
+ * Implement hook_entity_presave()
+ * Set publication date automatically from current date 
+ * when node status changed from unpublish to publish.
+ * Also it will set publication date to current date when first time node is published.
+ */
+function otc_custom_entity_presave(Drupal\Core\Entity\EntityInterface $entity) {
+
+  $type = $entity->bundle();
+
+  $entity_type = array(
+    'article',
+    'recipe',
+    'product',
+    'project',      
+    );
+  
+  if (in_array($type, $entity_type)) {
+    // Check if entity has publication date field.
+    if($entity->hasField('field_publication_date')) {
+
+      $cur_date = \Drupal::service('date.formatter')->format(time(), 'custom', 'Y-m-d\TH:i:s', 'UTC');
+      // Get original entity object.
+      $entity_original = $entity->original;
+      // Get updated node status.
+      $new_status = $entity->isPublished();
+      // Check if node is new.
+      if(!$entity->isNew()) {
+        // Get previous node status.
+        $old_status = $entity_original->isPublished();
+        if ($old_status != 1 && $new_status == 1) {
+          // Set the publication date field value with current date.
+          $entity->set('field_publication_date', $cur_date);
+        }
+      }
+      // New pusblished node.
+      elseif ($new_status == 1) {
+        // Set the publication date field value with current date.
+        $entity->set('field_publication_date', $cur_date);
+      }
+    }
+  }
+}
