@@ -8,10 +8,7 @@
         "wikimedia/composer-merge-plugin": "^1.4",
         "zendframework/zendxml": "^1.0",
         "drupal/core": "^8.5"
-    },
-    "replace": {
-        "drupal/core": "^8.5"
-    },
+    },    
     "minimum-stability": "dev",
     "prefer-stable": true,
     "config": {
