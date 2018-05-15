@@ -52,8 +52,8 @@ class PublishNodeDetails {
             \Drupal::service('plugin.manager.mail')->mail('otc_skyword_import', $key, $otc_group_email, 'en', ['message' => $message]);
 
             $msg = "status";
-            $message = t('An email notification has been sent to @email ', array('@email' => $to));
-            \Drupal::logger('mail-log')->notice($message);
+            /*$message = t('An email notification has been sent to @email ', array('@email' => $to));
+            \Drupal::logger('mail-log')->notice($message);*/
 
             /**
              * Truncate table and redirect
