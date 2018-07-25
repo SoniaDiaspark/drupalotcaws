@@ -95,7 +95,7 @@ class ImportService {
           if ($_ENV['AH_SITE_ENVIRONMENT'] != 'prod') {
             $this->importUrl = 'https://api.skyword.com/feed?key=3jbwqd5z9untd704yj6j';
           }
-      }
+      }      
       
       $res = $this->httpClient->request('GET', $this->importUrl);
       $xml = $res->getBody();
@@ -110,7 +110,9 @@ class ImportService {
       if ( $res->getStatusCode() !== 200 || ! ( $simplexml instanceof SimpleXMLElement) ) {
         throw new \Exception($res->getBody());
       }
-
+      
+      $display_type = "";
+      $data = "";
       foreach ($this->mapImports($simplexml) as $type => $docs) {
         $display_type .= $type;  
         foreach ($docs as $doc) {
@@ -125,7 +127,9 @@ class ImportService {
       $otc_group_email = $config->get('otc_group_email');
       if (!isset($otc_group_email) && empty($otc_group_email)) {
         $otc_group_email = '';
-      }      
+      }
+      
+      $key = (!empty($key)) ? $key : "";
       \Drupal::service('plugin.manager.mail')->mail('otc_skyword_import', $key, $otc_group_email, 'en', ['message' => $message]);
 
     } catch (\Exception $e) {

@@ -172,7 +172,8 @@ class ArticleMapper implements FeedMapperInterface {
     }
     
     if (empty($article['field_seo_meta_canonical_url'])) {        
-        $canonical_url = $article['field_step'][0]['field_cta_link']['uri'] ? $article['field_step'][0]['field_cta_link']['uri'] : "";
+        $canonical_url = (!empty($article['field_step'][0]['field_cta_link']['uri'])) ? $article['field_step'][0]['field_cta_link']['uri'] : "";
+       
         $article['field_seo_meta_canonical_url'] = $canonical_url;
     } 
     return $article;
