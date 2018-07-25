@@ -137,6 +137,18 @@ class ProjectMapper implements FeedMapperInterface {
     if ( $project['field_display_title'] ) {
       $project['title'] = $project['field_display_title'];
     }
+    if (empty($project['field_meta_title'])) {
+      $project['field_meta_title'] = $project['title'];
+    }
+    
+    if (empty($project['field_meta_description'])) {
+      $project['field_meta_description'] = $project['title'];
+    }
+    
+    if (empty($project['field_seo_meta_canonical_url'])) {        
+        $canonical_url = $project['field_step'][0]['field_cta_link']['uri'] ? $project['field_step'][0]['field_cta_link']['uri'] : "";
+        $project['field_seo_meta_canonical_url'] = $canonical_url;
+    } 
     return $project;
   }
 
@@ -163,6 +175,10 @@ class ProjectMapper implements FeedMapperInterface {
       'body' => 'field_description',
       'field_description' => 'field_description',
       // 'field_short_description' => 'field_short_description', // not in CMS, can add later
+      'field_seo_footer_abstract' => 'field_seo_footer_abstract',
+      'field_seo_header_abstract' => 'field_seo_header_abstract',
+      'field_seo_meta_canonical_url' => 'field_seo_meta_canonical_url',
+      'field_seo_meta_h1' => 'field_seo_meta_h1'
     ];
 
     return ( in_array($key, array_keys($mappings)) ? $mappings[$key] : false );

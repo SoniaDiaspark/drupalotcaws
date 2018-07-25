@@ -70,6 +70,18 @@ class RecipeMapper implements FeedMapperInterface {
     if ( $recipe['field_display_title'] ) {
       $recipe['title'] = $recipe['field_display_title'];
     }
+    if (empty($recipe['field_meta_title'])) {
+      $recipe['field_meta_title'] = $recipe['title'];
+    }
+    
+    if (empty($recipe['field_meta_description'])) {
+      $recipe['field_meta_description'] = $recipe['title'];
+    }
+    
+    if (empty($recipe['field_seo_meta_canonical_url'])) {        
+        $canonical_url = $recipe['field_step'][0]['field_cta_link']['uri'] ? $recipe['field_step'][0]['field_cta_link']['uri'] : "";
+        $recipe['field_seo_meta_canonical_url'] = $canonical_url;
+    }
     return $recipe;
   }
 
@@ -91,6 +103,10 @@ class RecipeMapper implements FeedMapperInterface {
       'field_product_need_description' => 'field_needed_description',
       'field_servings_min' => 'field_servings_min',
       'field_servings_max' => 'field_servings_max',
+      'field_seo_footer_abstract' => 'field_seo_footer_abstract',
+      'field_seo_header_abstract' => 'field_seo_header_abstract',
+      'field_seo_meta_canonical_url' => 'field_seo_meta_canonical_url',
+      'field_seo_meta_h1' => 'field_seo_meta_h1'
     ];
 
     return ( in_array($key, array_keys($mappings)) ? $mappings[$key] : false );

@@ -162,6 +162,19 @@ class ArticleMapper implements FeedMapperInterface {
     if ( $article['field_display_title'] ) {
       $article['title'] = $article['field_display_title'];
     }
+
+    if (empty($article['field_meta_title'])) {
+      $article['field_meta_title'] = $article['title'];
+    }
+    
+    if (empty($article['field_meta_description'])) {
+      $article['field_meta_description'] = $article['title'];
+    }
+    
+    if (empty($article['field_seo_meta_canonical_url'])) {        
+        $canonical_url = $article['field_step'][0]['field_cta_link']['uri'] ? $article['field_step'][0]['field_cta_link']['uri'] : "";
+        $article['field_seo_meta_canonical_url'] = $canonical_url;
+    } 
     return $article;
   }
 
@@ -192,6 +205,10 @@ class ArticleMapper implements FeedMapperInterface {
       'field_list_heading' => 'field_display_title',
       'field_list_content' => 'field_description',
       'field_legacy_content' => 'field_legacy_content',
+      'field_seo_footer_abstract' => 'field_seo_footer_abstract',
+      'field_seo_header_abstract' => 'field_seo_header_abstract',
+      'field_seo_meta_canonical_url' => 'field_seo_meta_canonical_url',
+      'field_seo_meta_h1' => 'field_seo_meta_h1'
     ];
 
     return ( in_array($key, array_keys($mappings)) ? $mappings[$key] : false );
