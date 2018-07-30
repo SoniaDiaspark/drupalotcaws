@@ -10,7 +10,7 @@ use Drupal\Core\Queue\QueueWorkerBase;
  * @QueueWorker(
  *   id = "otc_product_import",
  *   label = @Translation("Product Importer"),
- *   cron = {"time" = 60}
+ *   cron = {"time" = 420}
  * )
  */
 class ProductImportWorker extends QueueWorkerBase {
