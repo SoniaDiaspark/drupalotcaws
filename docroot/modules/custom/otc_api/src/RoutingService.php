@@ -201,7 +201,7 @@ class RoutingService {
 
     $routeCollection->add('otc_api.base', new Route(
       // base content type route
-      '/api/fun365/{contentType}',
+     '/api/{actions}/{contentType}', 
 
       // Route configuration parameters
       [

@@ -8,6 +8,9 @@ use Drupal\Core\Cache\CacheableJsonResponse;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Exception;
 
+/**
+ *
+ */
 class ApiController extends ControllerBase {
 
   /**
@@ -26,35 +29,34 @@ class ApiController extends ControllerBase {
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container) {
-      return new static(
+    return new static(
         $container->get('otc_api.rest_helper')
       );
   }
 
- /**
-  * @apiDescription Idea gallery API.
-  *
-  * @api {get} /api/fun365/idea Get all article, recipe, look, project, download nodes.
-  * @apiName Gallery
-  * @apiGroup Idea
-  *
-  * @apiParam {Number} page GET param  the result page (default 0)
-  * @apiParam {Number} limit GET param limit number of results per page (default 10)
-  * @apiParam {Number} recurse GET param 1 to recurse content (default 0)
-  * @apiParam {Number} depth GET param levels deep to limit recursion (default 2)
-  * @apiParam {String} category[] GET param (multiple) category uuid or path alias
-  * @apiParam {String} tag[] GET param (multiple) tag uuid or path alias
-  * @apiParam {String} type[] GET param (multiple) content type
-  *
-  * @apiParamExample {url} Request Example:
-  * // first page of all ideas
-  *  /api/fun365/idea
-  *
-  * // second page of 15 articles only in either parent or child category, tagged christmas.
-  * // recursively load content up to 4 levels deep
-  *  /api/fun365/idea?page=1&limit=15&recurse=1&depth=4&category[]=parent-category&category[]=child-category&tag[]=christmas&type[]=article
-  *
-  */
+  /**
+   * @apiDescription Idea gallery API.
+   *
+   * @api {get} /api/fun365/idea Get all article, recipe, look, project, download nodes.
+   * @apiName Gallery
+   * @apiGroup Idea
+   *
+   * @apiParam {Number} page GET param  the result page (default 0)
+   * @apiParam {Number} limit GET param limit number of results per page (default 10)
+   * @apiParam {Number} recurse GET param 1 to recurse content (default 0)
+   * @apiParam {Number} depth GET param levels deep to limit recursion (default 2)
+   * @apiParam {String} category[] GET param (multiple) category uuid or path alias
+   * @apiParam {String} tag[] GET param (multiple) tag uuid or path alias
+   * @apiParam {String} type[] GET param (multiple) content type
+   *
+   * @apiParamExample {url} Request Example:
+   * // first page of all ideas
+   *  /api/fun365/idea
+   *
+   * // second page of 15 articles only in either parent or child category, tagged christmas.
+   * // recursively load content up to 4 levels deep
+   *  /api/fun365/idea?page=1&limit=15&recurse=1&depth=4&category[]=parent-category&category[]=child-category&tag[]=christmas&type[]=article
+   */
   public function idea(Request $request) {
     $options = [
       'category' => $request->get('category') ? $request->get('category') : [],
@@ -63,7 +65,7 @@ class ApiController extends ControllerBase {
       'limit' => ($request->get('limit') ? intval($request->get('limit')) : 10),
       'published' => $request->get('published') !== '0',
       'page' => $request->get('page') * 1,
-      'recurse' => (false || $request->get('recurse')),
+      'recurse' => (FALSE || $request->get('recurse')),
       'maxDepth' => ($request->get('depth') ? intval($request->get('depth')) : 2),
     ];
 
@@ -73,54 +75,57 @@ class ApiController extends ControllerBase {
       $response->addCacheableDependency($this->restHelper->cacheMetaData($results, 'node'));
 
       return $response;
-    } catch (Exception $e) {
+    }
+    catch (Exception $e) {
       return $this->handleException($e);
     }
   }
 
   /**
-  * @apiDescription Contributed content api call.
-  *
-  * @api {get} /api/fun365/contributor/:id/content Request paginated list of content for a contributor.
-  * @apiName Content
-  * @apiGroup Contributor
-  *
-  * @apiParam {String} id Universally Unique ID or path alias for contributor
-  * @apiParam {Number} page GET param  the result page (default 0)
-  * @apiParam {Number} limit GET param limit number of results per page (default 10)
-  * @apiParam {Number} recurse GET param 1 to recurse content (default 0)
-  * @apiParam {Number} depth GET param levels deep to limit recursion (default 2)
-  * @apiParamExample {url} Request Example:
-  *  /api/fun365/contributor/abc93707-2796-4f03-c64e-59e1234917b4/content?page=1&recurse=1&depth=2
-  *
-  * @apiSuccessExample {json} Paged Contributor Content
-  * HTTP/1.1 200 OK
-  *  {
-  *    "limit": 10,
-  *    "page": 0,
-  *    "published": true,
-  *    "count": 2,
-  *    "results": [
-  *      {
-  *        "uuid": "ccf0cb1a-64e4-456c-8048-971dd0d86ee8",
-  *        "type": "project"
-  *      },
-  *      {
-  *      ...
-  *      }
-  *    ]
-  *  }
-  *
-  * @param  Request $request the request
-  * @param string $id uuid or path alias of contributor
-  * @return CacheableJsonResponse
-  */
+   * @apiDescription Contributed content api call.
+   *
+   * @api {get} /api/fun365/contributor/:id/content Request paginated list of content for a contributor.
+   * @apiName Content
+   * @apiGroup Contributor
+   *
+   * @apiParam {String} id Universally Unique ID or path alias for contributor
+   * @apiParam {Number} page GET param  the result page (default 0)
+   * @apiParam {Number} limit GET param limit number of results per page (default 10)
+   * @apiParam {Number} recurse GET param 1 to recurse content (default 0)
+   * @apiParam {Number} depth GET param levels deep to limit recursion (default 2)
+   * @apiParamExample {url} Request Example:
+   *  /api/fun365/contributor/abc93707-2796-4f03-c64e-59e1234917b4/content?page=1&recurse=1&depth=2
+   *
+   * @apiSuccessExample {json} Paged Contributor Content
+   * HTTP/1.1 200 OK
+   *  {
+   *    "limit": 10,
+   *    "page": 0,
+   *    "published": true,
+   *    "count": 2,
+   *    "results": [
+   *      {
+   *        "uuid": "ccf0cb1a-64e4-456c-8048-971dd0d86ee8",
+   *        "type": "project"
+   *      },
+   *      {
+   *      ...
+   *      }
+   *    ]
+   *  }
+   *
+   * @param  \Symfony\Component\HttpFoundation\Request $request
+   *   the request.
+   * @param string $id
+   *   uuid or path alias of contributor.
+   * @return \Drupal\Core\Cache\CacheableJsonResponse
+   */
   public function contributorContent(Request $request, $id) {
     $options = [
       'limit' => ($request->get('limit') ? intval($request->get('limit')) : 10),
       'published' => $request->get('published') !== '0',
       'page' => $request->get('page') * 1,
-      'recurse' => (false || $request->get('recurse')),
+      'recurse' => (FALSE || $request->get('recurse')),
       'maxDepth' => ($request->get('depth') ? intval($request->get('depth')) : 2),
     ];
 
@@ -130,45 +135,48 @@ class ApiController extends ControllerBase {
       $response->addCacheableDependency($this->restHelper->cacheMetaData($results, 'node'));
 
       return $response;
-    } catch (Exception $e) {
+    }
+    catch (Exception $e) {
       return $this->handleException($e);
     }
   }
 
   /**
-  * @apiDescription Specific tag api call.
-  *
-  * @api {get} /api/fun365/contributor_group/:id Request a specified contributor group.
-  * @apiName Contributor Group by UUID or path alias
-  * @apiGroup Contributor
-  *
-  * @apiParam {String} id Universally Unique ID for contributor group or path alias
-  * @apiParamExample {url} Request Example:
-  * // by uuid
-  *  /api/fun365/contributor_group/da593707-2796-4f03-b75f-59a1515917b4
-  *
-  * // by path alias
-  *  /api/fun365/contributor_group/wedding
-  *
-  * @apiSuccessExample [json] Paged Contributor Groups
-  *  HTTP/1.1 200 OK
-  *  {
-  *    "parent": "",
-  *    "type": "contributor_group",
-  *    "path": "wedding1",
-  *    "uuid": "f31b8dd9-9aae-42c5-903d-410064005b12",
-  *    "name": "Wedding",
-  *    ...
-  *  }
-  *
-  * @param  Request $request the request
-  * @param string $id the uuid or path alias of the contributor group
-  * @return CacheableJsonResponse
-  */
+   * @apiDescription Specific tag api call.
+   *
+   * @api {get} /api/fun365/contributor_group/:id Request a specified contributor group.
+   * @apiName Contributor Group by UUID or path alias
+   * @apiGroup Contributor
+   *
+   * @apiParam {String} id Universally Unique ID for contributor group or path alias
+   * @apiParamExample {url} Request Example:
+   * // by uuid
+   *  /api/fun365/contributor_group/da593707-2796-4f03-b75f-59a1515917b4
+   *
+   * // by path alias
+   *  /api/fun365/contributor_group/wedding
+   *
+   * @apiSuccessExample [json] Paged Contributor Groups
+   *  HTTP/1.1 200 OK
+   *  {
+   *    "parent": "",
+   *    "type": "contributor_group",
+   *    "path": "wedding1",
+   *    "uuid": "f31b8dd9-9aae-42c5-903d-410064005b12",
+   *    "name": "Wedding",
+   *    ...
+   *  }
+   *
+   * @param  \Symfony\Component\HttpFoundation\Request $request
+   *   the request.
+   * @param string $id
+   *   the uuid or path alias of the contributor group.
+   * @return \Drupal\Core\Cache\CacheableJsonResponse
+   */
   public function lookupContributorGroup(Request $request, $id) {
     $options = [
-    'recurse' => (false || $request->get('recurse')),
-    'maxDepth' => ($request->get('depth') ? intval($request->get('depth')) : 2),
+      'recurse' => (FALSE || $request->get('recurse')),
+      'maxDepth' => ($request->get('depth') ? intval($request->get('depth')) : 2),
     ];
 
     try {
@@ -177,7 +185,8 @@ class ApiController extends ControllerBase {
       $response->addCacheableDependency($this->restHelper->cacheMetaData($results, 'taxonomy_term'));
 
       return $response;
-    } catch (Exception $e) {
+    }
+    catch (Exception $e) {
       return $this->handleException($e);
     }
   }
@@ -223,14 +232,15 @@ class ApiController extends ControllerBase {
    *    ]
    *  }
    *
-   * @param  Request $request the request
-   * @return CacheableJsonResponse
+   * @param  \Symfony\Component\HttpFoundation\Request $request
+   *   the request.
+   * @return \Drupal\Core\Cache\CacheableJsonResponse
    */
   public function contributorGroup(Request $request) {
     $options = [
       'limit' => ($request->get('limit') ? intval($request->get('limit')) : 10),
       'page' => $request->get('page') * 1,
-      'recurse' => (false || $request->get('recurse')),
+      'recurse' => (FALSE || $request->get('recurse')),
       'maxDepth' => ($request->get('depth') ? intval($request->get('depth')) : 2),
     ];
 
@@ -240,7 +250,8 @@ class ApiController extends ControllerBase {
       $response->addCacheableDependency($this->restHelper->cacheMetaData($results, 'taxonomy_term'));
 
       return $response;
-    } catch (Exception $e) {
+    }
+    catch (Exception $e) {
       return $this->handleException($e);
     }
   }
@@ -278,16 +289,18 @@ class ApiController extends ControllerBase {
    *    ]
    *  }
    *
-   * @param  Request $request the request
-   * @param string $id uuid or path alias of contributor_group
-   * @return CacheableJsonResponse
+   * @param  \Symfony\Component\HttpFoundation\Request $request
+   *   the request.
+   * @param string $id
+   *   uuid or path alias of contributor_group.
+   * @return \Drupal\Core\Cache\CacheableJsonResponse
    */
   public function contributorGroupContent(Request $request, $id) {
     $options = [
       'limit' => ($request->get('limit') ? intval($request->get('limit')) : 10),
       'published' => $request->get('published') !== '0',
       'page' => $request->get('page') * 1,
-      'recurse' => (false || $request->get('recurse')),
+      'recurse' => (FALSE || $request->get('recurse')),
       'maxDepth' => ($request->get('depth') ? intval($request->get('depth')) : 2),
     ];
 
@@ -297,7 +310,8 @@ class ApiController extends ControllerBase {
       $response->addCacheableDependency($this->restHelper->cacheMetaData($results, 'node'));
 
       return $response;
-    } catch (Exception $e) {
+    }
+    catch (Exception $e) {
       return $this->handleException($e);
     }
   }
@@ -366,14 +380,15 @@ class ApiController extends ControllerBase {
    *    ]
    *  }
    *
-   * @param  Request $request the request
-   * @return CacheableJsonResponse
+   * @param  \Symfony\Component\HttpFoundation\Request $request
+   *   the request.
+   * @return \Drupal\Core\Cache\CacheableJsonResponse
    */
   public function category(Request $request) {
     $options = [
       'limit' => ($request->get('limit') ? intval($request->get('limit')) : 10),
       'page' => $request->get('page') * 1,
-      'recurse' => (false || $request->get('recurse')),
+      'recurse' => (FALSE || $request->get('recurse')),
       'maxDepth' => ($request->get('depth') ? intval($request->get('depth')) : 2),
     ];
 
@@ -383,50 +398,53 @@ class ApiController extends ControllerBase {
       $response->addCacheableDependency($this->restHelper->cacheMetaData($results, 'taxonomy_term'));
 
       return $response;
-    } catch (Exception $e) {
+    }
+    catch (Exception $e) {
       return $this->handleException($e);
     }
   }
 
   /**
-  * @apiDescription Specific tag api call.
-  *
-  * @api {get} /api/fun365/category/:id Request a specified category.
-  * @apiName Category by UUID or path alias
-  * @apiGroup Category
-  *
-  * @apiParam {String} id Universally Unique ID for category or path alias
-  * @apiParamExample {url} Request Example:
-  * // by uuid
-  *  /api/fun365/category/da593707-2796-4f03-b75f-59a1515917b4
-  *
-  * // by path alias
-  *  /api/fun365/category/wedding
-  *
-  * @apiSuccessExample [json] The specified category
-  *  HTTP/1.1 200 OK
-  *  {
-  *    "parent": "da593707-2796-4f03-b75f-59a1515917b4",
-  *    "uuid": "f31b8dd9-9aae-42c5-903d-410064005b12",
-  *    "name": "Child Category",
-  *    "description": null,
-  *    "weight": 0,
-  *    "changed": "2016-12-07T13:09:10-0600",
-  *    "field_3200x1391_img": {
-  *       "full": "http://example.com/path/to/image",
-  *       ...
-  *    },
-  *    ...
-  *  }
-  *
-  * @param  Request $request the request
-  * @param string $id the uuid or path alias of the category
-  * @return CacheableJsonResponse
-  */
+   * @apiDescription Specific tag api call.
+   *
+   * @api {get} /api/fun365/category/:id Request a specified category.
+   * @apiName Category by UUID or path alias
+   * @apiGroup Category
+   *
+   * @apiParam {String} id Universally Unique ID for category or path alias
+   * @apiParamExample {url} Request Example:
+   * // by uuid
+   *  /api/fun365/category/da593707-2796-4f03-b75f-59a1515917b4
+   *
+   * // by path alias
+   *  /api/fun365/category/wedding
+   *
+   * @apiSuccessExample [json] The specified category
+   *  HTTP/1.1 200 OK
+   *  {
+   *    "parent": "da593707-2796-4f03-b75f-59a1515917b4",
+   *    "uuid": "f31b8dd9-9aae-42c5-903d-410064005b12",
+   *    "name": "Child Category",
+   *    "description": null,
+   *    "weight": 0,
+   *    "changed": "2016-12-07T13:09:10-0600",
+   *    "field_3200x1391_img": {
+   *       "full": "http://example.com/path/to/image",
+   *       ...
+   *    },
+   *    ...
+   *  }
+   *
+   * @param  \Symfony\Component\HttpFoundation\Request $request
+   *   the request.
+   * @param string $id
+   *   the uuid or path alias of the category.
+   * @return \Drupal\Core\Cache\CacheableJsonResponse
+   */
   public function lookupCategory(Request $request, $id) {
     $options = [
-    'recurse' => (false || $request->get('recurse')),
-    'maxDepth' => ($request->get('depth') ? intval($request->get('depth')) : 2),
+      'recurse' => (FALSE || $request->get('recurse')),
+      'maxDepth' => ($request->get('depth') ? intval($request->get('depth')) : 2),
     ];
 
     try {
@@ -435,7 +453,8 @@ class ApiController extends ControllerBase {
       $response->addCacheableDependency($this->restHelper->cacheMetaData($results, 'taxonomy_term'));
 
       return $response;
-    } catch (Exception $e) {
+    }
+    catch (Exception $e) {
       return $this->handleException($e);
     }
   }
@@ -473,16 +492,18 @@ class ApiController extends ControllerBase {
    *    ]
    *  }
    *
-   * @param  Request $request the request
-   * @param string $id uuid or path alias of category
-   * @return CacheableJsonResponse
+   * @param  \Symfony\Component\HttpFoundation\Request $request
+   *   the request.
+   * @param string $id
+   *   uuid or path alias of category.
+   * @return \Drupal\Core\Cache\CacheableJsonResponse
    */
   public function categoryContent(Request $request, $id) {
     $options = [
       'limit' => ($request->get('limit') ? intval($request->get('limit')) : 10),
       'published' => $request->get('published') !== '0',
       'page' => $request->get('page') * 1,
-      'recurse' => (false || $request->get('recurse')),
+      'recurse' => (FALSE || $request->get('recurse')),
       'maxDepth' => ($request->get('depth') ? intval($request->get('depth')) : 2),
     ];
 
@@ -492,7 +513,8 @@ class ApiController extends ControllerBase {
       $response->addCacheableDependency($this->restHelper->cacheMetaData($results, 'node'));
 
       return $response;
-    } catch (Exception $e) {
+    }
+    catch (Exception $e) {
       return $this->handleException($e);
     }
   }
@@ -531,14 +553,15 @@ class ApiController extends ControllerBase {
    *    ]
    *  }
    *
-   * @param  Request $request the request
-   * @return CacheableJsonResponse
+   * @param  \Symfony\Component\HttpFoundation\Request $request
+   *   the request.
+   * @return \Drupal\Core\Cache\CacheableJsonResponse
    */
   public function tag(Request $request) {
     $options = [
       'limit' => ($request->get('limit') ? intval($request->get('limit')) : 10),
       'page' => $request->get('page') * 1,
-      'recurse' => (false || $request->get('recurse')),
+      'recurse' => (FALSE || $request->get('recurse')),
       'maxDepth' => ($request->get('depth') ? intval($request->get('depth')) : 2),
     ];
 
@@ -548,7 +571,8 @@ class ApiController extends ControllerBase {
       $response->addCacheableDependency($this->restHelper->cacheMetaData($results, 'taxonomy_term'));
 
       return $response;
-    } catch (Exception $e) {
+    }
+    catch (Exception $e) {
       return $this->handleException($e);
     }
   }
@@ -580,13 +604,15 @@ class ApiController extends ControllerBase {
    *   "changed": "2016-12-12T13:31:05-0600"
    *  }
    *
-   * @param  Request $request the request
-   * @param string $id the uuid or path alias of the tag
-   * @return CacheableJsonResponse
+   * @param  \Symfony\Component\HttpFoundation\Request $request
+   *   the request.
+   * @param string $id
+   *   the uuid or path alias of the tag.
+   * @return \Drupal\Core\Cache\CacheableJsonResponse
    */
   public function lookupTag(Request $request, $id) {
     $options = [
-      'recurse' => (false || $request->get('recurse')),
+      'recurse' => (FALSE || $request->get('recurse')),
       'maxDepth' => ($request->get('depth') ? intval($request->get('depth')) : 2),
     ];
     try {
@@ -595,7 +621,8 @@ class ApiController extends ControllerBase {
       $response->addCacheableDependency($this->restHelper->cacheMetaData($results, 'taxonomy_term'));
 
       return $response;
-    } catch (Exception $e) {
+    }
+    catch (Exception $e) {
       return $this->handleException($e);
     }
   }
@@ -637,16 +664,18 @@ class ApiController extends ControllerBase {
    *    ]
    *  }
    *
-   * @param  Request $request the request
-   * @param string $id the uuid or path alias of the tag
-   * @return CacheableJsonResponse
+   * @param  \Symfony\Component\HttpFoundation\Request $request
+   *   the request.
+   * @param string $id
+   *   the uuid or path alias of the tag.
+   * @return \Drupal\Core\Cache\CacheableJsonResponse
    */
   public function tagContent(Request $request, $id) {
     $options = [
       'limit' => ($request->get('limit') ? intval($request->get('limit')) : 10),
       'published' => $request->get('published') !== '0',
       'page' => $request->get('page') * 1,
-      'recurse' => (false || $request->get('recurse')),
+      'recurse' => (FALSE || $request->get('recurse')),
       'maxDepth' => ($request->get('depth') ? intval($request->get('depth')) : 2),
     ];
 
@@ -656,7 +685,8 @@ class ApiController extends ControllerBase {
       $response->addCacheableDependency($this->restHelper->cacheMetaData($results, 'node'));
 
       return $response;
-    } catch (Exception $e) {
+    }
+    catch (Exception $e) {
       return $this->handleException($e);
     }
   }
@@ -744,27 +774,34 @@ class ApiController extends ControllerBase {
    *    ]
    *  }
    *
-   * @param  Request $request the request
-   * @param  string $contentType content type
-   * @return CacheableJsonResponse
+   * @param  \Symfony\Component\HttpFoundation\Request $request
+   *   the request.
+   * @param  string $contentType
+   *   content type.
+   * @return \Drupal\Core\Cache\CacheableJsonResponse
    */
-  public function base(Request $request, $contentType) {
+  public function base(Request $request, $actions, $contentType) {
+
+    if ($contentType == "content") {
+      $contentType = "bricky";
+    }
     $options = [
       'limit' => ($request->get('limit') ? intval($request->get('limit')) : 10),
       'published' => $request->get('published') !== '0',
       'page' => $request->get('page') * 1,
-      'recurse' => (false || $request->get('recurse')),
+      'recurse' => (FALSE || $request->get('recurse')),
       'maxDepth' => ($request->get('depth') ? intval($request->get('depth')) : 2),
     ];
 
     try {
-      $resultData = $this->restHelper->fetchAll($contentType, $options);
+      $resultData = $this->restHelper->fetchAll($actions, $contentType, $options);
 
       $response = new CacheableJsonResponse($resultData);
-      $response->addCacheableDependency($this->restHelper->cacheMetaData($resultData,'node'));
+      $response->addCacheableDependency($this->restHelper->cacheMetaData($resultData, 'node'));
 
       return $response;
-    } catch (Exception $e) {
+    }
+    catch (Exception $e) {
       return $this->handleException($e);
     }
   }
@@ -855,14 +892,18 @@ class ApiController extends ControllerBase {
    *    ...
    *  }
    *
-   * @param  Request $request     the request
-   * @param  string  $contentType the content type
-   * @param  string  $id        uuid of the node or path alias
-   * @return CacheableJsonResponse
+   * @param  \Symfony\Component\HttpFoundation\Request $request
+   *   the request.
+   * @param  string $contentType
+   *   the content type.
+   * @param  string $id
+   *   uuid of the node or path alias.
+   * @return \Drupal\Core\Cache\CacheableJsonResponse
    */
   public function lookup(Request $request, $contentType, $id) {
+
     $options = [
-      'recurse' => (false || $request->get('recurse')),
+      'recurse' => (FALSE || $request->get('recurse')),
       'maxDepth' => ($request->get('depth') ? intval($request->get('depth')) : 2),
     ];
 
@@ -874,23 +915,29 @@ class ApiController extends ControllerBase {
 
       return $response;
 
-    } catch (Exception $e) {
+    }
+    catch (Exception $e) {
       return $this->handleException($e);
     }
   }
 
   /**
-   * Handle Exceptions
-   * @param  Exception $e the exception
-   * @return CacheableJsonResponse
+   * Handle Exceptions.
+   *
+   * @param \Exception $e
+   *   the exception.
+   *
+   * @return \Drupal\Core\Cache\CacheableJsonResponse
    */
   protected function handleException(Exception $e) {
-    if ( $e instanceof Rest404Exception ) {
+    if ($e instanceof Rest404Exception) {
       return new CacheableJsonResponse(['error' => $e->getMessage()], 404);
-    } elseif ($e instanceof Rest403Exception) {
+    }
+    elseif ($e instanceof Rest403Exception) {
       return new CacheableJsonResponse(['error' => $e->getMessage()], 403);
     }
 
     return new CacheableJsonResponse(['error' => 'Internal server error.'], 500);
   }
+
 }
