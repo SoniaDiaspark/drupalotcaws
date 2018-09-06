@@ -19,6 +19,6 @@ function otctheme_preprocess_node(&$variables) {
   $path = \Drupal::service('path.alias_storage')->lookupPathAlias('/' . $source, $lang);
   $path = preg_replace('/^\//', '', $path);
 
-  $variables['previewUrl'] = 'http://cloud.otc.resource.com/latest/fun365/app/';
+  $variables['previewUrl'] = '//www.fun365.orientaltrading.com/';
   $variables['previewUrl'] .= $type . '/' . $path;
 }
