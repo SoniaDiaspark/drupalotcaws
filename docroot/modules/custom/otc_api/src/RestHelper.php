@@ -1459,15 +1459,16 @@ class RestHelper implements RestHelperInterface {
    * @return array of arrays of file urls.
    */
   protected function getFileFieldValue(FieldItemListInterface $field, $options = []) {
-    $fileData = $field->getValue();
-
+     $fileData = $field->getValue();
+    Global $base_url;    
     $return = ($options['multiValue'] ? [] : NULL);
     if ($fileData) {
       if ($options['multiValue']) {
         foreach ($fileData as $target) {
           $file = File::load($target['target_id']);
-          if ($file) {
-            $return[] = $file->url();
+          if ($file) { 
+             $fileURL = str_replace($base_url,'http://www.fun365.orientaltrading.com',$file->url());
+             $return[] = $fileURL;
           }
         }
         return $return;
@@ -1475,8 +1476,9 @@ class RestHelper implements RestHelperInterface {
 
       // Single.
       $file = File::load(current($fileData)['target_id']);
-      if ($file) {
-        return $file->url();
+      if ($file) { 
+         $fileURL = str_replace($base_url,'http://www.fun365.orientaltrading.com',$file->url());
+         return $fileURL;  
       }
     }
 
@@ -1554,16 +1556,25 @@ class RestHelper implements RestHelperInterface {
       ->load($target_id);
 
     $internalUri = $baseFile->getFileUri();
-
+    $repalceURL =  $streamWrapper->getViaUri($internalUri)->getExternalUrl();
+    
+    /*Relace Base URL*/
+    Global $base_url;
+    $base_url; 
+    $repalceURL = str_replace($base_url,'http://www.fun365.orientaltrading.com',$repalceURL);
+    
     $result = [
-      'full' => $streamWrapper->getViaUri($internalUri)->getExternalUrl(),
+      'full' => $repalceURL,
     ];
-
+    
+    $styleURL = "";
     foreach ($resolutions as $resolution) {
       $styleName = $resolution;
       $style = ImageStyle::load($resolution);
-      if ($style) {
-        $result[$styleName] = $style->buildUrl($internalUri);
+      if ($style) {           
+        $styleURL = $style->buildUrl($internalUri);
+        $styleURL =  str_replace($base_url,'http://www.fun365.orientaltrading.com',$styleURL);
+        $result[$styleName] = $styleURL; 
       }
     }
 
