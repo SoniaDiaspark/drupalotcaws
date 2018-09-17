@@ -1157,8 +1157,11 @@ class RestHelper implements RestHelperInterface {
       return $return;
     }
 
-    // $field->value = str_replace( 'http://', 'https://', $field->value);
-    // $field->value = preg_replace('/http:/', 'https:', $field->value);.
+   if ($field->getName() == "field_legacy_content") { 
+        $matchArray = array('http://otc.prod.acquia-sites.com/');                
+        $field_legacy_content = str_replace($matchArray,'http://www.fun365.orientaltrading.com/',$field->value);        
+      return $field_legacy_content; 
+    }
     if ($field->getName() == "field_product_in_stock_status") {
       return trim($field->value);
     }
