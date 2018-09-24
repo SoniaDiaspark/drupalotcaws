@@ -25,7 +25,7 @@ class CustomController {
       $page_alias_explode = explode('?', $page_alias);
 
       if (isset($page_alias_explode[0])) {
-        $filename = $page_alias_explode[0] . 'homepage.html';
+        $filename = strtolower($page_alias_explode[0]) . '_homepage.html';
       }
       if (function_exists('file_get_html')) {
         $html = file_get_html($url);
