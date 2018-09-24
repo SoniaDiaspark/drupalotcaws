@@ -53,7 +53,7 @@ class CustomController {
                   exit;
                 }
                 else {
-                  $markup = "<p> HTML has been generated Successfully </p>";
+                  $markup = "<p> HTML has been generated successfully. </p>";
                   return ['#markup' => $markup];
                 }
               }
@@ -63,7 +63,7 @@ class CustomController {
         }
       }
       else {
-        $markup = "<p> Page title is not correct </p>";
+        $markup = "<p> Page title is not correct. </p>";
         return ['#markup' => $markup];
       }
     }
