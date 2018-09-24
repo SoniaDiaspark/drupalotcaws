@@ -5,3 +5,5 @@ package: OTC
 
 base theme: 'seven'
 core: '8.x'
+libraries:
+  - otctheme/global-styling
