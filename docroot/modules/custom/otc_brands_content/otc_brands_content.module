@@ -9,7 +9,7 @@ use Drupal\Core\Datetime\DrupalDateTime;
  * when node status changed from unpublish to publish.
  * Also it will set publication date to current date when first time node is published.
  */
-function otc_custom_entity_presave(Drupal\Core\Entity\EntityInterface $entity) {
+function otc_brands_content_entity_presave(Drupal\Core\Entity\EntityInterface $entity) {
 
   $type = $entity->bundle();
 

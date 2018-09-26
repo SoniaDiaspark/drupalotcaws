@@ -1158,7 +1158,7 @@ class RestHelper implements RestHelperInterface {
     }
 
    if ($field->getName() == "field_legacy_content") { 
-        $matchArray = array('http://otc.prod.acquia-sites.com/');                
+        $matchArray = array('http://otc.prod.acquia-sites.com/','https://cms.orientaltrading.com/');                
         $field_legacy_content = str_replace($matchArray,'http://www.fun365.orientaltrading.com/',$field->value);        
       return $field_legacy_content; 
     }
