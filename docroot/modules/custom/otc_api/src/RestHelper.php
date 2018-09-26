@@ -1158,8 +1158,8 @@ class RestHelper implements RestHelperInterface {
     }
 
    if ($field->getName() == "field_legacy_content") { 
-        $matchArray = array('http://otc.prod.acquia-sites.com/','https://cms.orientaltrading.com/');                
-        $field_legacy_content = str_replace($matchArray,'https://www.fun365.orientaltrading.com/',$field->value);        
+        $matchArray = array('http://otc.prod.acquia-sites.com/');                
+        $field_legacy_content = str_replace($matchArray,'https://cms.orientaltrading.com/',$field->value);        
       return $field_legacy_content; 
     }
     if ($field->getName() == "field_product_in_stock_status") {
@@ -1470,8 +1470,8 @@ class RestHelper implements RestHelperInterface {
         foreach ($fileData as $target) {
           $file = File::load($target['target_id']);
           if ($file) { 
-             $fileURL = str_replace($base_url,'https://www.fun365.orientaltrading.com',$file->url());
-             $return[] = $fileURL;
+             //$fileURL = str_replace($base_url,'https://www.fun365.orientaltrading.com',$file->url());
+             $return[] = $file->url();
           }
         }
         return $return;
@@ -1480,8 +1480,8 @@ class RestHelper implements RestHelperInterface {
       // Single.
       $file = File::load(current($fileData)['target_id']);
       if ($file) { 
-         $fileURL = str_replace($base_url,'https://www.fun365.orientaltrading.com',$file->url());
-         return $fileURL;  
+         //$fileURL = str_replace($base_url,'https://www.fun365.orientaltrading.com',$file->url());
+         return $file->url();  
       }
     }
 
@@ -1562,21 +1562,21 @@ class RestHelper implements RestHelperInterface {
     $repalceURL =  $streamWrapper->getViaUri($internalUri)->getExternalUrl();
     
     /*Relace Base URL*/
-    Global $base_url;
-    $base_url; 
-    $repalceURL = str_replace($base_url,'https://www.fun365.orientaltrading.com',$repalceURL);
+    // Global $base_url;
+    // $base_url; 
+    // $repalceURL = str_replace($base_url,'https://www.fun365.orientaltrading.com',$repalceURL);
     
     $result = [
       'full' => $repalceURL,
     ];
     
-    $styleURL = "";
+    //$styleURL = "";
     foreach ($resolutions as $resolution) {
       $styleName = $resolution;
       $style = ImageStyle::load($resolution);
       if ($style) {           
         $styleURL = $style->buildUrl($internalUri);
-        $styleURL =  str_replace($base_url,'https://www.fun365.orientaltrading.com',$styleURL);
+        //$styleURL =  str_replace($base_url,'https://www.fun365.orientaltrading.com',$styleURL);
         $result[$styleName] = $styleURL; 
       }
     }
