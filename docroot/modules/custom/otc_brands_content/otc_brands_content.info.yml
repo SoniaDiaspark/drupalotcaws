@@ -1,4 +1,4 @@
-name: OTC Custom
+name: OTC Brands Content
 type: module
 description: Set publication date automatically when node status changed from unpublish to publish.
 package: OTC

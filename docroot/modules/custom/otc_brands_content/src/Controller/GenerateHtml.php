@@ -1,16 +1,16 @@
 <?php
 
-namespace Drupal\otc_custom\Controller;
+namespace Drupal\otc_brands_content\Controller;
 
 /**
  *
  */
-class CustomController {
+class GenerateHtml {
 
   /**
    *
    */
-  public function callGetHtml() {
+  public function GetHtml() {
 
     global $base_url;
 
@@ -25,26 +25,27 @@ class CustomController {
       $page_alias_explode = explode('?', $page_alias);
 
       if (isset($page_alias_explode[0])) {
-        $filename = strtolower($page_alias_explode[0]) . '_homepage.html';
+        $filename = strtolower($page_alias_explode[0]) . '-home-page-static-content.html';
       }
       if (function_exists('file_get_html')) {
         $html = file_get_html($url);
         // Point to the body, then get the innertext.
         if ($html) {
-          $otchtml = $html->find('article', 0)->innertext;
-
-          if (!is_dir('public://home_page_html')) {
-            mkdir('public://home_page_html', 0755, TRUE);
+            
+           $otchtml = $html->find('article', 0)->innertext;
+           
+          if (!is_dir('public://otc_brands')) {
+            mkdir('public://otc_brands', 0755, TRUE);
           }
 
-          $dir = 'public://home_page_html';
+          $dir = 'public://otc_brands';
           if (is_dir($dir)) {
             if ($dh = opendir($dir)) {
 
               if ($filename != "") {
-                $my_file = 'public://home_page_html/' . $filename;
+                $my_file = 'public://otc_brands/' . $filename;
                 $handle = fopen($my_file, 'w') or die('Cannot open file:  ' . $my_file);
-                $my_file = 'public://home_page_html/' . $filename;
+                $my_file = 'public://otc_brands/' . $filename;
                 $handle = fopen($my_file, 'w') or die('Cannot open file:  ' . $my_file);
                 $data = $otchtml;
                 if (fwrite($handle, $data) === FALSE) {
@@ -53,7 +54,7 @@ class CustomController {
                   exit;
                 }
                 else {
-                  $markup = "<p> HTML has been generated successfully. </p>";
+                  $markup = "<p> HTML has been generated Successfully </p>";
                   return ['#markup' => $markup];
                 }
               }
@@ -63,7 +64,7 @@ class CustomController {
         }
       }
       else {
-        $markup = "<p> Page title is not correct. </p>";
+        $markup = "<p> Page title is not correct </p>";
         return ['#markup' => $markup];
       }
     }

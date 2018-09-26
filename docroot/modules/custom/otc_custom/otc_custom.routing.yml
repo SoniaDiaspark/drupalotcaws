@@ -1,8 +1,0 @@
-otc_custom.get_html:
-  path: '/generate_html'
-  defaults:
-    _controller: '\Drupal\otc_custom\Controller\CustomController::callGetHtml'
-  requirements:
-    _permission: 'access administration pages'
-  options:
-    _admin_route: TRUE  

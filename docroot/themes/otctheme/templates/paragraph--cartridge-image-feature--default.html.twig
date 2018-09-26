@@ -47,7 +47,7 @@
 %}
 {% block paragraph %}   
     {% block content %}            
-        <a href="{{ content.field_cartridge_common_url|render|striptags }}" target="_blank">               
+        <a href="{{ content.field_cartridge_common_url|render|striptags }}" manual_cm_re="{{ content.field_manual_cm_re.0|raw }}">               
             <img class=" lazyloaded" data-src="{{ content.field_cartridge_common_image.0 }}" src="{{ content.field_cartridge_common_image.0 }}">        
         </a> 
     {% endblock %}

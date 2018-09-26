@@ -51,11 +51,11 @@
 
     {% block content %}
         <li class="image_with-title">  
-            <a href="{{ content.field_cartridge_common_url.0|raw }}">              
-                <img class=" lazyloaded" alt="{{ content.field_cartridge_common_title }}" data-src="{{ content.field_cartridge_common_image.0 }}" src="{{ content.field_cartridge_common_image.0 }}">                    
+            <a href="{{ content.field_cartridge_common_url.0|raw }}" manual_cm_re="{{ content.field_manual_cm_re.0|raw }}">              
+                <img class=" lazyloaded" alt="{{ content.field_cartridge_common_title.0|raw }}" data-src="{{ content.field_cartridge_common_image.0 }}" src="{{ content.field_cartridge_common_image.0 }}">                    
                 <div>
-                    <h5 style="font-size: 1.1rem;">{{ content.field_cartridge_common_title }}</h5>
-                    <p>{{ content.field_cartridge_common_desc }}</p>
+                    <h5 style="font-size: 1.1rem;">{{ content.field_cartridge_common_title.0|raw }}</h5>
+                    <p>{{ content.field_cartridge_common_desc.0|raw }}</p>
                 </div>
             </a>
         </li>
