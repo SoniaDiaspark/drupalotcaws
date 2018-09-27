@@ -5,9 +5,9 @@ global-styling:
       css/otccustom.css: {}
     theme: 
       css/otccustom.css: {}
-      'http://www.orientaltrading.com/resources/otc/css/no-mq-base.min_091818-part1.css?z=966': { type: external }
-      'http://www.orientaltrading.com/resources/otc/css/no-mq-base.min_091818-part2.css?z=966': { type: external }
-      'http://www.orientaltrading.com/resources/otc/css/no-mq-base.min_091818.css': { type: external }
-      'http://www.mindware.orientaltrading.com/resources/mw/css/no-mq-base.min_091818.css': { type: external }
-      'http://d26opx5dl8t69i.cloudfront.net/css/f_rw/c_11201-194664881/e_live/rfk_rw.css?20180821.012520706': { type: external } 
-      'http://d26opx5dl8t69i.cloudfront.net/css/f_rw/c_11172-172635839/e_live/rfk_rw.css?20180821.012520705': { type: external }
+      '//www.orientaltrading.com/resources/otc/css/no-mq-base.min_091818-part1.css?z=966': { type: external }
+      '//www.orientaltrading.com/resources/otc/css/no-mq-base.min_091818-part2.css?z=966': { type: external }
+      '//www.orientaltrading.com/resources/otc/css/no-mq-base.min_091818.css': { type: external }
+      '//www.mindware.orientaltrading.com/resources/mw/css/no-mq-base.min_091818.css': { type: external }
+      '//d26opx5dl8t69i.cloudfront.net/css/f_rw/c_11201-194664881/e_live/rfk_rw.css?20180821.012520706': { type: external } 
+      '//d26opx5dl8t69i.cloudfront.net/css/f_rw/c_11172-172635839/e_live/rfk_rw.css?20180821.012520705': { type: external }
