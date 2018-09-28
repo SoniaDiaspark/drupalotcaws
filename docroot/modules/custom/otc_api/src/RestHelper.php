@@ -1159,11 +1159,11 @@ class RestHelper implements RestHelperInterface {
 
 //9/28 commeting for changing image URls to be cms.orientaltrading.com
 
-  // if ($field->getName() == "field_legacy_content") { 
-  //      $matchArray = array('http://otc.prod.acquia-sites.com/','https://cms.orientaltrading.com/');                
-  //      $field_legacy_content = str_replace($matchArray,'https://www.fun365.orientaltrading.com/',$field->value);        
-  //    return $field_legacy_content; 
-  //  }
+   if ($field->getName() == "field_legacy_content") { 
+        $matchArray = array('http://otc.prod.acquia-sites.com/','https://cms.orientaltrading.com/');                
+        $field_legacy_content = str_replace($matchArray,'https://cms.orientaltrading.com/',$field->value);        
+      return $field_legacy_content; 
+    }
     if ($field->getName() == "field_product_in_stock_status") {
       return trim($field->value);
     }
