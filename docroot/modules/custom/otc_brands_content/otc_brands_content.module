@@ -76,8 +76,9 @@ function otc_brands_content_entity_insert(Drupal\Core\Entity\EntityInterface $en
 function generateHtmlFile($entity) {
   $html = '';
   $alias = \Drupal::service('path.alias_manager')->getAliasByPath('/node/'.$entity->id());
-  $alias = ltrim($alias, "/");
-  $filename = $alias.'-home-page-static-content.html';
+
+  $alias = explode("/", $alias);
+  $filename = $alias[3].'-home-page-static-content.html';
   $field_section = $entity->get('field_section')->getValue();
   foreach ($field_section as $key => $value) {
     $paragraphID = $value['target_id'];
@@ -85,19 +86,20 @@ function generateHtmlFile($entity) {
     $text = $p->field_section_description->getValue();
     $html .= $text[0]['value'];
   }
+
   // Create directory if it doesnt exist
-  if (!is_dir('public://otc_brands')) {
-    mkdir('public://otc_brands', 0755, TRUE);
+  $dir = $alias[1] . '/' . $alias[2];
+  if (!is_dir($dir)) {
+    mkdir($dir, 0755, TRUE);
   }
 
-  $dir = 'public://otc_brands';
   if (is_dir($dir)) {
     if ($dh = opendir($dir)) {
 
       if ($filename != "") {
-        $my_file = 'public://otc_brands/' . $filename;
+        $my_file = $dir . '/' . $filename;
         $handle = fopen($my_file, 'w') or die('Cannot open file:  ' . $my_file);
-        $my_file = 'public://otc_brands/' . $filename;
+        $my_file = $dir . '/' . $filename;
         $handle = fopen($my_file, 'w') or die('Cannot open file:  ' . $my_file);
         $data = $html;
         if (fwrite($handle, $data) === FALSE) {
@@ -107,4 +109,5 @@ function generateHtmlFile($entity) {
       closedir($dh);
     }
   }
+
 }
