@@ -46,3 +46,65 @@ function otc_brands_content_entity_presave(Drupal\Core\Entity\EntityInterface $e
     }
   }
 }
+
+/**
+ * Implement hook_entity_update()
+ * Update html file for content section
+ */
+function otc_brands_content_entity_update(Drupal\Core\Entity\EntityInterface $entity) {
+  $type = $entity->bundle();
+  if ($type == 'home_page') {
+    generateHtmlFile($entity);
+  }
+}
+
+/**
+ * Implement hook_entity_insert()
+ * Create html file for content section
+ */
+function otc_brands_content_entity_insert(Drupal\Core\Entity\EntityInterface $entity) {
+  $type = $entity->bundle();
+  if ($type == 'home_page') {
+    generateHtmlFile($entity);
+  }
+}
+
+/**
+ * Generate html file
+ * @param $entity is the object of current node
+ */
+function generateHtmlFile($entity) {
+  $html = '';
+  $alias = \Drupal::service('path.alias_manager')->getAliasByPath('/node/'.$entity->id());
+  $alias = ltrim($alias, "/");
+  $filename = $alias.'-home-page-static-content.html';
+  $field_section = $entity->get('field_section')->getValue();
+  foreach ($field_section as $key => $value) {
+    $paragraphID = $value['target_id'];
+    $p = \Drupal\paragraphs\Entity\Paragraph::load( $paragraphID );
+    $text = $p->field_section_description->getValue();
+    $html .= $text[0]['value'];
+  }
+  // Create directory if it doesnt exist
+  if (!is_dir('public://otc_brands')) {
+    mkdir('public://otc_brands', 0755, TRUE);
+  }
+
+  $dir = 'public://otc_brands';
+  if (is_dir($dir)) {
+    if ($dh = opendir($dir)) {
+
+      if ($filename != "") {
+        $my_file = 'public://otc_brands/' . $filename;
+        $handle = fopen($my_file, 'w') or die('Cannot open file:  ' . $my_file);
+        $my_file = 'public://otc_brands/' . $filename;
+        $handle = fopen($my_file, 'w') or die('Cannot open file:  ' . $my_file);
+        $data = $html;
+        if (fwrite($handle, $data) === FALSE) {
+          fclose($my_file);
+        }
+      }
+      closedir($dh);
+    }
+  }
+}

@@ -3,5 +3,5 @@ otc_brands_content.get_html:
   defaults:
     _controller: '\Drupal\otc_brands_content\Controller\GenerateHtml::GetHtml'
   requirements:
-    _permission: 'access content'
+    _permission: 'access administration pages'
 

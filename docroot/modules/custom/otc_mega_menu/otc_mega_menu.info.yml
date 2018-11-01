@@ -1,0 +1,5 @@
+name: Otc Mega Menu
+type: module
+description: This module provides a rest endpoint to retrieve menu items based on the menu name.
+core: '8.x'
+package: OTC

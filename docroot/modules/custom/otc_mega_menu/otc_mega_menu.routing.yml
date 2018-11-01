@@ -1,0 +1,7 @@
+otc_mega_menu.content:
+  path: 'mega-menu'
+  defaults:
+    _controller: '\Drupal\otc_mega_menu\Controller\OtcMenusList::content'
+    _title: 'Menu URL'
+  requirements:
+    _permission: 'access content'
