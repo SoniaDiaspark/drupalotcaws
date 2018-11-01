@@ -1157,9 +1157,11 @@ class RestHelper implements RestHelperInterface {
       return $return;
     }
 
+//9/28 commeting for changing image URls to be cms.orientaltrading.com
+
    if ($field->getName() == "field_legacy_content") { 
         $matchArray = array('http://otc.prod.acquia-sites.com/','https://cms.orientaltrading.com/');                
-        $field_legacy_content = str_replace($matchArray,'https://www.fun365.orientaltrading.com/',$field->value);        
+        $field_legacy_content = str_replace($matchArray,'https://cms.orientaltrading.com/',$field->value);        
       return $field_legacy_content; 
     }
     if ($field->getName() == "field_product_in_stock_status") {
@@ -1470,8 +1472,8 @@ class RestHelper implements RestHelperInterface {
         foreach ($fileData as $target) {
           $file = File::load($target['target_id']);
           if ($file) { 
-             $fileURL = str_replace($base_url,'https://www.fun365.orientaltrading.com',$file->url());
-             $return[] = $fileURL;
+          //   $fileURL = str_replace($base_url,'https://www.fun365.orientaltrading.com',$file->url());
+             $return[] = $file->url();
           }
         }
         return $return;
@@ -1480,8 +1482,8 @@ class RestHelper implements RestHelperInterface {
       // Single.
       $file = File::load(current($fileData)['target_id']);
       if ($file) { 
-         $fileURL = str_replace($base_url,'https://www.fun365.orientaltrading.com',$file->url());
-         return $fileURL;  
+        // $fileURL = str_replace($base_url,'https://www.fun365.orientaltrading.com',$file->url());
+         return $file->url();  
       }
     }
 
@@ -1553,6 +1555,7 @@ class RestHelper implements RestHelperInterface {
    * @return array of image urls
    */
   protected function processImage($target_id, $resolutions = []) {
+    /*
     $streamWrapper = \Drupal::service('stream_wrapper_manager');
     $baseFile = \Drupal::service('entity.manager')
       ->getStorage('file')
@@ -1561,7 +1564,7 @@ class RestHelper implements RestHelperInterface {
     $internalUri = $baseFile->getFileUri();
     $repalceURL =  $streamWrapper->getViaUri($internalUri)->getExternalUrl();
     
-    /*Relace Base URL*/
+    // Relace Base URL
     Global $base_url;
     $base_url; 
     $repalceURL = str_replace($base_url,'https://www.fun365.orientaltrading.com',$repalceURL);
@@ -1581,6 +1584,28 @@ class RestHelper implements RestHelperInterface {
       }
     }
 
+    return $result;
+
+    */
+
+    $streamWrapper = \Drupal::service('stream_wrapper_manager');
+    $baseFile = \Drupal::service('entity.manager')
+      ->getStorage('file')
+      ->load($target_id);
+
+    $internalUri = $baseFile->getFileUri();
+
+    $result = [
+      'full' => $streamWrapper->getViaUri($internalUri)->getExternalUrl(),
+    ];
+
+    foreach ($resolutions as $resolution) {
+      $styleName = $resolution;
+      $style = ImageStyle::load($resolution);
+      if ($style) {
+        $result[$styleName] = $style->buildUrl($internalUri);
+      }
+    }
     return $result;
   }
 
