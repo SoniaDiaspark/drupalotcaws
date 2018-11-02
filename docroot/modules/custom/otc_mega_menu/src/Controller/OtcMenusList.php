@@ -99,7 +99,12 @@ class OtcMenusList extends ControllerBase {
     $this->getMenuItems($menu['#items'], $this->menuItems);
 
     $output = array_values($this->menuItems); 
-
+    $output['#cache'] = [
+      'max-age' => 600,
+      'contexts' => [
+      'url',
+      ],
+    ]; 
     $response = new CacheableJsonResponse($output);
     $response->addCacheableDependency(CacheableMetadata::createFromRenderArray($output));
     return $response;
