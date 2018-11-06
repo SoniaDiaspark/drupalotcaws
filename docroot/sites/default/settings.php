@@ -788,3 +788,16 @@ if (file_exists('/var/www/site-php')) {
     $settings['cache']['default'] = 'cache.backend.memcache';
   }  
 }
+
+// For Memcache setting
+if (isset($settings['memcache']['servers'])) { 
+  //$settings['container_yamls'][] = 'modules/memcache/memcache.services.yml';
+  // Memcache settings
+  $settings['cache']['bins']['bootstrap'] = 'cache.backend.memcache';
+  $settings['cache']['bins']['discovery'] = 'cache.backend.memcache';
+  $settings['cache']['bins']['config'] = 'cache.backend.memcache';
+  // Use memcache as the default bin
+  $settings['cache']['default'] = 'cache.backend.memcache';
+  // Moved locking from the database into Memcache
+  $settings['memcache']['stampede_protection'] = TRUE;
+}
