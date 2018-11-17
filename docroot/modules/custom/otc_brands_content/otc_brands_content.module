@@ -78,7 +78,7 @@ function generateHtmlFile($entity) {
   $alias = \Drupal::service('path.alias_manager')->getAliasByPath('/node/'.$entity->id());
 
   $alias = explode("/", $alias);
-  $filename = $alias[3].'-home-page-static-content.html';
+  $filename = $alias[3].'.html';
   $field_section = $entity->get('field_section')->getValue();
   foreach ($field_section as $key => $value) {
     $paragraphID = $value['target_id'];
@@ -97,8 +97,6 @@ function generateHtmlFile($entity) {
     if ($dh = opendir($dir)) {
 
       if ($filename != "") {
-        $my_file = $dir . '/' . $filename;
-        $handle = fopen($my_file, 'w') or die('Cannot open file:  ' . $my_file);
         $my_file = $dir . '/' . $filename;
         $handle = fopen($my_file, 'w') or die('Cannot open file:  ' . $my_file);
         $data = $html;
