@@ -4,4 +4,9 @@ otc_brands_content.get_html:
     _controller: '\Drupal\otc_brands_content\Controller\GenerateHtml::GetHtml'
   requirements:
     _permission: 'access administration pages'
-
+otc_brands_content.home_page:
+  path: '/api/{brand}/{device}/{page}'
+  defaults:
+    _controller: '\Drupal\otc_brands_content\Controller\OTCBrandsHomePage::homePageJson'
+  requirements:
+    _permission: 'access content'
