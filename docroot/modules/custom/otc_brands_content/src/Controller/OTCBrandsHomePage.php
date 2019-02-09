@@ -97,7 +97,7 @@ class OTCBrandsHomePage implements ContainerInjectionInterface {
   		  }
 		  }
     }
-
+    // Return cacheble json response.
     $response = new CacheableJsonResponse($output);
     $response->addCacheableDependency($this->restHelper->cacheMetaData($output, 'node'));
     return $response;
