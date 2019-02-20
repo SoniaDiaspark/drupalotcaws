@@ -17,15 +17,6 @@ $kernel = new DrupalKernel('prod', $autoloader);
 
 $request = Request::createFromGlobals();
 $response = $kernel->handle($request);
-
-// Applied patch to fix entity update
-try {
-    \Drupal::entityDefinitionUpdateManager()->applyUpdates();
-  }
-  catch (EntityStorageException $e) {
-    print_r($e);
-  }
-
 $response->send();
 
 $kernel->terminate($request, $response);
