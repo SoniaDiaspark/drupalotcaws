@@ -1,0 +1,10 @@
+{
+  "name": "drupal/xls_serialization",
+  "description": "Provides Excel as a serialization format.",
+  "type": "drupal-module",
+  "license": "GPL-2.0+",
+  "require": {
+    "phpoffice/phpspreadsheet": "^1.0",
+    "ext-zip": "*"
+  }
+}
