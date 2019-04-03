@@ -1,0 +1,8 @@
+name: 'OTC Published Content Weekly Report'
+type: module
+description: 'Send Report as spreadsheet attachment over mail of published content'
+core: 8.x
+package: OTC
+dependencies:
+  - xls_serialization
+  - views_data_export

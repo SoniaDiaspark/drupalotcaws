@@ -1,0 +1,4 @@
+services:
+  otc_published_content_weekly_report.default:
+    class: Drupal\otc_published_content_weekly_report\OtcPublishedContentWeeklyReport
+    arguments: []  

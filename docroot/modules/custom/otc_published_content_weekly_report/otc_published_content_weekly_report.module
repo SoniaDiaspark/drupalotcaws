@@ -1,0 +1,27 @@
+<?php
+/**
+ * @file
+ * OTC published content weekly report module.
+ */
+
+/**
+ * Implements hook_mail().
+ */
+function otc_published_content_weekly_report_mail($key, &$message, $params) {
+    if ($key === 'content_report') {
+        $message['subject'] = $params['subject'];
+        $message['body'][] = $params['message'];
+
+        // Add attachment when available.
+        if (isset($params['attachments'])) {
+          $message['params']['attachments'][] = $params['attachments'];
+        }
+    }
+}
+
+/**
+ * Implements hook_cron().
+ */
+function otc_published_content_weekly_report_cron() {
+    $send_report = \Drupal::service('otc_published_content_weekly_report.default')->sendContentReportEmail();
+}

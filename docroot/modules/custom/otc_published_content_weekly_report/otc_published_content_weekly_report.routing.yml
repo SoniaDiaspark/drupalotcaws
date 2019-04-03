@@ -1,0 +1,8 @@
+otc_published_content_weekly_report.run_import:
+  path: '/otc_published_content_weekly_report/mannual_run'
+  defaults:
+    _controller: '\Drupal\otc_published_content_weekly_report\Controller\manualServiceRunController::manualServiceRun'
+  requirements:
+    _permission: 'access administration pages'
+  options:
+    _admin_route: TRUE 
