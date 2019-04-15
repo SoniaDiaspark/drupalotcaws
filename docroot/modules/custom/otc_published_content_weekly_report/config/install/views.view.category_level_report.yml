@@ -3,6 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.storage.node.field_category
     - field.storage.node.field_contributor
     - node.type.article
     - node.type.download
@@ -16,10 +17,11 @@ dependencies:
     - node
     - rest
     - serialization
-    - taxonomy
     - user
     - views_data_export
     - xls_serialization
+_core:
+  default_config_hash: mh0-qscqwjOmeYEeLQsk2bV6zE-MVfs4xw5PUoGhSB4
 id: category_level_report
 label: 'Category level report'
 module: views
@@ -464,11 +466,11 @@ display:
           entity_type: node
           entity_field: changed
           plugin_id: field
-        parent_target_id:
-          id: parent_target_id
-          table: taxonomy_term__parent
-          field: parent_target_id
-          relationship: field_category
+        field_category:
+          id: field_category
+          table: node__field_category
+          field: field_category
+          relationship: none
           group_type: group
           admin_label: ''
           label: 'First Parent Category'
@@ -519,15 +521,13 @@ display:
           group_column: target_id
           group_columns: {  }
           group_rows: true
-          delta_limit: 0
+          delta_limit: 1
           delta_offset: 0
           delta_reversed: false
           delta_first_last: false
           multi_type: separator
           separator: ', '
           field_api_classes: false
-          entity_type: taxonomy_term
-          entity_field: parent
           plugin_id: field
       filters:
         status:
@@ -650,16 +650,7 @@ display:
       header: {  }
       footer: {  }
       empty: {  }
-      relationships:
-        field_category:
-          id: field_category
-          table: node__field_category
-          field: field_category
-          relationship: none
-          group_type: group
-          admin_label: 'field_category: Taxonomy term'
-          required: false
-          plugin_id: standard
+      relationships: {  }
       arguments: {  }
       display_extenders: {  }
     cache_metadata:
@@ -671,6 +662,7 @@ display:
         - 'user.node_grants:view'
         - user.permissions
       tags:
+        - 'config:field.storage.node.field_category'
         - 'config:field.storage.node.field_contributor'
   data_export_1:
     display_plugin: data_export
@@ -730,6 +722,7 @@ display:
         - 'user.node_grants:view'
         - user.roles
       tags:
+        - 'config:field.storage.node.field_category'
         - 'config:field.storage.node.field_contributor'
   page_1:
     display_plugin: page
@@ -759,4 +752,5 @@ display:
         - 'user.node_grants:view'
         - user.roles
       tags:
+        - 'config:field.storage.node.field_category'
         - 'config:field.storage.node.field_contributor'

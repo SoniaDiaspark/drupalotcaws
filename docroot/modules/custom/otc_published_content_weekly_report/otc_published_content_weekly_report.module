@@ -25,3 +25,29 @@ function otc_published_content_weekly_report_mail($key, &$message, $params) {
 function otc_published_content_weekly_report_cron() {
     $send_report = \Drupal::service('otc_published_content_weekly_report.default')->sendContentReportEmail();
 }
+
+/**
+ * Implementation of hook_views_pre_render()
+ *
+ * @param \Drupal\views\ViewExecutable $view
+ */
+function otc_published_content_weekly_report_views_pre_render(\Drupal\views\ViewExecutable $view) {
+   if ($view->id() == 'category_level_report') {
+	   foreach($view->result as $value){
+	   	$category_ids = $value->_entity->get('field_category')->getValue();
+      $cid = current($category_ids)['target_id'];
+      if ($cid != NULL) {
+          // Load parent term.
+          $term = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadParents($cid);
+          // Check if parent term exist.
+          if (!empty($term)) {
+              $term = current($term);
+              $cid = $term->id();
+          }
+      }
+      // Set the parent category.
+	    $value->_entity->set('field_category',['target_id'=>$cid]);
+	   }
+
+   }
+}
