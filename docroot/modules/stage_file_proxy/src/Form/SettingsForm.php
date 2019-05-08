@@ -41,13 +41,13 @@ class SettingsForm extends ConfigFormBase {
       '#required' => FALSE,
     ];
 
-    $form['verify'] = array(
+    $form['verify'] = [
       '#type' => 'checkbox',
       '#title' => t('Verify SSL.'),
       '#default_value' => $config->get('verify'),
       '#description' => t('If this is true (default) then the request will be done by doing the SSL verification if the origin is using https.'),
       '#required' => FALSE,
-    );
+    ];
 
     $stage_file_proxy_origin_dir = $config->get('origin_dir');
     if (!$stage_file_proxy_origin_dir) {
@@ -117,6 +117,7 @@ class SettingsForm extends ConfigFormBase {
       $config->set($key, $form_state->getValue($key));
     }
     $config->save();
+    drupal_set_message($this->t('Your settings have been saved.'));
   }
 
 }

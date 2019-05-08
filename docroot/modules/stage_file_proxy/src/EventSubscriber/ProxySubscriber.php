@@ -85,6 +85,11 @@ class ProxySubscriber implements EventSubscriberInterface {
       return;
     }
 
+    // Disallow directory traversal.
+    if (in_array('..', explode('/', $request_path))) {
+      return;
+    }
+
     $alter_excluded_paths_event = new AlterExcludedPathsEvent([]);
     $this->eventDispatcher->dispatch('stage_file_proxy.alter_excluded_paths', $alter_excluded_paths_event);
     $excluded_paths = $alter_excluded_paths_event->getExcludedPaths();
@@ -124,9 +129,9 @@ class ProxySubscriber implements EventSubscriberInterface {
 
     $query = \Drupal::request()->query->all();
     $query_parameters = UrlHelper::filterQueryParameters($query);
-      $options = [
-        'verify' => \Drupal::config('stage_file_proxy.settings')->get('verify'),
-      ];
+    $options = [
+      'verify' => \Drupal::config('stage_file_proxy.settings')->get('verify'),
+    ];
 
     if ($config->get('hotlink')) {
 
