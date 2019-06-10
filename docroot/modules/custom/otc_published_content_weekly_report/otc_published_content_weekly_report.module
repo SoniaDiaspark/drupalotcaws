@@ -22,9 +22,12 @@ function otc_published_content_weekly_report_mail($key, &$message, $params) {
 /**
  * Implements hook_cron().
  */
-function otc_published_content_weekly_report_cron() {
-    $send_report = \Drupal::service('otc_published_content_weekly_report.default')->sendContentReportEmail();
-}
+/*
+ *Swamy commented with the help of Siddanth on 6/9/2019
+ *function otc_published_content_weekly_report_cron() {
+ *  $send_report = \Drupal::service('otc_published_content_weekly_report.default')->sendContentReportEmail();
+ *}
+*/
 
 /**
  * Implementation of hook_views_pre_render()
