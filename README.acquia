@@ -1,24 +1,22 @@
-git clone https://github.com/orientaltrading/drupal-code-repo.git
+1. git clone https://github.com/orientaltrading/drupal-code-repo.git .
 
-git branch (to check you current brannch)
+          Cloning into 'drupal-code-repo'...
+          Username for 'https://github.com': swamytalam@gmail.com
+          remote: Enumerating objects: 81391, done.
+          remote: Counting objects: 100% (81391/81391), done.
+          remote: Compressing objects: 100% (32080/32080), done.
+          remote: Total 81391 (delta 44837), reused 81387 (delta 44836), pack-reused 0    
+          Receiving objects: 100% (81391/81391), 44.59 MiB | 1005.00 KiB/s, done.
+          Resolving deltas: 100% (44837/44837), done.
+          Checking out files: 100% (20607/20607), done.
 
-To checkout master branch 
+2. git branch (to check you current brannch)
+     * master
+     
+3. git checkout -b <branch name> To Create a new branch:
+     Switched to a new branch '2019-07-03-test-branch'
 
-git checkout master
-
-To forcefully checkout master branch 
-
-git checkout -f master
-
-To Create a new branch:
-
-git checkout -b <branch name>
-
-To pull from origin:
-
-git pull origin master
-
-After making changes in the Code add it to the new branch:
+4. Make Changes to the code as needed and then add it to the newly created branch:
 
 git add . (To add complete code in the branch)
 
@@ -26,13 +24,11 @@ git add . (To add complete code in the branch)
     
 git add <file name>
 
-Commit the added or changed files:
+5. git commit -m '<commit message>'  Commit the added or changed files:
 
-git commit -m '<commit message>'
+6. git push origin <branch name>      Push your changes in the repository:
 
-Push your changes in the repository:
 
-git push origin <branch name>
 
 To create a Tag:
 
