@@ -1,13 +1,53 @@
-Welcome to your Acquia Cloud repository.
+git clone https://github.com/orientaltrading/drupal-code-repo.git
 
-Commit your website's Drupal code to your Acquia Cloud site using Git or SVN.
-Acquia Cloud expects your code (such as index.php, includes/, modules/, and
-sites/) to be in the docroot/ directory. Do NOT put your code in the directory
-that contains this README file or it will not work.
+git branch (to check you current brannch)
 
-After you commit your code, log in to your Acquia account and use the Cloud
-Workflow page to deploy it to your Development, Staging, or
-Production environments.
+To checkout master branch 
 
-For more information about Acquia Cloud, see 
-https://docs.acquia.com/cloud.
+git checkout master
+
+To forcefully checkout master branch 
+
+git checkout -f master
+
+To Create a new branch:
+
+git checkout -b <branch name>
+
+To pull from origin:
+
+git pull origin master
+
+After making changes in the Code add it to the new branch:
+
+git add . (To add complete code in the branch)
+
+     || OR  ||
+    
+git add <file name>
+
+Commit the added or changed files:
+
+git commit -m '<commit message>'
+
+Push your changes in the repository:
+
+git push origin <branch name>
+
+To create a Tag:
+
+git tag <tag name>
+
+To pass annotation with the tag:
+
+git tag <tagname> -a
+
+Push the tags:
+
+git push origin <tag name>
+
+  || OR  ||
+ 
+If you want to push all the tags
+
+git push origin --tags
