@@ -10,7 +10,7 @@
           Resolving deltas: 100% (44837/44837), done.
           Checking out files: 100% (20607/20607), done.
 
-2. git branch (to check you current brannch)
+2. git branch (to check you current branch)
      * master
      
 3. git checkout -b <branch name> To Create a new branch:
