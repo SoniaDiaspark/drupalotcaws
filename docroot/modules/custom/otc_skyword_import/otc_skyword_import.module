@@ -40,7 +40,7 @@ function otc_skyword_import_mail($key, &$message, $params) {
   } elseif($key === 'pnd') {
     $message['subject'] = 'Publish Node Details';
   } else {
-    $message['subject'] = 'Skyword Import Notice in '.$env_variable;
+    $message['subject'] = 'AWS-JOB for Skyword Import';
   }
 
   $message['body'][] = $params['message'];

@@ -96,7 +96,8 @@ class ImportService {
             $this->importUrl = 'https://api.skyword.com/feed?key=3jbwqd5z9untd704yj6j';
           }
       }      
-      
+      //below URL is production URl of Skyword on 2019-07-23
+      $this->importUrl = 'https://api.skyword.com/feed?key=qep7eumvwqd6czpdxr4g';
       $res = $this->httpClient->request('GET', $this->importUrl);
       $xml = $res->getBody();
 
@@ -113,16 +114,39 @@ class ImportService {
       
       $display_type = "";
       $data = "";
+
+      // temp code for 1 update
+      /*
+      $ij = 1;
       foreach ($this->mapImports($simplexml) as $type => $docs) {
-        $display_type .= $type;  
-        foreach ($docs as $doc) {
-          $this->queueImportJob($type, $doc);          
-          $data .= '<p>'.$display_type . '|' . $doc['field_skyword_id'] . '|' . $doc['field_display_title'].'<br /></p>';  
+        if($ij == 1) {  
+            $display_type .= $type;
+            $jk = 1;
+            foreach ($docs as $doc) {
+              if($jk == 1) {
+                $this->queueImportJob($type, $doc);          
+                $data .= '<p>'.$display_type . '|' . $doc['field_skyword_id'] . '|' . $doc['field_display_title'].'<br /></p>';  
+              }
+            $jk++;
+              
+            }
+            $display_type = '';
         }
-        $display_type = '';
-      }      
+       $ij++; 
+      }
+      */
+    // temp code for 1 update ends on 2019-07-23
+
+       foreach ($this->mapImports($simplexml) as $type => $docs) {
+         $display_type .= $type;  
+         foreach ($docs as $doc) {
+           $this->queueImportJob($type, $doc);          
+           $data .= '<p>'.$display_type . '|' . $doc['field_skyword_id'] . '|' . $doc['field_display_title'].'<br /></p>';  
+         }
+         $display_type = '';
+       }      
       
-      $message = '<p>Job has been triggred</p> </br>' .$data;
+      $message = '<p>AWS-Job has been triggred</p> </br>' .$data;
       $config = \Drupal::config('otc_group_email.settings');
       $otc_group_email = $config->get('otc_group_email');
       if (!isset($otc_group_email) && empty($otc_group_email)) {

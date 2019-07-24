@@ -35,6 +35,7 @@ class RecipeMapper implements FeedMapperInterface {
         case 'action':
         case 'field_products':
         case 'photo_article_inspiration':
+        case 'trackingTag':  //Added for AWS on 2019-07-23
           break;
         default:
           echo "UNMAPPED KEY: $key\n";
