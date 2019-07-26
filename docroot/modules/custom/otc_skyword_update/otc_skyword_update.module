@@ -71,7 +71,9 @@ function otc_skyword_update_entity_presave(Drupal\Core\Entity\EntityInterface $e
             // Get updated node status.
             $new_status = $entity->isPublished();
             if ($old_status != 1 && $new_status == 1) {
-                $cur_date = \Drupal::service('date.formatter')->format(time(), 'custom', 'Y-m-d', $config_data_default_timezone);
+                //below line for Skyword update for AWS error
+                //$cur_date = \Drupal::service('date.formatter')->format(time(), 'custom', 'Y-m-d', $config_data_default_timezone);
+                $cur_date = date('Y-m-d');
                 $nodetitle = $entity->getTitle();
                 
                 $skyword_id = $entity->get('field_skyword_id')->getValue();
