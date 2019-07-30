@@ -90,6 +90,9 @@ class ImportService {
    * Queue Import Jobs with drupal compatible data.
    */
   public function queueImportJobs() {
+
+  echo "Testing skyword import job";die;
+
     try {
       if (isset($_ENV['AH_SITE_ENVIRONMENT'])) {
           if ($_ENV['AH_SITE_ENVIRONMENT'] != 'prod') {
@@ -117,7 +120,7 @@ class ImportService {
 
       // temp code for 1 update
       
-      $ij = 1;
+      $ij = 1;   
       foreach ($this->mapImports($simplexml) as $type => $docs) {
         if($ij == 1) {  
             $display_type .= $type;
