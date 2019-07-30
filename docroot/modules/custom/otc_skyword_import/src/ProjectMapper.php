@@ -49,7 +49,7 @@ class ProjectMapper implements FeedMapperInterface {
         case 'field_article_thumb_img_2x_name':
         case 'numberitmakes':
         case 'field_products_used':
-        case 'trackingTag':  //Added for AWS on 2019-07-23
+        case 'trackingTag':   //Added for AWS on 2019-07-23
           break;
         default:
           echo "UNMAPPED KEY: $key\n";
