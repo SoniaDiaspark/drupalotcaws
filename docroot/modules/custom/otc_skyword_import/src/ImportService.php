@@ -116,7 +116,7 @@ class ImportService {
       $data = "";
 
       // temp code for 1 update
-      /*
+      
       $ij = 1;
       foreach ($this->mapImports($simplexml) as $type => $docs) {
         if($ij == 1) {  
@@ -134,17 +134,17 @@ class ImportService {
         }
        $ij++; 
       }
-      */
+      
     // temp code for 1 update ends on 2019-07-23
 
-       foreach ($this->mapImports($simplexml) as $type => $docs) {
+      /* foreach ($this->mapImports($simplexml) as $type => $docs) {
          $display_type .= $type;  
          foreach ($docs as $doc) {
            $this->queueImportJob($type, $doc);          
            $data .= '<p>'.$display_type . '|' . $doc['field_skyword_id'] . '|' . $doc['field_display_title'].'<br /></p>';  
          }
          $display_type = '';
-       }      
+       } */   
       
       $message = '<p>AWS-Job has been triggred</p> </br>' .$data;
       $config = \Drupal::config('otc_group_email.settings');
