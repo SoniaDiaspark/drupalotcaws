@@ -90,9 +90,6 @@ class ImportService {
    * Queue Import Jobs with drupal compatible data.
    */
   public function queueImportJobs() {
-
-  echo "Testing skyword import job";die;
-
     try {
       if (isset($_ENV['AH_SITE_ENVIRONMENT'])) {
           if ($_ENV['AH_SITE_ENVIRONMENT'] != 'prod') {
@@ -119,8 +116,8 @@ class ImportService {
       $data = "";
 
       // temp code for 1 update
-      
-      $ij = 1;   
+      /*
+      $ij = 1;
       foreach ($this->mapImports($simplexml) as $type => $docs) {
         if($ij == 1) {  
             $display_type .= $type;
@@ -137,17 +134,17 @@ class ImportService {
         }
        $ij++; 
       }
-      
+      */
     // temp code for 1 update ends on 2019-07-23
 
-      /* foreach ($this->mapImports($simplexml) as $type => $docs) {
+       foreach ($this->mapImports($simplexml) as $type => $docs) {
          $display_type .= $type;  
          foreach ($docs as $doc) {
            $this->queueImportJob($type, $doc);          
            $data .= '<p>'.$display_type . '|' . $doc['field_skyword_id'] . '|' . $doc['field_display_title'].'<br /></p>';  
          }
          $display_type = '';
-       } */   
+       }      
       
       $message = '<p>AWS-Job has been triggred</p> </br>' .$data;
       $config = \Drupal::config('otc_group_email.settings');
