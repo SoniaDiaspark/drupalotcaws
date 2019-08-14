@@ -11,6 +11,7 @@ use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\image\Entity\ImageStyle;
 use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\paragraphs\Entity\Paragraph;
+use Drupal\Core\Datetime\DrupalDateTime; 
 
 /**
  *
@@ -1065,7 +1066,6 @@ class RestHelper implements RestHelperInterface {
     foreach ($terms as $term) {
       $results[] = $this->processTerm($term, $options);
     }
-
     return $results;
   }
 
@@ -1280,13 +1280,22 @@ class RestHelper implements RestHelperInterface {
   protected function getDateFieldValue(FieldItemListInterface $field, $options = []) {
     if ($options['multiValue']) {
       $return = [];
+  
       foreach ($field->getValue() as $item) {
-        $return[] = \Drupal::service('date.formatter')->format($item['value'], 'html_datetime');
-      }
-      return $return;
-    }
+      
+        $dateValue = date('Y-m-d\TH:i:s', $item['value']); 
+        $date_original= new DrupalDateTime( $dateValue , 'UTC' ); 
+        $result = \Drupal::service('date.formatter')->format( $date_original->getTimestamp(), 'custom', 'Y-m-d\TH:i:s'  );    
 
-    return \Drupal::service('date.formatter')->format($field->value, 'html_datetime');
+        $return[] = $result;
+        }
+        return $return;
+        }
+        
+        $dateValue = date('Y-m-d\TH:i:s', $field->value); 
+        $date_original= new DrupalDateTime( $dateValue , 'UTC' );     
+        $result = \Drupal::service('date.formatter')->format( $date_original->getTimestamp(), 'custom', 'Y-m-d\TH:i:s'  );  
+        return $result;
   }
 
   /**

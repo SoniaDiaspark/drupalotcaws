@@ -60,17 +60,20 @@ class PublishNodeDetails {
              */
             $querytruncate = \Drupal::database()->truncate('publish_node_details');
             $resulttruncate = $querytruncate->execute();
-
-            $response = new RedirectResponse(\Drupal::url('<front>'));
+            
+            $redirectadmin = '/admin/content';  
+            $response = new RedirectResponse($redirectadmin);
             $response->send();
 
             drupal_set_message(t('An email notification has been sent to @email ', array('@email' => $to)), $msg, TRUE);
 
             exit;
         } else {
-            $response = new RedirectResponse(\Drupal::url('<front>'));
+            
+            $redirectadmin = '/admin/content';  
+            $response = new RedirectResponse($redirectadmin);
             $response->send();
-            drupal_set_message(t('No result found'), 'error', TRUE);
+            drupal_set_message(t('No result found'), 'error', TRUE); 
             die;
         }
     }

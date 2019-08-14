@@ -10,13 +10,13 @@ use Symfony\Component\Routing\RouteCollection;
  *
  * @package Drupal\otc_api
  */
-class RoutingService {
+class RoutingService { 
 
   /**
    * Route collection.
    * @return RouteCollection
    */
-  public function routes() {
+  public function routes() {  
     $routeCollection = new RouteCollection();
 
     $routeCollection->add('otc_api.idea', new Route(

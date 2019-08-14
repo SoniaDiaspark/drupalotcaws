@@ -91,6 +91,10 @@ class ImportService {
    */
   public function queueImportJobs() {
     try {
+        
+    // Clear cache to flush theme cache.
+    drupal_flush_all_caches();  
+    
       if (isset($_ENV['AH_SITE_ENVIRONMENT'])) {
           if ($_ENV['AH_SITE_ENVIRONMENT'] != 'prod') {
             $this->importUrl = 'https://api.skyword.com/feed?key=3jbwqd5z9untd704yj6j';
@@ -98,6 +102,8 @@ class ImportService {
       }      
       //below URL is production URl of Skyword on 2019-07-23
       $this->importUrl = 'https://api.skyword.com/feed?key=qep7eumvwqd6czpdxr4g';
+      //$this->importUrl = 'https://cl-drupal.orientaltrading.com/feed.xml';   
+            
       $res = $this->httpClient->request('GET', $this->importUrl);
       $xml = $res->getBody();
 
@@ -136,25 +142,31 @@ class ImportService {
       }
       */
     // temp code for 1 update ends on 2019-07-23
-
+        
+       $is_check = 0;
        foreach ($this->mapImports($simplexml) as $type => $docs) {
          $display_type .= $type;  
          foreach ($docs as $doc) {
            $this->queueImportJob($type, $doc);          
+           if($doc['field_skyword_id'] !="" ){
+               $is_check = 1;
+           }
            $data .= '<p>'.$display_type . '|' . $doc['field_skyword_id'] . '|' . $doc['field_display_title'].'<br /></p>';  
          }
          $display_type = '';
        }      
       
-      $message = '<p>AWS-Job has been triggred</p> </br>' .$data;
-      $config = \Drupal::config('otc_group_email.settings');
-      $otc_group_email = $config->get('otc_group_email');
-      if (!isset($otc_group_email) && empty($otc_group_email)) {
-        $otc_group_email = '';
-      }
-      
-      $key = (!empty($key)) ? $key : "";
-      \Drupal::service('plugin.manager.mail')->mail('otc_skyword_import', $key, $otc_group_email, 'en', ['message' => $message]);
+      if($is_check) { 
+        $message = '<p>AWS-Job has been triggred</p> </br>' .$data;
+        $config = \Drupal::config('otc_group_email.settings');
+        $otc_group_email = $config->get('otc_group_email');
+        if (!isset($otc_group_email) && empty($otc_group_email)) {
+          $otc_group_email = '';
+        }
+
+        $key = (!empty($key)) ? $key : "";
+        \Drupal::service('plugin.manager.mail')->mail('otc_skyword_import', $key, $otc_group_email, 'en', ['message' => $message]);
+     }
 
     } catch (\Exception $e) {
       $this->logger->error('Error loading feed from skyword: @message', [

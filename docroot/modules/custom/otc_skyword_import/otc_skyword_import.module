@@ -34,11 +34,11 @@ function otc_skyword_import_mail($key, &$message, $params) {
     $env_variable = $_ENV['AH_SITE_ENVIRONMENT'];
   }
   if ($key === 'worker') {
-    $message['subject'] = 'Problem Occured During Skyword Import in '.$env_variable;
+    $message['subject'] = 'AWS Problem Occured During Skyword Import in '.$env_variable;
   } elseif($key === 'parse') {
-    $message['subject'] = 'Problem Occured Reading Skyword Feed in '.$env_variable;
+    $message['subject'] = 'AWS Problem Occured Reading Skyword Feed in '.$env_variable;
   } elseif($key === 'pnd') {
-    $message['subject'] = 'Publish Node Details';
+    $message['subject'] = 'AWS Publish Node Details'; 
   } else {
     $message['subject'] = 'AWS-JOB for Skyword Import';
   }

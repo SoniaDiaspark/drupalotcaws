@@ -1,5 +1,5 @@
 otc_published_content_weekly_report.run_import:
-  path: '/otc_published_content_weekly_report/mannual_run'
+  path: '/mannual_run/otc_published_content_weekly_report'
   defaults:
     _controller: '\Drupal\otc_published_content_weekly_report\Controller\manualServiceRunController::manualServiceRun'
   requirements:
