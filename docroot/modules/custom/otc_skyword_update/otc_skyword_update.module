@@ -12,13 +12,15 @@ use Psr\Http\Message\UriInterface;
 use GuzzleHttp\Exception\RequestException;
 use Drupal\Core\Config;
 
+
 /**
  * Implements skyword_update().
+ * Add $entityids,$nodetitle parameters
  */
-function skyword_update($bundle, $is_published, $skyword_id,$fun365_url) {  
-  
-      try {
-        
+function skyword_update($bundle, $is_published, $skyword_id,$fun365_url,$entityids,$nodetitle) {   
+   
+      try { 
+          
         $skyword_get_url = \Drupal::config('otc_skyword_update.config')->get('url');
 
         if (isset($_ENV['AH_SITE_ENVIRONMENT'])) {
@@ -26,6 +28,9 @@ function skyword_update($bundle, $is_published, $skyword_id,$fun365_url) {
             $skyword_get_url = 'https://api.skyword.com/publish?key=3jbwqd5z9untd704yj6j';
           }
         }
+        
+        // Add production URL.
+        $skyword_get_url = 'https://api.skyword.com/feed?key=qep7eumvwqd6czpdxr4g';
         
         $client = \Drupal::httpClient();  
         $with_base_url = 'http://www.fun365.orientaltrading.com/'.$fun365_url;         
@@ -35,27 +40,61 @@ function skyword_update($bundle, $is_published, $skyword_id,$fun365_url) {
         
         \Drupal::logger('otc_skyword_update')
         ->info("This {$bundle} with id {$skyword_id} will be removed from skyword feed.");
+        
+        /* Email Send Script */
+        $current_path = \Drupal::service('path.current')->getPath();
+        $patterns = "/node/add/*\n/node/*/edit";
+        $match = \Drupal::service('path.matcher')->matchPath($current_path, $patterns); 
+        if ($match) {
+            $query = \Drupal::database()->select('publish_node_details', 'nd');
+            $query->fields('nd', ['node_id', 'node_type', 'node_title', 'date', 'skyword_id']); 
+           // $query->condition('nd.date', $cur_date, '=');
+            $result = $query->execute()->fetchAll();
+            
+            $node_load_id = array();
+            $message = "";
+            $message .= "<p>Today's published node -</p> \n\n\n <br /><br />"; 
+            $message .= " </br>";
+            $config = \Drupal::config('otc_group_email.settings');
+            $otc_group_email = $config->get('otc_group_email');
+            $key = "pnd";
+            $msg = "status";    
+                        
+            if (!empty($result)) {               
+                $message .= $entityids . " | " . $skyword_id . " | " . $bundle . " | " . ucfirst($nodetitle);
+                $message .= "\n\n<br><br>"; 
+                \Drupal::service('plugin.manager.mail')->mail('otc_skyword_import', $key, $otc_group_email, 'en', ['message' => $message]);
+                drupal_set_message(t('An email notification has been sent to @email ', array('@email' => $to)), $msg, TRUE);
+            }else{                
+                if($is_published) {
+                    $message .= $entityids . " | " . $skyword_id . " | " . $bundle . " | " . ucfirst($nodetitle);
+                    $message .= "\n\n<br><br>";                    
+                    \Drupal::service('plugin.manager.mail')->mail('otc_skyword_import', $key, $otc_group_email, 'en', ['message' => $message]);
+                    drupal_set_message(t('An email notification has been sent to @email ', array('@email' => $to)), $msg, TRUE);
+
+                }                
+            }
+        }
                   
       }
       catch (RequestException $e) {         
         return FALSE; 
       }        
-}  
-  
+}    
 
 /**
  * Implements hook_entity_presave().
  */
-function otc_skyword_update_entity_presave(Drupal\Core\Entity\EntityInterface $entity) {
-    //$servives = \Drupal::service('otc_skyword_update.default')->emailsend();              
+function otc_skyword_update_entity_presave(Drupal\Core\Entity\EntityInterface $entity) {    
+ 
     $type = $entity->bundle();
     $entity_type = array(
-        "article",
+        "article", 
         "project",
         "recipe",
-    );    
+    );     
 
-    if (in_array($type, $entity_type)) {
+    if (in_array($type, $entity_type)) { 
         $entity_original = $entity->original;
         // Check if node is new.
         if (!$entity->isNew()) {
@@ -71,8 +110,10 @@ function otc_skyword_update_entity_presave(Drupal\Core\Entity\EntityInterface $e
             // Get updated node status.
             $new_status = $entity->isPublished();
             if ($old_status != 1 && $new_status == 1) {
-                $cur_date = \Drupal::service('date.formatter')->format(time(), 'custom', 'Y-m-d', $config_data_default_timezone);
-                $nodetitle = $entity->getTitle();
+                //Below line for Skyword update for AWS error
+                //$cur_date = \Drupal::service('date.formatter')->format(time(), 'custom', 'Y-m-d', $config_data_default_timezone);
+                $cur_date = date('Y-m-d');
+		$nodetitle = $entity->getTitle();
                 
                 $skyword_id = $entity->get('field_skyword_id')->getValue();
                 $skyword_node_id = $skyword_id[0]['value'] ? $skyword_id[0]['value'] : 0;                 
@@ -98,17 +139,21 @@ function otc_skyword_update_entity_presave(Drupal\Core\Entity\EntityInterface $e
                 $lang = $entity->language()->getId();
                 $path = \Drupal::service('path.alias_storage')->lookupPathAlias('/' . $source, $lang);
                 $path = preg_replace('/^\//', '', $path);
-                $fun365_url = $type . '/' . $path;               
-                skyword_update($type, $is_published, $skyword_node_id,$fun365_url);
+                $fun365_url = $type . '/' . $path;   
+                // Pass $entity->id(),$nodetitle parameters
+                skyword_update($type, $is_published, $skyword_node_id,$fun365_url,$entity->id(),$nodetitle);
+            
             }
         } else {
             $new_status = $entity->isPublished();
 
             if ($new_status == 1) {
 
-                $config = \Drupal::config('system.date');
-                $config_data_default_timezone = $config->get('timezone.default');
-                $cur_date = \Drupal::service('date.formatter')->format(time(), 'custom', 'Y-m-d', $config_data_default_timezone);
+                //$config = \Drupal::config('system.date');
+                //$config_data_default_timezone = $config->get('timezone.default');
+                //Below line for Skyword update for AWS error
+                //$cur_date = \Drupal::service('date.formatter')->format(time(), 'custom', 'Y-m-d', $config_data_default_timezone);
+                $cur_date = date('Y-m-d');
                 $nodetitle = $entity->getTitle();
                 $query = \Drupal::database()->insert('publish_node_details');
                 $query->fields([
@@ -131,10 +176,13 @@ function otc_skyword_update_entity_presave(Drupal\Core\Entity\EntityInterface $e
                 $lang = $entity->language()->getId();
                 $path = \Drupal::service('path.alias_storage')->lookupPathAlias('/' . $source, $lang);
                 $path = preg_replace('/^\//', '', $path);
-                $fun365_url = $type . '/' . $path;             
-                skyword_update($type, $is_published, $skyword_node_id,$fun365_url);
+                $fun365_url = $type . '/' . $path;   
+                // Pass $entity->id(),$nodetitle parameters
+                skyword_update($type, $is_published, $skyword_node_id,$fun365_url,$entity->id(),$nodetitle);   
                
             }
         }
     }
 }
+
+ 

@@ -49,6 +49,7 @@ class ArticleMapper implements FeedMapperInterface {
         case 'action':
         case 'photo_article_inspiration':
         case 'link':
+        case 'trackingTag': //Added for unmapped error
           break;
         default:
           echo "UNMAPPED KEY: $key\n";

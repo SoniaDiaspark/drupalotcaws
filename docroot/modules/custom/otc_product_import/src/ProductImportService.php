@@ -6,6 +6,7 @@ use Drupal\Core\Queue\QueueDatabaseFactory;
 use Drupal\Core\Entity\Query\QueryFactory;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\node\Entity\Node;
+use Drupal\Core\FileTransfer\SSH;
 
 /**
  * Class ProductImportService.
@@ -83,9 +84,15 @@ class ProductImportService implements ProductImportServiceInterface {
    * Queue the import items
    */
   public function batchImport( $forceUpdate = false ) {
-    if ( ! $this->open() ) return;
+    //if ( ! $this->open() ) return;
+      
+    // SFTP connection script for get the product data from transfer.orientaltrading.com
+    $connection = ssh2_connect('transfer.orientaltrading.com', 22);
+    ssh2_auth_password($connection, 'DRUPAL', '@(=~Iu5b');
+    $sftp = ssh2_sftp($connection);
+    $stream = fopen("ssh2.sftp://" . intval($sftp) . "/OTC_RA_Product_Feed.txt", 'r');
 
-    while( ($line = fgets($this->sourceFileHandle)) !== false ) {
+    while( ($line = fgets($stream)) !== false ) {
       $data = [];
 
       // id|brand|name|quantity_description|item_type|prefix|price|sale_price|thumb_image|thumb_image_2_x|tile_image|tile_image_2_x
@@ -103,16 +110,19 @@ class ProductImportService implements ProductImportServiceInterface {
         $data['field_image_url_product_tile_1x'],
         $data['field_image_url_product_tile_2x'],
         $data['product_url'],
-      $data['field_product_closeout_status'],
-      $data['field_product_in_stock_status']
+        $data['field_product_closeout_status'],
+        $data['field_product_in_stock_status']
       ) = explode('|', $line);
 
       $data['force'] = $forceUpdate;
-
-      $this->dbQueue->createItem([$data]);
+      
+      // Check field_sku empty condition
+      if($data['field_sku'] != "" && $data['field_sku'] != 'id'){        
+        $this->dbQueue->createItem([$data]); 
+      }
     }
-
-    fclose($this->sourceFileHandle);
+    
+    fclose($stream);
   }
 
   /**

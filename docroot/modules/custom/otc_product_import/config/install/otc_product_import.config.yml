@@ -1,1 +1,2 @@
-products: 'public://products/OTC_RA_Product_Feed.txt'
+#products: 'public://products/OTC_RA_Product_Feed.txt'
+products: '/var/www/html/docroot/sites/default/OTC_RA_Product_Feed_Test.txt' 

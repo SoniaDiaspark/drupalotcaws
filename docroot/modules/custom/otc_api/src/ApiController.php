@@ -395,7 +395,7 @@ class ApiController extends ControllerBase {
     try {
       $results = $this->restHelper->fetchAllTerms('category', $options);
       $response = new CacheableJsonResponse($results);
-      $response->addCacheableDependency($this->restHelper->cacheMetaData($results, 'taxonomy_term'));
+     $response->addCacheableDependency($this->restHelper->cacheMetaData($results, 'taxonomy_term'));
 
       return $response;
     }
