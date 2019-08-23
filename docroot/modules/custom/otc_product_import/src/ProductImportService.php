@@ -6,11 +6,7 @@ use Drupal\Core\Queue\QueueDatabaseFactory;
 use Drupal\Core\Entity\Query\QueryFactory;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\node\Entity\Node;
-
-use Drupal\Core\Url;
-use Drupal\Core\FileTransfer\FileTransferException;
-use SimpleXMLElement;
-use DOMDocument;
+use Drupal\Core\FileTransfer\SSH;
 
 /**
  * Class ProductImportService.
@@ -88,28 +84,15 @@ class ProductImportService implements ProductImportServiceInterface {
    * Queue the import items
    */
   public function batchImport( $forceUpdate = false ) {
+    //if ( ! $this->open() ) return;
       
-      
-      
-//$ftp_host = 'transfer.orientaltrading.com';
-//$ftp_username = 'DRUPAL';
-//$ftp_password = '@(=~Iu5b';
-//
-////      echo  file_get_contents('ssh2.sftp://DRUPAL:@(=~Iu5b@transfer.orientaltrading.com:22/test.txt');
-////      die('done');
-//
-//$connection = ssh2_connect('transfer.orientaltrading.com', 22);
-//ssh2_auth_password($connection, 'DRUPAL', '@(=~Iu5b');
-//$sftp = ssh2_sftp($connection);
-//// See: https://bugs.php.net/bug.php?id=73597
-//$stream = fopen("ssh2.sftp://" . intval($sftp) . "/test.txt", 'r');
-//
-//echo $stream;die('222222222');
-      
-      
-    if ( ! $this->open() ) return;
+    // SFTP connection script for get the product data from transfer.orientaltrading.com
+    $connection = ssh2_connect('transfer.orientaltrading.com', 22);
+    ssh2_auth_password($connection, 'DRUPAL', '@(=~Iu5b');
+    $sftp = ssh2_sftp($connection);
+    $stream = fopen("ssh2.sftp://" . intval($sftp) . "/OTC_RA_Product_Feed.txt", 'r');
 
-    while( ($line = fgets($this->sourceFileHandle)) !== false ) {
+    while( ($line = fgets($stream)) !== false ) {
       $data = [];
 
       // id|brand|name|quantity_description|item_type|prefix|price|sale_price|thumb_image|thumb_image_2_x|tile_image|tile_image_2_x
@@ -127,16 +110,19 @@ class ProductImportService implements ProductImportServiceInterface {
         $data['field_image_url_product_tile_1x'],
         $data['field_image_url_product_tile_2x'],
         $data['product_url'],
-      $data['field_product_closeout_status'],
-      $data['field_product_in_stock_status']
+        $data['field_product_closeout_status'],
+        $data['field_product_in_stock_status']
       ) = explode('|', $line);
 
       $data['force'] = $forceUpdate;
-
-      $this->dbQueue->createItem([$data]);
+      
+      // Check field_sku empty condition
+      if($data['field_sku'] != "" && $data['field_sku'] != 'id'){        
+        $this->dbQueue->createItem([$data]); 
+      }
     }
-
-    fclose($this->sourceFileHandle);
+    
+    fclose($stream);
   }
 
   /**
@@ -272,49 +258,4 @@ class ProductImportService implements ProductImportServiceInterface {
       return ['target_id' => $tid];
     }
   }
-}
-
-
-function get_rawlist_dir($ftp_rawlist) {
-    $dirNames = array();
-    $fileNames = array();
-    foreach ($ftp_rawlist as $v) {
-        $info = array();
-        $vinfo = preg_split("/[\s]+/", $v, 9);
-        if ($vinfo[0] !== "total") {
-            $info['chmod'] = isset($vinfo[0]) ? $vinfo[0] : "";
-            $info['num'] = isset($vinfo[1]) ? $vinfo[1] : "";
-            $info['owner'] = isset($vinfo[2]) ? $vinfo[2] : "";
-            $info['group'] = isset($vinfo[3]) ? $vinfo[3] : "";
-            $info['size'] = isset($vinfo[4]) ? $vinfo[4] : "";
-            $info['month'] = isset($vinfo[5]) ? $vinfo[5] : "";
-            $info['day'] = isset($vinfo[6]) ? $vinfo[6] : "";
-            $info['time'] = isset($vinfo[7]) ? $vinfo[7] : "";
-            $info['name'] = isset($vinfo[8]) ? $vinfo[8] : "";
-            $rawlist[$info['name']] = $info;
-        }
-    }
-    $dir = array();
-    $file = array();
-    foreach ($rawlist as $k => $v) {
-
-        if (isset($v['chmod'][0])) {
-            if ($v['chmod'][0] == "d") {
-                $dir[$k] = $v;
-            } elseif ($v['chmod'][0] == "-") {
-                $file[$k] = $v;
-            }
-        }
-    }
-    foreach ($dir as $dirname => $dirinfo) {
-        //echo "[ $dirname ] " . $dirinfo['chmod'] . " | " . $dirinfo['owner'] . " | " . $dirinfo['group'] . " | " . $dirinfo['month'] . " " . $dirinfo['day'] . " " . $dirinfo['time'] . "<br>";
-
-        if ($dirname != '.' && $dirname != '..')
-            $dirNames[] = $dirname;
-    }
-    foreach ($file as $filename => $fileinfo) {
-        //echo "$filename " . $fileinfo['chmod'] . " | " . $fileinfo['owner'] . " | " . $fileinfo['group'] . " | " . $fileinfo['size'] . " Byte | " . $fileinfo['month'] . " " . $fileinfo['day'] . " " . $fileinfo['time'] . "<br>";
-        $fileNames[] = $filename;
-    }
-    return $dirNames;
 }

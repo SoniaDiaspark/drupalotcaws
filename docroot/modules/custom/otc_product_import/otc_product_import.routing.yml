@@ -3,6 +3,6 @@ otc_product_import.product_import:
   defaults:
     _controller: '\Drupal\otc_product_import\Controller\ProductCallController::callProductService'
   requirements:
-    _permission: 'access administration pages'
+     _access: 'TRUE'
   options:
-    _admin_route: TRUE 
+    no_cache: 'TRUE'
