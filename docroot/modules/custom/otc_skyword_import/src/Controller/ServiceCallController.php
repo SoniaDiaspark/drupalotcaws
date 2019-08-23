@@ -4,24 +4,17 @@ namespace Drupal\otc_skyword_import\Controller;
 
 class ServiceCallController {
 
-	public function callImportService() {   
-            
-            
-            
-//      \Drupal::service('otc_skyword_import.default')->queueImportJobs();    
-//      	$markup = "<p> Job has been triggered</p>";
-//      	return array('#markup' => $markup,);   
+	public function callImportService() {
         
-        
-        if($_GET['api'] == 'skywordimport'){ 
-            drupal_flush_all_caches();  
-            \Drupal::service('otc_skyword_import.default')->queueImportJobs();     
-            $markup = "<p> Job has been triggered successfully.</p>";
-            return array('#markup' => $markup,);
-        }else{
-            $markup = "<p> Job has been triggered successfully.</p>";
-            return array('#markup' => $markup,);
-        }
+            // Add skywordimport keyword for security purpose
+            if($_GET['api'] == 'skywordimport'){  
+                \Drupal::service('otc_skyword_import.default')->queueImportJobs();     
+                $markup = "<p> Job has been triggered successfully.</p>";
+                return array('#markup' => $markup,);
+            }else{
+                $markup = "<p> Please enter correct url for skyword import job.</p>";
+                return array('#markup' => $markup,);
+            }
         
 	}
 }

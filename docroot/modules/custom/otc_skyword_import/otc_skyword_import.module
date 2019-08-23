@@ -33,6 +33,7 @@ function otc_skyword_import_mail($key, &$message, $params) {
   if (isset($_ENV['AH_SITE_ENVIRONMENT'])) {
     $env_variable = $_ENV['AH_SITE_ENVIRONMENT'];
   }
+  // Change the email subject
   if ($key === 'worker') {
     $message['subject'] = 'AWS Problem Occured During Skyword Import in '.$env_variable;
   } elseif($key === 'parse') {

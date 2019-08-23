@@ -15,6 +15,7 @@ use Drupal\Core\Config;
 
 /**
  * Implements skyword_update().
+ * Add $entityids,$nodetitle parameters
  */
 function skyword_update($bundle, $is_published, $skyword_id,$fun365_url,$entityids,$nodetitle) {   
    
@@ -27,6 +28,9 @@ function skyword_update($bundle, $is_published, $skyword_id,$fun365_url,$entityi
             $skyword_get_url = 'https://api.skyword.com/publish?key=3jbwqd5z9untd704yj6j';
           }
         }
+        
+        // Add production URL.
+        $skyword_get_url = 'https://api.skyword.com/feed?key=qep7eumvwqd6czpdxr4g';
         
         $client = \Drupal::httpClient();  
         $with_base_url = 'http://www.fun365.orientaltrading.com/'.$fun365_url;         
@@ -106,7 +110,7 @@ function otc_skyword_update_entity_presave(Drupal\Core\Entity\EntityInterface $e
             // Get updated node status.
             $new_status = $entity->isPublished();
             if ($old_status != 1 && $new_status == 1) {
-                 //below line for Skyword update for AWS error
+                //Below line for Skyword update for AWS error
                 //$cur_date = \Drupal::service('date.formatter')->format(time(), 'custom', 'Y-m-d', $config_data_default_timezone);
                 $cur_date = date('Y-m-d');
 		$nodetitle = $entity->getTitle();
@@ -135,7 +139,8 @@ function otc_skyword_update_entity_presave(Drupal\Core\Entity\EntityInterface $e
                 $lang = $entity->language()->getId();
                 $path = \Drupal::service('path.alias_storage')->lookupPathAlias('/' . $source, $lang);
                 $path = preg_replace('/^\//', '', $path);
-                $fun365_url = $type . '/' . $path;                                
+                $fun365_url = $type . '/' . $path;   
+                // Pass $entity->id(),$nodetitle parameters
                 skyword_update($type, $is_published, $skyword_node_id,$fun365_url,$entity->id(),$nodetitle);
             
             }
@@ -144,8 +149,9 @@ function otc_skyword_update_entity_presave(Drupal\Core\Entity\EntityInterface $e
 
             if ($new_status == 1) {
 
-                $config = \Drupal::config('system.date');
-                $config_data_default_timezone = $config->get('timezone.default');
+                //$config = \Drupal::config('system.date');
+                //$config_data_default_timezone = $config->get('timezone.default');
+                //Below line for Skyword update for AWS error
                 //$cur_date = \Drupal::service('date.formatter')->format(time(), 'custom', 'Y-m-d', $config_data_default_timezone);
                 $cur_date = date('Y-m-d');
                 $nodetitle = $entity->getTitle();
@@ -170,7 +176,8 @@ function otc_skyword_update_entity_presave(Drupal\Core\Entity\EntityInterface $e
                 $lang = $entity->language()->getId();
                 $path = \Drupal::service('path.alias_storage')->lookupPathAlias('/' . $source, $lang);
                 $path = preg_replace('/^\//', '', $path);
-                $fun365_url = $type . '/' . $path;             
+                $fun365_url = $type . '/' . $path;   
+                // Pass $entity->id(),$nodetitle parameters
                 skyword_update($type, $is_published, $skyword_node_id,$fun365_url,$entity->id(),$nodetitle);   
                
             }

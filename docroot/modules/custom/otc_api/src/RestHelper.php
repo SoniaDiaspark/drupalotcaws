@@ -11,6 +11,7 @@ use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\image\Entity\ImageStyle;
 use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\paragraphs\Entity\Paragraph;
+// use DateTime core lib for get the date and time.
 use Drupal\Core\Datetime\DrupalDateTime; 
 
 /**
@@ -1281,17 +1282,18 @@ class RestHelper implements RestHelperInterface {
     if ($options['multiValue']) {
       $return = [];
   
-      foreach ($field->getValue() as $item) {
-      
+      foreach ($field->getValue() as $item) {        
+         
         $dateValue = date('Y-m-d\TH:i:s', $item['value']); 
+        // Get date with Y-m-d\TH:i:s formate
         $date_original= new DrupalDateTime( $dateValue , 'UTC' ); 
-        $result = \Drupal::service('date.formatter')->format( $date_original->getTimestamp(), 'custom', 'Y-m-d\TH:i:s'  );    
-
+        $result = \Drupal::service('date.formatter')->format( $date_original->getTimestamp(), 'custom', 'Y-m-d\TH:i:s');
         $return[] = $result;
         }
         return $return;
         }
         
+        // Get date with Y-m-d\TH:i:s formate
         $dateValue = date('Y-m-d\TH:i:s', $field->value); 
         $date_original= new DrupalDateTime( $dateValue , 'UTC' );     
         $result = \Drupal::service('date.formatter')->format( $date_original->getTimestamp(), 'custom', 'Y-m-d\TH:i:s'  );  
@@ -1603,16 +1605,19 @@ class RestHelper implements RestHelperInterface {
       ->load($target_id);
 
     $internalUri = $baseFile->getFileUri();
-
+    // Replace image http url with https url   
+    $imageFullURL = str_replace('http://', 'https://', $streamWrapper->getViaUri($internalUri)->getExternalUrl()); 
     $result = [
-      'full' => $streamWrapper->getViaUri($internalUri)->getExternalUrl(),
+      'full' => $imageFullURL,
     ];
 
     foreach ($resolutions as $resolution) {
       $styleName = $resolution;
       $style = ImageStyle::load($resolution);
       if ($style) {
-        $result[$styleName] = $style->buildUrl($internalUri);
+        // Replace image http url with https url   
+        $imageURL = str_replace('http://', 'https://', $style->buildUrl($internalUri));    
+        $result[$styleName] = $imageURL;
       }
     }
     return $result;

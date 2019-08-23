@@ -93,14 +93,12 @@ class ImportService {
     try {
         
     // Clear cache to flush theme cache.
-    drupal_flush_all_caches();  
-    
       if (isset($_ENV['AH_SITE_ENVIRONMENT'])) {
           if ($_ENV['AH_SITE_ENVIRONMENT'] != 'prod') {
             $this->importUrl = 'https://api.skyword.com/feed?key=3jbwqd5z9untd704yj6j';
           }
       }      
-      //below URL is production URl of Skyword on 2019-07-23
+      //Below URL is production URl of Skyword import JOB
       $this->importUrl = 'https://api.skyword.com/feed?key=qep7eumvwqd6czpdxr4g';
       //$this->importUrl = 'https://cl-drupal.orientaltrading.com/feed.xml';   
             
