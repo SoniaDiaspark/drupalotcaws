@@ -44,7 +44,7 @@ class OtcPublishedContentWeeklyReport {
         $otc_group_email = $config->get('otc_group_email');
         // Send report over email as xlsx attachment.
         // Email subject change for AWS
-        \Drupal::service('plugin.manager.mail')->mail('otc_published_content_weekly_report', 'content_report', $otc_group_email, 'en', ['subject'=> 'AWS-JOB-Publish Content Details', 'message' => $message, 'attachments' => $attachment]);
+        \Drupal::service('plugin.manager.mail')->mail('otc_published_content_weekly_report', 'content_report', $otc_group_email, 'en', ['subject'=> 'AWS-JOB-Weekly Published Content', 'message' => $message, 'attachments' => $attachment]);
 
         return drupal_set_message(t('An email notification has been sent to @email ', array('@email' => $otc_group_email)), "status", TRUE);
 
