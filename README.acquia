@@ -47,3 +47,7 @@ git push origin <tag name>
 If you want to push all the tags
 
 git push origin --tags
+
+=================================
+
+PULL Reqyuest from master --> git pull origin master
