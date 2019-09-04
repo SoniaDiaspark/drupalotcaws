@@ -119,26 +119,7 @@ class ImportService {
       $display_type = "";
       $data = "";
 
-      // temp code for 1 update
-      /*
-      $ij = 1;
-      foreach ($this->mapImports($simplexml) as $type => $docs) {
-        if($ij == 1) {  
-            $display_type .= $type;
-            $jk = 1;
-            foreach ($docs as $doc) {
-              if($jk == 1) {
-                $this->queueImportJob($type, $doc);          
-                $data .= '<p>'.$display_type . '|' . $doc['field_skyword_id'] . '|' . $doc['field_display_title'].'<br /></p>';  
-              }
-            $jk++;
-              
-            }
-            $display_type = '';
-        }
-       $ij++; 
-      }
-      */
+  
     // temp code for 1 update ends on 2019-07-23
         
        $is_check = 0;
@@ -154,7 +135,7 @@ class ImportService {
          $display_type = '';
        }      
       
-      if($is_check) { 
+      if($is_check == 1) { 
         $message = '<p>AWS-Job has been triggred</p> </br>' .$data;
         $config = \Drupal::config('otc_group_email.settings');
         $otc_group_email = $config->get('otc_group_email');
@@ -164,7 +145,9 @@ class ImportService {
 
         $key = (!empty($key)) ? $key : "";
         \Drupal::service('plugin.manager.mail')->mail('otc_skyword_import', $key, $otc_group_email, 'en', ['message' => $message]);
+     $is_check = 0;
      }
+
 
     } catch (\Exception $e) {
       $this->logger->error('Error loading feed from skyword: @message', [
