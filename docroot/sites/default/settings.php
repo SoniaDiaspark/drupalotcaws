@@ -76,10 +76,10 @@
  * @code*/
 
   $databases['default']['default'] = array (
-    'database' => 'devdrupal',
-    'username' => 'devdrupalmaster',
-    'password' => 'SN6pWDhXm5HRymsbR58gv',
-    'host' => 'prod-drupal-rds-instance.ctjjkkafgbrx.us-west-2.rds.amazonaws.com',
+    'database' => 'otd-prod-drupal',
+    'username' => 'otcdrupalmaster',
+    'password' => 'otcdrupalmaster123#',
+    'host' => 'prod-drupal-rds-mysql-instance.ctjjkkafgbrx.us-west-2.rds.amazonaws.com',
     'port' => '3306',
     'driver' => 'mysql',
     'prefix' => '',
