@@ -21,9 +21,9 @@ eventually). For example:
 #### Creating an XLS view
 
   1. Create a new view
-  1. Add a *Data Export* display (this assumes the use of the Views Data Export)
-     module. Otherwise add a *REST Export* view.
-  1. Check **only** 'xls' for the accepted request formats under
-     `Format -> Data export -> Settings`.
-  1. Add desired fields to the view.
-  1. Add a path, and optionally, a filename pattern.
+  2. Add an *Excel Export* display for more formatting options.
+     Otherwise add a *REST Export* view.
+  3. Check either 'xlsx' or 'xls' for the accepted request formats under
+     `Format -> Excel export -> Settings`.
+  4. Add desired fields to the view.
+  5. Add a path, and optionally, a filename pattern.

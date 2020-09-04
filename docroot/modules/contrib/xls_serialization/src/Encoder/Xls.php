@@ -5,7 +5,7 @@ namespace Drupal\xls_serialization\Encoder;
 use Drupal\views\ViewExecutable;
 use Drupal\Component\Serialization\Exception\InvalidDataTypeException;
 use Drupal\Component\Utility\Html;
-use PhpOffice\PhpSpreadsheet\Cell\Cell;
+use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Document\Properties;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\Conditional;
@@ -80,14 +80,13 @@ class Xls implements EncoderInterface {
       // Set the width of every column with data in it to AutoSize.
       $this->setColumnsAutoSize($sheet);
 
-      if (!empty($context)) {
-        if (!empty($context['views_style_plugin']->options['xls_settings'])) {
+      if (isset($context['views_style_plugin'])) {
+        if (isset($context['views_style_plugin']->options['xls_settings'])) {
           $this->setSettings($context['views_style_plugin']->options['xls_settings']);
-        }
-
-        // Set any metadata passed in via the context.
-        if (!empty($context['views_style_plugin']->options['xls_settings']['metadata'])) {
-          $this->setMetaData($xls->getProperties(), $context['views_style_plugin']->options['xls_settings']['metadata']);
+          // Set any metadata passed in via the context.
+          if (isset($context['views_style_plugin']->options['xls_settings']['metadata'])) {
+            $this->setMetaData($xls->getProperties(), $context['views_style_plugin']->options['xls_settings']['metadata']);
+          }
         }
 
         if (!empty($context['views_style_plugin']->view)) {
@@ -95,7 +94,7 @@ class Xls implements EncoderInterface {
           $view = $context['views_style_plugin']->view;
           // Set the worksheet title based on the view title within the context.
           if (!empty($view->getTitle())) {
-            $sheet->setTitle($view->getTitle());
+            $sheet->setTitle($this->validateWorksheetTitle($view->getTitle()));
           }
 
           // Set the header row of the worksheet to bold.
@@ -115,9 +114,10 @@ class Xls implements EncoderInterface {
 
           // Conditional formatting.
           for ($i = 0; $i <= 4; $i++) {
-            if ($view->getDisplay()->getOption('conditional_formatting_base_field_' . $i) !== NULL && $view->getDisplay()->getOption('conditional_formatting_base_field_' . $i) !== 'Select a field') {
+            $current_conditional_formatting_base_field = $view->getDisplay()->getOption('conditional_formatting_base_field_' . $i);
+            if ($current_conditional_formatting_base_field !== NULL && $current_conditional_formatting_base_field !== 'Select a field') {
               $headers = $this->extractHeaders($data, $context);
-              $conditional_formatting_base_field[$i] = $view->getDisplay()->getOption('conditional_formatting_base_field_' . $i);
+              $conditional_formatting_base_field[$i] = $current_conditional_formatting_base_field;
               $field_label_or_name[$i] = $this->getViewFieldLabel($view, $conditional_formatting_base_field[$i]);
               $base_field_column_letter[$i] = $this->getColumnLetterFromFieldName($headers, $field_label_or_name[$i]);
               $operator[$i] = $this->getOperatorFromSelectIndex($view->getDisplay()->getOption('conditional_formatting_operator_' . $i));
@@ -328,6 +328,9 @@ class Xls implements EncoderInterface {
     if ($settings['xls_format'] == 'Excel2007') {
       $settings['xls_format'] = 'Xlsx';
     }
+    if ($settings['xls_format'] == 'Excel5') {
+      $settings['xls_format'] = 'Xls';
+    }
     $this->xlsFormat = $settings['xls_format'];
   }
 
@@ -371,16 +374,18 @@ class Xls implements EncoderInterface {
    *   The worksheet to set the background color of the header row.
    * @param string $rgb
    *   The worksheet to set the background color of the header row.
+   *
+   * @throws \PhpOffice\PhpSpreadsheet\Exception
    */
   protected function setHeaderRowBackgroundColor(Worksheet $sheet, $rgb) {
     $style = [
       'fill' => [
-        'type' => Fill::FILL_SOLID,
-        'startcolor' => [
-          'rgb' => $rgb,
+        'fillType' => Fill::FILL_SOLID,
+        'startColor' => [
+          'argb' => 'FF' . $rgb,
         ],
-        'endcolor' => [
-          'rgb' => $rgb,
+        'endColor' => [
+          'argb' => 'FF' . $rgb,
         ],
       ],
     ];
@@ -420,6 +425,8 @@ class Xls implements EncoderInterface {
    *   The sheet to set the conditional formats on.
    * @param array $conditional_styles
    *   The conditional formats to set.
+   *
+   * @throws \PhpOffice\PhpSpreadsheet\Exception
    */
   protected function setConditionalFormating(Worksheet $sheet, array $conditional_styles) {
     $highest_data_column = $sheet->getHighestDataColumn();
@@ -442,9 +449,9 @@ class Xls implements EncoderInterface {
    *   The column letter
    */
   protected function getColumnLetterFromFieldName(array $headers, $field_label_or_name) {
-    $base_field_header_index_num = array_search($field_label_or_name, $headers);
+    $base_field_header_index_num = array_search($field_label_or_name, $headers) + 1;
 
-    return Cell::stringFromColumnIndex($base_field_header_index_num);
+    return Coordinate::stringFromColumnIndex($base_field_header_index_num);
   }
 
   /**
@@ -459,7 +466,7 @@ class Xls implements EncoderInterface {
    *   The label in the view if available, field name otherwise.
    */
   protected function getViewFieldLabel(ViewExecutable $view, $field_name) {
-    return !empty($view->field[$field_name]->options['label']) ? $view->field[$field_name]->options['label'] : $field_name;
+    return isset($view->field[$field_name]->options['label']) ? $view->field[$field_name]->options['label'] : $field_name;
   }
 
   /**
@@ -475,6 +482,25 @@ class Xls implements EncoderInterface {
     $operator_options = [0 => '=', 1 => '<>'];
 
     return $operator_options[$operator_select_index];
+  }
+
+  /**
+   * Validates the title of the Worksheet to ensure it's valid.
+   *
+   * Worksheet titles must not exceed 31 characters,
+   * contain:- ":" "\"  "/"  "?"  "*"  "["  "]"
+   * or be blank.
+   *
+   * @param string $title
+   *   The orginal worksheet value.
+   *
+   * @return string
+   *   The validated worksheet title
+   */
+  protected function validateWorksheetTitle($title) {
+    $title = preg_replace('[:\\*/\[\]?]', '', $title);
+
+    return substr($title, 0, 30);
   }
 
 }

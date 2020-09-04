@@ -2,6 +2,8 @@
 
 namespace Drupal\xls_serialization\Plugin\views\style;
 
+use Drupal\Component\Utility\Html;
+use Drupal\Core\Url;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\rest\Plugin\views\style\Serializer;
 
@@ -105,58 +107,38 @@ class ExcelExport extends Serializer {
             '#default_value' => $xls_options['xls_format'],
           ],
         ];
+
+        $metadata = !empty($xls_options['metadata']) ? array_filter($xls_options['metadata']) : [];
+
         // XLS metadata.
-        $metadata = $xls_options['metadata'];
         $form['xls_settings']['metadata'] = [
           '#type' => 'details',
           '#title' => $this->t('Document metadata'),
-          '#open' => !empty(array_filter($metadata)),
+          '#open' => $metadata,
         ];
-        $form['xls_settings']['metadata']['creator'] = [
-          '#type' => 'textfield',
-          '#title' => $this->t('Author/creator name'),
-          '#default_value' => $metadata['creator'],
+
+        $xls_fields = [
+          'creator' => $this->t('Author/creator name'),
+          'last_modified_by' => $this->t('Last modified by'),
+          'title' => $this->t('Title'),
+          'description' => $this->t('Description'),
+          'subject' => $this->t('Subject'),
+          'keywords' => $this->t('Keywords'),
+          'category' => $this->t('Category'),
+          'manager' => $this->t('Manager'),
+          'company' => $this->t('Company'),
         ];
-        $form['xls_settings']['metadata']['last_modified_by'] = [
-          '#type' => 'textfield',
-          '#title' => $this->t('Last modified by'),
-          '#default_value' => $metadata['last_modified_by'],
-        ];
-        $form['xls_settings']['metadata']['title'] = [
-          '#type' => 'textfield',
-          '#title' => $this->t('Title'),
-          '#default_value' => $metadata['title'],
-        ];
-        $form['xls_settings']['metadata']['description'] = [
-          '#type' => 'textfield',
-          '#title' => $this->t('Description'),
-          '#default_value' => $metadata['description'],
-        ];
-        $form['xls_settings']['metadata']['subject'] = [
-          '#type' => 'textfield',
-          '#title' => $this->t('Subject'),
-          '#default_value' => $metadata['subject'],
-        ];
-        $form['xls_settings']['metadata']['keywords'] = [
-          '#type' => 'textfield',
-          '#title' => $this->t('Keywords'),
-          '#default_value' => $metadata['keywords'],
-        ];
-        $form['xls_settings']['metadata']['category'] = [
-          '#type' => 'textfield',
-          '#title' => $this->t('Category'),
-          '#default_value' => $metadata['category'],
-        ];
-        $form['xls_settings']['metadata']['manager'] = [
-          '#type' => 'textfield',
-          '#title' => $this->t('Manager'),
-          '#default_value' => $metadata['manager'],
-        ];
-        $form['xls_settings']['metadata']['company'] = [
-          '#type' => 'textfield',
-          '#title' => $this->t('Company'),
-          '#default_value' => $metadata['company'],
-        ];
+
+        foreach ($xls_fields as $xls_field_key => $xls_field_title) {
+          $form['xls_settings']['metadata'][$xls_field_key] = [
+            '#type' => 'textfield',
+            '#title' => $xls_field_title,
+          ];
+
+          if (isset($xls_options['metadata'][$xls_field_key])) {
+            $form['xls_settings']['metadata']['#default_value'] = $xls_options['metadata'][$xls_field_key];
+          }
+        }
         break;
     }
   }
@@ -170,6 +152,62 @@ class ExcelExport extends Serializer {
     $form_state->setValue(['style_options', 'formats'], [$format => $format]);
 
     parent::submitOptionsForm($form, $form_state);
+  }
+
+  /**
+   * {@inheritdoc}
+   *
+   * @todo This should implement AttachableStyleInterface once
+   * https://www.drupal.org/node/2779205 lands.
+   */
+  public function attachTo(array &$build, $display_id, Url $url, $title) {
+    // @todo This mostly hard-codes CSV handling. Figure out how to abstract.
+
+    $url_options = [];
+    $input = $this->view->getExposedInput();
+    if ($input) {
+      $url_options['query'] = $input;
+    }
+    if ($pager = $this->view->getPager()) {
+      $url_options['query']['page'] = $pager->getCurrentPage();
+    }
+    $url_options['absolute'] = TRUE;
+    if (!empty($this->options['formats'])) {
+      $url_options['query']['_format'] = reset($this->options['formats']);
+    }
+
+    $url = $url->setOptions($url_options)->toString();
+
+    // Add the CSV icon to the view.
+    $type = $this->displayHandler->getContentType();
+    $this->view->feedIcons[] = [
+      '#theme' => 'export_icon',
+      '#url' => $url,
+      '#type' => mb_strtoupper($type),
+      '#theme_wrappers' => [
+        'container' => [
+          '#attributes' => [
+            'class' => [
+              Html::cleanCssIdentifier($type) . '-feed',
+              'views-data-export-feed',
+            ],
+          ],
+        ],
+      ],
+      '#attached' => [
+        'library' => [
+          'views_data_export/views_data_export',
+        ],
+      ],
+    ];
+
+    // Attach a link to the CSV feed, which is an alternate representation.
+    $build['#attached']['html_head_link'][][] = [
+      'rel' => 'alternate',
+      'type' => $this->displayHandler->getMimeType(),
+      'title' => $title,
+      'href' => $url,
+    ];
   }
 
 }

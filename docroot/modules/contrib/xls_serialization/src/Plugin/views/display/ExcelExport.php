@@ -137,7 +137,8 @@ class ExcelExport extends RestExport {
     $operator_options = [0 => '=', 1 => '<>'];
 
     for ($i = 0; $i <= 4; $i++) {
-      if ($this->getOption('conditional_formatting_base_field_' . $i) == 'Select a field' || $this->getOption('conditional_formatting_base_field_' . $i) == '') {
+      $current_conditional_formatting_base_field = $this->getOption('conditional_formatting_base_field_' . $i);
+      if ($current_conditional_formatting_base_field === 'Select a field' || $current_conditional_formatting_base_field === '' || $current_conditional_formatting_base_field === NULL) {
         $conditional_formatting_value[$i] = 'None';
       }
       else {
@@ -203,7 +204,7 @@ class ExcelExport extends RestExport {
         $form['filename'] = [
           '#type' => 'textfield',
           '#title' => $this->t('Filename'),
-          '#default_value' => $this->options['filename'],
+          '#default_value' => $this->getOption('filename'),
           '#description' => $this->t('The filename that will be suggested to the browser for downloading purposes. You may include replacement patterns from the list below.'),
         ];
         // Support tokens.
@@ -215,19 +216,19 @@ class ExcelExport extends RestExport {
         $form['header_bold'] = [
           '#type' => 'checkbox',
           '#title' => $this->t('Header Bold'),
-          '#default_value' => $this->options['header_bold'],
+          '#default_value' => $this->getOption('header_bold'),
           '#description' => $this->t('Do you want to make the header (first row) of the worksheet bold?'),
         ];
         $form['header_italic'] = [
           '#type' => 'checkbox',
           '#title' => $this->t('Header Italic'),
-          '#default_value' => $this->options['header_italic'],
+          '#default_value' => $this->getOption('header_italic'),
           '#description' => $this->t('Do you want to make the header (first row) of the worksheet italic?'),
         ];
         $form['header_background_color'] = [
           '#type' => 'textfield',
           '#title' => $this->t('Header Background Color'),
-          '#default_value' => $this->options['header_background_color'],
+          '#default_value' => $this->getOption('header_background_color'),
           '#description' => $this->t("Give the RGB code for the background color of the worksheet's header. Leave empty for default color."),
           '#size' => 6,
           '#maxlength' => 6,
@@ -239,31 +240,31 @@ class ExcelExport extends RestExport {
     $form['#title'] .= $this->t('Conditional formatting rules');
 
     for ($i = 0; $i <= 4; $i++) {
-      if ($form_state->get('section') == 'excel_conditional_formatting_rules_' . $i) {
+      if ($form_state->get('section') === 'excel_conditional_formatting_rules_' . $i) {
         $form['conditional_formatting_base_field_' . $i] = [
           '#type' => 'select',
           '#options' => $field_names,
           '#empty_value' => 'Select a field',
           '#title' => $this->t('Field used to compare to text'),
-          '#default_value' => $this->options['conditional_formatting_base_field_' . $i],
+          '#default_value' => $this->getOption('conditional_formatting_base_field_' . $i),
         ];
         $form['conditional_formatting_operator_' . $i] = [
           '#type' => 'select',
           '#options' => ['=', '<>'],
           '#empty_value' => 'Select an operator',
           '#title' => $this->t('Operator'),
-          '#default_value' => $this->options['conditional_formatting_operator_' . $i],
+          '#default_value' => $this->getOption('conditional_formatting_operator_' . $i),
         ];
         $form['conditional_formatting_compare_to_' . $i] = [
           '#type' => 'textfield',
           '#empty_value' => 'Select an operator',
           '#title' => $this->t('Text to compare to'),
-          '#default_value' => $this->options['conditional_formatting_compare_to_' . $i],
+          '#default_value' => $this->getOption('conditional_formatting_compare_to_' . $i),
         ];
         $form['conditional_formatting_background_color_' . $i] = [
           '#type' => 'textfield',
           '#title' => $this->t('Row Background Color'),
-          '#default_value' => $this->options['conditional_formatting_background_color_' . $i],
+          '#default_value' => $this->getOption('conditional_formatting_background_color_' . $i),
           '#description' => $this->t("Give the RGB code for the background color of the row. Leave empty for default color."),
           '#size' => 6,
           '#maxlength' => 6,
@@ -289,7 +290,7 @@ class ExcelExport extends RestExport {
 
     // Validate Excel conditional formatting functionality fields.
     for ($i = 0; $i <= 4; $i++) {
-      if ($form_state->get('section') == 'excel_conditional_formatting_rules_' . $i) {
+      if ($form_state->get('section') === 'excel_conditional_formatting_rules_' . $i) {
         // If one of conditional_formatting_base_field,
         // conditional_formatting_operator or conditional_formatting_compare_to
         // is set, all of them have to be set.
@@ -298,17 +299,17 @@ class ExcelExport extends RestExport {
         $conditional_formatting_compare_to_value[$i] = $form_state->getValue('conditional_formatting_compare_to_' . $i);
 
         if ($conditional_formatting_base_field_value[$i] !== 'Select a field') {
-          if ($conditional_formatting_operator_value[$i] == 'Select an operator' || $conditional_formatting_compare_to_value[$i] == '') {
+          if ($conditional_formatting_operator_value[$i] === 'Select an operator' || $conditional_formatting_compare_to_value[$i] === '') {
             $form_state->setError($form['conditional_formatting_base_field'], $this->t('Either all or none of the following three inputs must be set: "Field used to compare to text", "Operator" and "Text to compare to".'));
           }
         }
-        if ($conditional_formatting_operator_value[$i] != 'Select an operator') {
-          if ($conditional_formatting_base_field_value[$i] == 'Select a field' || $conditional_formatting_compare_to_value[$i] == '') {
+        if ($conditional_formatting_operator_value[$i] !== 'Select an operator') {
+          if ($conditional_formatting_base_field_value[$i] === 'Select a field' || $conditional_formatting_compare_to_value[$i] === '') {
             $form_state->setError($form['conditional_formatting_operator'], $this->t('Either all or none of the following three inputs must be set: "Field used to compare to text", "Operator" and "Text to compare to".'));
           }
         }
-        if ($conditional_formatting_compare_to_value[$i] != '') {
-          if ($conditional_formatting_base_field_value[$i] == 'Select a field' || $conditional_formatting_operator_value[$i] == 'Select an operator') {
+        if ($conditional_formatting_compare_to_value[$i] !== '') {
+          if ($conditional_formatting_base_field_value[$i] === 'Select a field' || $conditional_formatting_operator_value[$i] === 'Select an operator') {
             $form_state->setError($form['conditional_formatting_compare_to'], $this->t('Either all or none of the following three inputs must be set: "Field used to compare to text", "Operator" and "Text to compare to".'));
           }
         }
@@ -363,7 +364,7 @@ class ExcelExport extends RestExport {
     }
 
     for ($i = 0; $i <= 4; $i++) {
-      if ($section == 'excel_conditional_formatting_rules_' . $i) {
+      if ($section === 'excel_conditional_formatting_rules_' . $i) {
         $this->setOption('conditional_formatting_base_field_' . $i, $form_state->getValue('conditional_formatting_base_field_' . $i));
         $this->setOption('conditional_formatting_operator_' . $i, $form_state->getValue('conditional_formatting_operator_' . $i));
         $this->setOption('conditional_formatting_compare_to_' . $i, $form_state->getValue('conditional_formatting_compare_to_' . $i));

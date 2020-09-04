@@ -7,7 +7,7 @@
         "composer/installers": "^1.0.24",
         "wikimedia/composer-merge-plugin": "^1.4",
         "zendframework/zendxml": "^1.0",
-        "drupal/core": "^8.7.2",
+        "drupal/core": "^8.9",
         "drupal/purge": "^3.0",
         "drupal/xls_serialization": "^1.0",
         "drupal/views_data_export": "^1.0"
